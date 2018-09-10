@@ -4,8 +4,11 @@ const app = express();
 const port = process.env.PORT || 8080;
 require("dotenv").config();
 const cors = require("cors");
+const routes = require("./api/routes");
 
 app.use(cors());
+app.use(express.json());
+routes(app);
 
 app.get("/", (req, res) => {
   res.json({ message: "Connected to server!" });
