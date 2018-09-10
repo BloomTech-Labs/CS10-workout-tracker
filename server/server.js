@@ -23,6 +23,8 @@ mongoose.connect(
     console.log("connected to mongo");
   }
 );
+mongoose.set("useCreateIndex", true);
+
 app.listen(port, () => {
   console.log("server running on port 8080");
 });
