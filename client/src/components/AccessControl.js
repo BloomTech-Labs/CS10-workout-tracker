@@ -15,7 +15,7 @@ export default (ComposedComponent) => {
             console.log("Access control is happening")
             return (
                 <div>
-                    {this.props.authenticated ? <ComposedComponent /> : <div>Did not work</div>}
+                    {this.props.authenticated ? <ComposedComponent /> : <div>Not authorized!</div>}
                 </div>   
             )
 
