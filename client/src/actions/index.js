@@ -12,6 +12,7 @@ export const register = data => {
     axios
       .post(`${ROOT_URL}/register`, data)
       .then(res => {
+        localStorage.setItem("token", res.data.token);
         dispatch({
           type: Actions.REGISTER_SUCCESS,
           payload: res

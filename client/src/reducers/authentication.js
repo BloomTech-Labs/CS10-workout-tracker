@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
         message: action.payload
       };
     case Actions.REGISTER_SUCCESS:
-      localStorage.setItem("token", action.payload.data.token);
+      // localStorage.setItem("token", action.payload.data.token);
       return {
         ...state,
         authed: true,
