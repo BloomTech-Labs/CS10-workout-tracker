@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import "./App.css";
 import axios from "axios";
 import { Route, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import RegistrationPage from "./components/RegistrationPage";
 import AccessControl from "./components/AccessControl";
 import LoginPage from "./components/LoginPage";
 import LandingPage from "./components/LandingPage";
 import Schedule from "./components/Schedule";
+import { logout } from "./actions";
 
 class App extends Component {
   state = {
@@ -28,6 +30,7 @@ class App extends Component {
         <Route path="/register" component={RegistrationPage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/schedule" component={AccessControl(Schedule)} />
+         <button onClick={this.props.logout}>Logout</button>
         {/* <Route path="/workouts" component={Workouts} />
         <Route path="/progress" component={Progress} />
         <Route path="/billing" component={Billing} />
@@ -37,4 +40,5 @@ class App extends Component {
   }
 }
 
-export default App;
+
+export default connect(null, { logout })(App);
