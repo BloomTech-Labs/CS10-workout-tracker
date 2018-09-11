@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-class Schedule extends Component {
+class Progress extends Component {
     render() {
         return (
             <div>
-                this is the schedule component
+                this is the progress component
                 <button onClick={this.props.logout}>Logout</button>
             </div>
         );
     }
 }
 
-export default Schedule;
+export default Progress;

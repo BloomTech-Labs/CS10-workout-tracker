@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-class Schedule extends Component {
+class Billing extends Component {
     render() {
         return (
             <div>
-                this is the schedule component
+                this is the billing component
                 <button onClick={this.props.logout}>Logout</button>
             </div>
         );
     }
 }
 
-export default Schedule;
+export default Billing;
