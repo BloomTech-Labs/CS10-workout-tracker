@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
-
+import { Route } from 'react-router-dom';
+import RegistrationPage from "./components/RegistrationPage";
 class App extends Component {
   state = {
     message: ""
@@ -24,6 +25,8 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <Route path="/register" component={RegistrationPage} />
+        {/* <Route path="/login" component={} /> */}
       </div>
     );
   }
