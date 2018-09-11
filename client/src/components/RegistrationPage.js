@@ -20,9 +20,6 @@ class RegistrationPage extends Component {
         username: this.state.username,
         password: this.state.password
       });
-      // console.log("Stub for an axios POST request");
-      const token = localStorage.getItem("token");
-      console.log("JWT: ", token);
     }
     this.setState({
       username: "",
