@@ -14,7 +14,23 @@ const UserSchema = Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  startingWeight: {
+    type: Number,
+  },
+  height: Number,
+  progress: [
+    {
+      date: Number,
+      weight: Number,
+      hips: Number,
+      waist: Number,
+      r_arm: Number,
+      l_arm: Number,
+      r_leg: Number,
+      l_leg: Number
+    },
+  ]
 });
 
 // const userSchema = new Schema(UserSchema)
