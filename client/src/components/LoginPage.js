@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { login } from "../actions";
+import NavBar from "./NavBar";
 
 class LoginPage extends Component {
   state = {
@@ -28,6 +29,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
+        <NavBar />
         <form className="LoginForm" onSubmit={this.handleSubmit}>
           <input
             type="text"
