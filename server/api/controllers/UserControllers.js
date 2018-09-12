@@ -14,9 +14,14 @@ function generateToken(user) {
 }
 
 const register = (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, recoveryQuestion, recoveryAnswer } = req.body;
 
-  const newUser = new User({ username, password });
+  const newUser = new User({
+    username,
+    password,
+    recoveryQuestion,
+    recoveryAnswer
+  });
   newUser
     .save()
     .then(createdUser => {
@@ -52,7 +57,29 @@ const login = (req, res) => {
     });
 };
 
+const changePassword = (req, res) => {
+  const { username, recoveryAnswer, password } = req.body;
+  User.findOne({ username: username.toLowerCase() }).then(user => {
+    console.log(user);
+    user
+      .checkRecoveryAnswer(recoveryAnswer)
+      .then(success => {
+        user.password = password;
+        console.log(user.password);
+        user.save(updatedPW => {
+          res.status(200);
+          res.json({ "New password": user.password });
+        });
+      })
+      .catch(err => {
+        res.status(422);
+        res.json({ "Recovery answer incorrect": err.message });
+      });
+  });
+};
+
 module.exports = {
   register,
-  login
+  login,
+  changePassword
 };
