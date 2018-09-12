@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+
+import NavBar from "./NavBar";
 
 class Billing extends Component {
-    render() {
-        return (
-            <div>
-                this is the billing component
-                <button onClick={this.props.logout}>Logout</button>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <NavBar />
+        this is the billing component
+      </div>
+    );
+  }
 }
 
 export default Billing;
