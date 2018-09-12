@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { login } from "../actions";
 import NavBar from "./NavBar";
+import { Link } from "react-router-dom";
 
 class LoginPage extends Component {
   state = {
@@ -49,6 +50,7 @@ class LoginPage extends Component {
             Sign In
           </button>
         </form>
+        <Link to="/reset">Forgot Password?</Link>
       </div>
     );
   }
