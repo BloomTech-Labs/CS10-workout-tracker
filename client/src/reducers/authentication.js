@@ -44,6 +44,13 @@ export default (state = initialState, action) => {
         ...state,
         message: "Log-in failed..."
       };
+    case Actions.LOGOUT:
+      return {
+        ...state,
+        authed: false,
+        message: "Logged out successfully!",
+        currentUser: null
+      }
     default:
       return state;
   }
