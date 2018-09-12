@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
         ...state,
         message: "Registration failed..."
       };
-      case Actions.LOGGING_IN:
+    case Actions.LOGGING_IN:
       return {
         ...state,
         message: action.payload
@@ -50,7 +50,7 @@ export default (state = initialState, action) => {
         authed: false,
         message: "Logged out successfully!",
         currentUser: null
-      }
+      };
     default:
       return state;
   }

@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import NavBar from "./NavBar";
 
 class Schedule extends Component {
-    render() {
-        return (
-            <div>
-                this is the schedule component
-                <button onClick={this.props.logout}>Logout</button>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <NavBar />
+        this is the schedule component
+      </div>
+    );
+  }
 }
 
 export default Schedule;

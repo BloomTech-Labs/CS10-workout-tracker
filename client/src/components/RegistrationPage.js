@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { register } from "../actions";
 import { Link } from "react-router-dom";
+import NavBar from "./NavBar";
 
 class RegistrationPage extends Component {
   state = {
@@ -32,6 +33,7 @@ class RegistrationPage extends Component {
   render() {
     return (
       <div>
+        <NavBar />
         <form className="RegistrationForm" onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -58,14 +60,16 @@ class RegistrationPage extends Component {
             Sign Up
           </button>
         </form>
-        <Link to="/schedule"><button>Test</button></Link>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  console.log("At time of render, Registration Page received this app state:", state);
+  console.log(
+    "At time of render, Registration Page received this app state:",
+    state
+  );
   return {
     userInfo: state.auth.currentUser,
     msg: state.auth.message
