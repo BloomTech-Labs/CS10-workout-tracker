@@ -15,13 +15,10 @@ const UserSchema = Schema({
     type: String,
     required: true
   },
-  startingWeight: {
-    type: Number,
-  },
   height: Number,
   progress: [
     {
-      date: Number,
+      date: Date,
       weight: Number,
       hips: Number,
       waist: Number,

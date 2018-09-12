@@ -58,7 +58,7 @@ class RegistrationPage extends Component {
             Sign Up
           </button>
         </form>
-        <Link to="/schedule"><button>Test</button></Link>
+        <Link to="/progress"><button>Test</button></Link>
       </div>
     );
   }
