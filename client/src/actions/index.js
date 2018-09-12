@@ -52,6 +52,7 @@ export const login = data => {
 
 export const logout = () => {
   localStorage.setItem("token", "");
+
   return {
     type: Actions.LOGOUT
   }
