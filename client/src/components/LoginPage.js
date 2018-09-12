@@ -6,7 +6,7 @@ import NavBar from "./NavBar";
 class LoginPage extends Component {
   state = {
     username: "",
-    password: "",
+    password: ""
   };
 
   handleFieldChange = event => {
@@ -15,11 +15,11 @@ class LoginPage extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-      this.props.login({
-        username: this.state.username,
-        password: this.state.password
-      });
-    
+    this.props.login({
+      username: this.state.username,
+      password: this.state.password
+    });
+
     this.setState({
       username: "",
       password: ""

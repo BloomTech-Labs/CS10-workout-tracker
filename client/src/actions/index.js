@@ -54,5 +54,5 @@ export const logout = () => {
   localStorage.setItem("token", "");
   return {
     type: Actions.LOGOUT
-  }
-}
+  };
+};

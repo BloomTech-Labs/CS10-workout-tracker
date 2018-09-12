@@ -66,7 +66,10 @@ class RegistrationPage extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("At time of render, Registration Page received this app state:", state);
+  console.log(
+    "At time of render, Registration Page received this app state:",
+    state
+  );
   return {
     userInfo: state.auth.currentUser,
     msg: state.auth.message

@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 
 export default ComposedComponent => {
   class RequireAuthentication extends Component {
-
     render() {
       console.log("Access control is happening");
       return (
@@ -15,7 +14,8 @@ export default ComposedComponent => {
             <div>
               Not authorized!
               {"\n"}
-              <Link to="/login">Log In</Link> or <Link to="/register">Register</Link> to get STRONGR.
+              <Link to="/login">Log In</Link> or{" "}
+              <Link to="/register">Register</Link> to get STRONGR.
             </div>
           )}
         </div>
