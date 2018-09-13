@@ -54,8 +54,8 @@ export const logout = () => {
   localStorage.setItem("token", "");
   return {
     type: Actions.LOGOUT
-  }
-}
+  };
+};
 
 export const addProgress = data => {
   return dispatch => {
@@ -63,19 +63,19 @@ export const addProgress = data => {
       type: Actions.ADDING_PROGRESS,
       payload: "Adding progress record..."
     });
-  axios
-    .post(`${ROOT_URL}/progress/${data.user}`, data)
-    .then(res => {
-      dispatch({
-        type: Actions.ADD_PROGRESS_SUCCESS,
-        payload: res
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: Actions.ADD_PROGRESS_FAILURE,
-        payload: err
+    axios
+      .post(`${ROOT_URL}/progress/${data.user}`, data)
+      .then(res => {
+        dispatch({
+          type: Actions.ADD_PROGRESS_SUCCESS,
+          payload: res
+        });
       })
-    })
-  }
-}
+      .catch(err => {
+        dispatch({
+          type: Actions.ADD_PROGRESS_FAILURE,
+          payload: err
+        });
+      });
+  };
+};

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addProgress } from "../actions";
+import NavBar from "./NavBar";
 
 class Progress extends Component {
   state = {
@@ -52,6 +53,7 @@ class Progress extends Component {
 
     return (
       <div>
+        <NavBar />
         <form className="ProgressForm" onSubmit={this.handleSubmit}>
           <div>{currentDate}</div>
           <input

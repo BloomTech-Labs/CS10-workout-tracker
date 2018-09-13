@@ -4,8 +4,8 @@ import "./index.css";
 import registerServiceWorker from "./registerServiceWorker";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import ReduxThunk from 'redux-thunk';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import ReduxThunk from "redux-thunk";
 
 import RegistrationPage from "./components/RegistrationPage";
 import AccessControl from "./components/AccessControl";
@@ -19,7 +19,6 @@ import Settings from "./components/Settings";
 
 import combinedReducer from "./reducers";
 
-
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 const store = createStoreWithMiddleware(combinedReducer);
 
@@ -32,7 +31,7 @@ ReactDOM.render(
         <Route path="/login" component={LoginPage} />
         <Route path="/schedule" component={AccessControl(Schedule)} />
         <Route path="/workouts" component={AccessControl(Workouts)} />
-        <Route path="/progress/:username" component={AccessControl(Progress)} />
+        <Route path="/progress" component={AccessControl(Progress)} />
         <Route path="/billing" component={AccessControl(Billing)} />
         <Route path="/settings" component={AccessControl(Settings)} />
       </div>

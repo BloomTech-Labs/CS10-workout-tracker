@@ -1,25 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { register } from "../actions";
-import { Link } from "react-router-dom";
+import NavBar from "./NavBar";
 
 class RegistrationPage extends Component {
   state = {
     username: "",
     password: "",
-    confirmPassword: "",
-    currentUser: ""
+    confirmPassword: ""
   };
-
-  /* For development/testing only: userInfo prop from redux will be null on initial render. To resolve -- componentWIllReceiveProps gets 
-  invoked right before calling the render method, both on the initial mount and on subsequent updates.*/
-  componentWillReceiveProps(nextprops) {
-    if (nextprops.userInfo) {
-      this.setState({
-        currentUser: nextprops.userInfo.createdUser.username
-      })
-    }
-  }
 
   handleFieldChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -43,6 +32,7 @@ class RegistrationPage extends Component {
   render() {
     return (
       <div>
+        <NavBar />
         <form className="RegistrationForm" onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -69,7 +59,6 @@ class RegistrationPage extends Component {
             Sign Up
           </button>
         </form>
-        <Link to={`/progress/${this.state.currentUser}`}><button>Test</button></Link>
       </div>
     );
   }
@@ -78,7 +67,7 @@ class RegistrationPage extends Component {
 const mapStateToProps = state => {
   console.log(
     "At time of render, Registration Page received this app state:",
-    state,
+    state
   );
   return {
     userInfo: state.auth.currentUser,
@@ -90,5 +79,3 @@ export default connect(
   mapStateToProps,
   { register }
 )(RegistrationPage);
-
-
