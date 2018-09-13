@@ -15,13 +15,10 @@ const UserSchema = Schema({
     type: String,
     required: true
   },
-  recoveryQuestion: {
+  email: {
     type: String,
-    required: true
-  },
-  recoveryAnswer: {
-    type: String,
-    required: true
+    required: true,
+    unique: true
   },
   height: {
     type: Number
@@ -66,19 +63,10 @@ UserSchema.pre("save", function(next) {
     this.password = hash;
     next();
   });
-  bcrypt.hash(this.recoveryAnswer, SALT_ROUNDS, (err, hash) => {
-    if (err) return next(err);
-    this.recoveryAnswer = hash;
-    next();
-  });
 });
 
 UserSchema.methods.checkPassword = async function(plainTextPassword) {
   return await bcrypt.compare(plainTextPassword, this.password);
-};
-
-UserSchema.methods.checkRecoveryAnswer = async function(plainTextAnswer) {
-  return await bcrypt.compare(plainTextAnswer, this.recoveryAnswer);
 };
 
 const User = mongoose.model("User", UserSchema);

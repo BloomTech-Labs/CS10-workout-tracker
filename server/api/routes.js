@@ -1,10 +1,17 @@
 const {
   register,
   login,
-  changePassword
+  // changePassword,
+  forgotPassword,
+  resetPassword,
+  sendGridTest
 } = require("./controllers/UserControllers");
+
 module.exports = app => {
   app.route("/register").post(register);
   app.route("/login").post(login);
-  app.route("/changepw").put(changePassword);
+  // app.route("/changepw").put(changePassword);
+  app.route("/forgot_password").post(forgotPassword);
+  app.route("/reset_password").post(resetPassword);
+  app.route("/test").post(sendGridTest);
 };
