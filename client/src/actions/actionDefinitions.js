@@ -8,7 +8,10 @@ export const LOGIN_FAILURE = "LOGIN_FAILURE";
 
 export const LOGOUT = "LOGOUT";
 
-// Should the password change have the 3? Changing...or Resetting?
+export const SENDING_RECOVERY_EMAIL = "SENDING_RECOVERY_EMAIL";
+export const SEND_EMAIL_SUCCESS = "SEND_EMAIL_SUCCESS";
+export const SEND_EMAIL_FAILURE = "SEND_EMAIL_FAILURE";
+
 export const CHANGING_PASSWORD = "RESETTING_PASSWORD";
 export const CHANGE_SUCCESS = "CHANGE_SUCCESS";
 export const CHANGE_FAILURE = "CHANGE_FAILURE";

@@ -93,7 +93,8 @@ const forgotPassword = (req, res) => {
       { email: email },
       { passwordResetToken: token, resetTokenExpiry: Date.now() + 86400000 }
     ).then(user => {
-      const url = "http://localhost:8080/reset_password?token=" + token;
+      // TODO: !!this will actually be a frontend link which is why I think it's not working as it should currently??!! Also, this should be an environment variable.
+      const url = "http://localhost:3000/reset?token=" + token;
       let emailData = {
         to: user.email,
         from: senderEmail,
@@ -118,8 +119,7 @@ const forgotPassword = (req, res) => {
 };
 
 const resetPassword = function(req, res) {
-  let { newPassword, confirmNewPassword } = req.body;
-  let { token } = req.query;
+  let { token, newPassword, confirmNewPassword } = req.body;
 
   let payload = jwt.decode(token);
 

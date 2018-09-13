@@ -50,7 +50,7 @@ class LoginPage extends Component {
             Sign In
           </button>
         </form>
-        <Link to="/reset">Forgot Password?</Link>
+        <Link to="/forgot">Forgot Password?</Link>
       </div>
     );
   }

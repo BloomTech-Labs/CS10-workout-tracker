@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
 import { connect } from "react-redux";
-import { changePassword } from "../actions";
+import { resetPassword } from "../actions";
 
 class PasswordReset extends Component {
   state = {
-    username: "",
     password: "",
-    confirmPassword: "",
-    recoveryAnswer: ""
+    confirmPassword: ""
   };
 
   handleFieldChange = event => {
@@ -17,18 +15,19 @@ class PasswordReset extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    const urlParams = new URLSearchParams(this.props.location.search);
+    const token = urlParams.get("token");
     if (this.state.password === this.state.confirmPassword) {
-      this.props.changePassword({
-        username: this.state.username,
-        recoveryAnswer: this.state.recoveryAnswer,
-        password: this.state.password
+      this.props.resetPassword({
+        password: this.state.password,
+        confirmPassword: this.state.confirmPassword,
+        token: token
       });
     }
+    console.log(token);
     this.setState({
-      username: "",
       password: "",
-      confirmPassword: "",
-      recoveryAnswer: ""
+      confirmPassword: ""
     });
   };
 
@@ -37,20 +36,6 @@ class PasswordReset extends Component {
       <div>
         <NavBar />
         <form className="RegistrationForm" onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            value={this.state.username}
-            onChange={this.handleFieldChange}
-          />
-          <input
-            type="text"
-            name="recoveryAnswer"
-            placeholder="Insert Recovery Answer"
-            value={this.state.recoveryAnswer}
-            onChange={this.handleFieldChange}
-          />
           <input
             type="password"
             name="password"
@@ -66,7 +51,7 @@ class PasswordReset extends Component {
             onChange={this.handleFieldChange}
           />
           <button className="Form__submit" type="submit">
-            Sign Up
+            Set New Password
           </button>
         </form>
       </div>
@@ -87,5 +72,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { changePassword }
+  { resetPassword }
 )(PasswordReset);

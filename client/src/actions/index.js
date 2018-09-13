@@ -57,14 +57,37 @@ export const logout = () => {
   };
 };
 
-export const changePassword = data => {
+export const forgotPassword = data => {
+  return dispatch => {
+    dispatch({
+      type: Actions.SENDING_RECOVERY_EMAIL,
+      payload: "Sending recovery email..."
+    });
+    axios
+      .post(`${ROOT_URL}/forgot_password`, data)
+      .then(res => {
+        dispatch({
+          type: Actions.SEND_EMAIL_SUCCESS,
+          payload: res
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.SEND_EMAIL_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
+export const resetPassword = data => {
   return dispatch => {
     dispatch({
       type: Actions.CHANGING_PASSWORD,
       payload: "Changing password..."
     });
     axios
-      .put(`${ROOT_URL}/changepw`, data)
+      .post(`${ROOT_URL}/reset_password`, data)
       .then(res => {
         dispatch({
           type: Actions.CHANGE_SUCCESS,
