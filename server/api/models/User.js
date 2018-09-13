@@ -35,11 +35,11 @@ const UserSchema = Schema({
     {
       workout: { 
         type: Schema.Types.ObjectId,
-        ref: "workouts"
+        ref: "Workout"
       }
     }
   ],
-  calender: [
+  calendar: [
     {
       date: {
         type: Date,
@@ -47,7 +47,7 @@ const UserSchema = Schema({
       },
       workout: {
         type: Schema.Types.ObjectId,
-        ref: "workouts"
+        ref: "Workout"
       }
     }
   ]

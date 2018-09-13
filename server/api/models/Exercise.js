@@ -9,7 +9,7 @@ const ExerciseSchema = Schema({
   note: {
     type: String
   },
-  calender: [
+  calendar: [
     {
       date: {
         type: Date,

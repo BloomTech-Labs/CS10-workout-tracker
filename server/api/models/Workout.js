@@ -10,13 +10,13 @@ const WorkoutSchema = Schema({
     {
       exercise: {
         type: Schema.Types.ObjectId,
-        ref: "exercises"
+        ref: "Exercise"
       }
     }
   ],
   user: {
     type: Schema.Types.ObjectId,
-    ref: "users"
+    ref: "User"
   }
 });
 
