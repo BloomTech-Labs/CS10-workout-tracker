@@ -30,6 +30,30 @@ const UserSchema = Schema({
       r_leg: Number,
       l_leg: Number
     }
+  ],
+  height: {
+    type: Number,
+    required: true
+  },
+  workouts: [
+    {
+      workout: { 
+        type: Schema.Types.ObjectId,
+        ref: "Workout"
+      }
+    }
+  ],
+  calendar: [
+    {
+      date: {
+        type: Date,
+        required: true
+      },
+      workout: {
+        type: Schema.Types.ObjectId,
+        ref: "Workout"
+      }
+    }
   ]
 });
 
