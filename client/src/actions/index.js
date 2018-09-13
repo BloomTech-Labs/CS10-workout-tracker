@@ -64,7 +64,7 @@ export const changePassword = data => {
       payload: "Changing password..."
     });
     axios
-      .post(`${ROOT_URL}/changepw`, data)
+      .put(`${ROOT_URL}/changepw`, data)
       .then(res => {
         dispatch({
           type: Actions.CHANGE_SUCCESS,
