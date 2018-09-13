@@ -31,10 +31,6 @@ const UserSchema = Schema({
       l_leg: Number
     }
   ],
-  height: {
-    type: Number,
-    required: true
-  },
   workouts: [
     {
       workout: { 
