@@ -1,5 +1,10 @@
-const { register, login } = require("./controllers/UserControllers");
+const {
+  register,
+  login,
+  addProgress
+} = require("./controllers/UserControllers");
 module.exports = app => {
   app.route("/register").post(register);
   app.route("/login").post(login);
+  app.route("/progress").post(addProgress);
 };

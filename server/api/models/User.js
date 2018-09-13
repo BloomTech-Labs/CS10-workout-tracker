@@ -15,10 +15,22 @@ const UserSchema = Schema({
     type: String,
     required: true
   },
-  height: {
-    type: Number,
-    required: true
-  },
+  height: Number,
+  progress: [
+    {
+      date: {
+        type: Date,
+        default: Date.now
+      },
+      weight: Number,
+      hips: Number,
+      waist: Number,
+      r_arm: Number,
+      l_arm: Number,
+      r_leg: Number,
+      l_leg: Number
+    }
+  ],
   weightRecords: [
     {
       date: {
