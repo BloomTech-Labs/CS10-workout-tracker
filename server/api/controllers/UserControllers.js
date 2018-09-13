@@ -14,9 +14,6 @@ function generateToken(user) {
 }
 
 const register = (req, res) => {
-  const { username, password } = req.body;
-
-  const newUser = new User({ username, password });
   newUser
     .save()
     .then(createdUser => {

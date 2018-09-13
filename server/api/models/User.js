@@ -53,8 +53,6 @@ const UserSchema = Schema({
   ]
 });
 
-// const userSchema = new Schema(UserSchema)
-
 // TODO: Refactor one or the other pre or checkPW for consistent async handling
 UserSchema.pre("save", function(next) {
   bcrypt.hash(this.password, SALT_ROUNDS, (err, hash) => {

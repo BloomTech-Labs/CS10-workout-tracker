@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 const WorkoutSchema = Schema({
   title: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   exercises: [
     {
@@ -21,5 +20,5 @@ const WorkoutSchema = Schema({
   }
 });
 
-const WorkoutSchema = mongoose.model("Workout", WorkoutSchema);
-module.exports = WorkoutSchema;
+const Workout = mongoose.model("Workout", WorkoutSchema);
+module.exports = Workout;

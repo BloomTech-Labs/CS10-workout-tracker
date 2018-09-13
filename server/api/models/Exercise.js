@@ -13,7 +13,7 @@ const ExerciseSchema = Schema({
     {
       date: {
         type: Date,
-        required: tre
+        required: true
       },
       weight: {
         type: Number,
@@ -35,5 +35,5 @@ const ExerciseSchema = Schema({
   ]
 });
 
-const ExerciseSchema = mongoose.model("Exercise", ExerciseSchema);
-module.exports = ExerciseSchema;
+const Exercise = mongoose.model("Exercise", ExerciseSchema);
+module.exports = Exercise;
