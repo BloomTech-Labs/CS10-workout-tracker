@@ -16,7 +16,6 @@ const secret = process.env.SECRET;
 
 const register = (req, res) => {
   const { username, password } = req.body;
-
   const newUser = new User({ username, password });
   newUser
     .save()
