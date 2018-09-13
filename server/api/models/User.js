@@ -14,7 +14,43 @@ const UserSchema = Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  height: {
+    type: Number,
+    required: true
+  },
+  weightRecords: [
+    {
+      date: {
+        type: Date,
+        required: true
+      },
+      weight: {
+        type: Number,
+        required: true
+      }
+    }
+  ],
+  workouts: [
+    {
+      workout: { 
+        type: Schema.Types.ObjectId,
+        ref: "Workout"
+      }
+    }
+  ],
+  calendar: [
+    {
+      date: {
+        type: Date,
+        required: true
+      },
+      workout: {
+        type: Schema.Types.ObjectId,
+        ref: "Workout"
+      }
+    }
+  ]
 });
 
 // const userSchema = new Schema(UserSchema)
