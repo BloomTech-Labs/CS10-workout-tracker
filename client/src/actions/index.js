@@ -64,7 +64,7 @@ export const addProgress = data => {
       payload: "Adding progress record..."
     });
     axios
-      .post(`${ROOT_URL}/progress/${data.user}`, data)
+      .post(`${ROOT_URL}/progress`, data)
       .then(res => {
         dispatch({
           type: Actions.ADD_PROGRESS_SUCCESS,
@@ -80,4 +80,4 @@ export const addProgress = data => {
   };
 };
 
-export const fetchProgress
+
