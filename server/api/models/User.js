@@ -18,7 +18,10 @@ const UserSchema = Schema({
   height: Number,
   progress: [
     {
-      date: Date,
+      date: {
+        type: Date,
+        default: Date.now
+      },
       weight: Number,
       hips: Number,
       waist: Number,

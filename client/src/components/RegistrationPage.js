@@ -7,8 +7,19 @@ class RegistrationPage extends Component {
   state = {
     username: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    currentUser: ""
   };
+
+  /* For development/testing only: userInfo prop from redux will be null on initial render. To resolve -- componentWIllReceiveProps gets 
+  invoked right before calling the render method, both on the initial mount and on subsequent updates.*/
+  componentWillReceiveProps(nextprops) {
+    if (nextprops.userInfo) {
+      this.setState({
+        currentUser: nextprops.userInfo.createdUser.username
+      })
+    }
+  }
 
   handleFieldChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -58,14 +69,17 @@ class RegistrationPage extends Component {
             Sign Up
           </button>
         </form>
-        <Link to="/progress"><button>Test</button></Link>
+        <Link to={`/progress/${this.state.currentUser}`}><button>Test</button></Link>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  console.log("At time of render, Registration Page received this app state:", state);
+  console.log(
+    "At time of render, Registration Page received this app state:",
+    state,
+  );
   return {
     userInfo: state.auth.currentUser,
     msg: state.auth.message
@@ -76,3 +90,5 @@ export default connect(
   mapStateToProps,
   { register }
 )(RegistrationPage);
+
+

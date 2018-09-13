@@ -53,11 +53,11 @@ const login = (req, res) => {
 };
 
 const addProgress = (req, res) => {
-  const { date, weight, hips, waist, r_arm, l_arm, r_leg, l_leg } = req.body;
-  const { username } = req.params;
-  User.findOne({ username: username.toLowerCase() })
+  const { weight, hips, waist, r_arm, l_arm, r_leg, l_leg, user } = req.body;
+  // const { user } = req.params;
+  User.findOne({ username: user.toLowerCase() })
     .then(user => {
-      const newProgress = { date, weight, hips, waist, r_arm, l_arm, r_leg, l_leg }
+      const newProgress = { weight, hips, waist, r_arm, l_arm, r_leg, l_leg }
 
       user.progress.push(newProgress);
       user.save()

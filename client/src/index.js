@@ -32,7 +32,7 @@ ReactDOM.render(
         <Route path="/login" component={LoginPage} />
         <Route path="/schedule" component={AccessControl(Schedule)} />
         <Route path="/workouts" component={AccessControl(Workouts)} />
-        <Route path="/progress" component={AccessControl(Progress)} />
+        <Route path="/progress/:username" component={AccessControl(Progress)} />
         <Route path="/billing" component={AccessControl(Billing)} />
         <Route path="/settings" component={AccessControl(Settings)} />
       </div>

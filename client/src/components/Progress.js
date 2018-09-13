@@ -1,104 +1,125 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addProgress } from "../actions";
 
 class Progress extends Component {
-    state = {
-        weight: "",
-        hips: "",
-        waist: "",
-        r_arm: "",
-        l_arm: "",
-        r_leg: "",
-        l_leg: ""
-    }
+  state = {
+    weight: "",
+    hips: "",
+    waist: "",
+    r_arm: "",
+    l_arm: "",
+    r_leg: "",
+    l_leg: "",
+    user: ""
+  };
 
-    handleFieldChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
-      };
+  handleFieldChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
 
-    handleSubmit = event => {
+  handleSubmit = event => {
     event.preventDefault();
-   
-        this.props.progress({
-            weight: this.state.weight,
-            hips: this.state.hips,
-            waist: this.state.waist,
-            r_arm: this.state.r_arm,
-            l_arm: this.state.l_arm,
-            r_leg: this.state.r_leg,
-            l_leg: this.state.l_leg
-        });
-    
-    this.setState({
-        weight: "",
-        hips: "",
-        waist: "",
-        r_arm: "",
-        l_arm: "",
-        r_leg: "",
-        l_leg: ""
-    });
-    };
 
-    render() {
-        return (
-        <div>
-            <form className="ProgressForm" onSubmit={this.handleSubmit}>
-            <input
-                type="text"
-                name="weight"
-                placeholder="Weight"
-                value={this.state.weight}
-                onChange={this.handleFieldChange}
-            />
-            <input
-                type="text"
-                name="hips"
-                placeholder="Hips"
-                value={this.state.hips}
-                onChange={this.handleFieldChange}
-            />
-            <input
-                type="text"
-                name="waist"
-                placeholder="Waist"
-                value={this.state.waist}
-                onChange={this.handleFieldChange}
-            />
-               <input
-                type="text"
-                name="r_arm"
-                placeholder="(R) Arm"
-                value={this.state.r_arm}
-                onChange={this.handleFieldChange}
-            />
-               <input
-                type="text"
-                name="l_arm"
-                placeholder="(L) Arm"
-                value={this.state.l_arm}
-                onChange={this.handleFieldChange}
-            />
-               <input
-                type="text"
-                name="r_leg"
-                placeholder="(R) Leg"
-                value={this.state.r_leg}
-                onChange={this.handleFieldChange}
-            />
-               <input
-                type="text"
-                name="l_leg"
-                placeholder="(L) Leg"
-                value={this.state.l_leg}
-                onChange={this.handleFieldChange}
-            />
-            <button className="Form__submit" type="submit">
-                Submit
-            </button>
-            </form>
-        </div>
-        );
-    }
+    this.props.addProgress({
+      weight: this.state.weight,
+      hips: this.state.hips,
+      waist: this.state.waist,
+      r_arm: this.state.r_arm,
+      l_arm: this.state.l_arm,
+      r_leg: this.state.r_leg,
+      l_leg: this.state.l_leg,
+      user: this.state.user
+    });
+
+    this.setState({
+      weight: "",
+      hips: "",
+      waist: "",
+      r_arm: "",
+      l_arm: "",
+      r_leg: "",
+      l_leg: "",
+      user: ""
+    });
+  };
+
+  render() {
+    let date = new Date().getDate();
+    let month = new Date().getMonth() + 1;
+    let year = new Date().getFullYear();
+    let currentDate = month + "/" + date + "/" + year;
+
+    return (
+      <div>
+        <form className="ProgressForm" onSubmit={this.handleSubmit}>
+          <div>{currentDate}</div>
+          <input
+            type="text"
+            name="weight"
+            placeholder="Weight"
+            value={this.state.weight}
+            onChange={this.handleFieldChange}
+          />
+          <input
+            type="text"
+            name="hips"
+            placeholder="Hips"
+            value={this.state.hips}
+            onChange={this.handleFieldChange}
+          />
+          <input
+            type="text"
+            name="waist"
+            placeholder="Waist"
+            value={this.state.waist}
+            onChange={this.handleFieldChange}
+          />
+          <input
+            type="text"
+            name="r_arm"
+            placeholder="(R) Arm"
+            value={this.state.r_arm}
+            onChange={this.handleFieldChange}
+          />
+          <input
+            type="text"
+            name="l_arm"
+            placeholder="(L) Arm"
+            value={this.state.l_arm}
+            onChange={this.handleFieldChange}
+          />
+          <input
+            type="text"
+            name="r_leg"
+            placeholder="(R) Leg"
+            value={this.state.r_leg}
+            onChange={this.handleFieldChange}
+          />
+          <input
+            type="text"
+            name="l_leg"
+            placeholder="(L) Leg"
+            value={this.state.l_leg}
+            onChange={this.handleFieldChange}
+          />
+          <input
+            type="text"
+            name="user"
+            placeholder="User"
+            value={this.state.user}
+            onChange={this.handleFieldChange}
+          />
+          <button className="Form__submit" type="submit">
+            Submit
+          </button>
+        </form>
+      </div>
+    );
+  }
 }
 
-export default Progress;
+export default connect(
+  null,
+  { addProgress }
+)(Progress);
