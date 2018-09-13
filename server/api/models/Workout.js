@@ -8,10 +8,8 @@ const WorkoutSchema = Schema({
   },
   exercises: [
     {
-      exercise: {
-        type: Schema.Types.ObjectId,
-        ref: "Exercise"
-      }
+      type: Schema.Types.ObjectId,
+      ref: "Exercise"
     }
   ],
   user: {

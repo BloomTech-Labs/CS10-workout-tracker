@@ -6,31 +6,10 @@ const ExerciseSchema = Schema({
     type: String,
     require: true
   },
-  note: {
-    type: String
-  },
   calendar: [
     {
-      date: {
-        type: Date,
-        required: true
-      },
-      weight: {
-        type: Number,
-        required: true
-      },
-      reps: {
-        type: Number,
-        required: true
-      },
-      sets: {
-        type: Number,
-        required: true
-      }, 
-      completed: {
-        type: Boolean,
-        default: false
-      }
+      type: Schema.Types.ObjectId,
+      ref: "Performance"
     }
   ]
 });

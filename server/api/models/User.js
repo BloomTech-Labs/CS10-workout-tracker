@@ -16,8 +16,7 @@ const UserSchema = Schema({
     required: true
   },
   height: {
-    type: Number,
-    required: true
+    type: Number
   },
   weightRecords: [
     {
@@ -31,12 +30,16 @@ const UserSchema = Schema({
       }
     }
   ],
+  exercises: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Exercise"
+    }
+  ],
   workouts: [
     {
-      workout: { 
-        type: Schema.Types.ObjectId,
-        ref: "Workout"
-      }
+      type: Schema.Types.ObjectId,
+      ref: "Workout"
     }
   ],
   calendar: [
