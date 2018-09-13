@@ -50,6 +50,14 @@ const UserSchema = Schema({
         ref: "Workout"
       }
     }
+  ],
+  exercises: [
+    {
+      exercise: { 
+        type: Schema.Types.ObjectId,
+        ref: "Exercise"
+      }
+    }
   ]
 });
 
