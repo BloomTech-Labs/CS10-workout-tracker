@@ -79,3 +79,5 @@ export const addProgress = data => {
       });
   };
 };
+
+export const fetchProgress

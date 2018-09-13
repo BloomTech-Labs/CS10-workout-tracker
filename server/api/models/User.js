@@ -30,6 +30,38 @@ const UserSchema = Schema({
       r_leg: Number,
       l_leg: Number
     }
+  ],
+  weightRecords: [
+    {
+      date: {
+        type: Date,
+        required: true
+      },
+      weight: {
+        type: Number,
+        required: true
+      }
+    }
+  ],
+  workouts: [
+    {
+      workout: { 
+        type: Schema.Types.ObjectId,
+        ref: "Workout"
+      }
+    }
+  ],
+  calendar: [
+    {
+      date: {
+        type: Date,
+        required: true
+      },
+      workout: {
+        type: Schema.Types.ObjectId,
+        ref: "Workout"
+      }
+    }
   ]
 });
 
