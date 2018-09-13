@@ -3,12 +3,12 @@ require("dotenv").config();
 
 const secret = process.env.SECRET;
 
-function generateToken(username) {
+function generateToken(username, userId) {
   const options = {
     expiresIn: "1440m"
   };
   console.log(`About to make a token for ${username}`);
-  const payload = { name: username };
+  const payload = { name: username, userId };
   const token = jwt.sign(payload, secret, options);
   console.log("Made the token: ", token)
   return token;
@@ -21,7 +21,8 @@ function verifyToken(req, res, next) {
   jwt.verify(token, secret, (err, decoded) => {
     if (err)
       return res.status(500).send({ authed: false, message: "The token could not be verified "});
-    req.username = decoded;
+    req.username = decoded.name;
+    req.userId = decoded.userId;
     next();
   })
 }
