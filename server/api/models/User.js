@@ -29,7 +29,7 @@ const UserSchema = Schema({
       l_arm: Number,
       r_leg: Number,
       l_leg: Number
-    },
+    }
   ]
 });
 

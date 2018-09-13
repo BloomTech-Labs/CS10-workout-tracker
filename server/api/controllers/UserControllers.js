@@ -57,19 +57,18 @@ const addProgress = (req, res) => {
   // const { user } = req.params;
   User.findOne({ username: user.toLowerCase() })
     .then(user => {
-      const newProgress = { weight, hips, waist, r_arm, l_arm, r_leg, l_leg }
+      const newProgress = { weight, hips, waist, r_arm, l_arm, r_leg, l_leg };
 
       user.progress.push(newProgress);
-      user.save()
-        .then(user => {
-          res.json(user);
-        })
+      user.save().then(user => {
+        res.json(user);
+      });
     })
     .catch(err => {
-      res.status(422)
-      res.json({ "Error submitting progress": err.message })
-    })
-}
+      res.status(422);
+      res.json({ "Error submitting progress": err.message });
+    });
+};
 
 module.exports = {
   register,
