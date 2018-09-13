@@ -13,6 +13,8 @@ export const register = data => {
       .post(`${ROOT_URL}/register`, data)
       .then(res => {
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("strongr_username", data.username);
+        localStorage.setItem("strongr_password", data.password);
         dispatch({
           type: Actions.REGISTER_SUCCESS,
           payload: res
@@ -36,6 +38,9 @@ export const login = data => {
     axios
       .post(`${ROOT_URL}/login`, data)
       .then(res => {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("strongr_username", data.username);
+        localStorage.setItem("strongr_password", data.password);
         dispatch({
           type: Actions.LOGIN_SUCCESS,
           payload: res
@@ -52,6 +57,8 @@ export const login = data => {
 
 export const logout = () => {
   localStorage.setItem("token", "");
+  localStorage.setItem("strongr_username", "");
+  localStorage.setItem("strongr_password", "");
   return {
     type: Actions.LOGOUT
   };
