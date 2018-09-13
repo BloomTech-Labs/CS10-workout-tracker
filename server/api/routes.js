@@ -4,7 +4,8 @@ const {
   // changePassword,
   forgotPassword,
   resetPassword,
-  sendGridTest
+  sendGridTest,
+  addProgress
 } = require("./controllers/UserControllers");
 
 module.exports = app => {
@@ -14,4 +15,5 @@ module.exports = app => {
   app.route("/forgot_password").post(forgotPassword);
   app.route("/reset_password").post(resetPassword);
   app.route("/test").post(sendGridTest);
+  app.route("/progress").post(addProgress);
 };
