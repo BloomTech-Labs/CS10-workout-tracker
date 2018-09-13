@@ -14,10 +14,44 @@ const UserSchema = Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  height: {
+    type: Number,
+    required: true
+  },
+  weightRecords: [
+    {
+      date: {
+        type: Date,
+        required: true
+      },
+      weight: {
+        type: Number,
+        required: true
+      }
+    }
+  ],
+  workouts: [
+    {
+      workout: { 
+        type: Schema.Types.ObjectId,
+        ref: "workouts"
+      }
+    }
+  ],
+  calender: [
+    {
+      date: {
+        type: Date,
+        required: true
+      },
+      workout: {
+        type: Schema.Types.ObjectId,
+        ref: "workouts"
+      }
+    }
+  ]
 });
-
-// const userSchema = new Schema(UserSchema)
 
 // TODO: Refactor one or the other pre or checkPW for consistent async handling
 UserSchema.pre("save", function(next) {
