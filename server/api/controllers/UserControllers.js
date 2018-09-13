@@ -86,50 +86,56 @@ const forgotPassword = (req, res) => {
   if (!email && !username) {
     return res.status(400).json({ message: "No email or username provided" });
   }
-
   User.findOne({ email: email }).then(user => {
     const token = generateToken(user);
-    const url = "http://localhost:8080/reset_password?token=" + token;
-    let emailData = {
-      to: user.email,
-      from: senderEmail,
-      subject: "Password help has arrived!",
-      text:
-        "username, You requested for a password reset, kindly use this link. Cheers!",
-      html: `<h3>${
-        user.username
-      }, </h3> <p> You requested for a password reset, kindly use this <a href="${url}">link</a> to reset your password</p> <br> <p>Cheers!</p>`
-    };
-    sgMail.send(emailData, function(err) {
-      if (!err) {
-        return res.json({
-          message: "Kindly check your email for further instructions"
-        });
-      } else {
-        return res.json(err);
-      }
+
+    User.findOneAndUpdate(
+      { email: email },
+      { passwordResetToken: token, resetTokenExpiry: Date.now() + 86400000 }
+    ).then(user => {
+      const url = "http://localhost:8080/reset_password?token=" + token;
+      let emailData = {
+        to: user.email,
+        from: senderEmail,
+        subject: "Password help has arrived!",
+        text:
+          "username, You requested for a password reset, kindly use this link. Cheers!",
+        html: `<h3>${
+          user.username
+        }, </h3> <p> You requested for a password reset, kindly use this <a href="${url}">link</a> to reset your password</p> <br> <p>Cheers!</p>`
+      };
+      sgMail.send(emailData, function(err) {
+        if (!err) {
+          return res.json({
+            message: "Kindly check your email for further instructions"
+          });
+        } else {
+          return res.json(err);
+        }
+      });
     });
   });
 };
 
-const resetPassword = function(req, res, next) {
+const resetPassword = function(req, res) {
+  let { newPassword, confirmNewPassword } = req.body;
+  let { token } = req.query;
+
+  let payload = jwt.decode(token);
+
+  console.log(payload);
+
+  console.log(token);
   User.findOne({
-    reset_password_token: req.body.token,
-    reset_password_expires: {
-      $gt: Date.now()
-    }
-  }).exec(function(err, user) {
+    passwordResetToken: token
+  }).then((user, err) => {
     if (!err && user) {
-      if (req.body.newPassword === req.body.verifyPassword) {
-        user.hash_password = bcrypt.hashSync(req.body.newPassword, 10);
-        user.reset_password_token = undefined;
-        user.reset_password_expires = undefined;
-        user.save(function(err) {
-          if (err) {
-            return res.status(422).send({
-              message: err
-            });
-          } else {
+      if (newPassword === confirmNewPassword) {
+        user.password = newPassword;
+        // user.passwordResetToken = undefined;
+        // user.resetTokenExpiry = undefined;
+        user.save(err => {
+          if (!err) {
             let data = {
               to: user.email,
               from: senderEmail,
@@ -140,19 +146,19 @@ const resetPassword = function(req, res, next) {
                 "<h3>{{username}}, </h3> <p> Your password has been successfully reset, you can now log in with your new password.</p> <br> <p>Cheers!</p>"
             };
 
-            sgMail.send(data, function(err) {
+            sgMail.send(data, err => {
               if (!err) {
                 return res.json({ message: "Password reset" });
               } else {
-                return done(err);
+                return res.json({ error: err.message });
               }
             });
+          } else {
+            return res.status(422).send({ message: err });
           }
         });
       } else {
-        return res.status(422).send({
-          message: "Passwords do not match"
-        });
+        return res.status(422).send({ message: "Passwords do not match" });
       }
     } else {
       return res.status(400).send({
