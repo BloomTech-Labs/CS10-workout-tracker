@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from 'prop-types';
 import { addProgress } from "../actions";
 import NavBar from "./NavBar";
 
@@ -120,6 +121,13 @@ class Progress extends Component {
     );
   }
 }
+
+
+Progress.propTypes = {
+    addProgress: PropTypes.func,
+}
+
+
 
 export default connect(
   null,
