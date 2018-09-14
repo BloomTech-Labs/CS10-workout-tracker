@@ -1,7 +1,8 @@
-const Exercise = require("../models/Exercise");
 const User = require("../models/User");
 const Routine = require("../models/Routine");
 
+// A Routine is a set of Exercises you intend to perform together. Once you have a
+// Routine with at least one Exercise, you can use it to schedule a Workout.
 const createNewRoutine = (req, res) => {
   const { userId, title } = req.body;
   const newRoutineParameters = { user: userId, title };

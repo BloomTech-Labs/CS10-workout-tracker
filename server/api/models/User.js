@@ -15,11 +15,6 @@ const UserSchema = Schema({
     type: String,
     required: true
   },
-<<<<<<< HEAD
-  height: {
-    type: Number
-  },
-=======
   height: Number,
   progress: [
     {
@@ -36,7 +31,6 @@ const UserSchema = Schema({
       l_leg: Number
     }
   ],
->>>>>>> 4a6173c71823076606c24520ee184265c21c7ea6
   weightRecords: [
     {
       date: {

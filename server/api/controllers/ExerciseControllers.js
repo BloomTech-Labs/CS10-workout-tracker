@@ -2,6 +2,10 @@ const Exercise = require("../models/Exercise");
 const User = require("../models/User");
 const Workout = require("../models/Workout");
 
+// Remember, an Exercise document contains the high-level info for an exercise
+// you perform, like Pull-Ups or Bench Press. Specific performances of an Exercise
+// are recorded as Performances.
+
 const createNewExercise = (req, res) => {
   const { userId, name } = req.body;
   const newExerciseParameters = { user: userId, name };
