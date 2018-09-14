@@ -1,7 +1,14 @@
 import * as Actions from "./actionDefinitions";
+import { callbackify } from "util";
 const axios = require("axios");
 
 const ROOT_URL = "http://localhost:8080";
+
+let requestOptions = {};
+// requestOptions is updated upon receipt of a token to include that
+// token as a header in axios requests. In practice, all you need
+// to do to interact with an access-controlled route is include this
+// requestOptions object as the final parameter in your Axios call.
 
 export const register = data => {
   return dispatch => {
@@ -13,8 +20,7 @@ export const register = data => {
       .post(`${ROOT_URL}/register`, data)
       .then(res => {
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("strongr_username", data.username);
-        localStorage.setItem("strongr_password", data.password);
+        requestOptions = { headers: {"x-access-token": res.data.token} };
         dispatch({
           type: Actions.REGISTER_SUCCESS,
           payload: res
@@ -39,8 +45,7 @@ export const login = data => {
       .post(`${ROOT_URL}/login`, data)
       .then(res => {
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("strongr_username", data.username);
-        localStorage.setItem("strongr_password", data.password);
+        requestOptions = { headers: {"x-access-token": res.data.token} };
         dispatch({
           type: Actions.LOGIN_SUCCESS,
           payload: res
@@ -55,10 +60,33 @@ export const login = data => {
   };
 };
 
+export const loginWithToken = (token) => {
+  return dispatch => {
+    dispatch({
+      type: Actions.LOGGING_IN,
+      payload: "Logging in with token..."
+    });
+    console.log("Going to apply this token as an axios header: ", token);
+    requestOptions = { headers: {"x-access-token": token} };
+    axios
+      .get(`${ROOT_URL}/auto-login`, requestOptions)
+      .then(res => {
+        dispatch({ 
+          type: Actions.LOGIN_SUCCESS,
+          payload: res
+        })
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.LOGIN_FAILURE,
+          payload: err
+        })
+      })
+  }
+}
+
 export const logout = () => {
   localStorage.setItem("token", "");
-  localStorage.setItem("strongr_username", "");
-  localStorage.setItem("strongr_password", "");
   return {
     type: Actions.LOGOUT
   };
