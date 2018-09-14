@@ -194,7 +194,7 @@ const addProgress = (req, res) => {
     });
 };
 
-const changePassword = () => {
+const changePassword = (req, res) => {
   const { username, password, newPassword, confirmNewPassword } = req.body;
   User.findOne({ username: username.toLowerCase() }).then(user => {
     console.log(user);
