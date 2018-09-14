@@ -24,6 +24,8 @@ mongoose.connect(
   }
 );
 mongoose.set("useCreateIndex", true);
+// Fix deprecation warning for useFindOneandUpdate instead of useFindAndModify
+mongoose.set("useFindAndModify", false);
 
 app.listen(port, () => {
   console.log(`server running on port ${port}`);

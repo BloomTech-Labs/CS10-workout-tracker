@@ -4,7 +4,7 @@ const { generateToken, generateResetToken } = require("../utilities/auth");
 require("dotenv").config();
 const sgMail = require("@sendgrid/mail");
 
-const secret = process.env.SECRET;
+// const secret = process.env.SECRET;
 const sgAPIKey = process.env.SENDGRID_API_KEY;
 const senderEmail = process.env.MAILER_EMAIL_ID;
 sgMail.setApiKey(sgAPIKey);
@@ -76,32 +76,31 @@ const forgotPassword = (req, res) => {
   User.findOne({ email: email }).then(user => {
     const token = generateResetToken(user);
 
-    User.findOneAndUpdate(
-      { email: email },
-      { passwordResetToken: token, resetTokenExpiry: Date.now() + 86400000 }
-    ).then(user => {
-      // TODO: !!this should be an environment variable!!
-      const url = "http://localhost:3000/reset?token=" + token;
-      let emailData = {
-        to: user.email,
-        from: senderEmail,
-        subject: "Password help has arrived!",
-        text:
-          "username, You requested for a password reset, kindly use this link. Cheers!",
-        html: `<h3>${
-          user.username
-        }, </h3> <p> You requested for a password reset, kindly use this <a href="${url}">link</a> to reset your password</p> <br> <p>Cheers!</p>`
-      };
-      sgMail.send(emailData, function(err) {
-        if (!err) {
-          return res.json({
-            message: "Kindly check your email for further instructions"
-          });
-        } else {
-          return res.json(err);
-        }
-      });
-    });
+    User.findOneAndUpdate({ email: email }, { passwordResetToken: token }).then(
+      user => {
+        // TODO: !!this should be an environment variable!!
+        const url = "http://localhost:3000/reset?token=" + token;
+        let emailData = {
+          to: user.email,
+          from: senderEmail,
+          subject: "Password help has arrived!",
+          text:
+            "username, You requested for a password reset, kindly use this link. Cheers!",
+          html: `<h3>${
+            user.username
+          }, </h3> <p> You requested for a password reset, kindly use this <a href="${url}">link</a> to reset your password</p> <br> <p>Cheers!</p>`
+        };
+        sgMail.send(emailData, function(err) {
+          if (!err) {
+            return res.json({
+              message: "Kindly check your email for further instructions"
+            });
+          } else {
+            return res.json(err);
+          }
+        });
+      }
+    );
   });
 };
 
