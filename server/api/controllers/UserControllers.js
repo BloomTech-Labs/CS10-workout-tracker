@@ -45,9 +45,13 @@ const login = (req, res) => {
   User.findOne({ username: username.toLowerCase() })
     .then(user => {
       console.log(`Found ${username} in the User collection:`, user);
-      user
-        .checkPassword(password)
-        .then(success => {
+      user.checkPassword(password).then(success => {
+        if (!success) {
+          console.log(`Failed to match ${username}'s PW.`);
+          res.status(422);
+          res.json("Password incorrect");
+        }
+        if (success) {
           console.log(
             `${username}'s password was correct. Procuring a token...`
           );
@@ -55,12 +59,8 @@ const login = (req, res) => {
           const token = generateToken(username);
           console.log(`Procured a token for ${username}:`, token);
           res.json({ user, token });
-        })
-        .catch(err => {
-          console.log(`Failed to match ${username}'s PW.`);
-          res.status(422);
-          res.json({ "Password incorrect": err.message });
-        });
+        }
+      });
     })
     .catch(err => {
       res.status(404);
