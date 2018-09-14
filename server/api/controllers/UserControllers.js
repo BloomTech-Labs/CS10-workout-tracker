@@ -117,6 +117,7 @@ const resetPassword = function(req, res) {
     if (!err && user) {
       if (newPassword === confirmNewPassword) {
         user.password = newPassword;
+        user.passwordResetToken = undefined;
         user.save(err => {
           if (!err) {
             let data = {
