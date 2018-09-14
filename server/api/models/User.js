@@ -18,9 +18,6 @@ const UserSchema = Schema({
   passwordResetToken: {
     type: String
   },
-  resetTokenExpiry: {
-    type: Date
-  },
   email: {
     type: String,
     required: true,

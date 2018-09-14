@@ -5,8 +5,8 @@ import { resetPassword } from "../actions";
 
 class PasswordReset extends Component {
   state = {
-    password: "",
-    confirmPassword: ""
+    newPassword: "",
+    confirmNewPassword: ""
   };
 
   handleFieldChange = event => {
@@ -17,17 +17,17 @@ class PasswordReset extends Component {
     event.preventDefault();
     const urlParams = new URLSearchParams(this.props.location.search);
     const token = urlParams.get("token");
-    if (this.state.password === this.state.confirmPassword) {
+    if (this.state.newPassword === this.state.confirmNewPassword) {
       this.props.resetPassword({
-        password: this.state.password,
-        confirmPassword: this.state.confirmPassword,
+        newPassword: this.state.newPassword,
+        confirmNewPassword: this.state.confirmNewPassword,
         token: token
       });
     }
     console.log(token);
     this.setState({
-      password: "",
-      confirmPassword: ""
+      newPassword: "",
+      confirmNewPassword: ""
     });
   };
 
@@ -35,19 +35,19 @@ class PasswordReset extends Component {
     return (
       <div>
         <NavBar />
-        <form className="RegistrationForm" onSubmit={this.handleSubmit}>
+        <form className="PasswordResetForm" onSubmit={this.handleSubmit}>
           <input
             type="password"
-            name="password"
+            name="newPassword"
             placeholder="Password"
-            value={this.state.password}
+            value={this.state.newPassword}
             onChange={this.handleFieldChange}
           />
           <input
             type="password"
-            name="confirmPassword"
+            name="confirmNewPassword"
             placeholder="Confirm Password"
-            value={this.state.confirmPassword}
+            value={this.state.confirmNewPassword}
             onChange={this.handleFieldChange}
           />
           <button className="Form__submit" type="submit">

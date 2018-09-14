@@ -8,8 +8,7 @@ class RegistrationPage extends Component {
     username: "",
     password: "",
     confirmPassword: "",
-    recoveryQuestion: "",
-    recoveryAnswer: ""
+    email: ""
   };
 
   handleFieldChange = event => {
@@ -22,16 +21,14 @@ class RegistrationPage extends Component {
       this.props.register({
         username: this.state.username,
         password: this.state.password,
-        recoveryQuestion: this.state.recoveryQuestion,
-        recoveryAnswer: this.state.recoveryAnswer
+        email: this.state.email
       });
     }
     this.setState({
       username: "",
       password: "",
       confirmPassword: "",
-      recoveryQuestion: "",
-      recoveryAnswer: ""
+      email: ""
     });
   };
 
@@ -63,16 +60,9 @@ class RegistrationPage extends Component {
           />
           <input
             type="text"
-            name="recoveryQuestion"
-            placeholder="Insert Recovery Question"
-            value={this.state.recoveryQuestion}
-            onChange={this.handleFieldChange}
-          />
-          <input
-            type="text"
-            name="recoveryAnswer"
-            placeholder="Insert Recovery Answer"
-            value={this.state.recoveryAnswer}
+            name="email"
+            placeholder="Email"
+            value={this.state.email}
             onChange={this.handleFieldChange}
           />
           <button className="Form__submit" type="submit">

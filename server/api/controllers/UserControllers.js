@@ -60,27 +60,6 @@ const login = (req, res) => {
     });
 };
 
-// const changePassword = (req, res) => {
-//   const { username, password, newPassword } = req.body;
-//   User.findOne({ username: username.toLowerCase() }).then(user => {
-//     console.log(user);
-//     user
-//       .checkPassword(password)
-//       .then(success => {
-//         user.password = newPassword;
-//         console.log(user.password);
-//         user.save(updatedPW => {
-//           res.status(200);
-//           res.json({ "New password": user.password });
-//         });
-//       })
-//       .catch(err => {
-//         res.status(422);
-//         res.json({ "Password incorrect": err.message });
-//       });
-//   });
-// };
-
 const forgotPassword = (req, res) => {
   const { username, email } = req.body;
   if (!email && !username) {
@@ -93,7 +72,7 @@ const forgotPassword = (req, res) => {
       { email: email },
       { passwordResetToken: token, resetTokenExpiry: Date.now() + 86400000 }
     ).then(user => {
-      // TODO: !!this will actually be a frontend link which is why I think it's not working as it should currently??!! Also, this should be an environment variable.
+      // TODO: !!this should be an environment variable!!
       const url = "http://localhost:3000/reset?token=" + token;
       let emailData = {
         to: user.email,
@@ -122,18 +101,15 @@ const resetPassword = function(req, res) {
   let { token, newPassword, confirmNewPassword } = req.body;
 
   let payload = jwt.decode(token);
-
   console.log(payload);
-
   console.log(token);
+
   User.findOne({
     passwordResetToken: token
   }).then((user, err) => {
     if (!err && user) {
       if (newPassword === confirmNewPassword) {
         user.password = newPassword;
-        // user.passwordResetToken = undefined;
-        // user.resetTokenExpiry = undefined;
         user.save(err => {
           if (!err) {
             let data = {
@@ -142,8 +118,9 @@ const resetPassword = function(req, res) {
               subject: "Password Reset Confirmation",
               text:
                 "username, Your password has been successfully reset, you can now log in with your new password. Cheers!",
-              html:
-                "<h3>{{username}}, </h3> <p> Your password has been successfully reset, you can now log in with your new password.</p> <br> <p>Cheers!</p>"
+              html: `<h3>${
+                user.username
+              }, </h3> <p> Your password has been successfully reset, you can now log in with your new password.</p> <br> <p>Cheers!</p>`
             };
 
             sgMail.send(data, err => {
@@ -154,7 +131,7 @@ const resetPassword = function(req, res) {
               }
             });
           } else {
-            return res.status(422).send({ message: err });
+            return res.status(422).json({ error: "from 157", message: err });
           }
         });
       } else {
