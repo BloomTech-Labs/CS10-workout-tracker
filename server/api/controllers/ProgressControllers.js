@@ -2,7 +2,7 @@ const User = require("../models/User");
 const Progress = require("../models/Progress");
 
 const addProgress = (req, res) => {
-  const userId = req.user_id;
+  const userId = req.userId;
   const { weight, hips, waist, r_arm, l_arm, r_leg, l_leg } = req.body;
   const newProgressParameters = {
     weight,
@@ -14,7 +14,7 @@ const addProgress = (req, res) => {
     l_leg,
     user: userId
   };
-  const newProgress = Progress(newProgressParameters);
+  const newProgress = new Progress(newProgressParameters);
 
   newProgress.save((err, createdProgress) => {
     if (err) {
@@ -24,7 +24,7 @@ const addProgress = (req, res) => {
     User.findByIdAndUpdate(userId, { $push: { progress: createdProgress._id } })
       .then(updatedUser => {
         res.status(200);
-        return res.json({
+        res.json({
           msg: "Successfully created a Progress document.",
           progress: createdProgress,
           user: updatedUser
@@ -32,14 +32,13 @@ const addProgress = (req, res) => {
       })
       .catch(err => {
         res.status(500);
-        return res.json({ err });
+        res.json({ err });
       });
   });
 };
 
 const fetchProgress = (req, res) => {
-  const userId = req.user_id;
-  console.log("ID " + userId);
+  const userId = req.userId;
 
   User.findById(userId)
     .populate("progress")
@@ -52,7 +51,21 @@ const fetchProgress = (req, res) => {
     });
 };
 
+const deleteProgress = (req, res) => {
+  const { id } = req.params;
+  Progress.findByIdAndRemove(id)
+    .then(deletedProgress => {
+      res.status(201);
+      res.json(deletedProgress);
+    })
+    .catch(err => {
+      res.status(500);
+      res.json({ err });
+    });
+};
+
 module.exports = {
   addProgress,
-  fetchProgress
+  fetchProgress,
+  deleteProgress
 };

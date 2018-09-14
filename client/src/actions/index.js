@@ -13,6 +13,8 @@ export const register = data => {
       .post(`${ROOT_URL}/register`, data)
       .then(res => {
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("strongr_username", data.username);
+        localStorage.setItem("strongr_password", data.password);
         dispatch({
           type: Actions.REGISTER_SUCCESS,
           payload: res
@@ -36,6 +38,9 @@ export const login = data => {
     axios
       .post(`${ROOT_URL}/login`, data)
       .then(res => {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("strongr_username", data.username);
+        localStorage.setItem("strongr_password", data.password);
         dispatch({
           type: Actions.LOGIN_SUCCESS,
           payload: res
@@ -52,6 +57,8 @@ export const login = data => {
 
 export const logout = () => {
   localStorage.setItem("token", "");
+  localStorage.setItem("strongr_username", "");
+  localStorage.setItem("strongr_password", "");
   return {
     type: Actions.LOGOUT
   };
@@ -65,7 +72,7 @@ export const addProgress = data => {
       payload: "Adding progress record..."
     });
     axios
-      .post(`${ROOT_URL}/progress`, data, { headers: {authorization: token} })
+      .post(`${ROOT_URL}/progress`, data, { headers: {"x-access-token": token} })
       .then(res => {
         dispatch({
           type: Actions.ADD_PROGRESS_SUCCESS,
@@ -89,7 +96,7 @@ export const fetchProgress = () => {
       payload: "Fetching progress..."
     });
     axios
-      .get(`${ROOT_URL}/progress`, { headers: {authorization: token} } ) // TODO: modify header accordingly once verification branch gets merged 
+      .get(`${ROOT_URL}/progress`, { headers: {"x-access-token": token} } ) 
       .then(res => {
         dispatch({
           type: Actions.FETCH_PROGRESS_SUCCESS,

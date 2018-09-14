@@ -122,6 +122,7 @@ class Progress extends Component {
                     <div className="progress-records">
                         {this.props.progressRecords.map(record => {
                         return <div key={record._id} className="progress-record">
+                        <button>delete</button>
                         <span>{`Weight: ${record.weight} lbs`}</span>
                         <span>{`Hips: ${record.hips}in`}</span>
                         <span>{`Waist: ${record.waist}in`}</span>
@@ -129,7 +130,7 @@ class Progress extends Component {
                         <span>{`(L) Arm: ${record.l_arm}in`}</span>
                         <span>{`(R) Leg: ${record.r_leg}in`}</span>
                         <span>{`(L) Leg: ${record.l_leg}in`}</span>
-                        </div>;
+                        </div>
                         })}
                     </div>    
                 </div>
