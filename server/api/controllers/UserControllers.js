@@ -1,5 +1,6 @@
 const User = require("../models/User");
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
+const { generateToken, generateResetToken } = require("../utilities/auth");
 require("dotenv").config();
 const sgMail = require("@sendgrid/mail");
 
@@ -8,14 +9,14 @@ const sgAPIKey = process.env.SENDGRID_API_KEY;
 const senderEmail = process.env.MAILER_EMAIL_ID;
 sgMail.setApiKey(sgAPIKey);
 
-function generateToken(user) {
-  const options = {
-    expiresIn: "30m"
-  };
-  const payload = { name: user.username };
+// function generateToken(user) {
+//   const options = {
+//     expiresIn: "30m"
+//   };
+//   const payload = { name: user.username };
 
-  return jwt.sign(payload, secret, options);
-}
+//   return jwt.sign(payload, secret, options);
+// }
 
 const register = (req, res) => {
   const { username, password, email } = req.body;
@@ -28,7 +29,7 @@ const register = (req, res) => {
   newUser
     .save()
     .then(createdUser => {
-      const token = generateToken(createdUser);
+      const token = generateToken(createdUser.username, createdUser._id);
       res.json({ createdUser, token });
     })
     .catch(err => {
@@ -38,18 +39,25 @@ const register = (req, res) => {
 };
 
 const login = (req, res) => {
+  console.log("Trying to log in. Got this http request: ", req.body);
   const { username, password } = req.body;
 
   User.findOne({ username: username.toLowerCase() })
     .then(user => {
+      console.log(`Found ${username} in the User collection:`, user);
       user
         .checkPassword(password)
         .then(success => {
+          console.log(
+            `${username}'s password was correct. Procuring a token...`
+          );
           res.status(200);
-          const token = generateToken(user);
-          res.json({ username, token });
+          const token = generateToken(username);
+          console.log(`Procured a token for ${username}:`, token);
+          res.json({ user, token });
         })
         .catch(err => {
+          console.log(`Failed to match ${username}'s PW.`);
           res.status(422);
           res.json({ "Password incorrect": err.message });
         });
@@ -66,7 +74,7 @@ const forgotPassword = (req, res) => {
     return res.status(400).json({ message: "No email or username provided" });
   }
   User.findOne({ email: email }).then(user => {
-    const token = generateToken(user);
+    const token = generateResetToken(user);
 
     User.findOneAndUpdate(
       { email: email },
@@ -158,6 +166,29 @@ const sendGridTest = (req, res) => {
   res.json({ message: "success" });
 };
 
+const tokenLogin = (req, res) => {
+  const username = req.username;
+
+  User.findOne({ username: username.toLowerCase() })
+    .then(user => {
+      res.status(200);
+      const token = generateToken(user.username);
+      res.json({ user, token });
+    })
+    .catch(err => {
+      res.status(404);
+      res.json({ "Failed to login with your token: ": err.message });
+    });
+};
+
+const ping = (req, res) => {
+  const { username } = req.body;
+  res.status(200);
+  res.json({
+    message: "The tokenized username is ok!",
+    tokenizedUsername: username
+  });
+};
 const addProgress = (req, res) => {
   const { weight, hips, waist, r_arm, l_arm, r_leg, l_leg, user } = req.body;
   // const { user } = req.params;
@@ -182,5 +213,7 @@ module.exports = {
   forgotPassword,
   resetPassword,
   sendGridTest,
+  tokenLogin,
+  ping,
   addProgress
 };
