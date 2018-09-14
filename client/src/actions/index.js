@@ -63,3 +63,28 @@ export const logout = () => {
     type: Actions.LOGOUT
   };
 };
+
+export const addProgress = data => {
+  return dispatch => {
+    dispatch({
+      type: Actions.ADDING_PROGRESS,
+      payload: "Adding progress record..."
+    });
+    axios
+      .post(`${ROOT_URL}/progress`, data)
+      .then(res => {
+        dispatch({
+          type: Actions.ADD_PROGRESS_SUCCESS,
+          payload: res
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.ADD_PROGRESS_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
+

@@ -57,6 +57,7 @@ const login = (req, res) => {
     });
 };
 
+<<<<<<< HEAD
 const tokenLogin = (req, res) => {
   const username = req.username;
 
@@ -77,10 +78,33 @@ const ping = (req, res) => {
   res.status(200);
   res.json({ "message": "The tokenized username is ok!", "tokenizedUsername": username });
 }
+=======
+const addProgress = (req, res) => {
+  const { weight, hips, waist, r_arm, l_arm, r_leg, l_leg, user } = req.body;
+  // const { user } = req.params;
+  User.findOne({ username: user.toLowerCase() })
+    .then(user => {
+      const newProgress = { weight, hips, waist, r_arm, l_arm, r_leg, l_leg };
+
+      user.progress.push(newProgress);
+      user.save().then(user => {
+        res.json(user);
+      });
+    })
+    .catch(err => {
+      res.status(422);
+      res.json({ "Error submitting progress": err.message });
+    });
+};
+>>>>>>> 4a6173c71823076606c24520ee184265c21c7ea6
 
 module.exports = {
   register,
   login,
+<<<<<<< HEAD
   tokenLogin,
   ping,
+=======
+  addProgress
+>>>>>>> 4a6173c71823076606c24520ee184265c21c7ea6
 };
