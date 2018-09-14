@@ -3,11 +3,9 @@ const {
   login,
   forgotPassword,
   resetPassword,
-  tokenLogin,
-  addProgress
+  tokenLogin
 } = require("./controllers/UserControllers");
 const { createNewExercise } = require("./controllers/ExerciseControllers");
-const { register, login, tokenLogin} = require("./controllers/UserControllers");
 const { createNewRoutine, addExerciseToRoutine } = require("./controllers/RoutineControllers");
 const { scheduleWorkout } = require("./controllers/WorkoutControllers");
 const { addProgress, fetchProgress, deleteProgress } = require("./controllers/ProgressControllers");

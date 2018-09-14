@@ -28,21 +28,8 @@ const UserSchema = Schema({
   },
   progress: [
     {
-<<<<<<< HEAD
       type: Schema.Types.ObjectId,
       ref: "Progress"
-=======
-      date: {
-        type: Date,
-        default: Date.now
-      },
-      weight: Number,
-      hips: Number,
-      waist: Number,
-      r_arm: Number,
-      l_arm: Number,
-      r_leg: Number,
-      l_leg: Number
     }
   ],
   weightRecords: [
@@ -53,7 +40,6 @@ const UserSchema = Schema({
       weight: {
         type: Number
       }
->>>>>>> a771d1d6eb79d624932e3f42fcecb917d354fe95
     }
   ],
   exercises: [
