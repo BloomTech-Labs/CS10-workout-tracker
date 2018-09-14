@@ -11,22 +11,27 @@ const PerformanceSchema = Schema({
   },
   date: {
     type: Date,
-    required: true
+    required: true,
+    default: Date.now(),
   },
   weight: {
     type: Number,
-    required: true
+    required: true,
+    default: 30
   },
   reps: {
     type: Number,
-    required: true
+    required: true,
+    default: 10
   },
   sets: {
     type: Number,
-    required: true
+    required: true,
+    default: 3
   },
   completed: {
     type: Boolean,
+    required: true,
     default: false
   }
 });
