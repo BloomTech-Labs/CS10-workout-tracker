@@ -7,7 +7,8 @@ class RegistrationPage extends Component {
   state = {
     username: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    email: ""
   };
 
   handleFieldChange = event => {
@@ -19,13 +20,15 @@ class RegistrationPage extends Component {
     if (this.state.password === this.state.confirmPassword) {
       this.props.register({
         username: this.state.username,
-        password: this.state.password
+        password: this.state.password,
+        email: this.state.email
       });
     }
     this.setState({
       username: "",
       password: "",
-      confirmPassword: ""
+      confirmPassword: "",
+      email: ""
     });
   };
 
@@ -53,6 +56,13 @@ class RegistrationPage extends Component {
             name="confirmPassword"
             placeholder="Confirm Password"
             value={this.state.confirmPassword}
+            onChange={this.handleFieldChange}
+          />
+          <input
+            type="text"
+            name="email"
+            placeholder="Email"
+            value={this.state.email}
             onChange={this.handleFieldChange}
           />
           <button className="Form__submit" type="submit">

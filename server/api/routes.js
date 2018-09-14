@@ -1,3 +1,11 @@
+const {
+  register,
+  login,
+  forgotPassword,
+  resetPassword,
+  tokenLogin,
+  addProgress
+} = require("./controllers/UserControllers");
 const { createNewExercise } = require("./controllers/ExerciseControllers");
 const { register, login, tokenLogin} = require("./controllers/UserControllers");
 const { createNewRoutine, addExerciseToRoutine } = require("./controllers/RoutineControllers");
@@ -12,6 +20,8 @@ module.exports = app => {
   app.route("/progress").post(verifyToken, addProgress);
   app.route("/progress").get(verifyToken, fetchProgress);
   app.route("/progress/:id").delete(verifyToken, deleteProgress);
+  app.route("/forgot_password").post(forgotPassword);
+  app.route("/reset_password").post(resetPassword);
   app.route("/auto-login").get(verifyToken, tokenLogin);
   app.route("/new-routine").post(createNewRoutine);
   app.route("/new-exercise").post(createNewExercise);

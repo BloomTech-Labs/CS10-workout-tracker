@@ -64,6 +64,52 @@ export const logout = () => {
   };
 };
 
+export const forgotPassword = data => {
+  return dispatch => {
+    dispatch({
+      type: Actions.SENDING_RECOVERY_EMAIL,
+      payload: "Sending recovery email..."
+    });
+    axios
+      .post(`${ROOT_URL}/forgot_password`, data)
+      .then(res => {
+        dispatch({
+          type: Actions.SEND_EMAIL_SUCCESS,
+          payload: res
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.SEND_EMAIL_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
+export const resetPassword = data => {
+  return dispatch => {
+    dispatch({
+      type: Actions.CHANGING_PASSWORD,
+      payload: "Changing password..."
+    });
+    axios
+      .post(`${ROOT_URL}/reset_password`, data)
+      .then(res => {
+        dispatch({
+          type: Actions.CHANGE_SUCCESS,
+          payload: res
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.CHANGE_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
 export const addProgress = data => {
   let token = localStorage.getItem("token");
   return dispatch => {
