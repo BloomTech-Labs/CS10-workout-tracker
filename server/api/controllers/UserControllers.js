@@ -154,12 +154,10 @@ const resetPassword = function(req, res) {
 };
 
 const tokenLogin = (req, res) => {
-  const username = req.username;
-
-  User.findOne({ username: username.toLowerCase() })
+  User.findById(req.userId)
     .then(user => {
       res.status(200);
-      const token = generateToken(user.username);
+      const token = generateToken(user.username, req.userId);
       res.json({ user, token });
     })
     .catch(err => {
