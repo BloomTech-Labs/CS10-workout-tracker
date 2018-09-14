@@ -145,8 +145,9 @@ export const addProgress = data => {
       type: Actions.ADDING_PROGRESS,
       payload: "Adding progress record..."
     });
+    requestOptions = { headers: {"x-access-token": token} };
     axios
-      .post(`${ROOT_URL}/progress`, data, { headers: {"x-access-token": token} })
+      .post(`${ROOT_URL}/progress`, data, requestOptions)
       .then(res => {
         dispatch({
           type: Actions.ADD_PROGRESS_SUCCESS,
@@ -169,8 +170,9 @@ export const fetchProgress = () => {
       type: Actions.FETCHING_PROGRESS,
       payload: "Fetching progress..."
     });
+    requestOptions = { headers: {"x-access-token": token} };
     axios
-      .get(`${ROOT_URL}/progress`, { headers: {"x-access-token": token} } ) 
+      .get(`${ROOT_URL}/progress`, requestOptions) 
       .then(res => {
         dispatch({
           type: Actions.FETCH_PROGRESS_SUCCESS,
