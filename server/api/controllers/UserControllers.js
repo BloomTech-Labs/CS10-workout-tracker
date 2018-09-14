@@ -1,9 +1,13 @@
 const User = require("../models/User");
 // const jwt = require("jsonwebtoken");
-const { generateToken } = require("../utilities/auth");
+const { generateToken, generateResetToken } = require("../utilities/auth");
 require("dotenv").config();
+const sgMail = require("@sendgrid/mail");
 
-const secret = process.env.SECRET;
+// const secret = process.env.SECRET;
+const sgAPIKey = process.env.SENDGRID_API_KEY;
+const senderEmail = process.env.MAILER_EMAIL_ID;
+sgMail.setApiKey(sgAPIKey);
 
 // function generateToken(user) {
 //   const options = {
@@ -15,8 +19,13 @@ const secret = process.env.SECRET;
 // }
 
 const register = (req, res) => {
-  const { username, password } = req.body;
-  const newUser = new User({ username, password });
+  const { username, password, email } = req.body;
+
+  const newUser = new User({
+    username,
+    password,
+    email
+  });
   newUser
     .save()
     .then(createdUser => {
@@ -39,7 +48,9 @@ const login = (req, res) => {
       user
         .checkPassword(password)
         .then(success => {
-          console.log(`${username}'s password was correct. Procuring a token...`);
+          console.log(
+            `${username}'s password was correct. Procuring a token...`
+          );
           res.status(200);
           const token = generateToken(username);
           console.log(`Procured a token for ${username}:`, token);
@@ -57,26 +68,114 @@ const login = (req, res) => {
     });
 };
 
+const forgotPassword = (req, res) => {
+  const { username, email } = req.body;
+  if (!email && !username) {
+    return res.status(400).json({ message: "No email or username provided" });
+  }
+  User.findOne({ email: email }).then(user => {
+    const token = generateResetToken(user);
+
+    User.findOneAndUpdate({ email: email }, { passwordResetToken: token }).then(
+      user => {
+        // TODO: !!this should be an environment variable!!
+        const url = "http://localhost:3000/reset?token=" + token;
+        let emailData = {
+          to: user.email,
+          from: senderEmail,
+          subject: "Password help has arrived!",
+          text:
+            "username, You requested for a password reset, kindly use this link. Cheers!",
+          html: `<h3>${
+            user.username
+          }, </h3> <p> You requested for a password reset, kindly use this <a href="${url}">link</a> to reset your password</p> <br> <p>Cheers!</p>`
+        };
+        sgMail.send(emailData, function(err) {
+          if (!err) {
+            return res.json({
+              message: "Kindly check your email for further instructions"
+            });
+          } else {
+            return res.json(err);
+          }
+        });
+      }
+    );
+  });
+};
+
+const resetPassword = function(req, res) {
+  let { token, newPassword, confirmNewPassword } = req.body;
+
+  // let payload = jwt.decode(token);
+  // console.log(payload);
+  console.log(token);
+
+  User.findOne({
+    passwordResetToken: token
+  }).then((user, err) => {
+    if (!err && user) {
+      if (newPassword === confirmNewPassword) {
+        user.password = newPassword;
+        user.passwordResetToken = undefined;
+        user.save(err => {
+          if (!err) {
+            let data = {
+              to: user.email,
+              from: senderEmail,
+              subject: "Password Reset Confirmation",
+              text:
+                "username, Your password has been successfully reset, you can now log in with your new password. Cheers!",
+              html: `<h3>${
+                user.username
+              }, </h3> <p> Your password has been successfully reset, you can now log in with your new password.</p> <br> <p>Cheers!</p>`
+            };
+
+            sgMail.send(data, err => {
+              if (!err) {
+                return res.json({ message: "Password reset" });
+              } else {
+                return res.json({ error: err.message });
+              }
+            });
+          } else {
+            return res.status(422).json({ error: "from 157", message: err });
+          }
+        });
+      } else {
+        return res.status(422).send({ message: "Passwords do not match" });
+      }
+    } else {
+      return res.status(400).send({
+        message: "Password reset token is invalid or has expired."
+      });
+    }
+  });
+};
+
 const tokenLogin = (req, res) => {
   const username = req.username;
 
   User.findOne({ username: username.toLowerCase() })
     .then(user => {
-          res.status(200);
-          const token = generateToken(user.username);
-          res.json({ user, token });
-        })
+      res.status(200);
+      const token = generateToken(user.username);
+      res.json({ user, token });
+    })
     .catch(err => {
       res.status(404);
       res.json({ "Failed to login with your token: ": err.message });
     });
-}
+};
 
 const ping = (req, res) => {
   const { username } = req.body;
   res.status(200);
-  res.json({ "message": "The tokenized username is ok!", "tokenizedUsername": username });
-}
+  res.json({
+    message: "The tokenized username is ok!",
+    tokenizedUsername: username
+  });
+};
 const addProgress = (req, res) => {
   const { weight, hips, waist, r_arm, l_arm, r_leg, l_leg, user } = req.body;
   // const { user } = req.params;
@@ -98,6 +197,8 @@ const addProgress = (req, res) => {
 module.exports = {
   register,
   login,
+  forgotPassword,
+  resetPassword,
   tokenLogin,
   ping,
   addProgress

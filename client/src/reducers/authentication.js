@@ -44,6 +44,36 @@ export default (state = initialState, action) => {
         ...state,
         message: "Log-in failed..."
       };
+    case Actions.SENDING_RECOVERY_EMAIL:
+      return {
+        ...state,
+        message: action.payload
+      };
+    case Actions.SEND_EMAIL_SUCCESS:
+      return {
+        ...state,
+        message: "Email sent successfully"
+      };
+    case Actions.SEND_EMAIL_FAILURE:
+      return {
+        ...state,
+        message: "Email failed to send"
+      };
+    case Actions.CHANGING_PASSWORD:
+      return {
+        ...state,
+        message: action.payload
+      };
+    case Actions.CHANGE_SUCCESS:
+      return {
+        ...state,
+        message: "Password changed successfully"
+      };
+    case Actions.CHANGE_FAILURE:
+      return {
+        ...state,
+        message: "Failed to change password"
+      };
     case Actions.LOGOUT:
       return {
         ...state,
