@@ -220,7 +220,24 @@ const changePassword = (req, res) => {
   });
 };
 
-const changeEmail = () => {};
+const changeEmail = (req, res) => {
+  const { username, newEmail } = req.body;
+  User.findOneAndUpdate({ username: username }, { email: newEmail }).then(
+    user => {
+      user
+        .save()
+        .then(() => {
+          console.log(user);
+          res.status(200);
+          res.json({ "Updated user email": user.email });
+        })
+        .catch(err => {
+          res.status(400);
+          res.json({ "Could not update email": err.message });
+        });
+    }
+  );
+};
 
 module.exports = {
   register,
