@@ -28,10 +28,9 @@ export default (state = initialState, action) => {
                 message: action.payload
             }
         case Actions.FETCH_PROGRESS_SUCCESS:
-        console.log("ACTION PAYLOAD " + action.payload.data)
             return {
                 ...state,
-                progressRecords: action.payload.data,
+                progressRecords: action.payload.data.progress,
                 message: "Progress fetched successfully!"
             }
         case Actions.FETCH_PROGRESS_FAILURE:

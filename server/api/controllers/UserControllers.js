@@ -51,46 +51,8 @@ const login = (req, res) => {
     });
 };
 
-const addProgress = (req, res) => {
-  const { weight, hips, waist, r_arm, l_arm, r_leg, l_leg, user } = req.body;
-  // const { user } = req.params;
-  User.findOne({ username: user.toLowerCase() })
-    .then(user => {
-      const newProgress = { weight, hips, waist, r_arm, l_arm, r_leg, l_leg };
-
-      user.progress.push(newProgress);
-      user.save()
-        .then(user => {
-          res.json(user);
-        })
-        .catch(err => {
-          res.json({ "Error retrieving user progress": err.message })
-        })
-
-    })
-    .catch(err => {
-      res.status(422);
-      res.json({ "Error submitting progress": err.message });
-    });
-};
- 
-const fetchProgress = (req, res) => {
-  const id = req.user_id;
-  console.log("ID " + id);
-  User.findById(id)
-    .then(user => {
-      console.log(user)
-      res.json(user.progress)
-    })
-    .catch(err => {
-      res.status(500)
-      res.json({ "Error fetching progress": err.message })
-    })
-}
 
 module.exports = {
   register,
   login,
-  addProgress,
-  fetchProgress
 };

@@ -58,13 +58,14 @@ export const logout = () => {
 };
 
 export const addProgress = data => {
+  let token = localStorage.getItem("token");
   return dispatch => {
     dispatch({
       type: Actions.ADDING_PROGRESS,
       payload: "Adding progress record..."
     });
     axios
-      .post(`${ROOT_URL}/progress`, data)
+      .post(`${ROOT_URL}/progress`, data, { headers: {authorization: token} })
       .then(res => {
         dispatch({
           type: Actions.ADD_PROGRESS_SUCCESS,

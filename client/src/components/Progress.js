@@ -14,7 +14,6 @@ class Progress extends Component {
     l_arm: "",
     r_leg: "",
     l_leg: "",
-    user: ""
   };
 
   componentDidMount() {
@@ -36,7 +35,6 @@ class Progress extends Component {
       l_arm: this.state.l_arm,
       r_leg: this.state.r_leg,
       l_leg: this.state.l_leg,
-      user: this.state.user
     });
 
     this.setState({
@@ -47,7 +45,6 @@ class Progress extends Component {
       l_arm: "",
       r_leg: "",
       l_leg: "",
-      user: ""
     });
 
   };
@@ -116,13 +113,6 @@ class Progress extends Component {
                     value={this.state.l_leg}
                     onChange={this.handleFieldChange}
                 />
-                <input
-                    type="text"
-                    name="user"
-                    placeholder="User"
-                    value={this.state.user}
-                    onChange={this.handleFieldChange}
-                />
                 <button className="Form__submit" type="submit">
                     Submit
                 </button>
@@ -141,15 +131,9 @@ class Progress extends Component {
                         <span>{`(L) Leg: ${record.l_leg}in`}</span>
                         </div>;
                         })}
-                        {/* <div className="progress-record"></div>
-                        <div className="progress-record"></div>
-                        <div className="progress-record"></div> */}
                     </div>    
                 </div>
             </div>
-            {/* {this.props.progressRecords.map(record => {
-            return <div key={record._id}>{record.weight}</div>;
-            })} */}
         </div>
       </div>
     );
