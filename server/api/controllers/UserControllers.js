@@ -194,6 +194,34 @@ const addProgress = (req, res) => {
     });
 };
 
+const changePassword = () => {
+  const { username, password, newPassword, confirmNewPassword } = req.body;
+  User.findOne({ username: username.toLowerCase() }).then(user => {
+    console.log(user);
+    user.checkPassword(password).then(success => {
+      if (!success) {
+        res.status(422);
+        res.json("Password incorrect");
+      }
+      if (success) {
+        if (newPassword === confirmNewPassword) {
+          user.password = newPassword;
+          console.log(user.password);
+          user.save().then(() => {
+            res.status(200);
+            res.json({ "New password": user.password });
+          });
+        } else {
+          res.status(422);
+          res.json("New passwords don't match");
+        }
+      }
+    });
+  });
+};
+
+const changeEmail = () => {};
+
 module.exports = {
   register,
   login,
@@ -201,5 +229,7 @@ module.exports = {
   resetPassword,
   tokenLogin,
   ping,
-  addProgress
+  addProgress,
+  changePassword,
+  changeEmail
 };
