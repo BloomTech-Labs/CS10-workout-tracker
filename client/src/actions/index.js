@@ -80,4 +80,26 @@ export const addProgress = data => {
   };
 };
 
-
+export const fetchProgress = () => {
+  let token = localStorage.getItem("token");
+  return dispatch => {
+    dispatch({
+      type: Actions.FETCHING_PROGRESS,
+      payload: "Fetching progress..."
+    });
+    axios
+      .get(`${ROOT_URL}/progress`, { headers: {authorization: token} } ) // TODO: modify header accordingly once verification branch gets merged 
+      .then(res => {
+        dispatch({
+          type: Actions.FETCH_PROGRESS_SUCCESS,
+          payload: res
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.ADD_PROGRESS_FAILURE,
+          payload: err
+        });
+      });
+  };
+};

@@ -8,7 +8,7 @@ function generateToken(user) {
   const options = {
     expiresIn: "30m"
   };
-  const payload = { name: user.username };
+  const payload = { name: user.username, id: user.id };
 
   return jwt.sign(payload, secret, options);
 }
@@ -75,9 +75,11 @@ const addProgress = (req, res) => {
 };
  
 const fetchProgress = (req, res) => {
-  const { username } = req.params;
-  User.findOne({ username: username.toLowerCase()})
+  const id = req.user_id;
+  console.log("ID " + id);
+  User.findById(id)
     .then(user => {
+      console.log(user)
       res.json(user.progress)
     })
     .catch(err => {

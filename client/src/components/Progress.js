@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from 'prop-types';
-import { addProgress } from "../actions";
+import PropTypes from "prop-types";
+import { addProgress, fetchProgress } from "../actions";
 import NavBar from "./NavBar";
+import "../css/progress.css";
 
 class Progress extends Component {
   state = {
@@ -15,6 +16,10 @@ class Progress extends Component {
     l_leg: "",
     user: ""
   };
+
+  componentDidMount() {
+    this.props.fetchProgress();
+  }
 
   handleFieldChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -44,6 +49,7 @@ class Progress extends Component {
       l_leg: "",
       user: ""
     });
+
   };
 
   render() {
@@ -52,84 +58,116 @@ class Progress extends Component {
     let year = new Date().getFullYear();
     let currentDate = month + "/" + date + "/" + year;
 
+    console.log("PROGRESS RECORDS" + typeof this.props.progressRecords);
+
     return (
       <div>
         <NavBar />
-        <form className="ProgressForm" onSubmit={this.handleSubmit}>
-          <div>{currentDate}</div>
-          <input
-            type="text"
-            name="weight"
-            placeholder="Weight"
-            value={this.state.weight}
-            onChange={this.handleFieldChange}
-          />
-          <input
-            type="text"
-            name="hips"
-            placeholder="Hips"
-            value={this.state.hips}
-            onChange={this.handleFieldChange}
-          />
-          <input
-            type="text"
-            name="waist"
-            placeholder="Waist"
-            value={this.state.waist}
-            onChange={this.handleFieldChange}
-          />
-          <input
-            type="text"
-            name="r_arm"
-            placeholder="(R) Arm"
-            value={this.state.r_arm}
-            onChange={this.handleFieldChange}
-          />
-          <input
-            type="text"
-            name="l_arm"
-            placeholder="(L) Arm"
-            value={this.state.l_arm}
-            onChange={this.handleFieldChange}
-          />
-          <input
-            type="text"
-            name="r_leg"
-            placeholder="(R) Leg"
-            value={this.state.r_leg}
-            onChange={this.handleFieldChange}
-          />
-          <input
-            type="text"
-            name="l_leg"
-            placeholder="(L) Leg"
-            value={this.state.l_leg}
-            onChange={this.handleFieldChange}
-          />
-          <input
-            type="text"
-            name="user"
-            placeholder="User"
-            value={this.state.user}
-            onChange={this.handleFieldChange}
-          />
-          <button className="Form__submit" type="submit">
-            Submit
-          </button>
-        </form>
+        <div className="container">
+            <div className="progress-container">
+                <form className="ProgressForm" onSubmit={this.handleSubmit}>
+                <div>{currentDate}</div>
+                <input
+                    type="text"
+                    name="weight"
+                    placeholder="Weight"
+                    value={this.state.weight}
+                    onChange={this.handleFieldChange}
+                />
+                <input
+                    type="text"
+                    name="hips"
+                    placeholder="Hips"
+                    value={this.state.hips}
+                    onChange={this.handleFieldChange}
+                />
+                <input
+                    type="text"
+                    name="waist"
+                    placeholder="Waist"
+                    value={this.state.waist}
+                    onChange={this.handleFieldChange}
+                />
+                <input
+                    type="text"
+                    name="r_arm"
+                    placeholder="(R) Arm"
+                    value={this.state.r_arm}
+                    onChange={this.handleFieldChange}
+                />
+                <input
+                    type="text"
+                    name="l_arm"
+                    placeholder="(L) Arm"
+                    value={this.state.l_arm}
+                    onChange={this.handleFieldChange}
+                />
+                <input
+                    type="text"
+                    name="r_leg"
+                    placeholder="(R) Leg"
+                    value={this.state.r_leg}
+                    onChange={this.handleFieldChange}
+                />
+                <input
+                    type="text"
+                    name="l_leg"
+                    placeholder="(L) Leg"
+                    value={this.state.l_leg}
+                    onChange={this.handleFieldChange}
+                />
+                <input
+                    type="text"
+                    name="user"
+                    placeholder="User"
+                    value={this.state.user}
+                    onChange={this.handleFieldChange}
+                />
+                <button className="Form__submit" type="submit">
+                    Submit
+                </button>
+                </form>
+                <div className="progress-data">
+                    <div className="current-weight"></div>
+                    <div className="progress-records">
+                        {this.props.progressRecords.map(record => {
+                        return <div key={record._id} className="progress-record">
+                        <span>{`Weight: ${record.weight} lbs`}</span>
+                        <span>{`Hips: ${record.hips}in`}</span>
+                        <span>{`Waist: ${record.waist}in`}</span>
+                        <span>{`(R) Arm: ${record.r_arm}in`}</span>
+                        <span>{`(L) Arm: ${record.l_arm}in`}</span>
+                        <span>{`(R) Leg: ${record.r_leg}in`}</span>
+                        <span>{`(L) Leg: ${record.l_leg}in`}</span>
+                        </div>;
+                        })}
+                        {/* <div className="progress-record"></div>
+                        <div className="progress-record"></div>
+                        <div className="progress-record"></div> */}
+                    </div>    
+                </div>
+            </div>
+            {/* {this.props.progressRecords.map(record => {
+            return <div key={record._id}>{record.weight}</div>;
+            })} */}
+        </div>
       </div>
     );
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    progressRecords: state.progress.progressRecords
+  };
+};
 
 Progress.propTypes = {
-    addProgress: PropTypes.func,
-}
-
-
+  addProgress: PropTypes.func,
+  progressRecords: PropTypes.arrayOf(PropTypes.object)
+};
 
 export default connect(
-  null,
-  { addProgress }
+  mapStateToProps,
+  { addProgress, fetchProgress }
 )(Progress);
