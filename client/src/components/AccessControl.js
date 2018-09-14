@@ -1,20 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { login } from "../actions";
+import { login, loginWithToken } from "../actions";
 
 export default ComposedComponent => {
   class RequireAuthentication extends Component {
     componentDidMount() {
       if (!this.props.authenticated) {
-        const username = localStorage.getItem("strongr_username");
-        const password = localStorage.getItem("strongr_password");
-        console.log("Got cached username and password to log back in: ", username, password)
-        if (username && password)
-          this.props.login({
-            username,
-            password
-          });
+        const token = localStorage.getItem("token");
+        if (token) this.props.loginWithToken(token);
       }
     }
 
@@ -44,6 +38,6 @@ export default ComposedComponent => {
   };
   return connect(
     mapStateToProps,
-    { login }
+    { login, loginWithToken }
   )(RequireAuthentication);
 };
