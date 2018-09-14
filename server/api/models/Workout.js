@@ -2,21 +2,29 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const WorkoutSchema = Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  exercises: [
-    {
-      exercise: {
-        type: Schema.Types.ObjectId,
-        ref: "Exercise"
-      }
-    }
-  ],
   user: {
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
+    required: true,
+  },
+  date: {
+    type: Date,
+    required: true,
+    default: Date.now()
+  },
+  routine: {
+    type: Schema.Types.ObjectId,
+    ref: "Routine",
+    required: true
+  },
+  performances: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Performance"
+    }
+  ],
+  note: {
+    type: String
   }
 });
 

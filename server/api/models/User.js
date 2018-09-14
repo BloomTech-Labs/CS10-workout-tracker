@@ -43,12 +43,16 @@ const UserSchema = Schema({
       }
     }
   ],
-  workouts: [
+  exercises: [
     {
-      workout: { 
-        type: Schema.Types.ObjectId,
-        ref: "Workout"
-      }
+      type: Schema.Types.ObjectId,
+      ref: "Exercise"
+    }
+  ],
+  routines: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Routine"
     }
   ],
   calendar: [
