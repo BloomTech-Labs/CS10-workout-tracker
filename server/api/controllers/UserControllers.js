@@ -108,8 +108,8 @@ const forgotPassword = (req, res) => {
 const resetPassword = function(req, res) {
   let { token, newPassword, confirmNewPassword } = req.body;
 
-  let payload = jwt.decode(token);
-  console.log(payload);
+  // let payload = jwt.decode(token);
+  // console.log(payload);
   console.log(token);
 
   User.findOne({

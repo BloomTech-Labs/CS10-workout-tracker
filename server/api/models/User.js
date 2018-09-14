@@ -53,12 +53,6 @@ const UserSchema = Schema({
   ],
   exercises: [
     {
-<<<<<<< HEAD
-      workout: {
-        type: Schema.Types.ObjectId,
-        ref: "Workout"
-      }
-=======
       type: Schema.Types.ObjectId,
       ref: "Exercise"
     }
@@ -67,7 +61,6 @@ const UserSchema = Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "Routine"
->>>>>>> c7920b6c578de5da9d4be191878bf41db11b9e35
     }
   ],
   calendar: [
