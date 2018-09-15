@@ -13,7 +13,7 @@ class Progress extends Component {
     r_arm: "",
     l_arm: "",
     r_leg: "",
-    l_leg: "",
+    l_leg: ""
   };
 
   componentDidMount() {
@@ -47,6 +47,8 @@ class Progress extends Component {
       l_leg: "",
     });
 
+    //TODO: Find better way to reload state
+    window.location.reload()
   };
 
   render() {
