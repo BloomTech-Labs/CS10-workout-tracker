@@ -38,6 +38,13 @@ export default (state = initialState, action) => {
                 ...state,
                 message: "Progress fetching failed..."
             }
+        case Actions.DELETE_PROGRESS:
+            return {
+                ...state,
+                progressRecords: state.progressRecords.filter(record => {
+                    return record._id !== action.payload;
+                })
+            }
         default: 
             return state;
     }

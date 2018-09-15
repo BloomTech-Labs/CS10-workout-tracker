@@ -4,6 +4,7 @@ const Progress = require("../models/Progress");
 const addProgress = (req, res) => {
   const userId = req.userId;
   const { weight, hips, waist, r_arm, l_arm, r_leg, l_leg } = req.body;
+ 
   const newProgressParameters = {
     weight,
     hips,
@@ -51,18 +52,34 @@ const fetchProgress = (req, res) => {
     });
 };
 
+// const deleteProgress = (req, res) => {
+//   const { id } = req.params;
+//   Progress.findByIdAndRemove(id)
+//     .then(deletedProgress => {
+//       res.status(201);
+//       res.json(deletedProgress);
+//     })
+//     .catch(err => {
+//       res.status(500);
+//       res.json({ err });
+//     });
+// };
+
+
 const deleteProgress = (req, res) => {
   const { id } = req.params;
-  Progress.findByIdAndRemove(id)
-    .then(deletedProgress => {
-      res.status(201);
-      res.json(deletedProgress);
+  Progress.findOne({_id: id}, function(err, found) {
+    if (err) {
+      res.status(500)
+    }
+    found.remove(function(err) {
+      if (err)
+      res.status(500)
+      res.json({ err })
     })
-    .catch(err => {
-      res.status(500);
-      res.json({ err });
-    });
-};
+  })
+}
+
 
 module.exports = {
   addProgress,

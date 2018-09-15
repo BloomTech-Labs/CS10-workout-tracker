@@ -187,3 +187,22 @@ export const fetchProgress = () => {
       });
   };
 };
+
+export const deleteProgress = (id) => {
+  let token = localStorage.getItem("token");
+  return dispatch => {
+    requestOptions = { headers: {"x-access-token": token} };
+    axios
+      .delete(`${ROOT_URL}/progress/${id}`, requestOptions)
+      .then(res => {
+        console.log(typeof(id))
+        dispatch({
+          type: Actions.DELETE_PROGRESS,
+          payload: id
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      });
+  }
+}
