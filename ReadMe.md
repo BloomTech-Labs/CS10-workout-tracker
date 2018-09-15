@@ -72,5 +72,6 @@
     * Creates a new Workout with the provided date.
     * Creates a new Performance of each Exercise referenced in the provided Routine, with the provided date.
     * Each Performance document for a specific performance of an exercise is referenced in the document for the Workout. Each Performance document is also referenced in the corresponding Exercise document. 
+    * Finally, the Workout document is referenced in the provided User document in the `calendar` property, providing an entry point to get from the User level to more specific records.
 
 #### STRONGR is under construction by Amanda Phillips, Iqra Javed, Leon Bates and Xang Thao.
