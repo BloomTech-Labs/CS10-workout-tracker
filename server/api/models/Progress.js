@@ -21,11 +21,6 @@ const ProgressSchema = Schema({
     }
 });
 
-ProgressSchema.pre('remove', function(next) {
-    console.log("pre save remove hook was fired")
-    this.model('User').remove({ $progress_id : this._id}, next);
-    next();
-});
 
 const Progress = mongoose.model("Progress", ProgressSchema);
 module.exports = Progress;
