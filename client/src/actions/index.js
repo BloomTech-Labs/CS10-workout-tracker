@@ -195,7 +195,6 @@ export const deleteProgress = (id) => {
     axios
       .delete(`${ROOT_URL}/progress/${id}`, requestOptions)
       .then(res => {
-        console.log(typeof(id))
         dispatch({
           type: Actions.DELETE_PROGRESS,
           payload: id

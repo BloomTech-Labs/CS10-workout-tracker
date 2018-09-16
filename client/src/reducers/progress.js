@@ -13,9 +13,11 @@ export default (state = initialState, action) => {
                 message: action.payload
             };
         case Actions.ADD_PROGRESS_SUCCESS:
+        console.log("ACTION PAYLOAD: " + Array.isArray(action.payload.data.progress))
             return {
                 ...state,
-                message: "Progress submitted successfully!"
+                message: "Progress submitted successfully!",
+                progressRecords: [...state.progressRecords, action.payload.data.progress]
             }
         case Actions.ADD_PROGRESS_FAILURE:
             return {
