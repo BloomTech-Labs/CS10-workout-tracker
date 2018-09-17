@@ -36,23 +36,6 @@ export default (state = initialState, action) => {
         ...state,
         message: "Failed to reset password"
       };
-
-    case Actions.CHANGING_PASSWORD:
-      return {
-        ...state,
-        message: action.payload
-      };
-    case Actions.CHANGE_PW_SUCCESS:
-      return {
-        ...state,
-        message: "Password changed successfully"
-      };
-    case Actions.CHANGE_PW_FAILURE:
-      return {
-        ...state,
-        message: "Failed to change password"
-      };
-
     case Actions.CHANGING_EMAIL:
       return {
         ...state,
@@ -67,6 +50,21 @@ export default (state = initialState, action) => {
       return {
         ...state,
         message: "Failed to change email"
+      };
+    case Actions.CHANGING_PASSWORD:
+      return {
+        ...state,
+        message: action.payload
+      };
+    case Actions.CHANGE_PW_SUCCESS:
+      return {
+        ...state,
+        message: "Password changed successfully"
+      };
+    case Actions.CHANGE_PW_FAILURE:
+      return {
+        ...state,
+        message: "Failed to change password"
       };
 
     default:

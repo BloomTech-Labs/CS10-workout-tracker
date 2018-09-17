@@ -177,7 +177,7 @@ const ping = (req, res) => {
 
 const changePassword = (req, res) => {
   const { username, password, newPassword, confirmNewPassword } = req.body;
-  User.findOne({ username: username.toLowerCase() }).then(user => {
+  User.findOne({ username: username }).then(user => {
     console.log(user);
     user.checkPassword(password).then(success => {
       if (!success) {

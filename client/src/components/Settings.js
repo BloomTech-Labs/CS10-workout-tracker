@@ -17,13 +17,10 @@ class Settings extends Component {
 
   handleEmailSubmit = event => {
     event.preventDefault();
-    if (this.state.password === this.state.confirmPassword) {
-      this.props.changeEmail({
-        username: this.state.username,
-        password: this.state.password,
-        email: this.state.email
-      });
-    }
+    this.props.changeEmail({
+      username: this.props.userInfo.user.username,
+      newEmail: this.state.email
+    });
     this.setState({
       email: "",
       password: "",
@@ -34,14 +31,16 @@ class Settings extends Component {
 
   handlePasswordSubmit = event => {
     event.preventDefault();
-    if (this.state.password === this.state.confirmPassword) {
+    if (this.state.newPassword === this.state.confirmNewPassword) {
       this.props.changePassword({
-        username: this.props.userInfo.username,
-        newEmail: this.state.email
+        username: this.props.userInfo.user.username,
+        password: this.state.password,
+        newPassword: this.state.newPassword,
+        confirmNewPassword: this.state.confirmNewPassword
       });
     }
     this.setState({
-      username: this.props.userInfo.username,
+      email: "",
       password: "",
       newPassword: "",
       confirmNewPassword: ""
@@ -56,12 +55,12 @@ class Settings extends Component {
           <input
             type="text"
             name="email"
-            placeholder="Email"
+            placeholder={this.props.userInfo.user.email}
             value={this.state.email}
             onChange={this.handleFieldChange}
           />
           <button className="Form__submit" type="submit">
-            Save
+            Change Email
           </button>
         </form>
         <form className="PasswordForm" onSubmit={this.handlePasswordSubmit}>
@@ -102,7 +101,7 @@ const mapStateToProps = state => {
   );
   return {
     userInfo: state.auth.currentUser,
-    msg: state.auth.message
+    msg: state.user.message
   };
 };
 

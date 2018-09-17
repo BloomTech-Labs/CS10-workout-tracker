@@ -1,5 +1,5 @@
 import * as Actions from "./actionDefinitions";
-import { callbackify } from "util";
+//import { callbackify } from "util";
 const axios = require("axios");
 
 const ROOT_URL = "http://localhost:8080";
@@ -215,7 +215,7 @@ export const changePassword = data => {
     });
     requestOptions = { headers: { "x-access-token": token } };
     axios
-      .post(`${ROOT_URL}/settings_password`, data)
+      .post(`${ROOT_URL}/settings_password`, data, requestOptions)
       .then(res => {
         dispatch({
           type: Actions.CHANGE_PW_SUCCESS,
@@ -240,7 +240,7 @@ export const changeEmail = data => {
     });
     requestOptions = { headers: { "x-access-token": token } };
     axios
-      .post(`${ROOT_URL}/settings_email`, data)
+      .post(`${ROOT_URL}/settings_email`, data, requestOptions)
       .then(res => {
         dispatch({
           type: Actions.CHANGE_EMAIL_SUCCESS,
