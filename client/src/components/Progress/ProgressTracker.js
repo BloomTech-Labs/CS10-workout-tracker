@@ -25,18 +25,23 @@ class ProgressTracker extends Component {
       : (inchesLost =
          (((this.props.progressRecords[0] || {}).waist || "") -
           ((this.props.progressRecords[this.props.progressRecords.length - 1] || {}).waist || "")) + " inches");
+        
+    let weightGained = parseInt(weightLost) * -1;
+    let inchesGained = parseInt(inchesLost) * -1;
 
     return (
       <div className="progress-container">
         <div className="progress-box border">
-          <div className="number-lost">{weightLost}</div>
-          <div>Weight Lost Since</div> 
+          {/* <div className="number-lost">{parseInt(weightLost) >= 0 ? weightLost : weightGained }</div> */}
+          {typeof(weightLost) != 'string' ? <div className="error">* calculation requires at least 2 progress reports</div> : <div className="number-lost">{parseInt(weightLost) >= 0 ? weightLost : weightGained }</div> }  
+          {parseInt(weightLost) > 0 ? <div>Weight Lost Since</div> : <div>Weight Gained Since</div> }
           {isNaN(month) ? null : <div>{formattedDate}</div> }
         </div>
         <div className="progress-box">
-          <div className="number-lost">{inchesLost}</div>
-          <div>Inches Lost Since</div>
-          {isNaN(month) ? null : <div>{formattedDate}</div> }
+          {/* <div className="number-lost">{parseInt(inchesLost) >= 0 ? inchesLost : inchesGained }</div> */}
+          {typeof(inchesLost) != 'string' ? <div className="error">* calculation requires at least 2 progress reports</div> : <div className="number-lost">{parseInt(inchesLost) >= 0 ? inchesLost : inchesGained }</div> }  
+          { parseInt(inchesLost) > 0 ? <div>Inches Lost Since</div> : <div>Inches Gained Since</div> }
+          { isNaN(month) ? null : <div>{formattedDate}</div> }
           <span className="disclaimer">* around waist</span>
         </div>
       </div>
