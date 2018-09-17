@@ -139,13 +139,15 @@ export const resetPassword = data => {
 };
 
 export const addProgress = data => {
+  let token = localStorage.getItem("token");
   return dispatch => {
     dispatch({
       type: Actions.ADDING_PROGRESS,
       payload: "Adding progress record..."
     });
+    requestOptions = { headers: {"x-access-token": token} };
     axios
-      .post(`${ROOT_URL}/progress`, data)
+      .post(`${ROOT_URL}/progress`, data, requestOptions)
       .then(res => {
         dispatch({
           type: Actions.ADD_PROGRESS_SUCCESS,
@@ -160,3 +162,46 @@ export const addProgress = data => {
       });
   };
 };
+
+export const fetchProgress = () => {
+  let token = localStorage.getItem("token");
+  return dispatch => {
+    dispatch({
+      type: Actions.FETCHING_PROGRESS,
+      payload: "Fetching progress..."
+    });
+    requestOptions = { headers: {"x-access-token": token} };
+    axios
+      .get(`${ROOT_URL}/progress`, requestOptions) 
+      .then(res => {
+        dispatch({
+          type: Actions.FETCH_PROGRESS_SUCCESS,
+          payload: res
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.ADD_PROGRESS_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
+export const deleteProgress = (id) => {
+  let token = localStorage.getItem("token");
+  return dispatch => {
+    requestOptions = { headers: {"x-access-token": token} };
+    axios
+      .delete(`${ROOT_URL}/progress/${id}`, requestOptions)
+      .then(res => {
+        dispatch({
+          type: Actions.DELETE_PROGRESS,
+          payload: id
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      });
+  }
+}

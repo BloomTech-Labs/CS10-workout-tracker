@@ -56,7 +56,7 @@ const login = (req, res) => {
             `${username}'s password was correct. Procuring a token...`
           );
           res.status(200);
-          const token = generateToken(username);
+          const token = generateToken(username, user._id);
           console.log(`Procured a token for ${username}:`, token);
           res.json({ user, token });
         }
@@ -174,23 +174,6 @@ const ping = (req, res) => {
     tokenizedUsername: username
   });
 };
-const addProgress = (req, res) => {
-  const { weight, hips, waist, r_arm, l_arm, r_leg, l_leg, user } = req.body;
-  // const { user } = req.params;
-  User.findOne({ username: user.toLowerCase() })
-    .then(user => {
-      const newProgress = { weight, hips, waist, r_arm, l_arm, r_leg, l_leg };
-
-      user.progress.push(newProgress);
-      user.save().then(user => {
-        res.json(user);
-      });
-    })
-    .catch(err => {
-      res.status(422);
-      res.json({ "Error submitting progress": err.message });
-    });
-};
 
 const changePassword = (req, res) => {
   const { username, password, newPassword, confirmNewPassword } = req.body;
@@ -243,8 +226,12 @@ module.exports = {
   forgotPassword,
   resetPassword,
   tokenLogin,
+<<<<<<< HEAD
   ping,
   addProgress,
   changePassword,
   changeEmail
+=======
+  ping
+>>>>>>> cc8d49d27e0be53f8dadb657faa1090b6449eb84
 };
