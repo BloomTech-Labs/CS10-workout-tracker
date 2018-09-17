@@ -1,39 +1,36 @@
 const Exercise = require("../models/Exercise");
 const User = require("../models/User");
+const Workout = require("../models/Workout");
 
-const createExercise = (req, res) => {
-  const {
-    userId,
-    name,
-    note
-  } = req.body;
-  const newExercise = new Exercise({
-    name,
-    note,
-    calendar: []
+// Remember, an Exercise document contains the high-level info for an exercise
+// you perform, like Pull-Ups or Bench Press. Specific performances of an Exercise
+// are recorded as Performances.
+
+const createNewExercise = (req, res) => {
+  const { userId, name } = req.body;
+  const newExerciseParameters = { user: userId, name };
+  const newExercise = Exercise(newExerciseParameters);
+  newExercise.save((err, createdExercise) => {
+    if (err) {
+      res.status(500);
+      return res.json({ err });
+    }
+    User.findByIdAndUpdate(userId, { $push: { exercises: createdExercise._id } })
+      .then(updatedUser => {
+        res.status(200);
+        return res.json({
+          msg: "Successfully created an Exercise document.",
+          exercise: createdExercise,
+          user: updatedUser
+        });
+      })
+      .catch(err => {
+        res.status(500);
+        return res.json({ err });
+      });
   });
-  console.log(newExercise);
-  newExercise.save()
-    .then(savedExercise => {
-      User.findByIdAndUpdate(userId, {
-          $push: {
-            exercises: savedExercise.doc._id
-          }
-        })
-        .then(updatedUser => {
-          res.json({
-            msg: `Successfully created exercise for user ${userId}`
-          });
-        })
-        .catch(err =>  {
-          res.json({msg: "Faild to update user"});
-        })
-    })
-    .catch(err => {
-      res.json({msg: "Failed to save exercise", err});
-    })
-}
+};
 
 module.exports = {
-  createExercise
+  createNewExercise
 };

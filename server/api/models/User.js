@@ -15,47 +15,49 @@ const UserSchema = Schema({
     type: String,
     required: true
   },
-  height: Number,
+  passwordResetToken: {
+    type: String
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  height: {
+    type: Number
+  },
   progress: [
     {
-      date: {
-        type: Date,
-        default: Date.now
-      },
-      weight: Number,
-      hips: Number,
-      waist: Number,
-      r_arm: Number,
-      l_arm: Number,
-      r_leg: Number,
-      l_leg: Number
+      type: Schema.Types.ObjectId,
+      ref: "Progress"
     }
   ],
   weightRecords: [
     {
       date: {
-        type: Date,
-        required: true
+        type: Date
       },
       weight: {
-        type: Number,
-        required: true
+        type: Number
       }
     }
   ],
-  workouts: [
+  exercises: [
     {
-      workout: { 
-        type: Schema.Types.ObjectId,
-        ref: "Workout"
-      }
+      type: Schema.Types.ObjectId,
+      ref: "Exercise"
+    }
+  ],
+  routines: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Routine"
     }
   ],
   calendar: [
     {
       date: {
-        type: Date,
-        required: true
+        type: Date
       },
       workout: {
         type: Schema.Types.ObjectId,

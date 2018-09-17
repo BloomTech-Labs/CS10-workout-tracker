@@ -10,6 +10,8 @@ import ReduxThunk from "redux-thunk";
 import RegistrationPage from "./components/RegistrationPage";
 import AccessControl from "./components/AccessControl";
 import LoginPage from "./components/LoginPage";
+import ForgotPassword from "./components/ForgotPassword";
+import PasswordReset from "./components/PasswordReset";
 import LandingPage from "./components/LandingPage";
 import Schedule from "./components/Schedule";
 import Workouts from "./components/Workouts";
@@ -29,6 +31,8 @@ ReactDOM.render(
         <Route exact path="/" component={LandingPage} />
         <Route path="/register" component={RegistrationPage} />
         <Route path="/login" component={LoginPage} />
+        <Route path="/forgot" component={ForgotPassword} />
+        <Route path="/reset" component={PasswordReset} />
         <Route path="/schedule" component={AccessControl(Schedule)} />
         <Route path="/workouts" component={AccessControl(Workouts)} />
         <Route path="/progress" component={AccessControl(Progress)} />
