@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import CheckoutForm from "./CheckoutForm";
+import { Elements, StripeProvider } from "react-stripe-elements";
 
 import NavBar from "./NavBar";
 
@@ -7,7 +9,11 @@ class Billing extends Component {
     return (
       <div>
         <NavBar />
-        this is the billing component
+        <StripeProvider apiKey="pk_test_cHtCbIjlhDr11p9OdysyIN9P">
+          <Elements>
+            <CheckoutForm />
+          </Elements>
+        </StripeProvider>
       </div>
     );
   }
