@@ -71,16 +71,16 @@ class Progress extends Component {
               />
               <input
                 type="text"
-                name="hips"
-                placeholder="Hips"
-                value={this.state.hips}
+                name="waist"
+                placeholder="Waist"
+                value={this.state.waist}
                 onChange={this.handleFieldChange}
               />
               <input
                 type="text"
-                name="waist"
-                placeholder="Waist"
-                value={this.state.waist}
+                name="hips"
+                placeholder="Hips"
+                value={this.state.hips}
                 onChange={this.handleFieldChange}
               />
               <input
@@ -129,8 +129,8 @@ class Progress extends Component {
                         delete
                       </button>
                       <span>{`Weight: ${record.weight} lbs`}</span>
-                      <span>{`Hips: ${record.hips}in`}</span>
                       <span>{`Waist: ${record.waist}in`}</span>
+                      <span>{`Hips: ${record.hips}in`}</span>
                       <span>{`(R) Arm: ${record.r_arm}in`}</span>
                       <span>{`(L) Arm: ${record.l_arm}in`}</span>
                       <span>{`(R) Leg: ${record.r_leg}in`}</span>
