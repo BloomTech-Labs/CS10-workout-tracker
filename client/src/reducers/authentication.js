@@ -59,17 +59,17 @@ export default (state = initialState, action) => {
         ...state,
         message: "Email failed to send"
       };
-    case Actions.CHANGING_PASSWORD:
+    case Actions.RESETTING_PASSWORD:
       return {
         ...state,
         message: action.payload
       };
-    case Actions.CHANGE_SUCCESS:
+    case Actions.RESET_SUCCESS:
       return {
         ...state,
         message: "Password changed successfully"
       };
-    case Actions.CHANGE_FAILURE:
+    case Actions.RESET_FAILURE:
       return {
         ...state,
         message: "Failed to change password"
