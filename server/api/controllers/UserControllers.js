@@ -226,12 +226,7 @@ module.exports = {
   forgotPassword,
   resetPassword,
   tokenLogin,
-<<<<<<< HEAD
   ping,
-  addProgress,
   changePassword,
   changeEmail
-=======
-  ping
->>>>>>> cc8d49d27e0be53f8dadb657faa1090b6449eb84
 };
