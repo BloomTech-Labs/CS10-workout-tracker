@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { addProgress, fetchProgress, deleteProgress } from "../../actions";
 import NavBar from "../NavBar";
+import ProgressCounter from "./ProgressCounter";
 import "../../less/progress.css";
 
 class Progress extends Component {
@@ -115,7 +116,9 @@ class Progress extends Component {
               </button>
             </form>
             <div className="progress-data">
-              <div className="current-weight" />
+              <div className="current-weight" >
+                <ProgressCounter />
+              </div>
               <div className="progress-records">
                 {this.props.progressRecords.map(record => {
                   return (
