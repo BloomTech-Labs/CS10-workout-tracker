@@ -207,13 +207,15 @@ export const deleteProgress = id => {
 };
 
 export const changePassword = data => {
+  let token = localStorage.getItem("token");
   return dispatch => {
     dispatch({
       type: Actions.CHANGING_PASSWORD,
       payload: "Changing password..."
     });
+    requestOptions = { headers: { "x-access-token": token } };
     axios
-      .post(`${ROOT_URL}/_password`, data)
+      .post(`${ROOT_URL}/settings_password`, data)
       .then(res => {
         dispatch({
           type: Actions.CHANGE_PW_SUCCESS,
@@ -230,13 +232,15 @@ export const changePassword = data => {
 };
 
 export const changeEmail = data => {
+  let token = localStorage.getItem("token");
   return dispatch => {
     dispatch({
       type: Actions.CHANGING_EMAIL,
       payload: "Changing email..."
     });
+    requestOptions = { headers: { "x-access-token": token } };
     axios
-      .post(`${ROOT_URL}/reset_password`, data)
+      .post(`${ROOT_URL}/settings_email`, data)
       .then(res => {
         dispatch({
           type: Actions.CHANGE_EMAIL_SUCCESS,

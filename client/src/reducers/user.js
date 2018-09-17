@@ -29,13 +29,46 @@ export default (state = initialState, action) => {
     case Actions.RESET_SUCCESS:
       return {
         ...state,
-        message: "Password changed successfully"
+        message: "Password reset successfully"
       };
     case Actions.RESET_FAILURE:
       return {
         ...state,
+        message: "Failed to reset password"
+      };
+
+    case Actions.CHANGING_PASSWORD:
+      return {
+        ...state,
+        message: action.payload
+      };
+    case Actions.CHANGE_PW_SUCCESS:
+      return {
+        ...state,
+        message: "Password changed successfully"
+      };
+    case Actions.CHANGE_PW_FAILURE:
+      return {
+        ...state,
         message: "Failed to change password"
       };
+
+    case Actions.CHANGING_EMAIL:
+      return {
+        ...state,
+        message: action.payload
+      };
+    case Actions.CHANGE_EMAIL_SUCCESS:
+      return {
+        ...state,
+        message: "Email changed successfully"
+      };
+    case Actions.CHANGE_EMAIL_FAILURE:
+      return {
+        ...state,
+        message: "Failed to change email"
+      };
+
     default:
       return state;
   }
