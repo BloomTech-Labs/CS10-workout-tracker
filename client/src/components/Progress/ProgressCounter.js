@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import "../../less/progressCounter.less";
+import "../../less/progressCounter.css";
 
 class ProgressCounter extends Component {
   render() {
@@ -27,17 +27,17 @@ class ProgressCounter extends Component {
           ((this.props.progressRecords[this.props.progressRecords.length - 1] || {}).waist || "")) + " inches");
 
     return (
-      <div>
-        <div>
-          <div>{weightLost}</div>
-          <div>Weight Lost since</div>
+      <div className="progress-container">
+        <div className="progress-box border">
+          <div className="number-lost">{weightLost}</div>
+          <div>Weight Lost Since</div>
           <div>{formattedDate}</div>
         </div>
-        <div>
-          <div>{inchesLost}</div>
+        <div className="progress-box">
+          <div className="number-lost">{inchesLost}</div>
           <div>Inches Lost Since</div>
-          <span>* around waist</span>
           <div>{formattedDate}</div>
+          <span className="disclaimer">* around waist</span>
         </div>
       </div>
     );

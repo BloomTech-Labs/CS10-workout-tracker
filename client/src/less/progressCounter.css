@@ -1,0 +1,21 @@
+.progress-container {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  padding: 15px;
+}
+.progress-box {
+  width: 50%;
+  margin-top: 10px;
+}
+.border {
+  border-right: 1px solid black;
+}
+.number-lost {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+.disclaimer {
+  font-size: 10px;
+}
