@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { addProgress, fetchProgress, deleteProgress } from "../actions";
-import NavBar from "./NavBar";
-import "../less/progress.css";
+import { addProgress, fetchProgress, deleteProgress } from "../../actions";
+import NavBar from "../NavBar";
+import "../../less/progress.css";
 
 class Progress extends Component {
   state = {
