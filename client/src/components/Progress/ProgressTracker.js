@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import "../../less/progressCounter.css";
+import "../../less/progressTracker.css";
 
-class ProgressCounter extends Component {
+class ProgressTracker extends Component {
   render() {
     let date = (this.props.progressRecords[0] || {}).date || "";
     let newDate = new Date(date);
@@ -50,8 +50,8 @@ const mapStateToProps = state => {
   };
 };
 
-ProgressCounter.propTypes = {
+ProgressTracker.propTypes = {
   progressRecords: PropTypes.arrayOf(PropTypes.object)
 };
 
-export default connect(mapStateToProps)(ProgressCounter);
+export default connect(mapStateToProps)(ProgressTracker);
