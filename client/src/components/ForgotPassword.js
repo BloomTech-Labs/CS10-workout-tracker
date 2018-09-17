@@ -52,7 +52,7 @@ const mapStateToProps = state => {
   );
   return {
     userInfo: state.auth.currentUser,
-    msg: state.auth.message
+    msg: state.user.message
   };
 };
 

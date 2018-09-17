@@ -119,7 +119,7 @@ export const resetPassword = data => {
   return dispatch => {
     dispatch({
       type: Actions.RESETTING_PASSWORD,
-      payload: "Changing password..."
+      payload: "Resetting password..."
     });
     axios
       .post(`${ROOT_URL}/reset_password`, data)
@@ -202,6 +202,52 @@ export const deleteProgress = id => {
       })
       .catch(err => {
         console.log(err);
+      });
+  };
+};
+
+export const changePassword = data => {
+  return dispatch => {
+    dispatch({
+      type: Actions.CHANGING_PASSWORD,
+      payload: "Changing password..."
+    });
+    axios
+      .post(`${ROOT_URL}/_password`, data)
+      .then(res => {
+        dispatch({
+          type: Actions.CHANGE_PW_SUCCESS,
+          payload: res
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.CHANGE_PW_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
+export const changeEmail = data => {
+  return dispatch => {
+    dispatch({
+      type: Actions.CHANGING_EMAIL,
+      payload: "Changing email..."
+    });
+    axios
+      .post(`${ROOT_URL}/reset_password`, data)
+      .then(res => {
+        dispatch({
+          type: Actions.CHANGE_EMAIL_SUCCESS,
+          payload: res
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.CHANGE_EMAIL_FAILURE,
+          payload: err
+        });
       });
   };
 };
