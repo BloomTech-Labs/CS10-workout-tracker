@@ -2,31 +2,47 @@ import React, { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import axios from "axios";
 
-const token = localStorage.getItem("token");
-const requestOptions = { headers: { "x-access-token": token } };
-
 class CheckoutForm extends Component {
-  submit(event) {
-    event.preventDefault();
-    this.props.stripe
-      .createToken({ name: "Jenny Rosen" })
-      .then(({ stripeToken }) => {
-        console.log("Token: ", token);
-        axios
-          .post(`http://localhost:8080/charge`, stripeToken, requestOptions)
-          .then(res => {
-            window.alert("Thank you for your payment!");
-          });
-      });
+  constructor(props) {
+    super(props);
+    this.state = {
+      complete: false,
+      ccStatus: true,
+      transactionStatus: true
+    };
   }
 
+  submit = async ev => {
+    let { token } = await this.props.stripe.createToken();
+    if (token) {
+      axios
+        .post("http://localhost:8080/charge", {
+          token: token.id,
+          id: this.props.id
+        })
+        .then(() => {
+          this.setState({
+            complete: true,
+            transactionStatus: true,
+            ccStatus: true
+          });
+        })
+        .catch(() => {
+          this.setState({ transactionStatus: false });
+        });
+    } else {
+      this.setState({ ccStatus: false });
+    }
+  };
+
   render() {
+    if (this.state.complete) return <h1>Purchase Complete</h1>;
     return (
-      <form className="checkout" onSubmit={this.submit}>
+      <div className="checkout">
         <p>Would you like to complete the purchase?</p>
         <CardElement />
-        <button type="submit">Send</button>
-      </form>
+        <button onClick={this.submit}>Send</button>
+      </div>
     );
   }
 }

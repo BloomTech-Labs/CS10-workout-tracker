@@ -5,7 +5,9 @@ require("dotenv").config();
 const sgMail = require("@sendgrid/mail");
 // Set your secret key: remember to change this to your live secret key in production
 // See your keys here: https://dashboard.stripe.com/account/apikeys
-const stripe = require("stripe")("sk_test_FijpaH0Y1pepqb8AULRvTHdZ");
+const stripeTestAPIKey = process.env.STRIPE_API_KEY_TEST;
+// !! This is for development environment, there is a different API key for production !!
+const stripe = require("stripe")(stripeTestAPIKey);
 
 // const secret = process.env.SECRET;
 const sgAPIKey = process.env.SENDGRID_API_KEY;
@@ -224,12 +226,13 @@ const changeEmail = (req, res) => {
 };
 
 const processPayment = (req, res) => {
+  console.log(req.body);
   stripe.charges
     .create({
       amount: 899,
       currency: "usd",
       description: "Example charge",
-      source: req.body
+      source: req.body.token
     })
     .then(status => {
       console.log({ "Successfully handled payment": status });
