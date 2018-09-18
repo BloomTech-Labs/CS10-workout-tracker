@@ -3,6 +3,9 @@ const User = require("../models/User");
 const { generateToken, generateResetToken } = require("../utilities/auth");
 require("dotenv").config();
 const sgMail = require("@sendgrid/mail");
+// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+const stripe = require("stripe")("sk_test_FijpaH0Y1pepqb8AULRvTHdZ");
 
 // const secret = process.env.SECRET;
 const sgAPIKey = process.env.SENDGRID_API_KEY;
@@ -69,9 +72,9 @@ const login = (req, res) => {
 };
 
 const forgotPassword = (req, res) => {
-  const { username, email } = req.body;
-  if (!email && !username) {
-    return res.status(400).json({ message: "No email or username provided" });
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ message: "No email provided" });
   }
   User.findOne({ email: email }).then(user => {
     const token = generateResetToken(user);
@@ -221,22 +224,15 @@ const changeEmail = (req, res) => {
 };
 
 const processPayment = (req, res) => {
-  // Set your secret key: remember to change this to your live secret key in production
-  // See your keys here: https://dashboard.stripe.com/account/apikeys
-  var stripe = require("stripe")("sk_test_FijpaH0Y1pepqb8AULRvTHdZ");
-
-  // Token is created using Checkout or Elements!
-  // Get the payment token ID submitted by the form:
-  const token = req.body.stripeToken; // Using Express
-
   stripe.charges
     .create({
-      amount: 999,
+      amount: 899,
       currency: "usd",
       description: "Example charge",
-      source: token
+      source: req.body
     })
     .then(status => {
+      console.log({ "Successfully handled payment": status });
       res.status(200);
       res.json({ status });
     })

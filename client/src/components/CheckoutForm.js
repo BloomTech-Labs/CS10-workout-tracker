@@ -1,28 +1,28 @@
 import React, { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
+import axios from "axios";
+
+const token = localStorage.getItem("token");
+const requestOptions = { headers: { "x-access-token": token } };
 
 class CheckoutForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { complete: false };
-  }
-
-  async submit(ev) {
-    ev.preventDefault();
-    let { token } = await this.props.stripe.createToken(CardElement);
-    let response = await fetch("/charge", {
-      method: "POST",
-      headers: { "Content-Type": "text/plain" },
-      body: token.id
-    });
-
-    if (response.ok) this.setState({ complete: true });
+  submit(event) {
+    event.preventDefault();
+    this.props.stripe
+      .createToken({ name: "Jenny Rosen" })
+      .then(({ stripeToken }) => {
+        console.log("Token: ", token);
+        axios
+          .post(`http://localhost:8080/charge`, stripeToken, requestOptions)
+          .then(res => {
+            window.alert("Thank you for your payment!");
+          });
+      });
   }
 
   render() {
-    if (this.state.complete) return <h1>Purchase Complete</h1>;
     return (
-      <form className="checkout" onSubmit={this.handleSubmit}>
+      <form className="checkout" onSubmit={this.submit}>
         <p>Would you like to complete the purchase?</p>
         <CardElement />
         <button type="submit">Send</button>

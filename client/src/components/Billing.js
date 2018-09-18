@@ -11,7 +11,7 @@ class Billing extends Component {
         <NavBar />
         <StripeProvider apiKey="pk_test_cHtCbIjlhDr11p9OdysyIN9P">
           <Elements>
-            <CheckoutForm />
+            <CheckoutForm {...this.props} />
           </Elements>
         </StripeProvider>
       </div>
