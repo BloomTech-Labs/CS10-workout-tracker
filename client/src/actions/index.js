@@ -150,7 +150,7 @@ export const addProgress = data => {
       .then(res => {
         dispatch({
           type: Actions.ADD_PROGRESS_SUCCESS,
-          payload: res
+          payload: res.data.progress
         });
       })
       .catch(err => {
@@ -175,7 +175,7 @@ export const fetchProgress = () => {
       .then(res => {
         dispatch({
           type: Actions.FETCH_PROGRESS_SUCCESS,
-          payload: res
+          payload: res.data.progress
         });
       })
       .catch(err => {

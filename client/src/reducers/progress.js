@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
         message: "Progress submitted successfully!",
         progressRecords: [
           ...state.progressRecords,
-          action.payload.data.progress
+          action.payload
         ]
       };
     case Actions.ADD_PROGRESS_FAILURE:
@@ -34,7 +34,7 @@ export default (state = initialState, action) => {
     case Actions.FETCH_PROGRESS_SUCCESS:
       return {
         ...state,
-        progressRecords: action.payload.data.progress,
+        progressRecords: action.payload,
         message: "Progress fetched successfully!"
       };
     case Actions.FETCH_PROGRESS_FAILURE:

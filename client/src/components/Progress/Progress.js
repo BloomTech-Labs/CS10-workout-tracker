@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { addProgress, fetchProgress, deleteProgress } from "../actions";
-import NavBar from "./NavBar";
-import "../less/progress.css";
+import moment from "moment";
+import { addProgress, fetchProgress, deleteProgress } from "../../actions";
+import NavBar from "../NavBar";
+import ProgressTracker from "./ProgressTracker";
+import "../../less/progress.css";
 
 class Progress extends Component {
   state = {
@@ -49,18 +51,13 @@ class Progress extends Component {
   };
 
   render() {
-    let date = new Date().getDate();
-    let month = new Date().getMonth() + 1;
-    let year = new Date().getFullYear();
-    let currentDate = month + "/" + date + "/" + year;
-
     return (
       <div>
         <NavBar />
         <div className="container">
           <div className="progress-container">
             <form className="ProgressForm" onSubmit={this.handleSubmit}>
-              <div>{currentDate}</div>
+              <div>{moment().format("MM/DD/YYYY")}</div>
               <input
                 type="text"
                 name="weight"
@@ -70,16 +67,16 @@ class Progress extends Component {
               />
               <input
                 type="text"
-                name="hips"
-                placeholder="Hips"
-                value={this.state.hips}
+                name="waist"
+                placeholder="Waist"
+                value={this.state.waist}
                 onChange={this.handleFieldChange}
               />
               <input
                 type="text"
-                name="waist"
-                placeholder="Waist"
-                value={this.state.waist}
+                name="hips"
+                placeholder="Hips"
+                value={this.state.hips}
                 onChange={this.handleFieldChange}
               />
               <input
@@ -115,7 +112,8 @@ class Progress extends Component {
               </button>
             </form>
             <div className="progress-data">
-              <div className="current-weight" />
+              <ProgressTracker />
+
               <div className="progress-records">
                 {this.props.progressRecords.map(record => {
                   return (
@@ -126,8 +124,8 @@ class Progress extends Component {
                         delete
                       </button>
                       <span>{`Weight: ${record.weight} lbs`}</span>
-                      <span>{`Hips: ${record.hips}in`}</span>
                       <span>{`Waist: ${record.waist}in`}</span>
+                      <span>{`Hips: ${record.hips}in`}</span>
                       <span>{`(R) Arm: ${record.r_arm}in`}</span>
                       <span>{`(L) Arm: ${record.l_arm}in`}</span>
                       <span>{`(R) Leg: ${record.r_leg}in`}</span>
