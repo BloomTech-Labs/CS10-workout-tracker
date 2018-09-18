@@ -1,46 +1,70 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Card, CardBody,
- CardSubtitle, CardText,} from 'reactstrap';
+import { Card, CardBody, CardText, CardHeader } from "reactstrap";
+import moment from "moment";
 import { deleteProgress } from "../../actions";
 import "../../less/progressCard.css";
 
 const ProgressCard = props => {
   return (
-    <div> {/*className="progress-record"*/}
+    <div className="card-container">
       <Card>
-      <button onClick={() => props.deleteProgress(props.record._id)}>
-        delete
-      </button>
+        <CardHeader className="card-header">
+          <div className="card-date">
+            {moment(props.record.date).format("MM/DD/YYYY")}
+          </div>
+          <div className="btn-container">
+            <div
+              className="icon-btn"
+              onClick={() => props.deleteProgress(props.record._id)}
+            >
+              {" "}
+              <i class="fas fa-trash-alt" />
+            </div>
+            <div className="icon-btn">
+              <i class="fas fa-pencil-alt" />
+            </div>
+          </div>
+        </CardHeader>
         <CardBody>
-          <CardSubtitle>Card subtitle</CardSubtitle>
           <CardText>{`Weight: ${props.record.weight} lbs`}</CardText>
           <CardText>{`Waist: ${props.record.waist}in`}</CardText>
-          <CardText>{`Hips: ${props.record.hips}in`}</CardText>
-          <CardText>{`(R) Arm: ${props.record.r_arm}in`}</CardText>
-          <CardText>{`(L) Arm: ${props.record.l_arm}in`}</CardText>
-          <CardText>{`(R) Leg: ${props.record.r_leg}in`}</CardText>
-          <CardText>{`(L) Leg: ${props.record.l_leg}in`}</CardText>
+          <CardText>
+            {props.record.hips ? `Hips: ${props.record.hips}in` : "Hips: "}
+          </CardText>
+          <CardText>
+            {props.record.r_arm
+              ? `(R) Arm: ${props.record.r_arm}in`
+              : "(R) Arm: "}
+          </CardText>
+          <CardText>
+            {props.record.l_arm
+              ? `(L) Arm: ${props.record.l_arm}in`
+              : "(L) Arm: "}
+          </CardText>
+          <CardText>
+            {props.record.r_leg
+              ? `(R) Leg: ${props.record.r_leg}in`
+              : "(R) Leg: "}
+          </CardText>
+          <CardText>
+            {props.record.l_leg
+              ? `(L) Leg: ${props.record.l_leg}in`
+              : "(L) Leg: "}
+          </CardText>
         </CardBody>
       </Card>
-      {/* <div>{`Weight: ${props.record.weight} lbs`}</div>
-      <div>{`Waist: ${props.record.waist}in`}</div>
-      <div>{`Hips: ${props.record.hips}in`}</div>
-      <div>{`(R) Arm: ${props.record.r_arm}in`}</div>
-      <div>{`(L) Arm: ${props.record.l_arm}in`}</div>
-      <div>{`(R) Leg: ${props.record.r_leg}in`}</div>
-      <div>{`(L) Leg: ${props.record.l_leg}in`}</div> */}
     </div>
   );
 };
 
 ProgressCard.propTypes = {
-    record: PropTypes.object,
-    deleteProgress: PropTypes.func
-  };
-  
-  export default connect(
-    null,
-    { deleteProgress }
-  )(ProgressCard);
+  record: PropTypes.object,
+  deleteProgress: PropTypes.func
+};
+
+export default connect(
+  null,
+  { deleteProgress }
+)(ProgressCard);
