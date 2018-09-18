@@ -22,6 +22,7 @@ class ProgressTracker extends Component {
     let mostRecentInches = mostRecentProgress.waist;
     let weightLost;
     let inchesLost;
+
     let error = "* calculation requires at least 2 progress submissions."
 
     // If the user only has 1 or 0 progress submissions, then calculation will not take place
@@ -57,7 +58,7 @@ class ProgressTracker extends Component {
           {parseInt(weightLost, 10) >= 0 ? <div>Weight Lost Since</div> : <div>Weight Gained Since</div>}
 
           {/* if user deletes all progresses, then the date becomes month/date/year -> NaN/NaN/NaN */}
-          {<div>{isNaN(month) ? null : formattedDate}</div>}
+          <div>{isNaN(month) ? null : formattedDate}</div>
         </div>
 
         <div className="progress-box">
@@ -69,7 +70,7 @@ class ProgressTracker extends Component {
 
           {parseInt(inchesLost, 10) >= 0 ? <div>Inches Lost Since</div> : <div>Inches Gained Since</div>}
 
-          {<div>{isNaN(month) ? null : formattedDate}</div>}
+          <div>{isNaN(month) ? null : formattedDate}</div>
           <span className="disclaimer">* around waist</span>
         </div>
 
