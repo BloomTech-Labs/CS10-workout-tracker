@@ -5,6 +5,7 @@ import moment from "moment";
 import { addProgress, fetchProgress, deleteProgress } from "../../actions";
 import NavBar from "../NavBar";
 import ProgressTracker from "./ProgressTracker";
+import ProgressCard from "./ProgressCard";
 import "../../less/progress.css";
 
 class Progress extends Component {
@@ -117,20 +118,7 @@ class Progress extends Component {
               <div className="progress-records">
                 {this.props.progressRecords.map(record => {
                   return (
-                    <div key={record._id} className="progress-record">
-                      <button
-                        onClick={() => this.props.deleteProgress(record._id)}
-                      >
-                        delete
-                      </button>
-                      <span>{`Weight: ${record.weight} lbs`}</span>
-                      <span>{`Waist: ${record.waist}in`}</span>
-                      <span>{`Hips: ${record.hips}in`}</span>
-                      <span>{`(R) Arm: ${record.r_arm}in`}</span>
-                      <span>{`(L) Arm: ${record.l_arm}in`}</span>
-                      <span>{`(R) Leg: ${record.r_leg}in`}</span>
-                      <span>{`(L) Leg: ${record.l_leg}in`}</span>
-                    </div>
+                    <ProgressCard key={record._id} record={record} />
                   );
                 })}
               </div>

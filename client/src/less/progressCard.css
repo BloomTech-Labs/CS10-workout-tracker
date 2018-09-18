@@ -1,0 +1,11 @@
+.progress-record {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 43px;
+  height: 80%;
+  line-height: 2;
+  padding-top: 20px;
+  flex-basis: 30%;
+  border: 2px solid black;
+}
