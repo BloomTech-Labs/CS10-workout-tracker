@@ -60,7 +60,7 @@ class ProgressTracker extends Component {
                 <React.Fragment>
                   <div className="number-lost">{inchesGained}</div>
                   <div>Inches Gained Since</div>
-               </React.Fragment>
+                </React.Fragment>
               )}
               <div>{formattedDate}</div>
               <div className="disclaimer">* around waist</div>
