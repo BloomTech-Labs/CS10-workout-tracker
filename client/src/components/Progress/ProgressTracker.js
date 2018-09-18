@@ -35,7 +35,7 @@ const ProgressTracker = props => {
         </div>
       ) : (
         <React.Fragment>
-          <div className="progress-box border">
+          <div className="progress-box tracker-border">
             {parseInt(weightLost, 10) >= 0 ? (
               <React.Fragment>
                 <div className="number-lost">{weightLost}</div>
