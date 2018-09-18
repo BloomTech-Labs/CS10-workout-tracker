@@ -5,12 +5,23 @@ const {
   resetPassword,
   tokenLogin
 } = require("./controllers/UserControllers");
-const { createNewExercise } = require("./controllers/ExerciseControllers");
-const { createNewRoutine, addExerciseToRoutine } = require("./controllers/RoutineControllers");
+const {
+  createNewExercise,
+  fetchExerciseDoc
+} = require("./controllers/ExerciseControllers");
+const {
+  createNewRoutine,
+  addExerciseToRoutine,
+  fetchRoutineDoc,
+  fetchHydratedRoutines
+} = require("./controllers/RoutineControllers");
 const { scheduleWorkout } = require("./controllers/WorkoutControllers");
-const { addProgress, fetchProgress, deleteProgress } = require("./controllers/ProgressControllers");
+const {
+  addProgress,
+  fetchProgress,
+  deleteProgress
+} = require("./controllers/ProgressControllers");
 const { verifyToken } = require("./utilities/auth");
-
 
 module.exports = app => {
   app.route("/register").post(register);
@@ -25,4 +36,8 @@ module.exports = app => {
   app.route("/new-exercise").post(createNewExercise);
   app.route("/add-exercise").post(addExerciseToRoutine);
   app.route("/schedule-workout").post(scheduleWorkout);
+
+  app.route("/routine").get(verifyToken, fetchRoutineDoc);
+  app.route("/routines").get(verifyToken, fetchHydratedRoutines);
+  app.route("/exercise").get(verifyToken, fetchExerciseDoc);
 };

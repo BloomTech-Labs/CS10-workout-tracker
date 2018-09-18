@@ -4,6 +4,17 @@ const User = require("../models/User");
 const Routine = require("../models/Routine");
 const Workout = require("../models/Workout");
 
+const fetchWorkoutDoc = (req, res) => {
+  const { workoutId } = req.body;
+  Workout.findById(workoutId)
+    .then(workoutDocument => {
+      return res.status(200).json(workoutDocument);
+    })
+    .catch(err => {
+      return res.status(404).json({ err });
+    })
+}
+
 // This is substantially the most complicated route - it absorbs a lot of complexity
 // to make things easier later on. Here a step-by-step rundown:
 //   1. We extract the necessary info from the request for the Workout - which routine
@@ -128,5 +139,6 @@ const scheduleWorkout = (req, res) => {
 };
 
 module.exports = {
-  scheduleWorkout
+  scheduleWorkout,
+  fetchWorkoutDoc
 };
