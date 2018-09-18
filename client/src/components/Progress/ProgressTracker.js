@@ -37,24 +37,30 @@ class ProgressTracker extends Component {
         ) : (
           <React.Fragment>
             <div className="progress-box border">
-              <div className="number-lost">
-                {parseInt(weightLost, 10) >= 0 ? weightLost : weightGained}
-              </div>
               {parseInt(weightLost, 10) >= 0 ? (
-                <div>Weight Lost Since</div>
+                <React.Fragment>
+                  <div className="number-lost">{weightLost}</div>
+                  <div>Weight Lost Since</div>
+                </React.Fragment>
               ) : (
-                <div>Weight Gained Since</div>
+                <React.Fragment>
+                  <div className="number-lost">{weightGained}</div>
+                  <div>Weight Gained Since</div>
+                </React.Fragment>
               )}
               <div>{formattedDate}</div>
             </div>
             <div className="progress-box">
-              <div className="number-lost">
-                {parseInt(inchesLost, 10) >= 0 ? inchesLost : inchesGained}
-              </div>
               {parseInt(inchesLost, 10) >= 0 ? (
-                <div>Inches Lost Since</div>
+                <React.Fragment>
+                  <div className="number-lost">{inchesLost}</div>
+                  <div>Inches Lost Since</div>
+                </React.Fragment>
               ) : (
-                <div>Inches Gained Since</div>
+                <React.Fragment>
+                  <div className="number-lost">{inchesGained}</div>
+                  <div>Inches Gained Since</div>
+               </React.Fragment>
               )}
               <div>{formattedDate}</div>
               <div className="disclaimer">* around waist</div>
