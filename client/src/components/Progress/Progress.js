@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import moment from "moment";
 import { addProgress, fetchProgress, deleteProgress } from "../../actions";
 import NavBar from "../NavBar";
 import ProgressTracker from "./ProgressTracker";
@@ -50,18 +51,13 @@ class Progress extends Component {
   };
 
   render() {
-    let date = new Date().getDate();
-    let month = new Date().getMonth() + 1;
-    let year = new Date().getFullYear();
-    let currentDate = month + "/" + date + "/" + year;
-
     return (
       <div>
         <NavBar />
         <div className="container">
           <div className="progress-container">
             <form className="ProgressForm" onSubmit={this.handleSubmit}>
-              <div>{currentDate}</div>
+              <div>{moment().format("MM/DD/YYYY")}</div>
               <input
                 type="text"
                 name="weight"
@@ -116,9 +112,8 @@ class Progress extends Component {
               </button>
             </form>
             <div className="progress-data">
-              <div className="progress-tracker">
-                <ProgressTracker />
-              </div>
+              <ProgressTracker />
+
               <div className="progress-records">
                 {this.props.progressRecords.map(record => {
                   return (
