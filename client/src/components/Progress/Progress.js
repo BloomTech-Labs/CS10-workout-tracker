@@ -18,8 +18,6 @@ class Progress extends Component {
       <div>
         <NavBar />
         <div className="container">
-          <div className="progress-container">
-            <div className="progress-data">
               <ProgressTracker />
               <ProgressForm />
               <div className="progress-records">
@@ -27,8 +25,6 @@ class Progress extends Component {
                   return <ProgressCard key={record._id} record={record} />;
                 })}
               </div>
-            </div>
-          </div>
         </div>
       </div>
     );

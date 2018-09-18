@@ -1,5 +1,7 @@
 .card-container {
-  flex-basis: 35%;
+  min-width: 200px;
+  width: 20%;
+  margin: 10px;
 }
 .card-header {
   display: flex;

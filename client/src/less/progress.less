@@ -1,13 +1,16 @@
 .container {
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     max-width: 1000px;
     width: 90%;
     margin: 0 auto;
 }
 
-.progress-container {
-    display: flex;
-}
+// .progress-container {
+//     display: flex;
+// }
 
 .progress-data {
     display: flex;
@@ -16,9 +19,12 @@
 }
 
 .progress-records {
+    // display: inline-block;
     display: flex;
-    justify-content: space-around;
-    height: 300px; 
+    flex-wrap: wrap;
+    justify-content: center;
+    // justify-content: space-around;
+    // height: 300px; 
     width: 100%;
     padding: 7px 0px;
 }
