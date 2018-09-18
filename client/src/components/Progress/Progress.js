@@ -138,6 +138,8 @@ const mapStateToProps = state => {
 
 Progress.propTypes = {
   addProgress: PropTypes.func,
+  fetchProgress: PropTypes.func,
+  deleteProgress: PropTypes.func,
   progressRecords: PropTypes.arrayOf(PropTypes.object)
 };
 
