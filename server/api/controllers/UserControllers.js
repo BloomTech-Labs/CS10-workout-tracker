@@ -45,9 +45,13 @@ const login = (req, res) => {
   User.findOne({ username: username.toLowerCase() })
     .then(user => {
       console.log(`Found ${username} in the User collection:`, user);
-      user
-        .checkPassword(password)
-        .then(success => {
+      user.checkPassword(password).then(success => {
+        if (!success) {
+          console.log(`Failed to match ${username}'s PW.`);
+          res.status(422);
+          res.json("Password incorrect");
+        }
+        if (success) {
           console.log(
             `${username}'s password was correct. Procuring a token...`
           );
@@ -55,12 +59,8 @@ const login = (req, res) => {
           const token = generateToken(username, user._id);
           console.log(`Procured a token for ${username}:`, token);
           res.json({ user, token });
-        })
-        .catch(err => {
-          console.log(`Failed to match ${username}'s PW.`);
-          res.status(422);
-          res.json({ "Password incorrect": err.message });
-        });
+        }
+      });
     })
     .catch(err => {
       res.status(404);
@@ -175,11 +175,58 @@ const ping = (req, res) => {
   });
 };
 
+const changePassword = (req, res) => {
+  const { username, password, newPassword, confirmNewPassword } = req.body;
+  User.findOne({ username: username }).then(user => {
+    console.log(user);
+    user.checkPassword(password).then(success => {
+      if (!success) {
+        res.status(422);
+        res.json("Password incorrect");
+      }
+      if (success) {
+        if (newPassword === confirmNewPassword) {
+          user.password = newPassword;
+          console.log(user.password);
+          user.save().then(() => {
+            res.status(200);
+            res.json({ "New password": user.password });
+          });
+        } else {
+          res.status(422);
+          res.json("New passwords don't match");
+        }
+      }
+    });
+  });
+};
+
+const changeEmail = (req, res) => {
+  const { username, newEmail } = req.body;
+  User.findOneAndUpdate({ username: username }, { email: newEmail }).then(
+    user => {
+      user
+        .save()
+        .then(() => {
+          console.log(user);
+          res.status(200);
+          res.json({ "Updated user email": user.email });
+        })
+        .catch(err => {
+          res.status(400);
+          res.json({ "Could not update email": err.message });
+        });
+    }
+  );
+};
+
 module.exports = {
   register,
   login,
   forgotPassword,
   resetPassword,
   tokenLogin,
-  ping
+  ping,
+  changePassword,
+  changeEmail
 };

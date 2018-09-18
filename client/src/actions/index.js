@@ -1,5 +1,5 @@
 import * as Actions from "./actionDefinitions";
-import { callbackify } from "util";
+//import { callbackify } from "util";
 const axios = require("axios");
 
 const ROOT_URL = "http://localhost:8080";
@@ -20,7 +20,7 @@ export const register = data => {
       .post(`${ROOT_URL}/register`, data)
       .then(res => {
         localStorage.setItem("token", res.data.token);
-        requestOptions = { headers: {"x-access-token": res.data.token} };
+        requestOptions = { headers: { "x-access-token": res.data.token } };
         dispatch({
           type: Actions.REGISTER_SUCCESS,
           payload: res
@@ -45,7 +45,7 @@ export const login = data => {
       .post(`${ROOT_URL}/login`, data)
       .then(res => {
         localStorage.setItem("token", res.data.token);
-        requestOptions = { headers: {"x-access-token": res.data.token} };
+        requestOptions = { headers: { "x-access-token": res.data.token } };
         dispatch({
           type: Actions.LOGIN_SUCCESS,
           payload: res
@@ -60,30 +60,30 @@ export const login = data => {
   };
 };
 
-export const loginWithToken = (token) => {
+export const loginWithToken = token => {
   return dispatch => {
     dispatch({
       type: Actions.LOGGING_IN,
       payload: "Logging in with token..."
     });
     console.log("Going to apply this token as an axios header: ", token);
-    requestOptions = { headers: {"x-access-token": token} };
+    requestOptions = { headers: { "x-access-token": token } };
     axios
       .get(`${ROOT_URL}/auto-login`, requestOptions)
       .then(res => {
-        dispatch({ 
+        dispatch({
           type: Actions.LOGIN_SUCCESS,
           payload: res
-        })
+        });
       })
       .catch(err => {
         dispatch({
           type: Actions.LOGIN_FAILURE,
           payload: err
-        })
-      })
-  }
-}
+        });
+      });
+  };
+};
 
 export const logout = () => {
   localStorage.setItem("token", "");
@@ -118,20 +118,20 @@ export const forgotPassword = data => {
 export const resetPassword = data => {
   return dispatch => {
     dispatch({
-      type: Actions.CHANGING_PASSWORD,
-      payload: "Changing password..."
+      type: Actions.RESETTING_PASSWORD,
+      payload: "Resetting password..."
     });
     axios
       .post(`${ROOT_URL}/reset_password`, data)
       .then(res => {
         dispatch({
-          type: Actions.CHANGE_SUCCESS,
+          type: Actions.RESET_SUCCESS,
           payload: res
         });
       })
       .catch(err => {
         dispatch({
-          type: Actions.CHANGE_FAILURE,
+          type: Actions.RESET_FAILURE,
           payload: err
         });
       });
@@ -145,7 +145,7 @@ export const addProgress = data => {
       type: Actions.ADDING_PROGRESS,
       payload: "Adding progress record..."
     });
-    requestOptions = { headers: {"x-access-token": token} };
+    requestOptions = { headers: { "x-access-token": token } };
     axios
       .post(`${ROOT_URL}/progress`, data, requestOptions)
       .then(res => {
@@ -170,9 +170,9 @@ export const fetchProgress = () => {
       type: Actions.FETCHING_PROGRESS,
       payload: "Fetching progress..."
     });
-    requestOptions = { headers: {"x-access-token": token} };
+    requestOptions = { headers: { "x-access-token": token } };
     axios
-      .get(`${ROOT_URL}/progress`, requestOptions) 
+      .get(`${ROOT_URL}/progress`, requestOptions)
       .then(res => {
         dispatch({
           type: Actions.FETCH_PROGRESS_SUCCESS,
@@ -188,20 +188,70 @@ export const fetchProgress = () => {
   };
 };
 
-export const deleteProgress = (id) => {
+export const deleteProgress = id => {
   let token = localStorage.getItem("token");
   return dispatch => {
-    requestOptions = { headers: {"x-access-token": token} };
+    requestOptions = { headers: { "x-access-token": token } };
     axios
       .delete(`${ROOT_URL}/progress/${id}`, requestOptions)
       .then(res => {
         dispatch({
           type: Actions.DELETE_PROGRESS,
           payload: id
-        })
+        });
       })
       .catch(err => {
-        console.log(err)
+        console.log(err);
       });
-  }
-}
+  };
+};
+
+export const changePassword = data => {
+  let token = localStorage.getItem("token");
+  return dispatch => {
+    dispatch({
+      type: Actions.CHANGING_PASSWORD,
+      payload: "Changing password..."
+    });
+    requestOptions = { headers: { "x-access-token": token } };
+    axios
+      .post(`${ROOT_URL}/settings_password`, data, requestOptions)
+      .then(res => {
+        dispatch({
+          type: Actions.CHANGE_PW_SUCCESS,
+          payload: res
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.CHANGE_PW_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
+export const changeEmail = data => {
+  let token = localStorage.getItem("token");
+  return dispatch => {
+    dispatch({
+      type: Actions.CHANGING_EMAIL,
+      payload: "Changing email..."
+    });
+    requestOptions = { headers: { "x-access-token": token } };
+    axios
+      .post(`${ROOT_URL}/settings_email`, data, requestOptions)
+      .then(res => {
+        dispatch({
+          type: Actions.CHANGE_EMAIL_SUCCESS,
+          payload: res
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.CHANGE_EMAIL_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
