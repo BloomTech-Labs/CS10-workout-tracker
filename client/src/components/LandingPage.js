@@ -62,6 +62,11 @@ class LandingPage extends Component {
         <section className="landing__start">
           <div className="landing__start__content">
             <h2>How To Start</h2>
+            <div>
+              <p><span>1</span> signup</p>
+              <p><span>2</span> Input data</p>
+              <p><span>3</span> Workout</p>
+            </div>
           </div>
         </section>
       </div>
