@@ -173,3 +173,12 @@
   font-weight: bold;
   margin-right: 10px;
 }
+footer {
+  font-size: 24px;
+  background-image: radial-gradient(#000033, black);
+  color: #CC0000;
+  text-align: center;
+}
+footer p {
+  padding: 40px 0;
+}
