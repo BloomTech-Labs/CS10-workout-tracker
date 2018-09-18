@@ -30,7 +30,7 @@ class CheckoutForm extends Component {
 
 const mapStateToProps = state => {
   console.log(
-    "At time of render, Registration Page received this app state:",
+    "At time of render, Billing Page received this app state:",
     state
   );
   return {

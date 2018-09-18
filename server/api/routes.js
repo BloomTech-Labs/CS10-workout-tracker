@@ -5,7 +5,8 @@ const {
   resetPassword,
   tokenLogin,
   changePassword,
-  changeEmail
+  changeEmail,
+  processPayment
 } = require("./controllers/UserControllers");
 const { createNewExercise } = require("./controllers/ExerciseControllers");
 const {
@@ -30,6 +31,7 @@ module.exports = app => {
   app.route("/reset_password").post(resetPassword);
   app.route("/settings_password").post(verifyToken, changePassword);
   app.route("/settings_email").post(verifyToken, changeEmail);
+  app.route("/charge").post(processPayment);
   app.route("/auto-login").get(verifyToken, tokenLogin);
   app.route("/new-routine").post(createNewRoutine);
   app.route("/new-exercise").post(createNewExercise);

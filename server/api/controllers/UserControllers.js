@@ -220,22 +220,31 @@ const changeEmail = (req, res) => {
   );
 };
 
-// const billing = (req, res) => {
-//   // Set your secret key: remember to change this to your live secret key in production
-//   // See your keys here: https://dashboard.stripe.com/account/apikeys
-//   var stripe = require("stripe")("sk_test_FijpaH0Y1pepqb8AULRvTHdZ");
+const processPayment = (req, res) => {
+  // Set your secret key: remember to change this to your live secret key in production
+  // See your keys here: https://dashboard.stripe.com/account/apikeys
+  var stripe = require("stripe")("sk_test_FijpaH0Y1pepqb8AULRvTHdZ");
 
-//   // Token is created using Checkout or Elements!
-//   // Get the payment token ID submitted by the form:
-//   const token = request.body.stripeToken; // Using Express
+  // Token is created using Checkout or Elements!
+  // Get the payment token ID submitted by the form:
+  const token = req.body.stripeToken; // Using Express
 
-//   const charge = stripe.charges.create({
-//     amount: 999,
-//     currency: 'usd',
-//     description: 'Example charge',
-//     source: token,
-//   });
-// }
+  stripe.charges
+    .create({
+      amount: 999,
+      currency: "usd",
+      description: "Example charge",
+      source: token
+    })
+    .then(status => {
+      res.status(200);
+      res.json({ status });
+    })
+    .catch(err => {
+      res.status(500);
+      res.json({ message: err.message });
+    });
+};
 
 module.exports = {
   register,
@@ -245,5 +254,6 @@ module.exports = {
   tokenLogin,
   ping,
   changePassword,
-  changeEmail
+  changeEmail,
+  processPayment
 };
