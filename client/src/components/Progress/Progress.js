@@ -116,7 +116,7 @@ class Progress extends Component {
               </button>
             </form>
             <div className="progress-data">
-              <div className="progress-tracker" >
+              <div className="progress-tracker">
                 <ProgressTracker />
               </div>
               <div className="progress-records">
