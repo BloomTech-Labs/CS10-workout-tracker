@@ -81,7 +81,7 @@ class ProgressForm extends Component {
           toggle={this.toggle}
           className={this.props.className}
         >
-          <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Progress Form</ModalHeader>
           <ModalBody>
             <form className="progressForm">
               {this.state.error && (
