@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import moment from "moment";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { addProgress } from "../../actions";
 import "../../less/progressForm.css";
@@ -82,14 +81,18 @@ class ProgressForm extends Component {
           className={this.props.className}
         >
           <ModalHeader toggle={this.toggle}>Progress Form</ModalHeader>
-          <ModalBody>
-            <form className="progressForm">
-              {this.state.error && (
+          {this.state.error && (
                 <div className="error">
                   * Weight and waist are required fields.
                 </div>
               )}
-              <div>{moment().format("MM/DD/YYYY")}</div>
+          <ModalBody>
+            <form className="progressForm">
+              {/* {this.state.error && (
+                <div className="error">
+                  * Weight and waist are required fields.
+                </div>
+              )} */}
               Weight:
               <input
                 type="text"

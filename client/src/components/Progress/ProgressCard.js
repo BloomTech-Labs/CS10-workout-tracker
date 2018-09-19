@@ -20,10 +20,10 @@ const ProgressCard = props => {
               onClick={() => props.deleteProgress(props.record._id)}
             >
               {" "}
-              <i class="fas fa-trash-alt icon" />
+              <i className="fas fa-trash-alt icon" />
             </div>
             <div className="icon-btn">
-              <i class="fas fa-pencil-alt icon" />
+              <i className="fas fa-pencil-alt icon" />
             </div>
           </div>
         </CardHeader>
