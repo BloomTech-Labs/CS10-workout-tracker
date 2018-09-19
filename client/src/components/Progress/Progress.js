@@ -14,17 +14,23 @@ class Progress extends Component {
   }
 
   render() {
+    // display starting from the end of the array i.e. most recent first
+    let sortedRecords = [];
+    for (let i = this.props.progressRecords.length - 1; i >= 0; i--) {
+      sortedRecords.push(this.props.progressRecords[i]);
+    }
+
     return (
       <div className="outer-container">
         <NavBar />
         <div className="container">
-              <ProgressTracker />
-              <ProgressForm />
-              <div className="progress-records">
-                {this.props.progressRecords.map(record => {
-                  return <ProgressCard key={record._id} record={record} />;
-                })}
-              </div>
+          <ProgressTracker />
+          <ProgressForm />
+          <div className="progress-records">
+            {sortedRecords.map(record => {
+              return <ProgressCard key={record._id} record={record} />;
+            })}
+          </div>
         </div>
       </div>
     );
