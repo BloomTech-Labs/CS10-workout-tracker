@@ -16,7 +16,8 @@ const { scheduleWorkout } = require("./controllers/WorkoutControllers");
 const {
   addProgress,
   fetchProgress,
-  deleteProgress
+  deleteProgress,
+  updateProgress
 } = require("./controllers/ProgressControllers");
 const { verifyToken } = require("./utilities/auth");
 
@@ -26,6 +27,7 @@ module.exports = app => {
   app.route("/progress").post(verifyToken, addProgress);
   app.route("/progress").get(verifyToken, fetchProgress);
   app.route("/progress/:id").delete(verifyToken, deleteProgress);
+  app.route("/progress/:id").put(verifyToken, updateProgress);
   app.route("/forgot_password").post(forgotPassword);
   app.route("/reset_password").post(resetPassword);
   app.route("/settings_password").post(verifyToken, changePassword);
