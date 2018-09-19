@@ -72,7 +72,7 @@ class ProgressForm extends Component {
   render() {
     return (
       <div className="modal-container">
-        <Button color="danger" onClick={this.toggle}>
+        <Button className="add-progress-btn" onClick={this.toggle}>
           Add Progress
           {this.props.buttonLabel}
         </Button>

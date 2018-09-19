@@ -1,12 +1,26 @@
 .card-container {
   min-width: 200px;
-  width: 20%;
-  margin: 10px;
+  width: 22.5%;
+  margin: 12px;
+}
+.card {
+  border: none;
+  border-radius: none;
+  box-shadow: 5px 5px 15px black;
 }
 .card-header {
   display: flex;
   justify-content: space-between;
   padding: 0;
+  color: #CCCCCC;
+  background-image: linear-gradient(to right, black, #CCCCCC);
+}
+.icon {
+  color: black;
+}
+.card-body {
+  background-image: radial-gradient(#000033, black);
+  color: #CCCCCC;
 }
 .btn-container {
   display: flex;

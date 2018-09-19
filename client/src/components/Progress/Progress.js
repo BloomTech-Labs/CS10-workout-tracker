@@ -15,7 +15,7 @@ class Progress extends Component {
 
   render() {
     return (
-      <div>
+      <div className="outer-container">
         <NavBar />
         <div className="container">
               <ProgressTracker />

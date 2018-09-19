@@ -6,8 +6,9 @@
   height: 200px;
   min-width: 300px;
   width: 50%;
-  border: 2px solid black;
   margin: 0 0 15px 8px;
+  color: #CCCCCC;
+  background-image: radial-gradient(#CC0000, black);
 }
 .progress-tracker-title {
   font-size: 25px;
@@ -19,7 +20,7 @@
   margin-top: 10px;
 }
 .tracker-border {
-  border-right: 1px solid black;
+  border-right: 1px solid #CCCCCC;
 }
 .number-lost {
   font-size: 25px;

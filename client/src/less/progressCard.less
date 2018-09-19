@@ -1,13 +1,39 @@
+@primary: #CC0000;
+@secondary: #000033;
+@white: white;
+@darkGrey: #666666;
+@grey: #CCCCCC;
+
 .card-container {
     min-width: 200px;
-    width: 20%;
-    margin: 10px;
+    width: 22.5%;
+    margin: 12px;
+    // background-image: radial-gradient(@grey, black) !important;
+}
+
+.card {
+    border: none;
+    border-radius: none;
+    box-shadow: 5px 5px 15px black;
 }
 
 .card-header {
     display: flex;
     justify-content: space-between;
     padding: 0;
+    color: @grey;
+    // background-color: @grey;
+    background-image: linear-gradient(to right, black, @grey);
+    
+}
+
+.icon {
+    color: black;
+}
+
+.card-body {
+    background-image: radial-gradient(@secondary, black);
+    color: @grey;
 }
 
 .btn-container {

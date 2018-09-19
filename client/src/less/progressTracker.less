@@ -1,3 +1,9 @@
+@primary: #CC0000;
+@secondary: #000033;
+@white: white;
+@darkGrey: #666666;
+@grey: #CCCCCC;
+
 .progress-tracker {
     display: flex;
     justify-content: space-between;
@@ -6,8 +12,11 @@
     height: 200px;
     min-width: 300px;
     width: 50%;
-    border: 2px solid black;
+    // border: 2px solid black;
+    // border: 2px solid @grey;
     margin: 0 0 15px 8px;
+    color: @grey;
+    background-image: radial-gradient(@primary, black)
 }
 
 .progress-tracker-title {
@@ -22,7 +31,8 @@
 }
 
 .tracker-border {
-    border-right: 1px solid black;
+    // border-right: 1px solid black;
+    border-right: 1px solid @grey;
 }
 
 .number-lost {
