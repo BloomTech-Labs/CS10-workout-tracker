@@ -41,7 +41,7 @@ class ProgressForm extends Component {
 
     let { weight, hips, waist, r_arm, l_arm, r_leg, l_leg } = this.state;
 
-    if (weight == "" || waist == "") {
+    if (weight === "" || waist === "") {
       this.setState({ error: true });
     } else {
       this.props.addProgress({
