@@ -1,54 +1,51 @@
-@primary: #CC0000;
+// TODO: Remove variables once they exist in a separate variables file
+@primary: #cc0000;
 @secondary: #000033;
 @white: white;
 @darkGrey: #666666;
-@grey: #CCCCCC;
+@grey: #cccccc;
 
 .card-container {
-    min-width: 200px;
-    width: 22.5%;
-    margin: 12px;
-    // background-image: radial-gradient(@grey, black) !important;
-}
+  min-width: 200px;
+  width: 22.5%;
+  margin: 12px;
 
-.card {
+  .card {
     border: none;
     border-radius: none;
     box-shadow: 5px 5px 15px black;
-}
 
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 0;
-    color: @grey;
-    // background-color: @grey;
-    background-image: linear-gradient(to right, black, @grey);
-    
-}
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 0;
+      color: @grey;
+      background-image: linear-gradient(to right, black, @grey);
 
-.icon {
-    color: black;
-}
+      .card-date {
+        display: inline-block;
+        align-self: flex-start;
+        font-weight: bold;
+        margin: 5px 0 0 4px;
+      }
 
-.card-body {
-    background-image: radial-gradient(@secondary, black);
-    color: @grey;
-}
+      .btn-container {
+        display: flex;
+        justify-content: flex-end;
 
-.btn-container {
-    display: flex;
-    justify-content: flex-end;
-}
+        .icon-btn {
+          margin: 6px;
 
-.card-date {
-    display: inline-block;
-    align-self: flex-start;
-    font-weight: bold;
-    margin: 5px 0 0 4px;
+          .icon {
+            color: black;
+          }
+        }
+      }
+    }
 
-}
-
-.icon-btn {
-    margin: 6px;
+    .card-body {
+      background-image: radial-gradient(@secondary, black);
+      color: @grey;
+    }
+  }
 }

@@ -3,35 +3,35 @@
   width: 22.5%;
   margin: 12px;
 }
-.card {
+.card-container .card {
   border: none;
   border-radius: none;
   box-shadow: 5px 5px 15px black;
 }
-.card-header {
+.card-container .card .card-header {
   display: flex;
   justify-content: space-between;
   padding: 0;
-  color: #CCCCCC;
-  background-image: linear-gradient(to right, black, #CCCCCC);
+  color: #cccccc;
+  background-image: linear-gradient(to right, black, #cccccc);
 }
-.icon {
-  color: black;
-}
-.card-body {
-  background-image: radial-gradient(#000033, black);
-  color: #CCCCCC;
-}
-.btn-container {
-  display: flex;
-  justify-content: flex-end;
-}
-.card-date {
+.card-container .card .card-header .card-date {
   display: inline-block;
   align-self: flex-start;
   font-weight: bold;
   margin: 5px 0 0 4px;
 }
-.icon-btn {
+.card-container .card .card-header .btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.card-container .card .card-header .btn-container .icon-btn {
   margin: 6px;
+}
+.card-container .card .card-header .btn-container .icon-btn .icon {
+  color: black;
+}
+.card-container .card .card-body {
+  background-image: radial-gradient(#000033, black);
+  color: #cccccc;
 }

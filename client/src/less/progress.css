@@ -1,7 +1,7 @@
 .outer-container {
   background-image: radial-gradient(black, #000033);
 }
-.container {
+.outer-container .container {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -10,12 +10,7 @@
   width: 90%;
   margin: 0 auto;
 }
-.progress-data {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 60%;
-}
-.progress-records {
+.outer-container .container .progress-records {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;

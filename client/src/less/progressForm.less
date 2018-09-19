@@ -1,36 +1,36 @@
-@primary: #CC0000;
+// TODO: Remove variables once they exist in a separate variables file
+@primary: #cc0000;
 @secondary: #000033;
 @white: white;
 @darkGrey: #666666;
-@grey: #CCCCCC;
+@grey: #cccccc;
 
 .modal-container {
-    margin: 10px 0;
-}
+  margin: 10px 0;
 
-.progressForm {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    flex-basis: 35%;
-    border: 2px solid black;
-}
-
-.add-progress-btn {
-    background-image: linear-gradient( @darkGrey, black);
+  .add-progress-btn {
+    background-image: linear-gradient(@darkGrey, black);
     color: @grey;
-    // background-color: #CC0000;
     border: none;
     margin-bottom: 5px;
-}
+  }
 
-.add-progress-btn:hover {
+  .add-progress-btn:hover {
     background-color: #7a0404;
     cursor: pointer;
+  }
 }
 
 .error {
-    font-size: 16px;
-    color:red;
-    margin-left: 15px;
+  font-size: 16px;
+  color: red;
+  margin-left: 15px;
+}
+
+.progressForm {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 35%;
+  border: 2px solid black;
 }
