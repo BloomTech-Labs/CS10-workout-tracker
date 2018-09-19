@@ -76,15 +76,19 @@ const deleteProgress = (req, res) => {
 const updateProgress = (req, res) => {
   const { id } = req.params;
   const updatedProgressObj = req.body;
-  Progress.findByIdAndUpdate(id, updatedProgressObj, {new: true})
+  Progress.findByIdAndUpdate(
+    { _id: id },
+    { $set: updatedProgressObj, $setOnInsert: { date: Date.now() } },
+    { new: true }
+  )
     .then(progress => {
-      res.json(progress)
+      res.json(progress);
     })
     .catch(err => {
       res.status(500);
       res.json({ err });
-    })
-}
+    });
+};
 
 module.exports = {
   addProgress,
