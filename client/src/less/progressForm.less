@@ -7,6 +7,7 @@
 
 .modal-container {
   margin: 10px 0;
+  background-image: linear-gradient(@darkGrey, black);
 
   .add-progress-btn {
     background-image: linear-gradient(@darkGrey, black);
@@ -16,21 +17,67 @@
   }
 
   .add-progress-btn:hover {
-    background-color: #7a0404;
+    color: white;
     cursor: pointer;
   }
 }
 
+.modal-content {
+  width: 80%;
+
+  .modal-header {
+    background-image: linear-gradient(@darkGrey, black);
+    color: white;
+  }
+
+  .modal-body {
+    background-image: linear-gradient(@secondary, black) !important;
+  }
+
+  .modal-footer {
+    background-image: linear-gradient(@darkGrey, black);
+
+    .cancel-btn {
+      background-image: linear-gradient(@primary, black) !important;
+    }
+
+    .cancel-btn:hover {
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      background-image: linear-gradient(@secondary, black) !important;
+    }
+
+    .submit-btn:hover {
+      cursor: pointer;
+    }
+  }
+}
+
 .error {
+  background-image: linear-gradient(@secondary, black);
   font-size: 16px;
   color: red;
-  margin-left: 15px;
+  padding-left: 15px;
 }
 
 .progressForm {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  flex-basis: 35%;
-  border: 2px solid black;
+  font-weight: bold;
+  color: @grey;
+
+  .label-input {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+    padding: 0 50px;
+
+    input {
+      background-color: @grey;
+      width: 30%;
+    }
+  }
 }

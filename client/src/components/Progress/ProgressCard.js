@@ -117,62 +117,76 @@ class ProgressCard extends Component {
           )}
           <ModalBody>
             <form className="progressForm">
-              *Weight:
-              <input
-                type="number"
-                name="weight"
-                value={this.state.weight}
-                onChange={this.handleFieldChange}
-              />
-              *Waist:
-              <input
-                type="number"
-                name="waist"
-                value={this.state.waist}
-                onChange={this.handleFieldChange}
-              />
-              Hips:
-              <input
-                type="number"
-                name="hips"
-                value={this.state.hips}
-                onChange={this.handleFieldChange}
-              />
-              (R) Arm:
-              <input
-                type="number"
-                name="r_arm"
-                value={this.state.r_arm}
-                onChange={this.handleFieldChange}
-              />
-              (L) Arm:
-              <input
-                type="number"
-                name="l_arm"
-                value={this.state.l_arm}
-                onChange={this.handleFieldChange}
-              />
-              (R) Leg:
-              <input
-                type="number"
-                name="r_leg"
-                value={this.state.r_leg}
-                onChange={this.handleFieldChange}
-              />
-              (L) Leg:
-              <input
-                type="number"
-                name="l_leg"
-                value={this.state.l_leg}
-                onChange={this.handleFieldChange}
-              />
+            <div className="label-input">
+                <label>*Weight:</label>
+                <input
+                  type="number"
+                  name="weight"
+                  value={this.state.weight}
+                  onChange={this.handleFieldChange}
+                />
+              </div>
+              <div className="label-input">
+                <label>*Waist:</label>
+                <input
+                  type="number"
+                  name="waist"
+                  value={this.state.waist}
+                  onChange={this.handleFieldChange}
+                />
+              </div>
+              <div className="label-input">
+                <label>Hips:</label>
+                <input
+                  type="number"
+                  name="hips"
+                  value={this.state.hips}
+                  onChange={this.handleFieldChange}
+                />
+              </div>
+              <div className="label-input">
+                <label>(R) Arm:</label>
+                <input
+                  type="number"
+                  name="r_arm"
+                  value={this.state.r_arm}
+                  onChange={this.handleFieldChange}
+                />
+              </div>
+              <div className="label-input">
+                <label>(L) Arm:</label>
+                <input
+                  type="number"
+                  name="l_arm"
+                  value={this.state.l_arm}
+                  onChange={this.handleFieldChange}
+                />
+              </div>
+              <div className="label-input">
+                <label>(R) Leg:</label>
+                <input
+                  type="number"
+                  name="r_leg"
+                  value={this.state.r_leg}
+                  onChange={this.handleFieldChange}
+                />
+              </div>
+              <div className="label-input">
+                <label>(L) Leg:</label>
+                <input
+                  type="number"
+                  name="l_leg"
+                  value={this.state.l_leg}
+                  onChange={this.handleFieldChange}
+                />
+              </div>
             </form>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.handleSubmit}>
-              Update
+            <Button className="submit-btn" onClick={this.handleSubmit}>
+              Update Progress
             </Button>{" "}
-            <Button color="secondary" onClick={this.toggle}>
+            <Button className="cancel-btn" onClick={this.toggle}>
               Cancel
             </Button>
           </ModalFooter>
