@@ -13,12 +13,25 @@ const ExerciseSchema = Schema({
   },
   name: {
     type: String,
-    require: true
+    require: true,
+    default: "Unnamed Exercise"
   },
   performanceLog: [{
     type: Schema.Types.ObjectId,
     ref: "Performance"
-  }]
+  }],
+  currentWeight: {
+    type: Number,
+    default: 10
+  },
+  currentReps: {
+    type: Number,
+    default: 5
+  },
+  currentSets: {
+    type: Number,
+    default: 3
+  }
 });
 
 const Exercise = mongoose.model("Exercise", ExerciseSchema);

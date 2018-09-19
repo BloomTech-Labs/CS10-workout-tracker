@@ -26,9 +26,9 @@ function generateResetToken(username, userId) {
 }
 
 function verifyToken(req, res, next) {
-  console.log("Verifying a request that came with the following headers: ", req.headers);
+  // console.log("Verifying a request that came with the following headers: ", req.headers);
   const token = req.headers["x-access-token"];
-  console.log("Checking the provided token: ", token);
+  // console.log("Checking the provided token: ", token);
   if (!token)
     return res
       .status(403)

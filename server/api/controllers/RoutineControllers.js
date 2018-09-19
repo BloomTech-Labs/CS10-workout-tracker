@@ -37,7 +37,9 @@ const fetchHydratedRoutines = (req, res) => {
 }
 
 const createNewRoutine = (req, res) => {
-  const { userId, title } = req.body;
+  const { userId } = req;
+  let { title } = req.body;
+  if (!title) title = "Untitled Routine";
   const newRoutineParameters = { user: userId, title };
   const newRoutine = Routine(newRoutineParameters);
   newRoutine.save((err, createdRoutine) => {

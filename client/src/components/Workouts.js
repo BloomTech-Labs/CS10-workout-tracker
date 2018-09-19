@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
 import { connect } from "react-redux";
-import { fetchRoutines, selectRoutine } from "../actions";
+import {
+  fetchRoutines,
+  selectRoutine,
+  postNewRoutine,
+  postNewExerciseInRoutine,
+  updateExercise
+} from "../actions";
 
 import "../less/workouts.css";
 
@@ -10,12 +16,21 @@ class Workouts extends Component {
     this.props.fetchRoutines();
   }
 
+  postNewRoutine() {
+    this.props.postNewRoutine();
+  }
+
   addExerciseToRoutine() {
-    console.log("Stub for adding an exercise to a routine.");
+    this.props.postNewExerciseInRoutine(this.props.selectedRoutine._id);
   }
 
   selectRoutine(targetIndex) {
     this.props.selectRoutine(targetIndex);
+  }
+
+  updateExercise(exerciseId, name, weight, reps, sets) {
+    console.log("About to post this update data: ", name, weight, reps, sets);
+    this.props.updateExercise(exerciseId, name, weight, reps, sets)
   }
 
   render() {
@@ -23,41 +38,14 @@ class Workouts extends Component {
       <div className="container">
         <NavBar />
         <div className="WorkoutPlanner">
-          <div className="RoutineBuilder">
-            <div className="RoutineBuilder__Title">
-              {this.props.selectedRoutine ? (
-                this.props.selectedRoutine.title
-              ) : (
-                <div>Loading Content...</div>
-              )}
-            </div>
-            <div className="RoutineBuilder__Tags" />
-            <button
-              className="RoutineBuilder__AddExercise"
-              onClick={this.addExerciseToRoutine}
-            />
-            {this.props.selectedRoutine ? (
-              this.props.selectedRoutine.exercises.map(exerciseInRoutine => (
-                <form className="RoutineBuilder__ExerciseCard">
-                  <div className="RoutineBuilder__ExerciseCardField--name">
-                    {exerciseInRoutine.name}
-                  </div>
-                  <input className="RoutineBuilder__ExerciseCardField--weight" />
-                  <input className="RoutineBuilder__ExerciseCardField--reps" />
-                  <input className="RoutineBuilder__ExerciseCardField--sets" />
-                </form>
-              ))
-            ) : (
-              <div>Loading content...</div>
-            )}
-            <button className="SaveChanges" />
-          </div>
           <div className="RoutinePicker">
             {this.props.routines ? (
               this.props.routines.map((routine, index) => (
                 <div key={index} className="RoutinePicker__Card">
-                  <div className="RoutinePicker__CardTitle"
-                  onClick={() => this.selectRoutine(index)}>
+                  <div
+                    className="RoutinePicker__CardTitle"
+                    onClick={() => this.selectRoutine(index)}
+                  >
                     {routine.title}
                   </div>
                   {routine.exercises.map((exercise, i) => {
@@ -72,6 +60,45 @@ class Workouts extends Component {
             ) : (
               <div>Loading content...</div>
             )}
+            <button
+              className="RoutinePicker__NewRoutineBtn"
+              onClick={() => this.postNewRoutine()}
+            >
+              Build a new routine
+            </button>
+          </div>
+          <div className="RoutineBuilder">
+            <div className="RoutineBuilder__Title">
+              {this.props.selectedRoutine ? (
+                this.props.selectedRoutine.title
+              ) : (
+                <div>Loading Content...</div>
+              )}
+            </div>
+            <div className="RoutineBuilder__Tags" />
+            <button
+              className="RoutineBuilder__AddExercise"
+              onClick={() => this.addExerciseToRoutine()}
+            >
+              Add an exercise
+            </button>
+            {this.props.selectedRoutine ? (
+              this.props.selectedRoutine.exercises.map(exerciseInRoutine => {
+                let { name, currentReps, currentSets, currentWeight } = exerciseInRoutine;
+                console.log("Captured these variables for the exercise card: ", exerciseInRoutine, name, currentReps, currentSets, currentWeight);
+                return (
+                <form className="RoutineBuilder__ExerciseCard">
+                  <input name="ExerciseName" onChange={(event) => name = event.target.value} placeholder={exerciseInRoutine.name} className="RoutineBuilder__ExerciseCardField--name"/>
+                  <input name="ExerciseWeight" onChange={(event) => currentWeight = event.target.value} placeholder={exerciseInRoutine.currentWeight} className="RoutineBuilder__ExerciseCardField--weight" />
+                  <input name="ExerciseReps" onChange={(event) => currentReps = event.target.value} placeholder={exerciseInRoutine.currentReps} className="RoutineBuilder__ExerciseCardField--reps" />
+                  <input name="ExerciseSets" onChange={(event) => currentSets = event.target.value} placeholder={exerciseInRoutine.currentSets} className="RoutineBuilder__ExerciseCardField--sets" />
+                  <button onClick={() => this.updateExercise(exerciseInRoutine._id, name, currentWeight, currentReps, currentSets)}>Update Exercise</button>
+                </form>
+              )})
+            ) : (
+              <div>Loading content...</div>
+            )}
+            <button className="SaveChanges">Save Routine</button>
           </div>
         </div>
       </div>
@@ -80,7 +107,7 @@ class Workouts extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('State at the time of render for "Workouts" view:', state);
+  // console.log('State at the time of render for "Workouts" view:', state);
   return {
     routines: state.workouts.routines,
     selectedRoutine: state.workouts.selectedRoutine
@@ -89,7 +116,11 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchRoutines,
-    selectRoutine
+  {
+    fetchRoutines,
+    selectRoutine,
+    postNewRoutine,
+    postNewExerciseInRoutine,
+    updateExercise
   }
 )(Workouts);
