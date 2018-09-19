@@ -25,8 +25,7 @@ class ProgressCard extends Component {
     l_arm: this.props.record.l_arm || "",
     r_leg: this.props.record.r_leg || "",
     l_leg: this.props.record.l_leg || "",
-    requiredFieldError: false,
-    typeError: false,
+    error: false,
     modal: false
   };
 
@@ -47,11 +46,7 @@ class ProgressCard extends Component {
     let { weight, hips, waist, r_arm, l_arm, r_leg, l_leg } = this.state;
 
     if (weight == "" || waist == "") {
-      this.setState({ requiredFieldError: true });
-    } else if (
-      typeof (weight, hips, waist, r_arm, l_arm, r_leg, l_leg) !== "number"
-    ) {
-      this.setState({ typeError: true });
+      this.setState({ error: true });
     } else {
       this.props.updateProgress(this.props.record._id, {
         weight,
@@ -71,17 +66,26 @@ class ProgressCard extends Component {
   };
 
   render() {
+    const {
+      _id,
+      date,
+      weight,
+      waist,
+      hips,
+      r_arm,
+      l_arm,
+      r_leg,
+      l_leg
+    } = this.props.record;
     return (
       <div className="card-container">
         <Card>
           <CardHeader className="card-header">
-            <div className="card-date">
-              {moment(this.props.record.date).format("MM/DD/YYYY")}
-            </div>
+            <div className="card-date">{moment(date).format("MM/DD/YYYY")}</div>
             <div className="btn-container">
               <div
                 className="icon-btn"
-                onClick={() => this.props.deleteProgress(this.props.record._id)}
+                onClick={() => this.props.deleteProgress(_id)}
               >
                 {" "}
                 <i className="fas fa-trash-alt icon" />
@@ -92,33 +96,13 @@ class ProgressCard extends Component {
             </div>
           </CardHeader>
           <CardBody>
-            <CardText>{`Weight: ${this.props.record.weight} lbs`}</CardText>
-            <CardText>{`Waist: ${this.props.record.waist} in`}</CardText>
-            <CardText>
-              {this.props.record.hips
-                ? `Hips: ${this.props.record.hips} in`
-                : "Hips: "}
-            </CardText>
-            <CardText>
-              {this.props.record.r_arm
-                ? `(R) Arm: ${this.props.record.r_arm} in`
-                : "(R) Arm: "}
-            </CardText>
-            <CardText>
-              {this.props.record.l_arm
-                ? `(L) Arm: ${this.props.record.l_arm} in`
-                : "(L) Arm: "}
-            </CardText>
-            <CardText>
-              {this.props.record.r_leg
-                ? `(R) Leg: ${this.props.record.r_leg} in`
-                : "(R) Leg: "}
-            </CardText>
-            <CardText>
-              {this.props.record.l_leg
-                ? `(L) Leg: ${this.props.record.l_leg} in`
-                : "(L) Leg: "}
-            </CardText>
+            <CardText>{`Weight: ${weight} lbs`}</CardText>
+            <CardText>{`Waist: ${waist} in`}</CardText>
+            <CardText>{hips ? `Hips: ${hips} in` : "Hips: "}</CardText>
+            <CardText>{r_arm ? `(R) Arm: ${r_arm} in` : "(R) Arm: "}</CardText>
+            <CardText>{l_arm ? `(L) Arm: ${l_arm} in` : "(L) Arm: "}</CardText>
+            <CardText>{r_leg ? `(R) Leg: ${r_leg} in` : "(R) Leg: "}</CardText>
+            <CardText>{l_leg ? `(L) Leg: ${l_leg} in` : "(L) Leg: "}</CardText>
           </CardBody>
         </Card>
 
@@ -128,59 +112,56 @@ class ProgressCard extends Component {
           className={this.props.className}
         >
           <ModalHeader toggle={this.toggle}>Edit Progress</ModalHeader>
-          {this.state.requiredFieldError && (
+          {this.state.error && (
             <div className="error">* Weight and waist are required fields.</div>
-          )}
-          {this.state.typeError && (
-            <div className="error">* All fields must be numbers only.</div>
           )}
           <ModalBody>
             <form className="progressForm">
               *Weight:
               <input
-                type="text"
+                type="number"
                 name="weight"
                 value={this.state.weight}
                 onChange={this.handleFieldChange}
               />
               *Waist:
               <input
-                type="text"
+                type="number"
                 name="waist"
                 value={this.state.waist}
                 onChange={this.handleFieldChange}
               />
               Hips:
               <input
-                type="text"
+                type="number"
                 name="hips"
                 value={this.state.hips}
                 onChange={this.handleFieldChange}
               />
               (R) Arm:
               <input
-                type="text"
+                type="number"
                 name="r_arm"
                 value={this.state.r_arm}
                 onChange={this.handleFieldChange}
               />
               (L) Arm:
               <input
-                type="text"
+                type="number"
                 name="l_arm"
                 value={this.state.l_arm}
                 onChange={this.handleFieldChange}
               />
               (R) Leg:
               <input
-                type="text"
+                type="number"
                 name="r_leg"
                 value={this.state.r_leg}
                 onChange={this.handleFieldChange}
               />
               (L) Leg:
               <input
-                type="text"
+                type="number"
                 name="l_leg"
                 value={this.state.l_leg}
                 onChange={this.handleFieldChange}

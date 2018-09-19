@@ -27,8 +27,7 @@ class ProgressForm extends Component {
       l_arm: "",
       r_leg: "",
       l_leg: "",
-      requiredFieldError: false,
-      typeError: false,
+      error: false,
       modal: !this.state.modal
     });
   };
@@ -43,11 +42,7 @@ class ProgressForm extends Component {
     let { weight, hips, waist, r_arm, l_arm, r_leg, l_leg } = this.state;
 
     if (weight == "" || waist == "") {
-      this.setState({ requiredFieldError: true });
-    } else if (
-      typeof (weight, hips, waist, r_arm, l_arm, r_leg, l_leg) !== "number"
-    ) {
-      this.setState({ typeError: true });
+      this.setState({ error: true });
     } else {
       this.props.addProgress({
         weight,
@@ -67,8 +62,7 @@ class ProgressForm extends Component {
         l_arm: "",
         r_leg: "",
         l_leg: "",
-        requiredFieldError: false,
-        typeError: false,
+        error: false,
         modal: !this.state.modal
       });
     }
@@ -87,64 +81,56 @@ class ProgressForm extends Component {
           className={this.props.className}
         >
           <ModalHeader toggle={this.toggle}>Progress Form</ModalHeader>
-          {this.state.requiredFieldError && (
+          {this.state.error && (
             <div className="error">* Weight and waist are required fields.</div>
-          )}
-          {this.state.typeError && (
-            <div className="error">* All fields must be numbers only.</div>
           )}
           <ModalBody>
             <form className="progressForm">
-              {/* {this.state.error && (
-                <div className="error">
-                  * Weight and waist are required fields.
-                </div>
-              )} */}
               *Weight:
               <input
-                type="text"
+                type="number"
                 name="weight"
                 value={this.state.weight}
                 onChange={this.handleFieldChange}
               />
               *Waist:
               <input
-                type="text"
+                type="number"
                 name="waist"
                 value={this.state.waist}
                 onChange={this.handleFieldChange}
               />
               Hips:
               <input
-                type="text"
+                type="number"
                 name="hips"
                 value={this.state.hips}
                 onChange={this.handleFieldChange}
               />
               (R) Arm:
               <input
-                type="text"
+                type="number"
                 name="r_arm"
                 value={this.state.r_arm}
                 onChange={this.handleFieldChange}
               />
               (L) Arm:
               <input
-                type="text"
+                type="number"
                 name="l_arm"
                 value={this.state.l_arm}
                 onChange={this.handleFieldChange}
               />
               (R) Leg:
               <input
-                type="text"
+                type="number"
                 name="r_leg"
                 value={this.state.r_leg}
                 onChange={this.handleFieldChange}
               />
               (L) Leg:
               <input
-                type="text"
+                type="number"
                 name="l_leg"
                 value={this.state.l_leg}
                 onChange={this.handleFieldChange}
