@@ -16,7 +16,7 @@
   margin: 0 auto;
 }
 
-.col-2 {
+.col__2 {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -38,16 +38,29 @@
   z-index: 10;
   width: 100%;
 
-  .left__nav {
-    color: @primary;
-    font-size: 32px;
-  }
-  .right__nav {
-    color: @grey;
-    .first__nav__span {
-      margin-right: 25px;
+  
+
+    .left__nav {
+      color: @primary;
+      font-size: 32px;
     }
+
+    .right__nav {
+      color: @grey;
+
+      span:hover {
+        color: white;
+        cursor: pointer;
+      }
+
+      .first__nav__span {
+        margin-right: 25px;
+        
+      }
+    
   }
+  
+  
 }
 
 .right__nav {
@@ -64,7 +77,7 @@
   text-align: center;
   padding-top: 50px;
 
-  .col-2 {
+  .col__2 {
     align-items: center;
   }
 

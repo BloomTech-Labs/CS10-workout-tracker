@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 import { logout } from "../actions";
 
 class NavBar extends Component {
   handleLogout = event => {
     this.props.logout();
+    // this.props.history.push("/");
   };
   render() {
     return (
@@ -24,9 +26,11 @@ class NavBar extends Component {
           <NavLink to="/billing">Billing</NavLink>
         </div>
         {this.props.authenticated ? (
-          <button className="LogoutButton" onClick={this.handleLogout}>
-            Log Out
-          </button>
+          <NavLink to="/">
+            <button className="LogoutButton" onClick={this.handleLogout}>
+              Log Out
+            </button>
+          </NavLink>
         ) : null}
       </div>
     );

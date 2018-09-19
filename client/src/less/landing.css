@@ -6,7 +6,7 @@
   width: 90%;
   margin: 0 auto;
 }
-.col-2 {
+.col__2 {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -32,6 +32,10 @@
 .landing__nav .right__nav {
   color: #CCCCCC;
 }
+.landing__nav .right__nav span:hover {
+  color: white;
+  cursor: pointer;
+}
 .landing__nav .right__nav .first__nav__span {
   margin-right: 25px;
 }
@@ -48,7 +52,7 @@
   text-align: center;
   padding-top: 50px;
 }
-.main__landing__background .col-2 {
+.main__landing__background .col__2 {
   align-items: center;
 }
 .main__landing__background .main__content__text {
