@@ -27,7 +27,8 @@ class ProgressForm extends Component {
       l_arm: "",
       r_leg: "",
       l_leg: "",
-      error: false,
+      requiredFieldError: false,
+      typeError: false,
       modal: !this.state.modal
     });
   };
@@ -41,7 +42,13 @@ class ProgressForm extends Component {
 
     let { weight, hips, waist, r_arm, l_arm, r_leg, l_leg } = this.state;
 
-    if (weight !== "" || waist !== "") {
+    if (weight == "" || waist == "") {
+      this.setState({ requiredFieldError: true });
+    } else if (
+      typeof (weight, hips, waist, r_arm, l_arm, r_leg, l_leg) !== "number"
+    ) {
+      this.setState({ typeError: true });
+    } else {
       this.props.addProgress({
         weight,
         hips,
@@ -60,11 +67,10 @@ class ProgressForm extends Component {
         l_arm: "",
         r_leg: "",
         l_leg: "",
-        error: false,
+        requiredFieldError: false,
+        typeError: false,
         modal: !this.state.modal
       });
-    } else {
-      this.setState({ error: true });
     }
   };
 
@@ -81,11 +87,12 @@ class ProgressForm extends Component {
           className={this.props.className}
         >
           <ModalHeader toggle={this.toggle}>Progress Form</ModalHeader>
-          {this.state.error && (
-                <div className="error">
-                  * Weight and waist are required fields.
-                </div>
-              )}
+          {this.state.requiredFieldError && (
+            <div className="error">* Weight and waist are required fields.</div>
+          )}
+          {this.state.typeError && (
+            <div className="error">* All fields must be numbers only.</div>
+          )}
           <ModalBody>
             <form className="progressForm">
               {/* {this.state.error && (
@@ -93,14 +100,14 @@ class ProgressForm extends Component {
                   * Weight and waist are required fields.
                 </div>
               )} */}
-              Weight:
+              *Weight:
               <input
                 type="text"
                 name="weight"
                 value={this.state.weight}
                 onChange={this.handleFieldChange}
               />
-              Waist:
+              *Waist:
               <input
                 type="text"
                 name="waist"

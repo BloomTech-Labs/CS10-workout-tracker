@@ -1,15 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Card, CardBody, CardText, CardHeader, Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  CardText,
+  CardHeader,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
+} from "reactstrap";
 import moment from "moment";
 import { deleteProgress, updateProgress } from "../../actions";
 import "../../less/progressCard.css";
 
-
-
 class ProgressCard extends Component {
-
   state = {
     weight: this.props.record.weight || "",
     hips: this.props.record.hips || "",
@@ -18,9 +25,10 @@ class ProgressCard extends Component {
     l_arm: this.props.record.l_arm || "",
     r_leg: this.props.record.r_leg || "",
     l_leg: this.props.record.l_leg || "",
-    error: false,
+    requiredFieldError: false,
+    typeError: false,
     modal: false
-  }
+  };
 
   toggle = () => {
     this.setState({
@@ -38,7 +46,13 @@ class ProgressCard extends Component {
 
     let { weight, hips, waist, r_arm, l_arm, r_leg, l_leg } = this.state;
 
-    if (weight !== "" || waist !== "") {
+    if (weight == "" || waist == "") {
+      this.setState({ requiredFieldError: true });
+    } else if (
+      typeof (weight, hips, waist, r_arm, l_arm, r_leg, l_leg) !== "number"
+    ) {
+      this.setState({ typeError: true });
+    } else {
       this.props.updateProgress(this.props.record._id, {
         weight,
         hips,
@@ -53,8 +67,6 @@ class ProgressCard extends Component {
         error: false,
         modal: !this.state.modal
       });
-    } else {
-      this.setState({ error: true });
     }
   };
 
@@ -81,61 +93,62 @@ class ProgressCard extends Component {
           </CardHeader>
           <CardBody>
             <CardText>{`Weight: ${this.props.record.weight} lbs`}</CardText>
-            <CardText>{`Waist: ${this.props.record.waist}in`}</CardText>
+            <CardText>{`Waist: ${this.props.record.waist} in`}</CardText>
             <CardText>
-              {this.props.record.hips ? `Hips: ${this.props.record.hips}in` : "Hips: "}
+              {this.props.record.hips
+                ? `Hips: ${this.props.record.hips} in`
+                : "Hips: "}
             </CardText>
             <CardText>
               {this.props.record.r_arm
-                ? `(R) Arm: ${this.props.record.r_arm}in`
+                ? `(R) Arm: ${this.props.record.r_arm} in`
                 : "(R) Arm: "}
             </CardText>
             <CardText>
               {this.props.record.l_arm
-                ? `(L) Arm: ${this.props.record.l_arm}in`
+                ? `(L) Arm: ${this.props.record.l_arm} in`
                 : "(L) Arm: "}
             </CardText>
             <CardText>
               {this.props.record.r_leg
-                ? `(R) Leg: ${this.props.record.r_leg}in`
+                ? `(R) Leg: ${this.props.record.r_leg} in`
                 : "(R) Leg: "}
             </CardText>
             <CardText>
               {this.props.record.l_leg
-                ? `(L) Leg: ${this.props.record.l_leg}in`
+                ? `(L) Leg: ${this.props.record.l_leg} in`
                 : "(L) Leg: "}
             </CardText>
           </CardBody>
         </Card>
 
-         <Modal
+        <Modal
           isOpen={this.state.modal}
           toggle={this.toggle}
           className={this.props.className}
         >
           <ModalHeader toggle={this.toggle}>Edit Progress</ModalHeader>
-          {this.state.error && (
-                <div className="error">
-                  * Weight and waist are required fields.
-                </div>
-              )}
+          {this.state.requiredFieldError && (
+            <div className="error">* Weight and waist are required fields.</div>
+          )}
+          {this.state.typeError && (
+            <div className="error">* All fields must be numbers only.</div>
+          )}
           <ModalBody>
             <form className="progressForm">
-              Weight:
+              *Weight:
               <input
                 type="text"
                 name="weight"
                 value={this.state.weight}
                 onChange={this.handleFieldChange}
-                // placeholder={this.props.record.weight}
               />
-              Waist:
+              *Waist:
               <input
                 type="text"
                 name="waist"
                 value={this.state.waist}
                 onChange={this.handleFieldChange}
-                // placeholder={this.props.record.waist}
               />
               Hips:
               <input
@@ -143,7 +156,6 @@ class ProgressCard extends Component {
                 name="hips"
                 value={this.state.hips}
                 onChange={this.handleFieldChange}
-                // placeholder={this.props.record.hips}
               />
               (R) Arm:
               <input
@@ -151,7 +163,6 @@ class ProgressCard extends Component {
                 name="r_arm"
                 value={this.state.r_arm}
                 onChange={this.handleFieldChange}
-                // placeholder={this.props.record.r_arm}
               />
               (L) Arm:
               <input
@@ -159,7 +170,6 @@ class ProgressCard extends Component {
                 name="l_arm"
                 value={this.state.l_arm}
                 onChange={this.handleFieldChange}
-                // placeholder={this.props.record.l_arm}
               />
               (R) Leg:
               <input
@@ -167,7 +177,6 @@ class ProgressCard extends Component {
                 name="r_leg"
                 value={this.state.r_leg}
                 onChange={this.handleFieldChange}
-                // placeholder={this.props.record.r_leg}
               />
               (L) Leg:
               <input
@@ -175,7 +184,6 @@ class ProgressCard extends Component {
                 name="l_leg"
                 value={this.state.l_leg}
                 onChange={this.handleFieldChange}
-                // placeholder={this.props.record.l_leg}
               />
             </form>
           </ModalBody>
@@ -191,8 +199,7 @@ class ProgressCard extends Component {
       </div>
     );
   }
-  
-};
+}
 
 ProgressCard.propTypes = {
   record: PropTypes.object,
