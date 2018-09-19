@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import CheckoutForm from "./CheckoutForm";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import { connect } from "react-redux";
+import { processPayment } from "../actions";
 
 import NavBar from "./NavBar";
 
 class Billing extends Component {
   render() {
-    console.log(this.props.userInfo.user._id);
     return (
       <div>
         <NavBar />
@@ -17,6 +17,7 @@ class Billing extends Component {
             <CheckoutForm
               id={this.props.userInfo.user._id}
               premiumUser={this.props.userInfo.user.premiumUser}
+              processPayment={this.props.processPayment}
             />
           </Elements>
         </StripeProvider>
@@ -38,5 +39,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  null
+  { processPayment }
 )(Billing);

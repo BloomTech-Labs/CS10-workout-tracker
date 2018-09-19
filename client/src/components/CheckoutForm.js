@@ -1,43 +1,27 @@
 import React, { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
-import axios from "axios";
 
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      complete: false,
-      ccStatus: true,
-      transactionStatus: true
+      complete: false
     };
   }
 
   submit = async ev => {
-    let localToken = localStorage.getItem("token");
     let { token } = await this.props.stripe.createToken();
     if (token) {
-      const requestOptions = { headers: { "x-access-token": localToken } };
-      axios
-        .post(
-          "http://localhost:8080/charge",
-          {
-            token: token.id,
-            id: this.props.id
-          },
-          requestOptions
-        )
-        .then(() => {
-          this.setState({
-            complete: true,
-            transactionStatus: true,
-            ccStatus: true
-          });
-        })
-        .catch(() => {
-          this.setState({ transactionStatus: false });
-        });
+      this.props.processPayment({
+        token: token.id,
+        id: this.props.id
+      });
+
+      this.setState({
+        complete: true
+      });
     } else {
-      this.setState({ ccStatus: false });
+      return;
     }
   };
 
