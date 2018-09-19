@@ -3,6 +3,11 @@ const User = require("../models/User");
 const { generateToken, generateResetToken } = require("../utilities/auth");
 require("dotenv").config();
 const sgMail = require("@sendgrid/mail");
+// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+const stripeTestAPIKey = process.env.STRIPE_API_KEY_TEST;
+// !! This is for development environment, there is a different API key for production !!
+const stripe = require("stripe")(stripeTestAPIKey);
 
 // const secret = process.env.SECRET;
 const sgAPIKey = process.env.SENDGRID_API_KEY;
@@ -69,9 +74,9 @@ const login = (req, res) => {
 };
 
 const forgotPassword = (req, res) => {
-  const { username, email } = req.body;
-  if (!email && !username) {
-    return res.status(400).json({ message: "No email or username provided" });
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ message: "No email provided" });
   }
   User.findOne({ email: email }).then(user => {
     const token = generateResetToken(user);
@@ -220,6 +225,38 @@ const changeEmail = (req, res) => {
   );
 };
 
+// using async and await according to Stripe docs,
+// I had a hard time getting it to play nice otherwise
+const processPayment = async (req, res) => {
+  const { token, id } = req.body;
+  try {
+    let { status } = await stripe.charges.create({
+      amount: 899,
+      currency: "usd",
+      description: "Example Charge",
+      source: token
+    });
+    if (status) {
+      User.findByIdAndUpdate(id, { premiumUser: true })
+        .then(user => {
+          console.log(user);
+          res.status(200);
+          res.json({ status, user: user });
+        })
+        .catch(err => {
+          res.status(404);
+          res.json({ Error: err.message });
+        });
+    } else {
+      res.status(422);
+      res.json({ status });
+    }
+  } catch (err) {
+    res.status(500);
+    res.json({ "Error processing payment": err.message });
+  }
+};
+
 module.exports = {
   register,
   login,
@@ -228,5 +265,6 @@ module.exports = {
   tokenLogin,
   ping,
   changePassword,
-  changeEmail
+  changeEmail,
+  processPayment
 };

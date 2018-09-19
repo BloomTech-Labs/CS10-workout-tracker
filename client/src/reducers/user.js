@@ -66,6 +66,21 @@ export default (state = initialState, action) => {
         ...state,
         message: "Failed to change password"
       };
+    case Actions.PROCESSING_PAYMENT:
+      return {
+        ...state,
+        message: action.payload
+      };
+    case Actions.PAYMENT_SUCCESS:
+      return {
+        ...state,
+        message: "Payment was successful"
+      };
+    case Actions.PAYMENT_FAILURE:
+      return {
+        ...state,
+        message: "Failed to process payment"
+      };
 
     default:
       return state;

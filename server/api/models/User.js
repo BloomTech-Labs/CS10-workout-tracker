@@ -64,7 +64,11 @@ const UserSchema = Schema({
         ref: "Workout"
       }
     }
-  ]
+  ],
+  premiumUser: {
+    type: Boolean,
+    default: false
+  }
 });
 
 // const userSchema = new Schema(UserSchema)

@@ -1,5 +1,4 @@
 import * as Actions from "./actionDefinitions";
-//import { callbackify } from "util";
 const axios = require("axios");
 
 const ROOT_URL = "http://localhost:8080";
@@ -276,6 +275,31 @@ export const changeEmail = data => {
       .catch(err => {
         dispatch({
           type: Actions.CHANGE_EMAIL_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
+export const processPayment = data => {
+  let token = localStorage.getItem("token");
+  return dispatch => {
+    dispatch({
+      type: Actions.PROCESSING_PAYMENT,
+      payload: "Processing payment..."
+    });
+    requestOptions = { headers: { "x-access-token": token } };
+    axios
+      .post(`${ROOT_URL}/charge`, data, requestOptions)
+      .then(res => {
+        dispatch({
+          type: Actions.PAYMENT_SUCCESS,
+          payload: res
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.PAYMENT_FAILURE,
           payload: err
         });
       });
