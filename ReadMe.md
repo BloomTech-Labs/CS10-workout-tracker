@@ -32,6 +32,8 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
 
 > MAILER_EMAIL_ID is the SendGrid mailer ID, which will determine the email address those emails are sent from.
 
+> STRIPE_API_KEY_TEST is the test key used to process payments though Stripe (there will be a STRIPE_API_KEY) for production
+
 ## API
 
 - `/register`
