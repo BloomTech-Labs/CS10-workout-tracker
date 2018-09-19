@@ -117,7 +117,7 @@ class ProgressCard extends Component {
           )}
           <ModalBody>
             <form className="progressForm">
-            <div className="label-input">
+              <div className="label-input">
                 <label>*Weight:</label>
                 <input
                   type="number"
