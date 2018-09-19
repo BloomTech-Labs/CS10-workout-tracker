@@ -13,13 +13,19 @@ class CheckoutForm extends Component {
   }
 
   submit = async ev => {
+    let localToken = localStorage.getItem("token");
     let { token } = await this.props.stripe.createToken();
     if (token) {
+      const requestOptions = { headers: { "x-access-token": localToken } };
       axios
-        .post("http://localhost:8080/charge", {
-          token: token.id,
-          id: this.props.id
-        })
+        .post(
+          "http://localhost:8080/charge",
+          {
+            token: token.id,
+            id: this.props.id
+          },
+          requestOptions
+        )
         .then(() => {
           this.setState({
             complete: true,
@@ -36,6 +42,8 @@ class CheckoutForm extends Component {
   };
 
   render() {
+    if (this.props.premiumUser === true)
+      return <h2>Already a premium user.</h2>;
     if (this.state.complete) return <h1>Purchase Complete</h1>;
     return (
       <div className="checkout">

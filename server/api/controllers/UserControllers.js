@@ -225,24 +225,36 @@ const changeEmail = (req, res) => {
   );
 };
 
-const processPayment = (req, res) => {
-  console.log(req.body);
-  stripe.charges
-    .create({
+// using async and await according to Stripe docs,
+// I had a hard time getting it to play nice otherwise
+const processPayment = async (req, res) => {
+  const { token, id } = req.body;
+  try {
+    let { status } = await stripe.charges.create({
       amount: 899,
       currency: "usd",
-      description: "Example charge",
-      source: req.body.token
-    })
-    .then(status => {
-      console.log({ "Successfully handled payment": status });
-      res.status(200);
-      res.json({ status });
-    })
-    .catch(err => {
-      res.status(500);
-      res.json({ message: err.message });
+      description: "Example Charge",
+      source: token
     });
+    if (status) {
+      User.findByIdAndUpdate(id, { premiumUser: true })
+        .then(user => {
+          console.log(user);
+          res.status(200);
+          res.json({ status, user: user });
+        })
+        .catch(err => {
+          res.status(404);
+          res.json({ Error: err.message });
+        });
+    } else {
+      res.status(422);
+      res.json({ status });
+    }
+  } catch (err) {
+    res.status(500);
+    res.json({ "Error processing payment": err.message });
+  }
 };
 
 module.exports = {
