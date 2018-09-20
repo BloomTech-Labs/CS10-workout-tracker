@@ -31,7 +31,8 @@ const fetchWorkoutDoc = (req, res) => {
 //   8. Our final step is to save the Workout to the embedded calendar for the User, along with a date.
 
 const scheduleWorkout = (req, res) => {
-  const { routineId, userId, date, note } = req.body;
+  const { routineId, date, note } = req.body;
+  const userId = req.userId;
   const workoutParams = { routine: routineId, user: userId, date, note };
   const newWorkout = new Workout(workoutParams);
   console.log(

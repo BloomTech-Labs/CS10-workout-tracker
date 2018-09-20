@@ -56,45 +56,81 @@ export default (state = initialState, action) => {
         msg: "Failed to post a new workout routine."
       };
     case Actions.POST_NEW_ROUTINE_SUCCESS:
-      state.routines.push(action.payload)
+      const updatedRoutineList = state.routines.slice(0);
+      updatedRoutineList.push(action.payload);
       return {
         ...state,
         msg: "Posting a new workout routine...",
-        selectedRoutine: action.payload
+        selectedRoutine: action.payload,
+        routines: updatedRoutineList
       };
     case Actions.POSTING_NEW_EXERCISE_IN_ROUTINE:
       return {
         ...state,
         msg: "About to post a new exercise as part of a routine."
-      }
+      };
     case Actions.POST_NEW_EXERCISE_IN_ROUTINE_FAILURE:
       return {
         ...state,
         msg: "Failed to post a new exercise as part of a routine."
-      }
+      };
     case Actions.POST_NEW_EXERCISE_IN_ROUTINE_SUCCESS:
-      state.selectedRoutine.exercises.push(action.payload.exercise)
+      const memoOfSelectedRoutine = Object.assign(state.selectedRoutine);
+      const memoOfLoadedExercises = memoOfSelectedRoutine.exercises.slice(0);
+      memoOfLoadedExercises.push(action.payload.exercise);
+      memoOfSelectedRoutine.exercises = memoOfLoadedExercises;
       return {
         ...state,
-        msg: "Posted a new exercise a part of a routine."
-      }
+        msg: "Posted a new exercise a part of a routine.",
+        selectedRoutine: {
+          ...memoOfSelectedRoutine,
+          exercises: memoOfLoadedExercises
+        }
+      };
     case Actions.UPDATING_EXERCISE:
       return {
         ...state,
         msg: "Updating an exercise"
-      }
+      };
     case Actions.UPDATE_EXERCISE_FAILURE:
       return {
         ...state,
         msg: "Failed to update an exercise",
         err: action.payload
-      }
+      };
     case Actions.UPDATE_EXERCISE_SUCCESS:
-      console.log("Got this action to update the Redux store: ", action.payload);
       return {
         ...state,
         msg: "Updated an exercise"
-      }
+      };
+    case Actions.UPDATING_ROUTINE:
+      return {
+        ...state,
+        msg: "Updating routine metadata"
+      };
+    case Actions.UPDATE_ROUTINE_FAILURE:
+      return {
+        ...state,
+        msg: "Failed to updated routine metadata"
+      };
+    case Actions.UPDATE_ROUTINE_SUCCESS:
+      console.log(
+        "Got an action for routine metadata update success:",
+        action.payload.data.title
+      );
+      // Copy the "routines" array, find the routine with the matching Id to the old selected routine, replace
+      // the title, and replace "routines" with the updated copy.
+      const memoOfSelectedRoutineWithTitle = Object.assign(
+        state.selectedRoutine
+      );
+      return {
+        ...state,
+        msg: "Updated routine metadata.",
+        selectedRoutine: {
+          ...memoOfSelectedRoutineWithTitle,
+          title: action.payload.data.title
+        }
+      };
     default:
       return state;
   }

@@ -14,6 +14,17 @@ const fetchRoutineDoc = (req, res) => {
     })
 }
 
+const updateRoutineDoc = (req, res) => {
+  const { routineId, title } = req.body;
+  Routine.findByIdAndUpdate(routineId, { $set: { title: title }}, { new: true })
+    .then(updatedRoutine => {
+      return res.status(200).json(updatedRoutine);
+    })
+    .catch(err => {
+      return res.status(404).json({ err });
+    })
+}
+
 // This responds with a list of the User's Routines, hydrated with Exercise documents.
 // This is useful for perfroming CRUD at the Routine level.
 
@@ -86,5 +97,6 @@ module.exports = {
   createNewRoutine,
   addExerciseToRoutine,
   fetchRoutineDoc,
+  updateRoutineDoc,
   fetchHydratedRoutines
 };

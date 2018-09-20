@@ -23,9 +23,6 @@ const updateExerciseDoc = (req, res) => {
   Exercise.findByIdAndUpdate(
     exerciseId,
     { $set: { name: name, currentWeight: currentWeight, currentReps: currentReps, currentSets: currentSets } },
-    // { $set: { currentWeight: currentWeight } },
-    // { $set: { currentReps: currentReps } },
-    // { $set: { currentSets: currentSets } },
     { new: true }
   )
     .then(exerciseDocument => {

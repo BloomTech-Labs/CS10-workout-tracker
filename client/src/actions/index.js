@@ -321,13 +321,23 @@ export const postNewExerciseInRoutine = routineId => {
   };
 };
 
-export const updateExercise = (exerciseId, name, currentWeight, currentReps, currentSets) => {
+export const updateExercise = (
+  exerciseId,
+  name,
+  currentWeight,
+  currentReps,
+  currentSets
+) => {
   return dispatch => {
     dispatch({
       type: Actions.UPDATING_EXERCISE
     });
     axios
-      .put(`${ROOT_URL}/exercise`, { name, exerciseId, currentWeight, currentReps, currentSets }, requestOptions)
+      .put(
+        `${ROOT_URL}/exercise`,
+        { name, exerciseId, currentWeight, currentReps, currentSets },
+        requestOptions
+      )
       .then(updatedExerciseDoc => {
         dispatch({
           type: Actions.UPDATE_EXERCISE_SUCCESS,
@@ -337,6 +347,50 @@ export const updateExercise = (exerciseId, name, currentWeight, currentReps, cur
       .catch(err => {
         dispatch({
           type: Actions.UPDATE_EXERCISE_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
+export const updateRoutine = (routineId, title) => {
+  return dispatch => {
+    dispatch({
+      type: Actions.UPDATING_ROUTINE
+    });
+    axios
+      .put(`${ROOT_URL}/routine`, { title, routineId }, requestOptions)
+      .then(updatedRoutineDoc => {
+        dispatch({
+          type: Actions.UPDATE_ROUTINE_SUCCESS,
+          payload: updatedRoutineDoc
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.UPDATE_ROUTINE_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
+export const scheduleWorkout = routineId => {
+  return dispatch => {
+    dispatch({
+      type: Actions.SCHEDULING_WORKOUT
+    });
+    axios
+      .post(`${ROOT_URL}/schedule-workout`, { routineId }, requestOptions)
+      .then(response => {
+        dispatch({
+          type: Actions.SCHEDULE_WORKOUT_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.SCHEDULE_WORKOUT_FAILURE,
           payload: err
         });
       });
