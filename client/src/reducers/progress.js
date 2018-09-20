@@ -16,10 +16,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         message: "Progress submitted successfully!",
-        progressRecords: [
-          ...state.progressRecords,
-          action.payload.data.progress
-        ]
+        progressRecords: [...state.progressRecords, action.payload]
       };
     case Actions.ADD_PROGRESS_FAILURE:
       return {
@@ -34,7 +31,7 @@ export default (state = initialState, action) => {
     case Actions.FETCH_PROGRESS_SUCCESS:
       return {
         ...state,
-        progressRecords: action.payload.data.progress,
+        progressRecords: action.payload,
         message: "Progress fetched successfully!"
       };
     case Actions.FETCH_PROGRESS_FAILURE:
@@ -49,6 +46,29 @@ export default (state = initialState, action) => {
           return record._id !== action.payload;
         })
       };
+    case Actions.UPDATING_PROGRESS:
+      return {
+        ...state,
+        message: action.payload
+      };
+    case Actions.UPDATE_PROGRESS_SUCCESS:
+    console.log("ACTION PAYLOAD: " + action.payload)
+      return {
+        ...state,
+        message: "Progress updated successfully!",
+        // progressRecords: state.progressRecords.filter(record => {
+        //   return record._id !== action.payload._id
+        // }).concat(action.payload).sort(function(a,b) { 
+        //   return new Date(a.start).getTime() - new Date(b.start).getTime() 
+        // })
+      progressRecords: state.progressRecords.map(record => record._id === action.payload._id ? action.payload : record)      
+    
+      };
+    case Actions.UPDATE_PROGRESS_FAILURE:
+      return {
+        ...state,
+        message: "Progress updating failed..."
+      }
     default:
       return state;
   }

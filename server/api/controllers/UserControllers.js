@@ -3,6 +3,11 @@ const User = require("../models/User");
 const { generateToken, generateResetToken } = require("../utilities/auth");
 require("dotenv").config();
 const sgMail = require("@sendgrid/mail");
+// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+const stripeTestAPIKey = process.env.STRIPE_API_KEY_TEST;
+// !! This is for development environment, there is a different API key for production !!
+const stripe = require("stripe")(stripeTestAPIKey);
 
 // const secret = process.env.SECRET;
 const sgAPIKey = process.env.SENDGRID_API_KEY;
@@ -45,9 +50,13 @@ const login = (req, res) => {
   User.findOne({ username: username.toLowerCase() })
     .then(user => {
       console.log(`Found ${username} in the User collection:`, user);
-      user
-        .checkPassword(password)
-        .then(success => {
+      user.checkPassword(password).then(success => {
+        if (!success) {
+          console.log(`Failed to match ${username}'s PW.`);
+          res.status(422);
+          res.json("Password incorrect");
+        }
+        if (success) {
           console.log(
             `${username}'s password was correct. Procuring a token...`
           );
@@ -55,12 +64,8 @@ const login = (req, res) => {
           const token = generateToken(username, user._id);
           console.log(`Procured a token for ${username}:`, token);
           res.json({ user, token });
-        })
-        .catch(err => {
-          console.log(`Failed to match ${username}'s PW.`);
-          res.status(422);
-          res.json({ "Password incorrect": err.message });
-        });
+        }
+      });
     })
     .catch(err => {
       res.status(404);
@@ -69,9 +74,9 @@ const login = (req, res) => {
 };
 
 const forgotPassword = (req, res) => {
-  const { username, email } = req.body;
-  if (!email && !username) {
-    return res.status(400).json({ message: "No email or username provided" });
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ message: "No email provided" });
   }
   User.findOne({ email: email }).then(user => {
     const token = generateResetToken(user);
@@ -175,11 +180,91 @@ const ping = (req, res) => {
   });
 };
 
+const changePassword = (req, res) => {
+  const { username, password, newPassword, confirmNewPassword } = req.body;
+  User.findOne({ username: username }).then(user => {
+    console.log(user);
+    user.checkPassword(password).then(success => {
+      if (!success) {
+        res.status(422);
+        res.json("Password incorrect");
+      }
+      if (success) {
+        if (newPassword === confirmNewPassword) {
+          user.password = newPassword;
+          console.log(user.password);
+          user.save().then(() => {
+            res.status(200);
+            res.json({ "New password": user.password });
+          });
+        } else {
+          res.status(422);
+          res.json("New passwords don't match");
+        }
+      }
+    });
+  });
+};
+
+const changeEmail = (req, res) => {
+  const { username, newEmail } = req.body;
+  User.findOneAndUpdate({ username: username }, { email: newEmail }).then(
+    user => {
+      user
+        .save()
+        .then(() => {
+          console.log(user);
+          res.status(200);
+          res.json({ "Updated user email": user.email });
+        })
+        .catch(err => {
+          res.status(400);
+          res.json({ "Could not update email": err.message });
+        });
+    }
+  );
+};
+
+// using async and await according to Stripe docs,
+// I had a hard time getting it to play nice otherwise
+const processPayment = async (req, res) => {
+  const { token, id } = req.body;
+  try {
+    let { status } = await stripe.charges.create({
+      amount: 899,
+      currency: "usd",
+      description: "Example Charge",
+      source: token
+    });
+    if (status) {
+      User.findByIdAndUpdate(id, { premiumUser: true })
+        .then(user => {
+          console.log(user);
+          res.status(200);
+          res.json({ status, user: user });
+        })
+        .catch(err => {
+          res.status(404);
+          res.json({ Error: err.message });
+        });
+    } else {
+      res.status(422);
+      res.json({ status });
+    }
+  } catch (err) {
+    res.status(500);
+    res.json({ "Error processing payment": err.message });
+  }
+};
+
 module.exports = {
   register,
   login,
   forgotPassword,
   resetPassword,
   tokenLogin,
-  ping
+  ping,
+  changePassword,
+  changeEmail,
+  processPayment
 };

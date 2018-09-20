@@ -1,15 +1,20 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const User = require("./User");
 
 const ProgressSchema = Schema({
   date: {
     type: Date,
     default: Date.now
   },
-  weight: Number,
+  weight: {
+    type: Number,
+    required: true
+  },
+  waist: {
+    type: Number,
+    required: true
+  },
   hips: Number,
-  waist: Number,
   r_arm: Number,
   l_arm: Number,
   r_leg: Number,

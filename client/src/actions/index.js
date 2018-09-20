@@ -1,5 +1,4 @@
 import * as Actions from "./actionDefinitions";
-import { callbackify } from "util";
 const axios = require("axios");
 
 const ROOT_URL = "http://localhost:8080";
@@ -118,20 +117,20 @@ export const forgotPassword = data => {
 export const resetPassword = data => {
   return dispatch => {
     dispatch({
-      type: Actions.CHANGING_PASSWORD,
-      payload: "Changing password..."
+      type: Actions.RESETTING_PASSWORD,
+      payload: "Resetting password..."
     });
     axios
       .post(`${ROOT_URL}/reset_password`, data)
       .then(res => {
         dispatch({
-          type: Actions.CHANGE_SUCCESS,
+          type: Actions.RESET_SUCCESS,
           payload: res
         });
       })
       .catch(err => {
         dispatch({
-          type: Actions.CHANGE_FAILURE,
+          type: Actions.RESET_FAILURE,
           payload: err
         });
       });
@@ -151,7 +150,7 @@ export const addProgress = data => {
       .then(res => {
         dispatch({
           type: Actions.ADD_PROGRESS_SUCCESS,
-          payload: res
+          payload: res.data.progress
         });
       })
       .catch(err => {
@@ -176,7 +175,7 @@ export const fetchProgress = () => {
       .then(res => {
         dispatch({
           type: Actions.FETCH_PROGRESS_SUCCESS,
-          payload: res
+          payload: res.data.progress
         });
       })
       .catch(err => {
@@ -375,6 +374,32 @@ export const updateRoutine = (routineId, title) => {
   };
 };
 
+export const updateProgress = (id, data) => {
+  let token = localStorage.getItem("token");
+  return dispatch => {
+    dispatch({
+      type: Actions.UPDATING_PROGRESS,
+      payload: "Updating progress..."
+    });
+    requestOptions = { headers: { "x-access-token": token } };
+    axios
+      .put(`${ROOT_URL}/progress/${id}`, data, requestOptions)
+      .then(res => {
+        console.log("RES: " + res.data);
+        dispatch({
+          type: Actions.UPDATE_PROGRESS_SUCCESS,
+          payload: res.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.UPDATE_PROGRESS_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
 export const scheduleWorkout = routineId => {
   return dispatch => {
     dispatch({
@@ -391,6 +416,80 @@ export const scheduleWorkout = routineId => {
       .catch(err => {
         dispatch({
           type: Actions.SCHEDULE_WORKOUT_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+export const changePassword = data => {
+  let token = localStorage.getItem("token");
+  return dispatch => {
+    dispatch({
+      type: Actions.CHANGING_PASSWORD,
+      payload: "Changing password..."
+    });
+    requestOptions = { headers: { "x-access-token": token } };
+    axios
+      .post(`${ROOT_URL}/settings_password`, data, requestOptions)
+      .then(res => {
+        dispatch({
+          type: Actions.CHANGE_PW_SUCCESS,
+          payload: res
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.CHANGE_PW_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
+export const changeEmail = data => {
+  let token = localStorage.getItem("token");
+  return dispatch => {
+    dispatch({
+      type: Actions.CHANGING_EMAIL,
+      payload: "Changing email..."
+    });
+    requestOptions = { headers: { "x-access-token": token } };
+    axios
+      .post(`${ROOT_URL}/settings_email`, data, requestOptions)
+      .then(res => {
+        dispatch({
+          type: Actions.CHANGE_EMAIL_SUCCESS,
+          payload: res
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.CHANGE_EMAIL_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
+export const processPayment = data => {
+  let token = localStorage.getItem("token");
+  return dispatch => {
+    dispatch({
+      type: Actions.PROCESSING_PAYMENT,
+      payload: "Processing payment..."
+    });
+    requestOptions = { headers: { "x-access-token": token } };
+    axios
+      .post(`${ROOT_URL}/charge`, data, requestOptions)
+      .then(res => {
+        dispatch({
+          type: Actions.PAYMENT_SUCCESS,
+          payload: res
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.PAYMENT_FAILURE,
           payload: err
         });
       });

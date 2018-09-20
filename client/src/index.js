@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import 'bootstrap/dist/css/bootstrap.css';
 import registerServiceWorker from "./registerServiceWorker";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
@@ -15,7 +16,7 @@ import PasswordReset from "./components/PasswordReset";
 import LandingPage from "./components/LandingPage";
 import Schedule from "./components/Schedule";
 import Workouts from "./components/Workouts";
-import Progress from "./components/Progress";
+import Progress from "./components/Progress/Progress";
 import Billing from "./components/Billing";
 import Settings from "./components/Settings";
 

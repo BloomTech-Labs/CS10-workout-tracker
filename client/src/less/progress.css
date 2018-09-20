@@ -1,45 +1,20 @@
-.container {
+.outer-container {
+  background-image: radial-gradient(black, #000033);
+}
+.outer-container .container {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 1000px;
   width: 90%;
   margin: 0 auto;
 }
-.progress-container {
+.outer-container .container .progress-records {
   display: flex;
-}
-.ProgressForm {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  flex-basis: 35%;
-  border: 2px solid black;
-}
-.progress-data {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 60%;
-}
-.current-weight {
-  height: 200px;
-  width: 60%;
-  border: 2px solid black;
-  margin-left: 8px;
-}
-.progress-records {
-  display: flex;
-  justify-content: space-around;
-  height: 300px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   width: 100%;
-  padding: 7px 0px;
-}
-.progress-record {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  margin-top: 43px;
-  height: 80%;
-  line-height: 2;
-  padding-top: 20px;
-  flex-basis: 30%;
-  border: 2px solid black;
+  padding: 7px 0;
+  background-image: radial-gradient(#CCCCCC, black);
 }

@@ -1,10 +1,11 @@
 import { combineReducers } from "redux";
 import authReducer from "./authentication";
 import progressReducer from "./progress";
-import workoutReducer from "./workouts";
+import userReducer from "./user";
 
 export default combineReducers({
   auth: authReducer,
   progress: progressReducer,
-  workouts: workoutReducer
+  workouts: workoutReducer,
+  user: userReducer
 });
