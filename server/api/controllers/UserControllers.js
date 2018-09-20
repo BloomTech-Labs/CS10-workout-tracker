@@ -35,7 +35,7 @@ const register = (req, res) => {
     .save()
     .then(createdUser => {
       const token = generateToken(createdUser.username, createdUser._id);
-      res.json({ createdUser, token });
+      res.json({ user: createdUser, token });
     })
     .catch(err => {
       res.status(422);
