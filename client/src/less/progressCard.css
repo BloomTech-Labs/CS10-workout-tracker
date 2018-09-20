@@ -1,0 +1,40 @@
+.card-container {
+  min-width: 200px;
+  width: 22.5%;
+  margin: 12px;
+}
+.card-container .card {
+  border: none;
+  border-radius: none;
+  box-shadow: 5px 5px 15px black;
+}
+.card-container .card .card-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  color: #cccccc;
+  background-image: linear-gradient(to right, black, #cccccc);
+}
+.card-container .card .card-header .card-date {
+  display: inline-block;
+  align-self: flex-start;
+  font-weight: bold;
+  margin: 5px 0 0 4px;
+}
+.card-container .card .card-header .btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.card-container .card .card-header .btn-container .icon-btn {
+  margin: 6px;
+}
+.card-container .card .card-header .btn-container .icon-btn .icon {
+  color: black;
+}
+.card-container .card .card-body {
+  background-image: radial-gradient(#000033, black);
+  color: #cccccc;
+}
+.y {
+  color: white;
+}

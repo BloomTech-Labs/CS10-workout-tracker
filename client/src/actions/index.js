@@ -207,6 +207,32 @@ export const deleteProgress = id => {
   };
 };
 
+export const updateProgress = (id, data) => {
+  let token = localStorage.getItem("token");
+  return dispatch => {
+    dispatch({
+      type: Actions.UPDATING_PROGRESS,
+      payload: "Updating progress..."
+    });
+    requestOptions = { headers: { "x-access-token": token } };
+    axios
+      .put(`${ROOT_URL}/progress/${id}`, data, requestOptions)
+      .then(res => {
+        console.log("RES: " + res.data)
+        dispatch({
+          type: Actions.UPDATE_PROGRESS_SUCCESS,
+          payload: res.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.UPDATE_PROGRESS_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
 export const changePassword = data => {
   let token = localStorage.getItem("token");
   return dispatch => {
