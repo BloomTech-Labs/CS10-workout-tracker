@@ -8,10 +8,17 @@ const {
   changeEmail,
   processPayment
 } = require("./controllers/UserControllers");
-const { createNewExercise } = require("./controllers/ExerciseControllers");
+const {
+  createNewExercise,
+  fetchExerciseDoc,
+  updateExerciseDoc
+} = require("./controllers/ExerciseControllers");
 const {
   createNewRoutine,
-  addExerciseToRoutine
+  addExerciseToRoutine,
+  fetchRoutineDoc,
+  updateRoutineDoc,
+  fetchHydratedRoutines
 } = require("./controllers/RoutineControllers");
 const { scheduleWorkout } = require("./controllers/WorkoutControllers");
 const {
@@ -35,8 +42,16 @@ module.exports = app => {
   app.route("/settings_email").post(verifyToken, changeEmail);
   app.route("/charge").post(verifyToken, processPayment);
   app.route("/auto-login").get(verifyToken, tokenLogin);
-  app.route("/new-routine").post(createNewRoutine);
-  app.route("/new-exercise").post(createNewExercise);
-  app.route("/add-exercise").post(addExerciseToRoutine);
-  app.route("/schedule-workout").post(scheduleWorkout);
+  app.route("/new-routine").post(verifyToken, createNewRoutine);
+  app.route("/new-exercise").post(verifyToken, createNewExercise);
+  app.route("/add-exercise").post(verifyToken, addExerciseToRoutine);
+  app.route("/schedule-workout").post(verifyToken, scheduleWorkout);
+
+  app.route("/routine").get(verifyToken, fetchRoutineDoc);
+  app.route("/routine").put(verifyToken, updateRoutineDoc);
+  app.route("/routines").get(verifyToken, fetchHydratedRoutines);
+
+  app.route("/exercise").get(verifyToken, fetchExerciseDoc);
+  app.route("/exercise").put(verifyToken, updateExerciseDoc);
+
 };
