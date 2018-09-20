@@ -1,0 +1,188 @@
+.main__landing__page {
+  text-shadow: 0px 0px 5px black;
+}
+.container {
+  max-width: 900px;
+  width: 90%;
+  margin: 0 auto;
+}
+.col__2 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.primary__color__font {
+  color: #CC0000;
+}
+.landing__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 35px;
+  background-image: linear-gradient(black, #222222, #111111);
+  opacity: 0.9;
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+}
+.landing__nav .left__nav {
+  color: #CC0000;
+  font-size: 32px;
+}
+.landing__nav .right__nav {
+  color: #CCCCCC;
+}
+.landing__nav .right__nav span:hover {
+  color: white;
+  cursor: pointer;
+}
+.landing__nav .right__nav .first__nav__span {
+  margin-right: 25px;
+}
+.right__nav {
+  display: flex;
+  justify-content: space-between;
+}
+.main__landing__background {
+  background: url("../img/main_landing_background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #CCCCCC;
+  height: 90%;
+  text-align: center;
+  padding-top: 50px;
+}
+.main__landing__background .col__2 {
+  align-items: center;
+}
+.main__landing__background .main__content__text {
+  flex-basis: 45%;
+}
+.main__landing__background .main__landing__image {
+  height: 90%;
+  flex-basis: 45%;
+}
+.main__landing__background h1 {
+  font-size: 40px;
+}
+.about__app__landing {
+  padding: 0 35px 120px 35px;
+  width: 100%;
+  background-image: radial-gradient(#666666, black);
+}
+.about__app__landing .display__more {
+  position: relative;
+  bottom: 30px;
+  margin-bottom: 10px;
+  background-image: radial-gradient(#CC0000, black);
+}
+.about__app__landing .display__more .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+  bottom: 50px;
+  color: #CCCCCC;
+}
+.about__app__landing img {
+  height: 230px;
+}
+.about__app__landing h2 {
+  text-align: center;
+  font-size: 40px;
+  color: #000033;
+  margin-bottom: 60px;
+}
+.landing__icons {
+  width: 100%;
+  color: #CCCCCC;
+}
+.landing__icons .container {
+  display: flex;
+  justify-content: space-around;
+}
+.landing__icons .container i {
+  width: 80px;
+  height: 80px;
+}
+.svg-inline--fa.fa-w-14 {
+  width: 5em;
+  height: 5em;
+}
+.svg-inline--fa.fa-w-18 {
+  width: 5em;
+  height: 5em;
+}
+.svg-inline--fa.fa-w-20 {
+  width: 5em;
+}
+.svg-inline--fa {
+  width: 5em;
+  height: 5em;
+}
+.landing__quote {
+  width: 100%;
+  padding: 100px 0;
+  text-align: center;
+  background-image: radial-gradient(#000033, black);
+}
+.landing__quote h2 {
+  font-size: 40px;
+  color: #CC0000;
+}
+.landing__start {
+  background: url("../img/how_to_start_bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 500px;
+  background-position: center;
+  width: 100%;
+  color: #CCCCCC;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.landing__start .landing__start__content {
+  width: 100%;
+  text-align: center;
+}
+.landing__start .landing__start__content h2 {
+  position: relative;
+  top: -100px;
+  font-size: 40px;
+}
+.landing__start .landing__start__content div {
+  display: flex;
+  justify-content: space-around;
+  max-width: 800px;
+  width: 80%;
+  margin: 0 auto;
+}
+.landing__start .landing__start__content div p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  flex-basis: 30%;
+  border-left: 3px solid #CCCCCC;
+  padding: 20px 0;
+  padding-left: 10px;
+}
+.landing__start .landing__start__content div p:last-child {
+  border-right: 3px solid #CCCCCC;
+}
+.landing__start .landing__start__content div p span {
+  color: #CC0000;
+  font-size: 60px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+footer {
+  font-size: 24px;
+  background-image: radial-gradient(#000033, black);
+  color: #CC0000;
+  text-align: center;
+}
+footer p {
+  padding: 40px 0;
+}
