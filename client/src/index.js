@@ -7,7 +7,6 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import ReduxThunk from "redux-thunk";
-import "bootstrap/dist/css/bootstrap.css";
 import RegistrationPage from "./components/RegistrationPage";
 import AccessControl from "./components/AccessControl";
 import LoginPage from "./components/LoginPage";
