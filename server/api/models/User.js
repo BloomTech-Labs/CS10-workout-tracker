@@ -65,14 +65,10 @@ const UserSchema = Schema({
       }
     }
   ],
-  exercises: [
-    {
-      exercise: { 
-        type: Schema.Types.ObjectId,
-        ref: "Exercise"
-      }
-    }
-  ]
+  premiumUser: {
+    type: Boolean,
+    default: false
+  }
 });
 
 // const userSchema = new Schema(UserSchema)
