@@ -51,6 +51,7 @@ class Calendar extends React.Component {
       <div style={{height: "500px", width: "90%"}}>
         <BigCalendar
           onSelectEvent={test}
+          //this is a test
           // events={myEventsList}
           // startAccessor='start'
           // endAccessor='end'
