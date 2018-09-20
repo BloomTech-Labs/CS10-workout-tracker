@@ -9,7 +9,7 @@ let requestOptions = {};
 // to do to interact with an access-controlled route is include this
 // requestOptions object as the final parameter in your Axios call.
 
-export const register = data => {
+export const register = (data, history) => {
   return dispatch => {
     dispatch({
       type: Actions.REGISTERING,
@@ -24,6 +24,7 @@ export const register = data => {
           type: Actions.REGISTER_SUCCESS,
           payload: res
         });
+        history.push("/progress");
       })
       .catch(err => {
         dispatch({
@@ -34,7 +35,7 @@ export const register = data => {
   };
 };
 
-export const login = data => {
+export const login = (data, history) => {
   return dispatch => {
     dispatch({
       type: Actions.LOGGING_IN,
@@ -49,6 +50,7 @@ export const login = data => {
           type: Actions.LOGIN_SUCCESS,
           payload: res
         });
+        history.push("/progress");
       })
       .catch(err => {
         dispatch({
