@@ -3,8 +3,54 @@ const Routine = require("../models/Routine");
 
 // A Routine is a set of Exercises you intend to perform together. Once you have a
 // Routine with at least one Exercise, you can use it to schedule a Workout.
+const fetchRoutineDoc = (req, res) => {
+  const { routineId } = req.body;
+  Routine.findById(routineId)
+    .then(routineDocument => {
+      return res.status(200).json(routineDocument);
+    })
+    .catch(err => {
+      return res.status(404).json({ err });
+    })
+}
+
+const updateRoutineDoc = (req, res) => {
+  const { routineId, title } = req.body;
+  Routine.findByIdAndUpdate(routineId, { $set: { title: title }}, { new: true })
+    .then(updatedRoutine => {
+      return res.status(200).json(updatedRoutine);
+    })
+    .catch(err => {
+      return res.status(404).json({ err });
+    })
+}
+
+// This responds with a list of the User's Routines, hydrated with Exercise documents.
+// This is useful for perfroming CRUD at the Routine level.
+
+const fetchHydratedRoutines = (req, res) => {
+  User.findById(req.userId)
+    .then(user => {
+      console.log("Found the user:", user);
+      user.populate({ path:"routines", populate: { path: "exercises"} }, (err, userWithRoutinesHydrated) => {
+        if (err) {
+          res.status(400);
+          res.json({
+            msg: "Failed to hydrate the User's routines",
+            err
+          });
+        }
+        res.status(200).json({ routines: userWithRoutinesHydrated.routines });
+        }
+      )
+    })
+    .catch(err => res.status(404).json({ err }));
+}
+
 const createNewRoutine = (req, res) => {
-  const { userId, title } = req.body;
+  const { userId } = req;
+  let { title } = req.body;
+  if (!title) title = "Untitled Routine";
   const newRoutineParameters = { user: userId, title };
   const newRoutine = Routine(newRoutineParameters);
   newRoutine.save((err, createdRoutine) => {
@@ -49,5 +95,8 @@ const addExerciseToRoutine = (req, res) => {
 
 module.exports = {
   createNewRoutine,
-  addExerciseToRoutine
+  addExerciseToRoutine,
+  fetchRoutineDoc,
+  updateRoutineDoc,
+  fetchHydratedRoutines
 };
