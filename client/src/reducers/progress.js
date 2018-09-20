@@ -52,23 +52,25 @@ export default (state = initialState, action) => {
         message: action.payload
       };
     case Actions.UPDATE_PROGRESS_SUCCESS:
-    console.log("ACTION PAYLOAD: " + action.payload)
+      console.log("ACTION PAYLOAD: " + action.payload);
       return {
         ...state,
         message: "Progress updated successfully!",
         // progressRecords: state.progressRecords.filter(record => {
         //   return record._id !== action.payload._id
-        // }).concat(action.payload).sort(function(a,b) { 
-        //   return new Date(a.start).getTime() - new Date(b.start).getTime() 
+        // }).concat(action.payload).sort(function(a,b) {
+        //   return new Date(a.start).getTime() - new Date(b.start).getTime()
         // })
-      progressRecords: state.progressRecords.map(record => record._id === action.payload._id ? action.payload : record)      
-    
+        progressRecords: state.progressRecords.map(
+          record =>
+            record._id === action.payload._id ? action.payload : record
+        )
       };
     case Actions.UPDATE_PROGRESS_FAILURE:
       return {
         ...state,
         message: "Progress updating failed..."
-      }
+      };
     default:
       return state;
   }

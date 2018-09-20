@@ -216,7 +216,7 @@ export const updateProgress = (id, data) => {
     axios
       .put(`${ROOT_URL}/progress/${id}`, data, requestOptions)
       .then(res => {
-        console.log("RES: " + res.data)
+        console.log("RES: " + res.data);
         dispatch({
           type: Actions.UPDATE_PROGRESS_SUCCESS,
           payload: res.data
