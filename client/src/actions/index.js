@@ -116,7 +116,7 @@ export const forgotPassword = data => {
   };
 };
 
-export const resetPassword = data => {
+export const resetPassword = (data, history) => {
   return dispatch => {
     dispatch({
       type: Actions.RESETTING_PASSWORD,
@@ -129,6 +129,7 @@ export const resetPassword = data => {
           type: Actions.RESET_SUCCESS,
           payload: res
         });
+        history.push("/");
       })
       .catch(err => {
         dispatch({

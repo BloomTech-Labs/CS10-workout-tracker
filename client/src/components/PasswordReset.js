@@ -18,11 +18,14 @@ class PasswordReset extends Component {
     const urlParams = new URLSearchParams(this.props.location.search);
     const token = urlParams.get("token");
     if (this.state.newPassword === this.state.confirmNewPassword) {
-      this.props.resetPassword({
-        newPassword: this.state.newPassword,
-        confirmNewPassword: this.state.confirmNewPassword,
-        token: token
-      });
+      this.props.resetPassword(
+        {
+          newPassword: this.state.newPassword,
+          confirmNewPassword: this.state.confirmNewPassword,
+          token: token
+        },
+        this.props.history
+      );
     }
     console.log(token);
     this.setState({

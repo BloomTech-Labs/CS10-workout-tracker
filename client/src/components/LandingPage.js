@@ -3,7 +3,7 @@ import MainLandingImg from "../img/main_landing.png";
 import "../less/landing.css";
 import { connect } from "react-redux";
 // import { withRouter } from 'react-router-dom';
-import { register, login } from "../actions";
+import { register, login, forgotPassword } from "../actions";
 import ScrollAnimation from "react-animate-on-scroll";
 import {
   Button,
@@ -39,7 +39,8 @@ class LandingPage extends Component {
       confirmPassword: "",
       email: "",
       signUpModal: false,
-      signInModal: false
+      signInModal: false,
+      forgotModal: false
     };
   }
 
@@ -56,6 +57,12 @@ class LandingPage extends Component {
   toggleSignUpModal = () => {
     this.setState({
       signUpModal: !this.state.signUpModal
+    });
+  };
+
+  toggleForgotModal = () => {
+    this.setState({
+      forgotModal: !this.state.forgotModal
     });
   };
 
@@ -96,6 +103,18 @@ class LandingPage extends Component {
       signInPass: ""
     });
     this.toggleSignInModal();
+  };
+
+  handleForgotPassword = event => {
+    event.preventDefault();
+    if (this.state.password === this.state.confirmPassword) {
+      this.props.forgotPassword({
+        email: this.state.email
+      });
+    }
+    this.setState({
+      email: ""
+    });
   };
 
   render() {
@@ -229,10 +248,44 @@ class LandingPage extends Component {
             <Button color="secondary" onClick={this.toggleSignInModal}>
               Cancel
             </Button>
+            <Button color="danger" onClick={this.toggleForgotModal}>
+              Forgot Password?
+            </Button>
           </ModalFooter>
         </Modal>
 
         {/* end signin modal */}
+
+        {/*forgot PW modal */}
+
+        <Modal
+          isOpen={this.state.forgotModal}
+          toggle={this.toggleForgotModal}
+          className="sign__up"
+        >
+          <ModalHeader toggle={this.toggleForgotModal}>
+            Forgot Password?
+          </ModalHeader>
+          <ModalBody>
+            <InputGroup>
+              <Input
+                placeholder="Email"
+                type="text"
+                value={this.state.email}
+                onChange={this.handleFieldChange}
+                name="email"
+              />
+            </InputGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.handleForgotPassword}>
+              Request Recovery Link
+            </Button>
+            <Button color="secondary" onClick={this.toggleForgotModal}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
 
         <section className="about__app__landing">
           <div className="container">
@@ -318,5 +371,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { register, login }
+  { register, login, forgotPassword }
 )(LandingPage);
