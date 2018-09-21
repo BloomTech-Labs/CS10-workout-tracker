@@ -64,7 +64,20 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
 - `/progress`
 
   - { weight, hips, waist, r_arm, l_arm, r_leg, l_leg, user }
-  - Add a progress entry to the User's history
+  - Add a progress entry to the User's history.
+
+- `/progress`
+
+ - Retrieves a User's progress history.
+
+- `/progress/:id`
+
+  - { weight, hips, waist, r_arm, l_arm, r_leg, l_leg, user }
+  - Finds the progress by id and updates it.
+
+- `/progress/:id`
+
+  - Finds the progress by id and deletes it from the Progresses Collection and deletes the corresponding reference in the Users collection.
 
 - `/new-routine`
 
