@@ -15,13 +15,13 @@ const ProgressTracker = props => {
 
   let startingWeight = firstProgress.weight;
   let mostRecentWeight = mostRecentProgress.weight;
-  let weightLost = (startingWeight - mostRecentWeight).toFixed(2) + " lbs";
-  let weightGained = (parseInt(weightLost, 10) * -1).toFixed(2) + " lbs";
+  let weightLost = (startingWeight - mostRecentWeight).toFixed(1) + " lbs";
+  let weightGained = (parseInt(weightLost, 10) * -1).toFixed(1) + " lbs";
 
   let startingInches = firstProgress.waist;
   let mostRecentInches = mostRecentProgress.waist;
-  let inchesLost = (startingInches - mostRecentInches).toFixed(2) + " inches";
-  let inchesGained = (parseInt(inchesLost, 10) * -1).toFixed(2) + " inches";
+  let inchesLost = (startingInches - mostRecentInches).toFixed(1) + " inches";
+  let inchesGained = (parseInt(inchesLost, 10) * -1).toFixed(1) + " inches";
 
   return (
     <div className={props.progressRecords.length <= 1 ? " progress-tracker gray" : "progress-tracker"}>
