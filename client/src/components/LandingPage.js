@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import MainLandingImg from "../img/main_landing.png";
 import "../less/landing.css";
 import { connect } from "react-redux";
-// import { withRouter } from 'react-router-dom';
 import { register, login, forgotPassword } from "../actions";
 import ScrollAnimation from "react-animate-on-scroll";
 import {
@@ -15,10 +14,8 @@ import {
   InputGroup
 } from "reactstrap";
 import "animate.css/animate.min.css";
-import FontAwesome from "react-fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCalendarAlt,
   faCreditCard,
@@ -26,7 +23,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faCalendarAlt, faCreditCard, faDumbbell);
-// library.add(FontAwesomeIcon);
 
 class LandingPage extends Component {
   constructor() {
