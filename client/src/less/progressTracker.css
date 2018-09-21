@@ -16,9 +16,12 @@
   margin: 20px 0;
 }
 .progress-tracker .tracker-requirement {
-  font-size: 12px;
-  color: red;
+  font-size: 20px;
+  color: #cc0000;
   margin-bottom: 10px;
+}
+.x {
+  background-image: linear-gradient(#666666, black);
 }
 .progress-box {
   width: 50%;

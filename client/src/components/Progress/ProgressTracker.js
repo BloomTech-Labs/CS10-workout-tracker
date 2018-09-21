@@ -24,13 +24,12 @@ const ProgressTracker = props => {
   let inchesGained = parseInt(inchesLost, 10) * -1 + " inches";
 
   return (
-    <div className="progress-tracker">
+    <div className={props.progressRecords.length<= 1 ? " progress-tracker x" : "progress-tracker"}>
       {props.progressRecords.length <= 1 ? (
         <div>
           <div className="progress-tracker-title">Progress Tracker</div>
           <div className="tracker-requirement">
-            * Submit at least 2 progresses to calculate weight lost/gained and
-            inches lost/gained.
+            * Minimum 2 submissions required to calculate progress.
           </div>
         </div>
       ) : (
