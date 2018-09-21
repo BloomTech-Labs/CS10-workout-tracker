@@ -25,7 +25,7 @@ const ProgressTracker = props => {
 
   return (
     <div className={props.progressRecords.length <= 1 ? " progress-tracker gray" : "progress-tracker"}>
-      {props.progressRecords.length <= 1 ? (
+      {props.progressRecords.length <= 1 ? ( 
         <div>
           <div className="progress-tracker-title">Progress Tracker</div>
           <div className="tracker-requirement">
