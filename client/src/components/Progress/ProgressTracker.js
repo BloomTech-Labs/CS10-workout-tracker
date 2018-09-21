@@ -24,7 +24,7 @@ const ProgressTracker = props => {
   let inchesGained = (parseInt(inchesLost, 10) * -1).toFixed(2) + " inches";
 
   return (
-    <div className={props.progressRecords.length<= 1 ? " progress-tracker x" : "progress-tracker"}>
+    <div className={props.progressRecords.length <= 1 ? " progress-tracker gray" : "progress-tracker"}>
       {props.progressRecords.length <= 1 ? (
         <div>
           <div className="progress-tracker-title">Progress Tracker</div>
