@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MainLandingImg from "../img/main_landing.png";
 import "../less/landing.css";
 import { connect } from "react-redux";
+// import { withRouter } from 'react-router-dom';
 import { register, login, forgotPassword } from "../actions";
 import ScrollAnimation from "react-animate-on-scroll";
 import {
