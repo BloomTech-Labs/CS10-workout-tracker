@@ -405,7 +405,8 @@ export const updateProgress = (id, data) => {
 export const scheduleWorkout = (routineId, date) => { // previous was only ***** routineId
   return dispatch => {
     dispatch({
-      type: Actions.SCHEDULING_WORKOUT
+      type: Actions.SCHEDULING_WORKOUT,
+      payload: "Scheduling workout..."
     });
     axios
       .post(`${ROOT_URL}/schedule-workout`, { routineId, date }, requestOptions)

@@ -56,7 +56,9 @@ const scheduleWorkout = (req, res) => {
     .save()
     .then(savedWorkout => {
       console.log("Saved this Workout doc: ", savedWorkout);
-      return savedWorkout;
+      // return savedWorkout;
+      res.status(200)
+      res.json(savedWorkout)
     })
     .then(savedWorkout => {
       Routine.findByIdAndUpdate(routineId, {

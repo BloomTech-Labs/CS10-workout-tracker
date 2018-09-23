@@ -4,8 +4,8 @@ const initialState = {
   msg: "Started up.",
   routines: [],
   selectedRoutine: null,
-  workouts: [],
-  events: []
+  workouts: []
+  // events: []
 };
 
 export default (state = initialState, action) => {
@@ -142,13 +142,29 @@ export default (state = initialState, action) => {
         return {
           ...state,
           msg: "Fetched the user's scheduled workouts",
-          workouts: action.payload,
-          events: action.payload.map((workout) => state.events.concat({allDay: false, 'start': workout.date, 'end': workout.date, title: workout.routine.title}) )
+          workouts: action.payload
+          // events: action.payload.map((workout) => state.events.concat({allDay: false, 'start': workout.date, 'end': workout.date, title: workout.routine.title}) )
         };
       case Actions.FETCH_WORKOUTS_FAILURE:
         return {
           ...state,
           msg: "Couldn't fetch the user's scheduled workouts",
+        }
+      case Actions.SCHEDULING_WORKOUT:
+        return {
+          ...state,
+          msg: action.payload
+        }
+      case Actions.SCHEDULE_WORKOUT_SUCCESS:
+        return {
+          ...state,
+          msg: "Scheduled user's workout",
+          workouts: [...state.workouts, action.payload]
+        }
+      case Actions.SCHEDULE_WORKOUT_FAILURE:
+        return {
+          ...state,
+          msg: "Couldn't schedule the user's workout"
         }
 
     default:

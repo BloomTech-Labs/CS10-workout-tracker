@@ -99,6 +99,7 @@ class Calendar1 extends Component {
         this.selectedId = "";
         this.selectedDate = ""
         this.toggle();
+        this.setState({})
     }
 
     events =  [];
@@ -113,7 +114,7 @@ class Calendar1 extends Component {
         {this.events = this.props.workouts.map(workout => ({allDay: false, 'start': workout.date, 'end': workout.date, title: workout.routine.title, id: workout._id}))}        // {this.props.workouts.map(workout => this.events.push({allDay: false, 'start': workout.date, 'end': workout.date, title: workout.routine.title, id: workout._id}))}
         
         // {this.props.workouts.map(workout => this.events.push({allDay: false, 'start': workout.date, 'end': workout.date, title: workout.routine.title, id: workout._id}))}       
-        console.log((this.props.events));
+        // console.log((this.props.events));
         let allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k])
         
         console.log(this.events)
@@ -166,8 +167,8 @@ const mapStateToProps = state => {
       );
     return {
       routines: state.workouts.routines,
-      workouts: state.workouts.workouts,
-      events: state.workouts.events
+      workouts: state.workouts.workouts
+    //   events: state.workouts.events
     };
   };
 
