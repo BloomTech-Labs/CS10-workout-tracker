@@ -38,9 +38,6 @@ class Calendar extends React.Component {
     }
   
   }
-
-  
-
   
   render() {
     let test = function(){
@@ -57,7 +54,7 @@ class Calendar extends React.Component {
           // views={allViews}
           // step={60}
           // // popup={true}
-          // selectable={true}
+          selectable={true}
           // onView={() => {}}
           // showMultiDayTimes
           // // max={dates.add(dates.endOf(new Date(2015, 17, 1), 'day'), -1, 'hours')}

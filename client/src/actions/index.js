@@ -402,13 +402,13 @@ export const updateProgress = (id, data) => {
   };
 };
 
-export const scheduleWorkout = routineId => {
+export const scheduleWorkout = (routineId, date) => { // previous was only ***** routineId
   return dispatch => {
     dispatch({
       type: Actions.SCHEDULING_WORKOUT
     });
     axios
-      .post(`${ROOT_URL}/schedule-workout`, { routineId }, requestOptions)
+      .post(`${ROOT_URL}/schedule-workout`, { routineId, date }, requestOptions)
       .then(response => {
         dispatch({
           type: Actions.SCHEDULE_WORKOUT_SUCCESS,
@@ -423,6 +423,31 @@ export const scheduleWorkout = routineId => {
       });
   };
 };
+
+export const fetchAllWorkouts = () => {
+  return dispatch => {
+    dispatch({
+      type: Actions.FETCHING_WORKOUTS,
+      payload: "Fetching user's workouts"
+
+    });
+    axios
+      .get(`${ROOT_URL}/workout`, requestOptions)
+      .then(response => {
+        dispatch({
+          type: Actions.FETCH_WORKOUTS_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.FETCH_WORKOUTS_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
 export const changePassword = data => {
   let token = localStorage.getItem("token");
   return dispatch => {

@@ -67,6 +67,8 @@ const createNewExercise = (req, res) => {
   });
 };
 
+
+
 module.exports = {
   createNewExercise,
   fetchExerciseDoc,

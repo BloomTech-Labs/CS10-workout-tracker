@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
-import Calendar from "./Calendar";
+import Calendar1 from "./Calendar1";
 
 class Schedule extends Component {
   render() {
@@ -8,7 +8,7 @@ class Schedule extends Component {
       <div>
         <NavBar />
         this is the schedule component
-        <Calendar />
+        <Calendar1 />
       </div>
     );
   }

@@ -3,7 +3,8 @@ import * as Actions from "../actions/actionDefinitions";
 const initialState = {
   msg: "Started up.",
   routines: [],
-  selectedRoutine: null
+  selectedRoutine: null,
+  workouts: []
 };
 
 export default (state = initialState, action) => {
@@ -131,6 +132,23 @@ export default (state = initialState, action) => {
           title: action.payload.data.title
         }
       };
+      case Actions.FETCHING_WORKOUTS:
+        return {
+          ...state,
+          msg: action.payload
+        };
+      case Actions.FETCH_WORKOUTS_SUCCESS:
+        return {
+          ...state,
+          msg: "Fetched the user's scheduled workouts",
+          workouts: action.payload
+        };
+      case Actions.FETCH_WORKOUTS_FAILURE:
+        return {
+          ...state,
+          msg: "Couldn't fetch the user's scheduled workouts",
+        }
+
     default:
       return state;
   }
