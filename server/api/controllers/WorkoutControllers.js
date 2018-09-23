@@ -20,6 +20,7 @@ const fetchAllWorkouts = (req, res) => {
   Workout.find({user: userId })
   .populate("routine")
     .then(workouts => {
+      Routine.find
       res.status(200).json(workouts)
     })
     .catch(err => {

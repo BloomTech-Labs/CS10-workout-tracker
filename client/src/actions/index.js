@@ -434,6 +434,7 @@ export const fetchAllWorkouts = () => {
     axios
       .get(`${ROOT_URL}/workout`, requestOptions)
       .then(response => {
+        // console.log(response)
         dispatch({
           type: Actions.FETCH_WORKOUTS_SUCCESS,
           payload: response.data

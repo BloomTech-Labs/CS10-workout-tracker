@@ -7,6 +7,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { connect } from "react-redux";
 
 import { fetchRoutines, scheduleWorkout, fetchAllWorkouts } from "../actions";
+import { EventEmitter } from 'events';
 
 BigCalendar.momentLocalizer(moment);
 
@@ -18,10 +19,10 @@ class Calendar1 extends Component {
         //     title: "",
         //     id: ""
         // },
-        events: [],
-        selectedValue: "",
-        selectedId: "",
-        selectedDate: ""
+        // events: [],
+        // selectedValue: "",
+        // selectedId: "",
+        // selectedDate: ""
     }
 
     componentDidMount() {
@@ -29,20 +30,33 @@ class Calendar1 extends Component {
         this.props.fetchAllWorkouts()
     }
 
+
+
      handleChange = (e) => {
         // this.setState({selectedValue: {title: e.target.value, id: e.target.value._id}});
         // console.log(e.target.value.title)
         // console.log(typeof(e.target.value))
         // let indexOfSelectedValue;
 
-        this.setState({selectedValue: e.target.value}, () => {
-             this.props.routines.map((routine, index) => {
-                if (routine.title === this.state.selectedValue) {
-                    return this.setState({ selectedId: routine._id}, () => {console.log(this.state.selectedId)})
+        // this.setState({selectedValue: e.target.value}, () => {
+        //      this.props.routines.map((routine, index) => {
+        //         if (routine.title === this.state.selectedValue) {
+        //             return this.setState({ selectedId: routine._id}, () => {console.log(this.state.selectedId)})
                     
-                }
-            })
-        })
+        //         }
+        //     })
+        // })
+
+            this.selectedValue = e.target.value;
+            this.props.routines.map((routine, index) => {
+               if (routine.title === this.selectedValue) {
+                //    return this.setState({ selectedId: routine._id}, () => {console.log(this.state.selectedId)})
+                return this.selectedId = routine._id;
+                   
+               }
+           })
+    
+    
 
         // console.log(this.state.selectedValue)
         
@@ -63,6 +77,7 @@ class Calendar1 extends Component {
         
       }
 
+
     toggle = () => {
         this.setState({
           modal: !this.state.modal
@@ -71,29 +86,48 @@ class Calendar1 extends Component {
 
     onSelectSlot = (selected) => {
         
-        this.setState({ selectedDate: selected.start })
-        console.log("SELECTED DATE: " + this.state.selectedDate)
+        // this.setState({ selectedDate: selected.start })
+        this.selectedDate = selected.start;
+        console.log("SELECTED DATE: " + this.selectedDate)
         this.toggle()
     }
 
     scheduleWorkout = () => {
-        this.props.scheduleWorkout(this.state.selectedId, this.state.selectedDate)
-        this.setState({ selectedValue: "", selectedId: "", selectedDate: ""})
+        this.props.scheduleWorkout(this.selectedId, this.selectedDate)
+        // this.setState({ selectedValue: "", selectedId: "", selectedDate: ""})
+        this.selectedValue = "";
+        this.selectedId = "";
+        this.selectedDate = ""
         this.toggle();
     }
 
-    render() {
-        {this.props.workouts.map(workout => this.state.events.push({allDay: false, 'start': workout.date, 'end': workout.date, title: workout.routine.title}))}
-        let allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k])
+    events =  [];
 
+    selectedValue;
+    selectedId;
+    selectedDate;
+
+    
+   
+    render() {
+        {this.events = this.props.workouts.map(workout => ({allDay: false, 'start': workout.date, 'end': workout.date, title: workout.routine.title, id: workout._id}))}        // {this.props.workouts.map(workout => this.events.push({allDay: false, 'start': workout.date, 'end': workout.date, title: workout.routine.title, id: workout._id}))}
+        
+        // {this.props.workouts.map(workout => this.events.push({allDay: false, 'start': workout.date, 'end': workout.date, title: workout.routine.title, id: workout._id}))}       
+        console.log((this.props.events));
+        let allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k])
+        
         console.log(this.events)
         return (
+            
             <React.Fragment>
+                
+            <div style={{height: "500px", width: "90%"}}>
             <BigCalendar
-                events={this.state.events}
+                popup
+                events={this.events}
                 views={allViews}
                 step={60}
-                showMultiDayTimes={true}
+                showMultiDayTimes
                 // max={dates.add(dates.endOf(new Date(2015, 17, 1), 'day'), -1, 'hours')}
                 defaultDate={new Date()}
                 defaultView="month"
@@ -101,6 +135,7 @@ class Calendar1 extends Component {
                 selectable={true}
                 onSelectSlot={this.onSelectSlot}
             />
+            </div>
 
             <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                 <ModalHeader toggle={this.toggle}>Schedule a Workout!</ModalHeader>
@@ -124,13 +159,15 @@ class Calendar1 extends Component {
 }
 
 const mapStateToProps = state => {
+    
     console.log(
-        "At time of render, Billing Page received this app state:",
+        "At time of render, Calendar Page received this app state:",
         state
       );
     return {
       routines: state.workouts.routines,
-      workouts: state.workouts.workouts
+      workouts: state.workouts.workouts,
+      events: state.workouts.events
     };
   };
 
