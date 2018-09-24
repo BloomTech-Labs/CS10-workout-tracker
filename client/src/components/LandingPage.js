@@ -15,10 +15,8 @@ import {
   InputGroup
 } from "reactstrap";
 import "animate.css/animate.min.css";
-import FontAwesome from "react-fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCalendarAlt,
   faCreditCard,
@@ -26,7 +24,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faCalendarAlt, faCreditCard, faDumbbell);
-// library.add(FontAwesomeIcon);
 
 class LandingPage extends Component {
   constructor() {
