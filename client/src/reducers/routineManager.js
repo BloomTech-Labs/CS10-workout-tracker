@@ -3,7 +3,7 @@ import * as Actions from "../actions/actionDefinitions";
 const initialState = {
   msg: "Started up.",
   routines: [],
-  selectedRoutine: null
+  focusedRoutine: null
 };
 
 export default (state = initialState, action) => {
@@ -29,21 +29,22 @@ export default (state = initialState, action) => {
     case Actions.SELECT_ROUTINE:
       return {
         ...state,
-        selectedRoutine: state.routines[action.payload]
+        focusedRoutine: state.routines[action.payload]
       };
     case Actions.FETCHING_ROUTINE_HISTORY:
       return {
         ...state,
-        msg: "Fetching history for selected routine..."
+        msg: "Fetching history for focused routine..."
       };
     case Actions.FETCH_ROUTINE_HISTORY_FAILURE:
       return {
         ...state,
-        msg: "Failed to fetch history for selected routine."
+        msg: "Failed to fetch history for focused routine."
       };
     case Actions.FETCH_ROUTINE_HISTORY_SUCCESS:
       return {
-        ...state
+        ...state,
+        focusedRoutine: action.payload,
       };
     case Actions.POSTING_NEW_ROUTINE:
       return {
@@ -61,7 +62,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         msg: "Posting a new workout routine...",
-        selectedRoutine: action.payload,
+        focusedRoutine: action.payload,
         routines: updatedRoutineList
       };
     case Actions.POSTING_NEW_EXERCISE_IN_ROUTINE:
@@ -75,15 +76,15 @@ export default (state = initialState, action) => {
         msg: "Failed to post a new exercise as part of a routine."
       };
     case Actions.POST_NEW_EXERCISE_IN_ROUTINE_SUCCESS:
-      const memoOfSelectedRoutine = Object.assign(state.selectedRoutine);
-      const memoOfLoadedExercises = memoOfSelectedRoutine.exercises.slice(0);
+      const memoOfFocusedRoutine = Object.assign(state.focusedRoutine);
+      const memoOfLoadedExercises = memoOfFocusedRoutine.exercises.slice(0);
       memoOfLoadedExercises.push(action.payload.exercise);
-      memoOfSelectedRoutine.exercises = memoOfLoadedExercises;
+      memoOfFocusedRoutine.exercises = memoOfLoadedExercises;
       return {
         ...state,
         msg: "Posted a new exercise a part of a routine.",
-        selectedRoutine: {
-          ...memoOfSelectedRoutine,
+        focusedRoutine: {
+          ...memoOfFocusedRoutine,
           exercises: memoOfLoadedExercises
         }
       };
@@ -101,7 +102,14 @@ export default (state = initialState, action) => {
     case Actions.UPDATE_EXERCISE_SUCCESS:
       return {
         ...state,
-        msg: "Updated an exercise"
+        focusedRoutine: Object.assign({}, state.focusedRoutine, {
+          exercises: state.focusedRoutine.exercises.map(exercise => {
+            if (action.payload.data._id === exercise._id)
+              return action.payload.data;
+            return exercise;
+          })
+        })
+        // msg: "Updated an exercise"
       };
     case Actions.UPDATING_ROUTINE:
       return {
@@ -118,10 +126,10 @@ export default (state = initialState, action) => {
         "Got an action for routine metadata update success:",
         action.payload.data.title
       );
-      // Copy the "routines" array, find the routine with the matching Id to the old selected routine, replace
+      // Copy the "routines" array, find the routine with the matching Id to the old focused routine, replace
       // the title, and replace "routines" with the updated copy.
       const memoOfSelectedRoutineWithTitle = Object.assign(
-        state.selectedRoutine
+        state.focusedRoutine
       );
       return {
         ...state,
@@ -129,7 +137,12 @@ export default (state = initialState, action) => {
         selectedRoutine: {
           ...memoOfSelectedRoutineWithTitle,
           title: action.payload.data.title
-        }
+        },
+        routines: state.routines.map(routine => {
+          if (routine._id === action.payload.data._id)
+            return action.payload.data;
+          return routine;
+        })
       };
     default:
       return state;
