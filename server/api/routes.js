@@ -18,6 +18,7 @@ const {
   addExerciseToRoutine,
   fetchRoutineDoc,
   updateRoutineDoc,
+  fetchHydratedRoutine,
   fetchHydratedRoutines
 } = require("./controllers/RoutineControllers");
 const { scheduleWorkout } = require("./controllers/WorkoutControllers");
@@ -48,6 +49,7 @@ module.exports = app => {
   app.route("/schedule-workout").post(verifyToken, scheduleWorkout);
 
   app.route("/routine").get(verifyToken, fetchRoutineDoc);
+  app.route("/routine-rich").post(verifyToken, fetchHydratedRoutine);
   app.route("/routine").put(verifyToken, updateRoutineDoc);
   app.route("/routines").get(verifyToken, fetchHydratedRoutines);
 

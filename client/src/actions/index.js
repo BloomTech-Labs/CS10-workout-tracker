@@ -227,30 +227,30 @@ export const fetchRoutines = () => {
   };
 };
 
-export const selectRoutine = index => {
+export const selectRoutine = (index, routineId) => {
   console.log("Selecting routine at index: ", index);
   return dispatch => {
     dispatch({
       type: Actions.SELECT_ROUTINE,
       payload: index
     });
-    // dispatch({
-    //   type: Actions.FETCHING_ROUTINE_HISTORY
-    // });
-    // axios
-    //   .get(`${ROOT_URL}/routine-history`)
-    //   .then(res => {
-    //     dispatch({
-    //       type: Actions.FETCH_ROUTINE_HISTORY_SUCCESS,
-    //       payload: res.data
-    //     });
-    //   })
-    //   .catch(err => {
-    //     dispatch({
-    //       type: Actions.FETCH_ROUTINE_HISTORY_FAILURE,
-    //       payload: err
-    //     });
-    //   });
+    dispatch({
+      type: Actions.FETCHING_ROUTINE_HISTORY
+    });
+    axios
+      .post(`${ROOT_URL}/routine-rich`, { routineId }, requestOptions)
+      .then(res => {
+        dispatch({
+          type: Actions.FETCH_ROUTINE_HISTORY_SUCCESS,
+          payload: res.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.FETCH_ROUTINE_HISTORY_FAILURE,
+          payload: err
+        });
+      });
   };
 };
 

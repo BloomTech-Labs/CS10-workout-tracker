@@ -43,7 +43,8 @@ export default (state = initialState, action) => {
       };
     case Actions.FETCH_ROUTINE_HISTORY_SUCCESS:
       return {
-        ...state
+        ...state,
+        focusedRoutine: action.payload,
       };
     case Actions.POSTING_NEW_ROUTINE:
       return {
@@ -127,14 +128,21 @@ export default (state = initialState, action) => {
       );
       // Copy the "routines" array, find the routine with the matching Id to the old focused routine, replace
       // the title, and replace "routines" with the updated copy.
-      const memoOfFocusedRoutineWithTitle = Object.assign(state.focusedRoutine);
+      const memoOfSelectedRoutineWithTitle = Object.assign(
+        state.focusedRoutine
+      );
       return {
         ...state,
         msg: "Updated routine metadata.",
-        focusedRoutine: {
-          ...memoOfFocusedRoutineWithTitle,
+        selectedRoutine: {
+          ...memoOfSelectedRoutineWithTitle,
           title: action.payload.data.title
-        }
+        },
+        routines: state.routines.map(routine => {
+          if (routine._id === action.payload.data._id)
+            return action.payload.data;
+          return routine;
+        })
       };
     default:
       return state;

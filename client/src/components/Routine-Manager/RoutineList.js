@@ -10,7 +10,7 @@ class RoutineList extends Component {
           <div key={routine._id} className="RoutinePicker__Card">
             <div
               className="RoutinePicker__CardTitle"
-              onClick={() => this.props.selectRoutine(index)}
+              onClick={() => this.props.selectRoutine(index, routine._id)}
             >
               {routine.title}
             </div>
