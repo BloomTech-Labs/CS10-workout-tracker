@@ -7,6 +7,7 @@ import ProgressTracker from "./ProgressTracker";
 import ProgressCard from "./ProgressCard";
 import ProgressForm from "./ProgressForm";
 import "../../less/progress.css";
+import { Link } from "react-router-dom";
 
 class Progress extends Component {
   componentDidMount() {
@@ -23,15 +24,24 @@ class Progress extends Component {
     return (
       <div className="outer-container">
         <NavBar />
-        <div className="container">
-          <ProgressTracker />
-          <ProgressForm />
-          <div className="progress-records">
-            {sortedRecords.map(record => {
-              return <ProgressCard key={record._id} record={record} />;
-            })}
+        {this.props.userInfo.user.premiumUser ? (
+          <div className="container">
+            <ProgressTracker />
+            <ProgressForm />
+            <div className="progress-records">
+              {sortedRecords.map(record => {
+                return <ProgressCard key={record._id} record={record} />;
+              })}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="container">
+            <div>
+              To track your progress of weight and measurements become a{" "}
+              <Link to="/billing">Premium Member</Link>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -39,13 +49,18 @@ class Progress extends Component {
 
 const mapStateToProps = state => {
   return {
-    progressRecords: state.progress.progressRecords
+    progressRecords: state.progress.progressRecords,
+    userInfo: state.auth.currentUser
   };
 };
 
 Progress.propTypes = {
   fetchProgress: PropTypes.func,
-  progressRecords: PropTypes.arrayOf(PropTypes.object)
+  progressRecords: PropTypes.arrayOf(PropTypes.object),
+  userInfo: PropTypes.shape({
+    token: PropTypes.string,
+    user: PropTypes.object
+  })
 };
 
 export default connect(
