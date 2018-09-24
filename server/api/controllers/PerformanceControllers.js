@@ -11,7 +11,28 @@ const fetchPerformanceDoc = (req, res) => {
     })
 }
 
+const fetchPerformancesForAllExercisesInARoutine = (req, res) => {
+  const { performanceIds } = req.params;
+  Performance.find({
+    '_id': {
+      $in: [
+        performanceIds.forEach(id => mongoose.Types.ObjectId(id))
+      ]
+    }
+  })
+    .then(allPerformances => {
+      res.status(200)
+      res.json(allPerformances)
+    })
+    .catch(err => {
+      res.status(500)
+      res.json({ err })
+    })
+ 
+}
+
 
 module.exports = {
-  fetchPerformanceDoc
+  fetchPerformanceDoc,
+  fetchPerformancesForAllExercisesInARoutine
 }

@@ -15,18 +15,72 @@ const fetchWorkoutDoc = (req, res) => {
     })
 }
 
+// This is for populating info for the checkbox modal
+// const fetchWorkoutDocForCalendar = (req, res) => {
+//   const { id } = req.params;
+//   Workout.findById(id)
+//     // .populate("routine")
+//     // .populate("performances")
+//     // .populate("performances.exercise")
+    
+//     .then(workoutDocument => {
+
+//       workoutDocument.performances.forEach(performance => {
+
+
+//         Performance.findById(performance._id)
+//         .populate("exercise")
+//         .then(performanceDoc => {
+//           return res.status(200).json(performanceDoc)
+//         })
+//         .catch(err => {
+//           res.status(500).json({ err })
+//         })
+//       })
+//       res.status(200).json(workoutDocument)
+//     })
+//     .catch(err => {
+//        res.status(500).json({ err });
+//     })
+
+
+// }
+
+const fetchWorkoutDocForCalendar = (req, res) => {
+  const { id } = req.params;
+  Workout.findById(id)  
+    .then(workoutDocument => {
+      // workoutDocument.performances.forEach(performance => {
+        Performance.findById(workoutDocument.performances[0]._id)
+        .populate("exercise")
+        .then(performance => {
+          res.json({performance, workoutDocument})
+        })
+        .catch(err => {
+          res.status(500).json({msg: "Error populating exercises"})
+        })
+      // })
+      
+    })
+    .catch(err => {
+       res.status(500).json( {msg: "something wrong right here"} );
+    })
+}
+
+
+// this is for displaying the scheduled workouts onto the calendar
 const fetchAllWorkouts = (req, res) => {
   const { userId } = req
   Workout.find({user: userId })
   .populate("routine")
     .then(workouts => {
-      Routine.find
       res.status(200).json(workouts)
     })
     .catch(err => {
       res.json("Can not find workouts!")
     })
 }
+
 
 // This is substantially the most complicated route - it absorbs a lot of complexity
 // to make things easier later on. Here a step-by-step rundown:
@@ -57,8 +111,8 @@ const scheduleWorkout = (req, res) => {
     .then(savedWorkout => {
       console.log("Saved this Workout doc: ", savedWorkout);
       // return savedWorkout;
-      res.status(200)
-      res.json(savedWorkout)
+      // return res.status(200).json(savedWorkout)
+      // res.json(savedWorkout)
     })
     .then(savedWorkout => {
       Routine.findByIdAndUpdate(routineId, {
@@ -128,7 +182,8 @@ const scheduleWorkout = (req, res) => {
               .then(updatedUser => {
                 return res.status(201).json({
                   msg: "Succeeded in scheduling workout!",
-                  updatedUser
+                  updatedUser,
+                  savedWorkout
                 });
               })
               .catch(err => {
@@ -160,5 +215,6 @@ const scheduleWorkout = (req, res) => {
 module.exports = {
   scheduleWorkout,
   fetchWorkoutDoc,
-  fetchAllWorkouts
+  fetchAllWorkouts,
+  fetchWorkoutDocForCalendar
 };

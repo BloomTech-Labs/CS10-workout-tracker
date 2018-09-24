@@ -7,10 +7,10 @@ const Workout = require("../models/Workout");
 // are recorded as Performances.
 
 const fetchExerciseDoc = (req, res) => {
-  const { exerciseId } = req.body;
+  const { exerciseId } = req.params;
   Exercise.findById(exerciseId)
     .then(exerciseDocument => {
-      return res.status(200).json(exerciseDocument);
+      return res.status(200).json({exerciseDocument, msg: "SUCCESS!!!"});
     })
     .catch(err => {
       return res.status(404).json({ err });

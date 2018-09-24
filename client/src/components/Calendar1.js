@@ -6,8 +6,9 @@ import moment from 'moment';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { connect } from "react-redux";
 
-import { fetchRoutines, scheduleWorkout, fetchAllWorkouts } from "../actions";
+import { fetchRoutines, scheduleWorkout, fetchAllWorkouts, fetchPerformancesForAllExercisesInARoutine } from "../actions";
 import { EventEmitter } from 'events';
+import axios from 'axios';
 
 BigCalendar.momentLocalizer(moment);
 
@@ -15,10 +16,7 @@ class Calendar1 extends Component {
 
     state = {
         modal: false,
-        // selectedValue: {
-        //     title: "",
-        //     id: ""
-        // },
+        checkboxModal: false, 
         // events: [],
         // selectedValue: "",
         // selectedId: "",
@@ -30,15 +28,16 @@ class Calendar1 extends Component {
         this.props.fetchAllWorkouts()
     }
 
-
-
      handleChange = (e) => {
-        // this.setState({selectedValue: {title: e.target.value, id: e.target.value._id}});
-        // console.log(e.target.value.title)
-        // console.log(typeof(e.target.value))
-        // let indexOfSelectedValue;
 
-        // this.setState({selectedValue: e.target.value}, () => {
+        this.selectedValue = e.target.value;
+        this.props.routines.map((routine, index) => {
+            if (routine.title === this.selectedValue) {
+            return this.selectedId = routine._id;
+            }
+        })
+
+           // this.setState({selectedValue: e.target.value}, () => {
         //      this.props.routines.map((routine, index) => {
         //         if (routine.title === this.state.selectedValue) {
         //             return this.setState({ selectedId: routine._id}, () => {console.log(this.state.selectedId)})
@@ -46,34 +45,6 @@ class Calendar1 extends Component {
         //         }
         //     })
         // })
-
-            this.selectedValue = e.target.value;
-            this.props.routines.map((routine, index) => {
-               if (routine.title === this.selectedValue) {
-                //    return this.setState({ selectedId: routine._id}, () => {console.log(this.state.selectedId)})
-                return this.selectedId = routine._id;
-                   
-               }
-           })
-    
-    
-
-        // console.log(this.state.selectedValue)
-        
-        // let id = this.props.routines[indexOfSelectedValue]._id
-
-        // this.setState({ selectedId: id })
-
-        // console.log(indexOfSelectedValue)
-
-        // console.log(this.state.selectedValue)
-
-
-    //   let id =  this.findWithAttr(this.props.routines, "title", this.state.selectedValue)
-
-    //     console.log(id)
-
-    //     console.log(this.props.routines)
         
       }
 
@@ -84,12 +55,27 @@ class Calendar1 extends Component {
         });
       }
 
+    checkboxModalToggle = () => {
+    this.setState({
+        checkboxModal: !this.state.checkboxModal
+    });
+    }
+
+    // the selected in the parameter is an object leveraged by big-react-calendar. It represents the date box which you click on on the calendar.
     onSelectSlot = (selected) => {
         
         // this.setState({ selectedDate: selected.start })
         this.selectedDate = selected.start;
         console.log("SELECTED DATE: " + this.selectedDate)
         this.toggle()
+    }
+
+    onSelectEvent = (selected) => {
+        this.selectedTitle = selected.title;
+        this.props.fetchPerformancesForAllExercisesInARoutine([...selected.exercises])
+        console.log("SELECTED EXERCISES: " + selected.exercises)
+        this.checkboxModalToggle()
+
     }
 
     scheduleWorkout = () => {
@@ -107,11 +93,16 @@ class Calendar1 extends Component {
     selectedValue;
     selectedId;
     selectedDate;
+    selectedTitle;
+
+    selectedExercises;
 
     
    
     render() {
-        {this.events = this.props.workouts.map(workout => ({allDay: false, 'start': workout.date, 'end': workout.date, title: workout.routine.title, id: workout._id}))}        // {this.props.workouts.map(workout => this.events.push({allDay: false, 'start': workout.date, 'end': workout.date, title: workout.routine.title, id: workout._id}))}
+        console.log("PERFORMANCES " + this.props.performances)
+
+        {this.events = this.props.workouts.map(workout => ({'start': workout.date, 'end': workout.date, title: workout.routine.title, id: workout._id, exercises: workout.routine.exercises}))}        // {this.props.workouts.map(workout => this.events.push({allDay: false, 'start': workout.date, 'end': workout.date, title: workout.routine.title, id: workout._id}))}
         
         // {this.props.workouts.map(workout => this.events.push({allDay: false, 'start': workout.date, 'end': workout.date, title: workout.routine.title, id: workout._id}))}       
         // console.log((this.props.events));
@@ -135,12 +126,16 @@ class Calendar1 extends Component {
                 style={{ height: "100vh" }}
                 selectable={true}
                 onSelectSlot={this.onSelectSlot}
+                onSelectEvent={this.onSelectEvent}
             />
             </div>
+
+            {/* Scheduling Modal */}
 
             <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                 <ModalHeader toggle={this.toggle}>Schedule a Workout!</ModalHeader>
                 <ModalBody>
+                    {/* Drop down for selecting a routine */}
                     <div>Select Workout</div>
                     <select value={this.state.selectedValue} onChange={this.handleChange} >
                         <option value="select a routine">select a routine</option>
@@ -151,6 +146,26 @@ class Calendar1 extends Component {
                 <ModalFooter>
                     <Button color="primary" onClick={this.scheduleWorkout}>Schedule!</Button>{' '}
                     <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                </ModalFooter>
+            </Modal>
+            
+            {/* Checkbox Modal */}
+
+            <Modal isOpen={this.state.checkboxModal} toggle={this.checkboxModalToggle} className={this.props.className}>
+                <ModalHeader toggle={this.checkboxModalToggle}>{this.selectedTitle}</ModalHeader>
+                <ModalBody>
+                    <div>
+
+                    <input onChange={console.log("checked")} type="checkbox" name="vehicle1" value="Bike"></input><br/>
+                    hi
+                    <input onChange={console.log("checked")} type="checkbox" name="vehicle2" value="Car"></input><br/>
+                    hello
+                    <input onChange={console.log("checked")} type="checkbox" name="vehicle3" value="Boat"></input><br/>
+                    bye
+                    </div>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="secondary" onClick={this.checkboxModalToggle}>Cancel</Button>
                 </ModalFooter>
             </Modal>
 
@@ -167,7 +182,8 @@ const mapStateToProps = state => {
       );
     return {
       routines: state.workouts.routines,
-      workouts: state.workouts.workouts
+      workouts: state.workouts.workouts,
+      performances: state.performance.performances
     //   events: state.workouts.events
     };
   };
@@ -178,6 +194,7 @@ const mapStateToProps = state => {
     {
       fetchRoutines,
       scheduleWorkout, 
-      fetchAllWorkouts
+      fetchAllWorkouts,
+      fetchPerformancesForAllExercisesInARoutine
     }
   )(Calendar1);

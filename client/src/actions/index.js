@@ -433,7 +433,7 @@ export const fetchAllWorkouts = () => {
 
     });
     axios
-      .get(`${ROOT_URL}/workout`, requestOptions)
+      .get(`${ROOT_URL}/workouts`, requestOptions)
       .then(response => {
         // console.log(response)
         dispatch({
@@ -449,6 +449,10 @@ export const fetchAllWorkouts = () => {
       });
   };
 };
+
+export const fetchWorkoutDocForCalendar = () => {
+  
+}
 
 export const changePassword = data => {
   let token = localStorage.getItem("token");
@@ -524,3 +528,26 @@ export const processPayment = data => {
       });
   };
 };
+
+export const fetchPerformancesForAllExercisesInARoutine = performanceIdArray => {
+  return dispatch => {
+    dispatch({
+      type: Actions.FETCHING_PERFORMANCES,
+      payload: "Fetching performances..."
+    });
+    axios
+      .get(`${ROOT_URL}/performances`, performanceIdArray, requestOptions)
+      .then(res => {
+        dispatch({
+          type: Actions.FETCH_PERFORMANCES_SUCCESS,
+          payload: res.data
+        })
+      })
+      .catch( err => {
+        dispatch({
+          type: Actions.FETCH_PERFORMANCES_FAILURE,
+          payload: err
+        })
+      })
+  }
+}
