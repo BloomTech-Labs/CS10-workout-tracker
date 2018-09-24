@@ -39,14 +39,6 @@ class FocusedRoutine extends Component {
                 currentSets,
                 currentWeight
               } = exerciseInRoutine;
-              console.log(
-                "Captured these variables for the exercise card: ",
-                exerciseInRoutine,
-                name,
-                currentReps,
-                currentSets,
-                currentWeight
-              );
               return (
                 <form key={index} className="RoutineBuilder__ExerciseCard">
                   <input
@@ -74,7 +66,7 @@ class FocusedRoutine extends Component {
                     className="RoutineBuilder__ExerciseCardField--sets"
                   />
                   <button type="button"
-                    onClick={() =>
+                    onClick={() =>{
                       this.props.updateExercise(
                         exerciseInRoutine._id,
                         name,
@@ -82,6 +74,7 @@ class FocusedRoutine extends Component {
                         currentReps,
                         currentSets
                       )
+                    }
                     }
                   >
                     Update Exercise
