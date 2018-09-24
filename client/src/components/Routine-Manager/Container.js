@@ -5,6 +5,8 @@ import FocusedRoutine from "./FocusedRoutine";
 import { connect } from "react-redux";
 import { fetchRoutines } from "../../actions";
 
+import "../../less/workouts.css";
+
 class RoutineManager_container extends Component {
   componentDidMount() {
     this.props.fetchRoutines();

@@ -7,6 +7,8 @@ import {
   scheduleWorkout
 } from "../../actions";
 
+import "../../less/workouts.css";
+
 class FocusedRoutine extends Component {
   render() {
     return (
