@@ -1,10 +1,10 @@
 import * as Actions from "../actions/actionDefinitions";
 
 const initialState = {
-  msg: 'Started up.',
+  msg: "Started up.",
   routines: [],
-  focusedRoutine: null,
-}
+  focusedRoutine: null
+};
 
 export default (state = initialState, action) => {
   console.log("Previous state: ", state);
@@ -101,7 +101,14 @@ export default (state = initialState, action) => {
     case Actions.UPDATE_EXERCISE_SUCCESS:
       return {
         ...state,
-        msg: "Updated an exercise"
+        focusedRoutine: Object.assign({}, state.focusedRoutine, {
+          exercises: state.focusedRoutine.exercises.map(exercise => {
+            if (action.payload.data._id === exercise._id)
+              return action.payload.data;
+            return exercise;
+          })
+        })
+        // msg: "Updated an exercise"
       };
     case Actions.UPDATING_ROUTINE:
       return {
@@ -120,9 +127,7 @@ export default (state = initialState, action) => {
       );
       // Copy the "routines" array, find the routine with the matching Id to the old focused routine, replace
       // the title, and replace "routines" with the updated copy.
-      const memoOfFocusedRoutineWithTitle = Object.assign(
-        state.focusedRoutine
-      );
+      const memoOfFocusedRoutineWithTitle = Object.assign(state.focusedRoutine);
       return {
         ...state,
         msg: "Updated routine metadata.",

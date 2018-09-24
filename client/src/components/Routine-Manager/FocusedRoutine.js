@@ -73,7 +73,7 @@ class FocusedRoutine extends Component {
                     placeholder={exerciseInRoutine.currentSets}
                     className="RoutineBuilder__ExerciseCardField--sets"
                   />
-                  <button
+                  <button type="button"
                     onClick={() =>
                       this.props.updateExercise(
                         exerciseInRoutine._id,
