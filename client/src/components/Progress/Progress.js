@@ -35,7 +35,7 @@ class Progress extends Component {
             </div>
           </div>
         ) : (
-          <div className="container">
+          <div className="container blocked">
             <div>
               To track your progress of weight and measurements become a{" "}
               <Link to="/billing">Premium Member</Link>
