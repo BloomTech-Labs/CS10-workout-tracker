@@ -42,7 +42,8 @@ class CalendarPage extends Component {
     });
   };
 
-  // the selected in the parameter is an object leveraged by big-react-calendar. It represents the date box which you click on on the calendar.
+  /* the selected in the parameter is an object leveraged by big-react-calendar. 
+  It represents the date box which you click on on the calendar. */
   onSelectSlot = selected => {
     this.selectedDate = selected.start;
     console.log("SELECTED DATE: " + this.selectedDate);
@@ -76,8 +77,8 @@ class CalendarPage extends Component {
     console.log(this.props.workouts)
 
   {  this.events = this.props.workouts.map(workout => ({
-      start: workout.date,
-      end: workout.date,
+      start: new Date(workout.date),
+      end: new Date(workout.date),
       title: workout.routine.title || this.selectedValue,
       id: workout._id,
       exercises: workout.routine.exercises
