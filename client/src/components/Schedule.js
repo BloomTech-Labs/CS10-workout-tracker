@@ -7,7 +7,6 @@ class Schedule extends Component {
     return (
       <div>
         <NavBar />
-        this is the schedule component
         <Calender />
       </div>
     );

@@ -1,6 +1,9 @@
 .main__landing__page {
   text-shadow: 0px 0px 5px black;
 }
+p {
+  margin-bottom: 0;
+}
 .container {
   max-width: 900px;
   width: 90%;
@@ -185,4 +188,5 @@ footer {
 }
 footer p {
   padding: 40px 0;
+  margin-bottom: 0 !important;
 }

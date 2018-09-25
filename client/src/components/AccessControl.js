@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { login, loginWithToken } from "../actions";
+import LandingPage from "./Landing/LandingPage";
 
 export default ComposedComponent => {
   class RequireAuthentication extends Component {
@@ -19,12 +20,13 @@ export default ComposedComponent => {
           {this.props.authenticated ? (
             <ComposedComponent />
           ) : (
-            <div>
-              Not authorized!
-              {"\n"}
-              <Link to="/login">Log In</Link> or{" "}
-              <Link to="/register">Register</Link> to get STRONGR.
-            </div>
+            // <div>
+            //   Not authorized!
+            //   {"\n"}
+            //   <Link to="/login">Log In</Link> or{" "}
+            //   <Link to="/register">Register</Link> to get STRONGR.
+            // </div>
+            <LandingPage />
           )}
         </div>
       );

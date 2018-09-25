@@ -1,7 +1,6 @@
 import React from "react";
 import MainLandingImg from "./img/main_landing.png";
 import ScrollAnimation from 'react-animate-on-scroll';
-// import MainLandingImg from "../img/main_landing.png";
 
 class JumboTron extends React.Component {
 

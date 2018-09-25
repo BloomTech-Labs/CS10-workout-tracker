@@ -7,7 +7,6 @@ import { logout } from "../actions";
 class NavBar extends Component {
   handleLogout = event => {
     this.props.logout();
-    // this.props.history.push("/");
   };
   render() {
     return (
@@ -25,13 +24,6 @@ class NavBar extends Component {
           <NavLink to="/settings">Settings</NavLink>
           <NavLink to="/billing">Billing</NavLink>
         </div>
-        {this.props.authenticated ? (
-          <NavLink to="/">
-            <button className="LogoutButton" onClick={this.handleLogout}>
-              Log Out
-            </button>
-          </NavLink>
-        ) : null}
       </div>
     );
   }
