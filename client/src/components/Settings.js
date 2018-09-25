@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { changeEmail, changePassword } from "../actions";
 import NavBar from "./NavBar";
+import "../less/settings.css";
+import { Button, Form, FormGroup, Input } from "reactstrap";
 
 class Settings extends Component {
   state = {
@@ -49,46 +51,56 @@ class Settings extends Component {
 
   render() {
     return (
-      <div>
+      <div className="settings-container">
         <NavBar />
-        <form className="EmailForm" onSubmit={this.handleEmailSubmit}>
-          <input
-            type="text"
-            name="email"
-            placeholder={this.props.userInfo.user.email}
-            value={this.state.email}
-            onChange={this.handleFieldChange}
-          />
-          <button className="Form__submit" type="submit">
-            Change Email
-          </button>
-        </form>
-        <form className="PasswordForm" onSubmit={this.handlePasswordSubmit}>
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleFieldChange}
-          />
-          <input
-            type="password"
-            name="newPassword"
-            placeholder="New Password"
-            value={this.state.newPassword}
-            onChange={this.handleFieldChange}
-          />
-          <input
-            type="password"
-            name="confirmNewPassword"
-            placeholder="Confirm New Password"
-            value={this.state.confirmNewPassword}
-            onChange={this.handleFieldChange}
-          />
-          <button className="Form__submit" type="submit">
-            Save
-          </button>
-        </form>
+        <div className="forms-container">
+          <Form className="emailForm" onSubmit={this.handleEmailSubmit}>
+            <FormGroup row>
+              <Input
+                type="text"
+                name="email"
+                placeholder={this.props.userInfo.user.email}
+                value={this.state.email}
+                onChange={this.handleFieldChange}
+              />
+            </FormGroup>
+            <Button className="submit-btn" size="sm" type="submit">
+              Change Email
+            </Button>
+          </Form>
+          <Form className="passwordForm" onSubmit={this.handlePasswordSubmit}>
+            <FormGroup row>
+              <Input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={this.state.password}
+                onChange={this.handleFieldChange}
+              />
+            </FormGroup>
+            <FormGroup row>
+              <Input
+                type="password"
+                name="newPassword"
+                placeholder="New Password"
+                value={this.state.newPassword}
+                onChange={this.handleFieldChange}
+              />
+            </FormGroup>
+            <FormGroup row>
+              <Input
+                type="password"
+                name="confirmNewPassword"
+                placeholder="Confirm New Password"
+                value={this.state.confirmNewPassword}
+                onChange={this.handleFieldChange}
+              />
+            </FormGroup>
+            <Button className="submit-btn" size="sm" type="submit">
+              Save Password
+            </Button>
+          </Form>
+        </div>
       </div>
     );
   }
