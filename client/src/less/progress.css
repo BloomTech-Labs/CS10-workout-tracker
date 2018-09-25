@@ -21,3 +21,6 @@
   min-height: 500px;
   height: 100%;
 }
+.outer-container .blocked {
+  color: #cc0000;
+}
