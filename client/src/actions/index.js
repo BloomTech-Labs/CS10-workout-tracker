@@ -116,7 +116,7 @@ export const forgotPassword = data => {
   };
 };
 
-export const resetPassword = data => {
+export const resetPassword = (data, history) => {
   return dispatch => {
     dispatch({
       type: Actions.RESETTING_PASSWORD,
@@ -129,6 +129,7 @@ export const resetPassword = data => {
           type: Actions.RESET_SUCCESS,
           payload: res
         });
+        history.push("/");
       })
       .catch(err => {
         dispatch({
@@ -227,7 +228,7 @@ export const fetchRoutines = () => {
   };
 };
 
-export const selectRoutine = index => {
+export const selectRoutine = (index, routineId) => {
   console.log("Selecting routine at index: ", index);
   return dispatch => {
     dispatch({
@@ -238,7 +239,7 @@ export const selectRoutine = index => {
       type: Actions.FETCHING_ROUTINE_HISTORY
     });
     axios
-      .get(`${ROOT_URL}/routine-history`)
+      .post(`${ROOT_URL}/routine-rich`, { routineId }, requestOptions)
       .then(res => {
         dispatch({
           type: Actions.FETCH_ROUTINE_HISTORY_SUCCESS,

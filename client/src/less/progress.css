@@ -1,5 +1,6 @@
 .outer-container {
   background-image: radial-gradient(black, #000033);
+  min-height: 100vh;
 }
 .outer-container .container {
   box-sizing: border-box;
@@ -16,5 +17,10 @@
   justify-content: flex-start;
   width: 100%;
   padding: 7px 0;
-  background-image: radial-gradient(#CCCCCC, black);
+  background-image: radial-gradient(#cccccc, black);
+  min-height: 500px;
+  height: 100%;
+}
+.outer-container .blocked {
+  color: #cc0000;
 }

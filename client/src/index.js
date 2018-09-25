@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap/dist/css/bootstrap.css";
 import registerServiceWorker from "./registerServiceWorker";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
@@ -14,7 +14,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import PasswordReset from "./components/PasswordReset";
 import LandingPage from "./components/Landing/LandingPage";
 import Schedule from "./components/Schedule";
-import Workouts from "./components/Workouts";
+import RoutineManager from "./components/Routine-Manager/Container";
 import Progress from "./components/Progress/Progress";
 import Billing from "./components/Billing";
 import Settings from "./components/Settings";
@@ -38,7 +38,7 @@ ReactDOM.render(
         <Route path="/forgot" component={ForgotPassword} />
         <Route path="/reset" component={PasswordReset} />
         <Route path="/schedule" component={AccessControl(Schedule)} />
-        <Route path="/workouts" component={AccessControl(Workouts)} />
+        <Route path="/workouts" component={AccessControl(RoutineManager)} />
         <Route path="/progress" component={AccessControl(Progress)} />
         <Route path="/billing" component={AccessControl(Billing)} />
         <Route path="/settings" component={AccessControl(Settings)} />

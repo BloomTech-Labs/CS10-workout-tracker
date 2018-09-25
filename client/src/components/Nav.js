@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from 'react-router-dom';
 import {  Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, InputGroup } from 'reactstrap';
 import { connect } from "react-redux";
-import { register, login, logout} from "../actions";
+import { register, login, logout, forgotPassword} from "../actions";
 
 class Nav extends React.Component {
 
@@ -16,7 +16,8 @@ class Nav extends React.Component {
       confirmPassword: "",
       email: "",
       signUpModal: false,
-      signInModal: false
+      signInModal: false,
+      forgotModal: false
     };
   }
 
@@ -33,22 +34,31 @@ class Nav extends React.Component {
     this.setState({
       signInModal: !this.state.signInModal
     });
-  }
+  };
 
-  toggleSignUpModal =() => {
+  toggleSignUpModal = () => {
     this.setState({
       signUpModal: !this.state.signUpModal
     });
-  }
+  };
 
-  handleSignup = (event) => {
+  toggleForgotModal = () => {
+    this.setState({
+      forgotModal: !this.state.forgotModal
+    });
+  };
+
+  handleSignup = event => {
     event.preventDefault();
     if (this.state.password === this.state.confirmPassword) {
-      this.props.register({
-        username: this.state.username,
-        password: this.state.password,
-        email: this.state.email
-      }, this.props.history);
+      this.props.register(
+        {
+          username: this.state.username,
+          password: this.state.password,
+          email: this.state.email
+        },
+        this.props.history
+      );
     }
     this.setState({
       username: "",
@@ -56,23 +66,37 @@ class Nav extends React.Component {
       confirmPassword: "",
       email: ""
     });
-    console.log("submitted")
+    console.log("submitted");
     this.toggleSignUpModal();
-    
-  }
+  };
 
   handleSignin = event => {
     event.preventDefault();
-    this.props.login({
-      username: this.state.signInName,
-      password: this.state.signInPass
-    }, this.props.history);
+    this.props.login(
+      {
+        username: this.state.signInName,
+        password: this.state.signInPass
+      },
+      this.props.history
+    );
 
     this.setState({
       signInName: "",
       signInPass: ""
     });
     this.toggleSignInModal();
+  };
+
+  handleForgotPassword = event => {
+    event.preventDefault();
+    if (this.state.password === this.state.confirmPassword) {
+      this.props.forgotPassword({
+        email: this.state.email
+      });
+    }
+    this.setState({
+      email: ""
+    });
   };
 
   render() {
@@ -102,82 +126,131 @@ class Nav extends React.Component {
 
               {/* Signup Modal */}
 
-         <Modal isOpen={this.state.signUpModal} toggle={this.toggleSignUpModal} className="sign__in">
+        <Modal
+          isOpen={this.state.signUpModal}
+          toggle={this.toggleSignUpModal}
+          className="sign__in"
+        >
           <ModalHeader toggle={this.toggleSignUpModal}>SignUp</ModalHeader>
           <ModalBody>
             <InputGroup>
-              <Input 
-                placeholder="username" 
+              <Input
+                placeholder="username"
                 value={this.state.username}
                 onChange={this.handleFieldChange}
                 name="username"
-                />
+              />
             </InputGroup>
             <InputGroup>
-              <Input 
-                placeholder="password" 
+              <Input
+                placeholder="password"
                 type="password"
                 value={this.state.password}
                 onChange={this.handleFieldChange}
                 name="password"
-                />
+              />
             </InputGroup>
             <InputGroup>
-              <Input 
-                placeholder="confirm password" 
+              <Input
+                placeholder="confirm password"
                 type="password"
                 value={this.state.confirmPassword}
                 onChange={this.handleFieldChange}
                 name="confirmPassword"
-                />
+              />
             </InputGroup>
             <InputGroup>
-              <Input 
-                placeholder="Email" 
+              <Input
+                placeholder="Email"
                 type="email"
                 value={this.state.email}
                 onChange={this.handleFieldChange}
                 name="email"
-                />
+              />
             </InputGroup>
-            
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.handleSignup}>Signup</Button>{' '}
-            <Button color="secondary" onClick={this.toggleSignUpModal}>Cancel</Button>
+            <Button color="primary" onClick={this.handleSignup}>
+              Signup
+            </Button>{" "}
+            <Button color="secondary" onClick={this.toggleSignUpModal}>
+              Cancel
+            </Button>
           </ModalFooter>
         </Modal>
 
         {/* Signin Modal */}
 
-         <Modal isOpen={this.state.signInModal} toggle={this.toggleSignInModal} className="sign__up">
+        <Modal
+          isOpen={this.state.signInModal}
+          toggle={this.toggleSignInModal}
+          className="sign__up"
+        >
           <ModalHeader toggle={this.toggleSignInModal}>SignIn</ModalHeader>
           <ModalBody>
             <InputGroup>
-              <Input 
-                placeholder="username" 
+              <Input
+                placeholder="username"
                 value={this.state.signInName}
                 onChange={this.handleFieldChange}
                 name="signInName"
-                />
+              />
             </InputGroup>
             <InputGroup>
-              <Input 
-                placeholder="password" 
+              <Input
+                placeholder="password"
                 type="password"
                 value={this.state.signInPass}
                 onChange={this.handleFieldChange}
                 name="signInPass"
-                />
+              />
             </InputGroup>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.handleSignin}>Signin</Button>{' '}
-            <Button color="secondary" onClick={this.toggleSignInModal}>Cancel</Button>
+            <Button color="primary" onClick={this.handleSignin}>
+              Signin
+            </Button>{" "}
+            <Button color="secondary" onClick={this.toggleSignInModal}>
+              Cancel
+            </Button>
+            <Button color="danger" onClick={this.toggleForgotModal}>
+              Forgot Password?
+            </Button>
           </ModalFooter>
         </Modal>
 
         {/* end signin modal */}
+
+        {/*forgot PW modal */}
+
+        <Modal
+          isOpen={this.state.forgotModal}
+          toggle={this.toggleForgotModal}
+          className="sign__up"
+        >
+          <ModalHeader toggle={this.toggleForgotModal}>
+            Forgot Password?
+          </ModalHeader>
+          <ModalBody>
+            <InputGroup>
+              <Input
+                placeholder="Email"
+                type="text"
+                value={this.state.email}
+                onChange={this.handleFieldChange}
+                name="email"
+              />
+            </InputGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.handleForgotPassword}>
+              Request Recovery Link
+            </Button>
+            <Button color="secondary" onClick={this.toggleForgotModal}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
 
     </header>
     );
@@ -186,7 +259,7 @@ class Nav extends React.Component {
 
 const mapStateToProps = state => {
   console.log(
-    "At time of render, Registration Page received this app state:",
+    "At time of render, Landing Page received this app state:",
     state
   );
   return {
@@ -195,4 +268,5 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {register, login, logout})(withRouter(Nav));
+export default connect(mapStateToProps, {register, login, logout, forgotPassword})(withRouter(Nav));
+

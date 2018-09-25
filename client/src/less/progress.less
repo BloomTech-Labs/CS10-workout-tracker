@@ -1,32 +1,35 @@
 // TODO: Remove variables once they exist in a separate variables file
-@primary: #CC0000;
+@primary: #cc0000;
 @secondary: #000033;
 @white: white;
 @darkGrey: #666666;
-@grey: #CCCCCC;
+@grey: #cccccc;
 
 .outer-container {
-    background-image: radial-gradient(black, @secondary);
-    
-    .container {
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        max-width: 1000px;
-        width: 90%;
-        margin: 0 auto;
+  background-image: radial-gradient(black, @secondary);
+  min-height: 100vh;
 
-        .progress-records {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start; 
-            width: 100%;
-            padding: 7px 0;
-            background-image: radial-gradient(@grey, black);
-        }
+  .container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto;
+
+    .progress-records {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      width: 100%;
+      padding: 7px 0;
+      background-image: radial-gradient(@grey, black);
+      min-height: 500px;
+      height: 100%;
     }
+  }
+  .blocked {
+    color: @primary;
+  }
 }
-
-
-
