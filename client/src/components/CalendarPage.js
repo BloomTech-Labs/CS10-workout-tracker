@@ -3,15 +3,20 @@ import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { connect } from "react-redux";
-import { fetchRoutines, scheduleWorkout, fetchAllWorkouts, deleteWorkout, fetchWorkoutDocForCheckOff } from "../actions";
+import {
+  fetchRoutines,
+  scheduleWorkout,
+  fetchAllWorkouts,
+  deleteWorkout,
+  fetchWorkoutDocForCheckOff
+} from "../actions";
 
 BigCalendar.momentLocalizer(moment);
 
 class CalendarPage extends Component {
   state = {
     schedulingModal: false,
-    checkboxModal: false,
-
+    checkboxModal: false
   };
 
   componentDidMount() {
@@ -23,7 +28,7 @@ class CalendarPage extends Component {
     /* utilizing onChange inside <select> to grab Id of the routine being selected so it 
     can be sent as an argument to scheduleWorkout function */
     this.selectedValue = e.target.value;
-    console.log(this.selectedValue)
+    console.log(this.selectedValue);
     this.props.routines.map(routine => {
       if (this.selectedValue === routine.title) {
         return (this.selectedId = routine._id);
@@ -33,7 +38,7 @@ class CalendarPage extends Component {
 
   schedulingModalToggle = () => {
     this.setState({
-        schedulingModal: !this.state.schedulingModal
+      schedulingModal: !this.state.schedulingModal
     });
   };
 
@@ -66,9 +71,9 @@ class CalendarPage extends Component {
   };
 
   deleteWorkout = () => {
-    this.props.deleteWorkout(this.IdToBeDeleted)
+    this.props.deleteWorkout(this.IdToBeDeleted);
     this.checkboxModalToggle();
-  }
+  };
 
   events = [];
   selectedValue;
@@ -80,20 +85,35 @@ class CalendarPage extends Component {
 
   routine;
   exercise;
-  
+  performances = [];
+  flattened = [];
 
   render() {
+    {
+      this.performances = this.props.workouts.map(workout =>
+        workout.performances.forEach(
+          performance =>
+            this.flattened.indexOf(performance) === -1
+              ? this.flattened.push(performance)
+              : null
+        )
+      );
+    }
 
-    console.log(this.props.workouts)
+    console.log(this.flattened);
+    console.log(this.p);
+    console.log(this.props.workouts);
 
-  {  this.events = this.props.workouts.map(workout => ({
-      start: new Date(workout.date),
-      end: new Date(workout.date),
-      title: workout.routine.title || this.selectedValue,
-      id: workout._id,
-      exercises: workout.routine.exercises
-    }))};
-    
+    {
+      this.events = this.props.workouts.map(workout => ({
+        start: new Date(workout.date),
+        end: new Date(workout.date),
+        title: workout.routine.title || this.selectedValue,
+        id: workout._id,
+        exercises: workout.routine.exercises,
+        performances: workout.performances
+      }));
+    }
 
     let allViews = Object.keys(BigCalendar.Views).map(
       k => BigCalendar.Views[k]
@@ -125,7 +145,9 @@ class CalendarPage extends Component {
           toggle={this.schedulingModalToggle}
           className={this.props.className}
         >
-          <ModalHeader toggle={this.schedulingModalToggle}>Schedule a Workout!</ModalHeader>
+          <ModalHeader toggle={this.schedulingModalToggle}>
+            Schedule a Workout!
+          </ModalHeader>
           <ModalBody>
             {/* Drop down for selecting a routine */}
             <div>Select Workout</div>
@@ -161,35 +183,33 @@ class CalendarPage extends Component {
           <ModalHeader toggle={this.checkboxModalToggle}>
             {this.selectedTitle}
           </ModalHeader>
-            <ModalBody>
+          <ModalBody>
             <div>
-                {console.log(this.props.routines)}
-                
-                <div>
-                {this.props.routines.map(routine => (
-                    routine.title === this.selectedTitle ?
-                    //  routine.title === this.selectedTitle ? console.log("HURRAY") : console.log("GRRRRRR")
-                   ( routine.exercises.map(exercise =>  (
-                    <div>
-                   <div key={exercise._id} style={{display: "flex"}}>
-                        <div style={{color: "white"}}>
-                        {exercise.name}
-                        </div>
-                        <input type="checkbox" style={{marginLeft: "15px", marginTop: "5px"}}></input>
-                   </div>,
-                    <div style={{color: "white"}}>{`weight ${exercise.currentWeight}`}{`Reps ${exercise.currentReps}`}{`Sets ${exercise.currentSets}`}</div>
-                    </div>
-                    )
+              {console.log(this.props.routines)}
 
-                   // this.props.workouts.performances.map(performance => performance.exercise === this.exercise._id ? <div style={{color: "white"}}>{performance.weight}{performance.sets}{performance.reps}</div> : null)
-                 
-                  )) : null
-                     
-                    
-              ))}
-                </div>
+              <div>
+                {this.props.routines.map(
+                  routine =>
+                    routine.title === this.selectedTitle
+                      ? //  routine.title === this.selectedTitle ? console.log("HURRAY") : console.log("GRRRRRR")
+                        routine.exercises.map(exercise => (
+                          <div>
+                            <div key={exercise._id} style={{ display: "flex" }}>
+                              <div style={{ color: "white" }}>
+                                {exercise.name}
+                              </div>
+                              <input
+                                type="checkbox"
+                                style={{ marginLeft: "15px", marginTop: "5px" }}
+                              />
+                            </div>
+                          </div>
+                        ))
+                      : null
+                )}
+              </div>
 
-                {/* {this.routine = this.props.routines.filter(routine => routine.title == this.selectedTitle) || ""}
+              {/* {this.routine = this.props.routines.filter(routine => routine.title == this.selectedTitle) || ""}
                 {console.log("ROUTINE" + this.routine)}
                 {this.routine.exercises.forEach(exercise => {
                     <div>
@@ -201,7 +221,7 @@ class CalendarPage extends Component {
                   />
                   </div>
                 } )} */}
-                
+
               {/* <input
                 onChange={console.log("checked")}
                 type="checkbox"
@@ -228,13 +248,13 @@ class CalendarPage extends Component {
               bye */}
             </div>
           </ModalBody>
-         
+
           <ModalFooter>
             <Button color="secondary" onClick={this.checkboxModalToggle}>
               Cancel
             </Button>
             <Button color="danger" onClick={this.deleteWorkout}>
-                Delete Workout
+              Delete Workout
             </Button>
           </ModalFooter>
         </Modal>
@@ -250,7 +270,7 @@ const mapStateToProps = state => {
   );
   return {
     routines: state.RoutineManager.routines,
-    workouts: state.RoutineManager.workouts,
+    workouts: state.RoutineManager.workouts
   };
 };
 
