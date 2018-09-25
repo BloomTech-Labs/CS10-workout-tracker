@@ -466,6 +466,30 @@ export const deleteWorkout = id => {
   }
 }
 
+export const fetchWorkoutDocForCheckOff = id => {
+  return dispatch => {
+    dispatch({
+      type: Actions.FETCHING_CHECKOFF_ITEMS,
+      payload: "Fetching user's exercise list for checkoff"
+    });
+    axios
+      .get(`${ROOT_URL}/workouts/${id}`, requestOptions)
+      .then(res => {
+        dispatch({
+          type: Actions.FETCH_CHECKOFF_ITEMS_SUCCESS,
+          payload: res.data
+        })
+        console.log(res.data)
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.FETCH_CHECKOFF_ITEMS_FAILURE,
+          payload: err
+        });
+      })
+}
+}
+
 export const changePassword = data => {
   let token = localStorage.getItem("token");
   return dispatch => {

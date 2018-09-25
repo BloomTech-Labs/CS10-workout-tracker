@@ -4,7 +4,18 @@ const initialState = {
   msg: "Started up.",
   routines: [],
   focusedRoutine: null,
-  workouts: []
+  workouts: [],
+  checkoff_items: { workoutDocument: {
+    date: "",
+    performances: []
+  },
+  routine: {
+    exercises: [],
+    title: "",
+    user: "",
+    workoutLog: [],
+  }
+},
 };
 
 export default (state = initialState, action) => {
@@ -183,6 +194,22 @@ export default (state = initialState, action) => {
         workouts: state.workouts.filter(workout => {
           return workout._id !== action.payload;
         })
+      }
+    case Actions.FETCHING_CHECKOFF_ITEMS:
+      return {
+        ...state,
+        msg: action.payload
+      }
+    case Actions.FETCH_CHECKOFF_ITEMS_SUCCESS:
+      return {
+        ...state,
+        checkoff_items: Object.assign({}, state.checkoff_items),
+        msg: "Fetched specified day's exercises for checkoff"
+      }
+    case Actions.FETCH_CHECKOFF_ITEMS_FAILURE:
+      return {
+        ...state,
+        msg: "Couldn't fetch specified day's exercises for checkoff"
       }
     default:
       return state;

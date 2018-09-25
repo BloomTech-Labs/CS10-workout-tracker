@@ -3,7 +3,7 @@ import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { connect } from "react-redux";
-import { fetchRoutines, scheduleWorkout, fetchAllWorkouts, deleteWorkout } from "../actions";
+import { fetchRoutines, scheduleWorkout, fetchAllWorkouts, deleteWorkout, fetchWorkoutDocForCheckOff } from "../actions";
 
 BigCalendar.momentLocalizer(moment);
 
@@ -11,6 +11,7 @@ class CalendarPage extends Component {
   state = {
     schedulingModal: false,
     checkboxModal: false,
+
   };
 
   componentDidMount() {
@@ -76,6 +77,8 @@ class CalendarPage extends Component {
   selectedTitle;
   selectedExercises;
   IdToBeDeleted;
+
+  routine;
   
 
   render() {
@@ -157,9 +160,31 @@ class CalendarPage extends Component {
           <ModalHeader toggle={this.checkboxModalToggle}>
             {this.selectedTitle}
           </ModalHeader>
-          <ModalBody>
+            <ModalBody>
             <div>
-              <input
+                {console.log(this.props.routines)}
+                {this.props.routines.map(routine => (
+                    routine.title === this.selectedTitle ?
+                    //  routine.title === this.selectedTitle ? console.log("HURRAY") : console.log("GRRRRRR")
+                   ( routine.exercises.map(exercise => <div><div style={{color: "white"}}>{exercise.name}</div><input type="checkbox"></input></div>)) : null
+                     
+                    
+              ))}
+
+                {/* {this.routine = this.props.routines.filter(routine => routine.title == this.selectedTitle) || ""}
+                {console.log("ROUTINE" + this.routine)}
+                {this.routine.exercises.forEach(exercise => {
+                    <div>
+                    return <div>{exercise.name}</div> <input
+                    onChange={console.log("checked")}
+                    type="checkbox"
+                    name={exercise.title}
+                    value={exercise.title}
+                  />
+                  </div>
+                } )} */}
+                
+              {/* <input
                 onChange={console.log("checked")}
                 type="checkbox"
                 name="vehicle1"
@@ -182,9 +207,10 @@ class CalendarPage extends Component {
                 value="Boat"
               />
               <br />
-              bye
+              bye */}
             </div>
           </ModalBody>
+         
           <ModalFooter>
             <Button color="secondary" onClick={this.checkboxModalToggle}>
               Cancel
@@ -206,7 +232,7 @@ const mapStateToProps = state => {
   );
   return {
     routines: state.RoutineManager.routines,
-    workouts: state.RoutineManager.workouts
+    workouts: state.RoutineManager.workouts,
   };
 };
 
@@ -216,6 +242,7 @@ export default connect(
     fetchRoutines,
     scheduleWorkout,
     fetchAllWorkouts,
-    deleteWorkout
+    deleteWorkout,
+    fetchWorkoutDocForCheckOff
   }
 )(CalendarPage);

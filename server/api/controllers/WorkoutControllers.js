@@ -15,10 +15,34 @@ const fetchWorkoutDoc = (req, res) => {
     });
 };
 
+// const fetchWorkoutDocForCheckOff = (req, res) => {
+//   const { id } = req.params;
+//   Workout.findById(id)
+//     .populate('performances')
+//     .populate('routine')
+//     .then(workoutDocument => {
+//       let routine_id = workoutDocument.routine 
+
+//       Routine.findById(routine_id)
+//         .populate('exercises')
+//         .then(routine => {
+//           res.status(200).json({workoutDocument, routine})
+//         })
+//         .catch(err => {
+//           res.status(500).json({ err })
+//         })
+//     })
+//     .catch(err => {
+//       return res.status(404).json({ err });
+//     });
+// };
+
+
 // this is for displaying the scheduled workouts onto the calendar
 const fetchAllWorkouts = (req, res) => {
   const { userId } = req;
   Workout.find({ user: userId })
+    .populate("performances")
     .populate("routine")
     .then(workouts => {
       res.status(200).json(workouts);
@@ -27,6 +51,35 @@ const fetchAllWorkouts = (req, res) => {
       res.json("Can not find workouts!");
     });
 };
+
+// const fetchAllWorkouts = (req, res) => {
+//   const { userId } = req;
+//   let routines = []
+//   Workout.find({ user: userId })
+ 
+//     .populate("performances")
+//     .populate("routine")
+//     .then(workouts => {
+//       workouts.forEach(workout => {
+//         let routine_id = workout.routine
+        
+//         Routine.findById(routine_id)
+//         .populate('exercises')
+//         .then(routine => {
+//           routines.push(routine)
+//           // res.status(200).json({workouts, workout, routine})
+//         })
+//         .catch(err => {
+//           res.status(500).json({ err })
+//         })
+//       })
+//       res.status(200).json({workouts, routines})
+//     })
+//     .catch(err => {
+//       res.json("Can not find workouts!");
+//     });
+//};
+
 
 // This is substantially the most complicated route - it absorbs a lot of complexity
 // to make things easier later on. Here a step-by-step rundown:
@@ -221,5 +274,6 @@ module.exports = {
   scheduleWorkout,
   fetchWorkoutDoc,
   fetchAllWorkouts,
-  deleteWorkout
+  deleteWorkout,
+  // fetchWorkoutDocForCheckOff
 };

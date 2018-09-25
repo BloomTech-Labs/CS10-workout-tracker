@@ -49,6 +49,7 @@ module.exports = app => {
   app.route("/schedule-workout").post(verifyToken, scheduleWorkout);
   app.route("/workouts").get(verifyToken, fetchAllWorkouts);
   app.route("/workouts/:id").delete(verifyToken, deleteWorkout);
+  // app.route("/workouts/:id").get(verifyToken, fetchWorkoutDocForCheckOff);
 
   app.route("/routine").get(verifyToken, fetchRoutineDoc);
   app.route("/routine-rich").post(verifyToken, fetchHydratedRoutine);
