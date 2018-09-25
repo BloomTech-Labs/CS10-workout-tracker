@@ -15,29 +15,6 @@ const fetchWorkoutDoc = (req, res) => {
     });
 };
 
-// const fetchWorkoutDocForCheckOff = (req, res) => {
-//   const { id } = req.params;
-//   Workout.findById(id)
-//     .populate('performances')
-//     .populate('routine')
-//     .then(workoutDocument => {
-//       let routine_id = workoutDocument.routine 
-
-//       Routine.findById(routine_id)
-//         .populate('exercises')
-//         .then(routine => {
-//           res.status(200).json({workoutDocument, routine})
-//         })
-//         .catch(err => {
-//           res.status(500).json({ err })
-//         })
-//     })
-//     .catch(err => {
-//       return res.status(404).json({ err });
-//     });
-// };
-
-
 // this is for displaying the scheduled workouts onto the calendar
 const fetchAllWorkouts = (req, res) => {
   const { userId } = req;
@@ -51,35 +28,6 @@ const fetchAllWorkouts = (req, res) => {
       res.json("Can not find workouts!");
     });
 };
-
-// const fetchAllWorkouts = (req, res) => {
-//   const { userId } = req;
-//   let routines = []
-//   Workout.find({ user: userId })
- 
-//     .populate("performances")
-//     .populate("routine")
-//     .then(workouts => {
-//       workouts.forEach(workout => {
-//         let routine_id = workout.routine
-        
-//         Routine.findById(routine_id)
-//         .populate('exercises')
-//         .then(routine => {
-//           routines.push(routine)
-//           // res.status(200).json({workouts, workout, routine})
-//         })
-//         .catch(err => {
-//           res.status(500).json({ err })
-//         })
-//       })
-//       res.status(200).json({workouts, routines})
-//     })
-//     .catch(err => {
-//       res.json("Can not find workouts!");
-//     });
-//};
-
 
 // This is substantially the most complicated route - it absorbs a lot of complexity
 // to make things easier later on. Here a step-by-step rundown:
@@ -207,73 +155,45 @@ const scheduleWorkout = (req, res) => {
     });
 };
 
-// const deleteWorkout = (req, res) => {
-//   const { id } = req.params;
-
-//   Workout.findById(id), function(err, workoutToBeDeleted) {
-//     if (err) {
-//      res.status(500).json({ err })
-//     }
-//     workoutToBeDeleted.remove(function(err) {
-//       if (err) {
-//        res.status(500).json({ err })
-//       }
-
-//       let routine_id = workoutToBeDeleted.routine;
-//       let user_id = workoutToBeDeleted.user;
-
-//       User.findByIdAndUpdate(user_id, { $pull: { calendar: {workout: id} }}, function(err) {
-//         if (err) {
-//          res.status(500).json({ err })
-//         }
-//       })
-//       Routine.findByIdAndUpdate(routine_id, { $pull: { workoutLog: id }}, function(err) {
-//         if (err) {
-//          res.status(500).json({ err })
-//         }
-//       })
-//     })
-//   }
-// }
-
 const deleteWorkout = (req, res) => {
   const { id } = req.params;
+  console.log("TESTING DELETE WORKOUT");
+  Workout.findByIdAndRemove({ _id: id }).then(removedWorkout => {
+    console.log(removedWorkout);
+    let user_id = removedWorkout.user;
+    let routine_id = removedWorkout.routine;
+    console.log("TYPE OF USER ID " + typeof user_id);
+    console.log("TYPE OF ROUTINE ID " + typeof routine_id);
 
-  Workout.deleteOne({ _id: id })
-    .then(removedWorkout => {
-      let routine_id = removedWorkout.routine;
-      let user_id = removedWorkout.user;
-
-      User.findByIdAndUpdate(user_id, { $pull: { calendar: { workout: id } } })
-        .then(removedRefFromUser => {
-          res.status(201);
-        })
-        .catch(err => {
-          res
-            .status(500)
-            .json({ msg: "FAILED TO DELETE REF FROM USER COLLECTION" });
-        });
-      Routine.findByIdAndUpdate(routine_id, { $pull: { workoutLog: id } })
-        .then(removedRefFromRoutine => {
-          res.status(201);
-        })
-        .catch(err => {
-          res
-            .status(500)
-            .json({ msg: "FAILED TO DELETE REF FROM USER COLLECTION" });
-        });
-
-      res.status(201).json({ removedWorkout });
-    })
-    .catch(err => {
-      res.status(500).json({ err });
-    });
+    User.findByIdAndUpdate(user_id, { $pull: { calendar: { workout: id } } })
+      .then(removedRefFromUser => {
+        Routine.findByIdAndUpdate(routine_id, { $pull: { workoutLog: id } })
+          .then(removedRefFromRoutine => {
+            res
+              .status(201)
+              .json({
+                msg: "DELETED SUCCESSFULLY",
+                removedRefFromUser,
+                removedRefFromRoutine
+              });
+          })
+          .catch(err => {
+            res
+              .status(500)
+              .json({ msg: "FAILED TO DELETE REF FROM ROUTINE COLLECTION" });
+          });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ msg: "FAILED TO DELETE REF FROM USER COLLECTION" });
+      });
+  });
 };
 
 module.exports = {
   scheduleWorkout,
   fetchWorkoutDoc,
   fetchAllWorkouts,
-  deleteWorkout,
-  // fetchWorkoutDocForCheckOff
+  deleteWorkout
 };

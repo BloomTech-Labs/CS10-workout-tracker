@@ -169,8 +169,19 @@ class CalendarPage extends Component {
                 {this.props.routines.map(routine => (
                     routine.title === this.selectedTitle ?
                     //  routine.title === this.selectedTitle ? console.log("HURRAY") : console.log("GRRRRRR")
-                   ( routine.exercises.map(exercise =>  <div key={exercise._id} style={{display: "flex"}}><div style={{color: "white"}}>{exercise.name}</div><input type="checkbox" style={{marginLeft: "15px", marginTop: "5px"}}></input></div>,
-                  // this.props.workouts.performances.map(performance => performance.exercise === this.exercise._id ? <div style={{color: "white"}}>{performance.weight}{performance.sets}{performance.reps}</div> : null)
+                   ( routine.exercises.map(exercise =>  (
+                    <div>
+                   <div key={exercise._id} style={{display: "flex"}}>
+                        <div style={{color: "white"}}>
+                        {exercise.name}
+                        </div>
+                        <input type="checkbox" style={{marginLeft: "15px", marginTop: "5px"}}></input>
+                   </div>,
+                    <div style={{color: "white"}}>{`weight ${exercise.currentWeight}`}{`Reps ${exercise.currentReps}`}{`Sets ${exercise.currentSets}`}</div>
+                    </div>
+                    )
+
+                   // this.props.workouts.performances.map(performance => performance.exercise === this.exercise._id ? <div style={{color: "white"}}>{performance.weight}{performance.sets}{performance.reps}</div> : null)
                  
                   )) : null
                      
