@@ -79,6 +79,7 @@ class CalendarPage extends Component {
   IdToBeDeleted;
 
   routine;
+  exercise;
   
 
   render() {
@@ -163,13 +164,19 @@ class CalendarPage extends Component {
             <ModalBody>
             <div>
                 {console.log(this.props.routines)}
+                
+                <div>
                 {this.props.routines.map(routine => (
                     routine.title === this.selectedTitle ?
                     //  routine.title === this.selectedTitle ? console.log("HURRAY") : console.log("GRRRRRR")
-                   ( routine.exercises.map(exercise => <div><div style={{color: "white"}}>{exercise.name}</div><input type="checkbox"></input></div>)) : null
+                   ( routine.exercises.map(exercise =>  <div key={exercise._id} style={{display: "flex"}}><div style={{color: "white"}}>{exercise.name}</div><input type="checkbox" style={{marginLeft: "15px", marginTop: "5px"}}></input></div>,
+                  // this.props.workouts.performances.map(performance => performance.exercise === this.exercise._id ? <div style={{color: "white"}}>{performance.weight}{performance.sets}{performance.reps}</div> : null)
+                 
+                  )) : null
                      
                     
               ))}
+                </div>
 
                 {/* {this.routine = this.props.routines.filter(routine => routine.title == this.selectedTitle) || ""}
                 {console.log("ROUTINE" + this.routine)}
