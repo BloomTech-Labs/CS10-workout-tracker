@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from 'react-router-dom';
 import {  Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, InputGroup } from 'reactstrap';
 import { connect } from "react-redux";
-import { register, login } from "../actions";
+import { register, login, logout} from "../actions";
 
 class Nav extends React.Component {
 
@@ -19,6 +19,11 @@ class Nav extends React.Component {
       signInModal: false
     };
   }
+
+  handleLogout = event => {
+    this.props.logout();
+    this.props.history.push("/");
+  };
 
   handleFieldChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -84,7 +89,7 @@ class Nav extends React.Component {
 
     const isAuth = (
       <div className="right__nav">
-        <span>Logout</span>
+        <span onClick={this.handleLogout}>Logout</span>
       </div>
     )
 
@@ -93,12 +98,6 @@ class Nav extends React.Component {
       <nav className="landing__nav">
           <div className="left__nav">LOGO</div>
           {authed ? isAuth : isNotAuth}
-          {/* <div className="right__nav">
-            <div>
-            <span className="first__nav__span" onClick={this.toggleSignUpModal}>Signup</span>
-            </div>
-            <span onClick={this.toggleSignInModal}>Login</span>
-          </div> */}
       </nav>
 
               {/* Signup Modal */}
@@ -196,4 +195,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {register, login})(withRouter(Nav));
+export default connect(mapStateToProps, {register, login, logout})(withRouter(Nav));
