@@ -15,6 +15,19 @@ const fetchWorkoutDoc = (req, res) => {
     })
 }
 
+// this is for displaying the scheduled workouts onto the calendar
+const fetchAllWorkouts = (req, res) => {
+  const { userId } = req
+  Workout.find({user: userId })
+  .populate("routine")
+    .then(workouts => {
+      res.status(200).json(workouts)
+    })
+    .catch(err => {
+      res.json("Can not find workouts!")
+    })
+  }
+
 // This is substantially the most complicated route - it absorbs a lot of complexity
 // to make things easier later on. Here a step-by-step rundown:
 //   1. We extract the necessary info from the request for the Workout - which routine
@@ -104,7 +117,8 @@ const scheduleWorkout = (req, res) => {
             User.findByIdAndUpdate(userId, {
               $push: {
                 calendar: {
-                  date: Date.now(), // Will fix with a projection onto the date header on the request that provides a default.
+                  // date: Date.now(), // Will fix with a projection onto the date header on the request that provides a default.
+                  date: savedWorkout.date,
                   workout: savedWorkout._id
                 }
               }
@@ -112,7 +126,7 @@ const scheduleWorkout = (req, res) => {
               .then(updatedUser => {
                 return res.status(201).json({
                   msg: "Succeeded in scheduling workout!",
-                  updatedUser
+                  updatedUser, savedWorkout
                 });
               })
               .catch(err => {
@@ -141,5 +155,6 @@ const scheduleWorkout = (req, res) => {
 
 module.exports = {
   scheduleWorkout,
-  fetchWorkoutDoc
+  fetchWorkoutDoc,
+  fetchAllWorkouts
 };
