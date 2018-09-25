@@ -12,12 +12,14 @@ import AccessControl from "./components/AccessControl";
 import LoginPage from "./components/LoginPage";
 import ForgotPassword from "./components/ForgotPassword";
 import PasswordReset from "./components/PasswordReset";
-import LandingPage from "./components/LandingPage";
+import LandingPage from "./components/Landing/LandingPage";
 import Schedule from "./components/Schedule";
 import Workouts from "./components/Workouts";
 import Progress from "./components/Progress/Progress";
 import Billing from "./components/Billing";
 import Settings from "./components/Settings";
+import Nav from "./components/Nav";
+import Footer from "./components/Footer";
 
 import combinedReducer from "./reducers";
 
@@ -27,7 +29,9 @@ const store = createStoreWithMiddleware(combinedReducer);
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <div>
+      <div className="main__page">
+        <Nav />
+        <div className="push__nav"></div>
         <Route exact path="/" component={LandingPage} />
         <Route path="/register" component={RegistrationPage} />
         <Route path="/login" component={LoginPage} />
@@ -38,6 +42,7 @@ ReactDOM.render(
         <Route path="/progress" component={AccessControl(Progress)} />
         <Route path="/billing" component={AccessControl(Billing)} />
         <Route path="/settings" component={AccessControl(Settings)} />
+        <Footer />
       </div>
     </Router>
   </Provider>,

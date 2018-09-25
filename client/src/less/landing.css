@@ -44,7 +44,7 @@
   justify-content: space-between;
 }
 .main__landing__background {
-  background: url("../img/main_landing_background.jpg");
+  background: url("../components/Landing/img/main_landing_background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   color: #CCCCCC;
@@ -131,7 +131,7 @@
   color: #CC0000;
 }
 .landing__start {
-  background: url("../img/how_to_start_bg.jpg");
+  background: url("../components/Landing/img/how_to_start_bg.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   height: 500px;
