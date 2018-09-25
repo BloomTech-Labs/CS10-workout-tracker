@@ -57,7 +57,7 @@ class Settings extends Component {
           <Form className="emailForm" onSubmit={this.handleEmailSubmit}>
             <FormGroup row>
               <Input
-                type="text"
+                type="email"
                 name="email"
                 placeholder={this.props.userInfo.user.email}
                 value={this.state.email}
