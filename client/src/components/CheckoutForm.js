@@ -29,7 +29,11 @@ class CheckoutForm extends Component {
 
   render() {
     if (this.state.complete || this.props.premiumUser) {
-      return <div className="billing-status">Premium status obtained.</div>;
+      return (
+        <div className="billing-status">
+          <h3>Premium status obtained.</h3>
+        </div>
+      );
     }
     return (
       <div className="checkout">

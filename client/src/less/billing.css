@@ -12,8 +12,8 @@
   margin: 0 auto;
 }
 .billing-outer .billing-container .billing-inner {
+  margin: 20px;
   background: radial-gradient(#666666, black);
-  height: 250px;
 }
 .billing-outer .billing-container .billing-inner .checkout {
   display: flex;
@@ -40,5 +40,7 @@
   box-shadow: 1px 1px 7px black;
 }
 .billing-outer .billing-container .billing-inner .billing-status {
+  padding: 10px;
+  margin: 20px;
   color: #cccccc;
 }
