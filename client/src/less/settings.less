@@ -4,33 +4,60 @@
 @darkGrey: #666666;
 @grey: #cccccc;
 
-.settings-container {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 1000px;
-  width: 90%;
-  margin: 0 auto;
+.settings-outer {
+  background: radial-gradient(black, @secondary);
+  min-height: 100vh;
 
-  .forms-container {
-    display: flex;
-    max-width: 350px;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .emailForm {
+  .settings-container {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px 0 25px 0;
-  }
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto;
 
-  .passwordForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 25px 0 20px 0;
+    .forms-container {
+      display: flex;
+      width: 300px;
+      padding: 20px;
+      flex-direction: column;
+      align-items: center;
+      background: radial-gradient(@darkGrey, black);
+    }
+
+    .single-form-container {
+      width: 90%;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding: 20px 20px;
+      background: linear-gradient(black, @white);
+
+      .emailForm {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px 0 25px 0;
+      }
+
+      .settings-input {
+        border-radius: 0;
+        background: @grey;
+        box-shadow: 1px 1px 7px black;
+      }
+
+      .submit-btn {
+        background: linear-gradient(@primary, black);
+        border-radius: 0;
+        box-shadow: 1px 1px 7px black;
+      }
+
+      .passwordForm {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 25px 0 20px 0;
+      }
+    }
   }
 }

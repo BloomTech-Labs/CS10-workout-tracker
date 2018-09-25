@@ -4,26 +4,54 @@
 @darkGrey: #666666;
 @grey: #cccccc;
 
-.billing-container {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 1000px;
-  width: 90%;
-  margin: 0 auto;
-}
+.billing-outer {
+  background: radial-gradient(black, @secondary);
+  min-height: 100vh;
 
-.checkout {
-  display: flex;
-  max-width: 420px;
-  flex-direction: column;
+  .billing-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto;
 
-  p {
-    margin: 10px 0 20px 0;
-  }
+    .billing-inner {
+      background: radial-gradient(@darkGrey, black);
+      height: 250px;
 
-  .cardElement {
-    margin: 0 0 20px 0;
+      .checkout {
+        display: flex;
+        max-width: 420px;
+        flex-direction: column;
+        margin: 40px;
+        padding: 20px;
+        background: linear-gradient(black, @white);
+
+        .checkout-text {
+          color: @grey;
+          margin: 0 0 20px 0;
+          text-align: center;
+        }
+
+        .cardElement {
+          margin: 0 0 20px 0;
+          background-color: @grey;
+          padding: 10px;
+          box-shadow: 1px 1px 7px black;
+        }
+
+        .submit-btn {
+          background: linear-gradient(@primary, black);
+          border-radius: 0;
+          box-shadow: 1px 1px 7px black;
+        }
+      }
+
+      .billing-status {
+        color: @grey;
+      }
+    }
   }
 }

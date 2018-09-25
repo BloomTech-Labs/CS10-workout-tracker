@@ -51,55 +51,68 @@ class Settings extends Component {
 
   render() {
     return (
-      <div className="settings-container">
-        <NavBar />
-        <div className="forms-container">
-          <Form className="emailForm" onSubmit={this.handleEmailSubmit}>
-            <FormGroup row>
-              <Input
-                type="email"
-                name="email"
-                placeholder={this.props.userInfo.user.email}
-                value={this.state.email}
-                onChange={this.handleFieldChange}
-              />
-            </FormGroup>
-            <Button className="submit-btn" size="sm" type="submit">
-              Change Email
-            </Button>
-          </Form>
-          <Form className="passwordForm" onSubmit={this.handlePasswordSubmit}>
-            <FormGroup row>
-              <Input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={this.state.password}
-                onChange={this.handleFieldChange}
-              />
-            </FormGroup>
-            <FormGroup row>
-              <Input
-                type="password"
-                name="newPassword"
-                placeholder="New Password"
-                value={this.state.newPassword}
-                onChange={this.handleFieldChange}
-              />
-            </FormGroup>
-            <FormGroup row>
-              <Input
-                type="password"
-                name="confirmNewPassword"
-                placeholder="Confirm New Password"
-                value={this.state.confirmNewPassword}
-                onChange={this.handleFieldChange}
-              />
-            </FormGroup>
-            <Button className="submit-btn" size="sm" type="submit">
-              Save Password
-            </Button>
-          </Form>
+      <div className="settings-outer">
+        <div className="settings-container">
+          <NavBar />
+          <div className="forms-container">
+            <div className="single-form-container">
+              <Form className="emailForm" onSubmit={this.handleEmailSubmit}>
+                <FormGroup row>
+                  <Input
+                    className="settings-input"
+                    type="email"
+                    name="email"
+                    placeholder={this.props.userInfo.user.email}
+                    value={this.state.email}
+                    onChange={this.handleFieldChange}
+                  />
+                </FormGroup>
+                <Button className="submit-btn" size="sm" type="submit">
+                  Change Email
+                </Button>
+              </Form>
+            </div>
+            <div className="single-form-container">
+              <Form
+                className="passwordForm"
+                onSubmit={this.handlePasswordSubmit}
+              >
+                <FormGroup row>
+                  <Input
+                    className="settings-input"
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={this.state.password}
+                    onChange={this.handleFieldChange}
+                  />
+                </FormGroup>
+                <FormGroup row>
+                  <Input
+                    className="settings-input"
+                    type="password"
+                    name="newPassword"
+                    placeholder="New Password"
+                    value={this.state.newPassword}
+                    onChange={this.handleFieldChange}
+                  />
+                </FormGroup>
+                <FormGroup row>
+                  <Input
+                    className="settings-input"
+                    type="password"
+                    name="confirmNewPassword"
+                    placeholder="Confirm New Password"
+                    value={this.state.confirmNewPassword}
+                    onChange={this.handleFieldChange}
+                  />
+                </FormGroup>
+                <Button className="submit-btn" size="sm" type="submit">
+                  Save Password
+                </Button>
+              </Form>
+            </div>
+          </div>
         </div>
       </div>
     );

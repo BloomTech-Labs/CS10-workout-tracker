@@ -1,4 +1,8 @@
-.billing-container {
+.billing-outer {
+  background: radial-gradient(black, #000033);
+  min-height: 100vh;
+}
+.billing-outer .billing-container {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -7,14 +11,34 @@
   width: 90%;
   margin: 0 auto;
 }
-.checkout {
+.billing-outer .billing-container .billing-inner {
+  background: radial-gradient(#666666, black);
+  height: 250px;
+}
+.billing-outer .billing-container .billing-inner .checkout {
   display: flex;
   max-width: 420px;
   flex-direction: column;
+  margin: 40px;
+  padding: 20px;
+  background: linear-gradient(black, white);
 }
-.checkout p {
-  margin: 10px 0 20px 0;
-}
-.checkout .cardElement {
+.billing-outer .billing-container .billing-inner .checkout .checkout-text {
+  color: #cccccc;
   margin: 0 0 20px 0;
+  text-align: center;
+}
+.billing-outer .billing-container .billing-inner .checkout .cardElement {
+  margin: 0 0 20px 0;
+  background-color: #cccccc;
+  padding: 10px;
+  box-shadow: 1px 1px 7px black;
+}
+.billing-outer .billing-container .billing-inner .checkout .submit-btn {
+  background: linear-gradient(#cc0000, black);
+  border-radius: 0;
+  box-shadow: 1px 1px 7px black;
+}
+.billing-outer .billing-container .billing-inner .billing-status {
+  color: #cccccc;
 }
