@@ -3,13 +3,13 @@ import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { connect } from "react-redux";
-import { fetchRoutines, scheduleWorkout, fetchAllWorkouts } from "../actions";
+import { fetchRoutines, scheduleWorkout, fetchAllWorkouts, deleteWorkout } from "../actions";
 
 BigCalendar.momentLocalizer(moment);
 
 class CalendarPage extends Component {
   state = {
-    modal: false,
+    schedulingModal: false,
     checkboxModal: false,
   };
 
@@ -30,9 +30,9 @@ class CalendarPage extends Component {
     });
   };
 
-  toggle = () => {
+  schedulingModalToggle = () => {
     this.setState({
-      modal: !this.state.modal
+        schedulingModal: !this.state.schedulingModal
     });
   };
 
@@ -47,11 +47,12 @@ class CalendarPage extends Component {
   onSelectSlot = selected => {
     this.selectedDate = selected.start;
     console.log("SELECTED DATE: " + this.selectedDate);
-    this.toggle();
+    this.schedulingModalToggle();
   };
 
   onSelectEvent = selected => {
     this.selectedTitle = selected.title;
+    this.IdToBeDeleted = selected.id;
     this.checkboxModalToggle();
   };
 
@@ -60,9 +61,13 @@ class CalendarPage extends Component {
     // this.selectedValue = "";
     this.selectedId = "";
     this.selectedDate = "";
-    this.toggle();
-    this.setState({});
+    this.schedulingModalToggle();
   };
+
+  deleteWorkout = () => {
+    this.props.deleteWorkout(this.IdToBeDeleted)
+    this.checkboxModalToggle();
+  }
 
   events = [];
   selectedValue;
@@ -70,6 +75,7 @@ class CalendarPage extends Component {
   selectedDate;
   selectedTitle;
   selectedExercises;
+  IdToBeDeleted;
   
 
   render() {
@@ -111,11 +117,11 @@ class CalendarPage extends Component {
         {/* Scheduling Modal */}
 
         <Modal
-          isOpen={this.state.modal}
-          toggle={this.toggle}
+          isOpen={this.state.schedulingModal}
+          toggle={this.schedulingModalToggle}
           className={this.props.className}
         >
-          <ModalHeader toggle={this.toggle}>Schedule a Workout!</ModalHeader>
+          <ModalHeader toggle={this.schedulingModalToggle}>Schedule a Workout!</ModalHeader>
           <ModalBody>
             {/* Drop down for selecting a routine */}
             <div>Select Workout</div>
@@ -135,7 +141,7 @@ class CalendarPage extends Component {
             <Button color="primary" onClick={this.scheduleWorkout}>
               Schedule!
             </Button>{" "}
-            <Button color="secondary" onClick={this.toggle}>
+            <Button color="secondary" onClick={this.schedulingModalToggle}>
               Cancel
             </Button>
           </ModalFooter>
@@ -183,6 +189,9 @@ class CalendarPage extends Component {
             <Button color="secondary" onClick={this.checkboxModalToggle}>
               Cancel
             </Button>
+            <Button color="danger" onClick={this.deleteWorkout}>
+                Delete Workout
+            </Button>
           </ModalFooter>
         </Modal>
       </React.Fragment>
@@ -206,6 +215,7 @@ export default connect(
   {
     fetchRoutines,
     scheduleWorkout,
-    fetchAllWorkouts
+    fetchAllWorkouts,
+    deleteWorkout
   }
 )(CalendarPage);

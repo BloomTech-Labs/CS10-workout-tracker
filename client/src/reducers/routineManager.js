@@ -177,6 +177,13 @@ export default (state = initialState, action) => {
         ...state,
         msg: "Couldn't schedule the user's workout"
       }
+    case Actions.DELETE_WORKOUT:
+      return {
+        ...state,
+        workouts: state.workouts.filter(workout => {
+          return workout._id !== action.payload;
+        })
+      }
     default:
       return state;
   }

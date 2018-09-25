@@ -153,8 +153,95 @@ const scheduleWorkout = (req, res) => {
     });
 };
 
+// const deleteWorkout = (req, res) => {
+//   const { id } = req.params;
+  
+//   Workout.findById(id), function(err, workoutToBeDeleted) {
+//     if (err) {
+//      res.status(500).json({ err })
+//     }
+//     workoutToBeDeleted.remove(function(err) {
+//       if (err) {
+//        res.status(500).json({ err })
+//       }
+
+//       let routine_id = workoutToBeDeleted.routine;
+//       let user_id = workoutToBeDeleted.user;
+
+//       User.findByIdAndUpdate(user_id, { $pull: { calendar: {workout: id} }}, function(err) {
+//         if (err) {
+//          res.status(500).json({ err })
+//         }
+//       })
+//       Routine.findByIdAndUpdate(routine_id, { $pull: { workoutLog: id }}, function(err) {
+//         if (err) {
+//          res.status(500).json({ err })
+//         }
+//       })
+//     })
+//   }
+// }
+
+const deleteWorkout = (req, res) => {
+  const { id } = req.params;
+  
+//  Workout.remove({_id: id})
+//   .then(removed => {
+//     let routine_id = removed.routine;
+//     let user_id = removed.user;
+
+//     User.findByIdAndUpdate(user_id, { $pull: { calendar: {workout: id} }}, function(err) {
+//       if (err) {
+//        res.status(500).json({ err })
+//       }
+//     })
+//     Routine.findByIdAndUpdate(routine_id, { $pull: { workoutLog: id }}, function(err) {
+//       if (err) {
+//        res.status(500).json({ err })
+//       }
+//     })
+
+//     res.status(201).json({removed})
+//   }) 
+//   .catch(err => {
+//     res.status(500).json({err})
+//   }) 
+    
+//   }
+
+Workout.deleteOne({_id: id})
+.then(removedWorkout => {
+  let routine_id = removedWorkout.routine;
+  let user_id = removedWorkout.user;
+
+  User.findByIdAndUpdate(user_id, { $pull: { calendar: {workout: id} }})
+    .then(removedRefFromUser => {
+      res.status(201)
+    })
+    .catch(err => {
+      res.status(500).json({msg: "FAILED TO DELETE REF FROM USER COLLECTION"})
+    })
+  Routine.findByIdAndUpdate(routine_id, { $pull: { workoutLog: id }})
+  .then(removedRefFromRoutine => {
+    res.status(201)
+  })
+  .catch(err => {
+    res.status(500).json({msg: "FAILED TO DELETE REF FROM USER COLLECTION"})
+  })
+
+  res.status(201).json({removedWorkout})
+}) 
+.catch(err => {
+  res.status(500).json({err})
+}) 
+  
+}
+
+
+
 module.exports = {
   scheduleWorkout,
   fetchWorkoutDoc,
-  fetchAllWorkouts
+  fetchAllWorkouts,
+  deleteWorkout
 };

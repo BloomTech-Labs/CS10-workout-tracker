@@ -450,6 +450,22 @@ export const fetchAllWorkouts = () => {
   };
 };
 
+export const deleteWorkout = id => {
+  return dispatch => {
+    axios
+      .delete(`${ROOT_URL}/workouts/${id}`, requestOptions)
+      .then(res => {
+        dispatch({
+          type: Actions.DELETE_WORKOUT,
+          payload: id
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+}
+
 export const changePassword = data => {
   let token = localStorage.getItem("token");
   return dispatch => {
