@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
+import { Button } from "reactstrap";
+import "../less/billing.css";
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -31,9 +33,11 @@ class CheckoutForm extends Component {
     if (this.state.complete) return <h1>Purchase Complete</h1>;
     return (
       <div className="checkout">
-        <p>Would you like to complete the purchase?</p>
-        <CardElement />
-        <button onClick={this.submit}>Send</button>
+        <p>Purchase Premium staus for only $8.99</p>
+        <CardElement className="cardElement" />
+        <Button className="submit-btn" outline size="sm" onClick={this.submit}>
+          Process Payment
+        </Button>
       </div>
     );
   }
