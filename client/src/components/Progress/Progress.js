@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { fetchProgress } from "../../actions";
-import NavBar from "../NavBar";
 import ProgressTracker from "./ProgressTracker";
 import ProgressCard from "./ProgressCard";
 import ProgressForm from "./ProgressForm";
@@ -23,7 +22,6 @@ class Progress extends Component {
 
     return (
       <div className="outer-container">
-        <NavBar />
         {this.props.userInfo.user.premiumUser ? (
           <div className="container">
             <ProgressTracker />

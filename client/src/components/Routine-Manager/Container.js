@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import NavBar from "../NavBar";
 import RoutineList from "./RoutineList";
 import FocusedRoutine from "./FocusedRoutine";
 import { connect } from "react-redux";
@@ -16,7 +15,6 @@ class RoutineManager_container extends Component {
     console.log("Rendered the container");
     return (
       <div className="container">
-        <NavBar />
         <div className="WorkoutPlanner">
           <RoutineList />
           {this.props.focusedRoutine ? <FocusedRoutine /> : null}

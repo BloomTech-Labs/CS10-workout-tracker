@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import NavBar from "./NavBar";
+import NavBar from "./SideBar";
 import { connect } from "react-redux";
 import { resetPassword } from "../actions";
 
