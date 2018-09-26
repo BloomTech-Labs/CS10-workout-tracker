@@ -20,7 +20,7 @@ const fetchAllWorkouts = (req, res) => {
   const { userId } = req;
   Workout.find({ user: userId })
     .populate({path: "performances", populate: { path: 'exercise'}})
-    .populate("routine")
+    .populate({path: "routine", populate: { path: 'exercises'}})
     .then(workouts => {
       res.status(200).json(workouts);
     })
@@ -46,6 +46,7 @@ const fetchAllWorkouts = (req, res) => {
 
 const scheduleWorkout = (req, res) => {
   const { routineId, date, note } = req.body;
+  console.log(req.body)
   const userId = req.userId;
   const workoutParams = { routine: routineId, user: userId, date, note };
   const newWorkout = new Workout(workoutParams);
@@ -76,7 +77,7 @@ const scheduleWorkout = (req, res) => {
             hydratedRoutine.exercises.forEach(exercise => {
               const futureExercisePerformance = new Performance({
                 exercise: exercise._id,
-                date
+                date,
               });
               futureExercisePerformance
                 .save()

@@ -28,6 +28,7 @@ const {
   deleteProgress,
   updateProgress
 } = require("./controllers/ProgressControllers");
+const { checkOffPerformance } = require("./controllers/PerformanceControllers");
 const { verifyToken } = require("./utilities/auth");
 
 module.exports = app => {
@@ -49,7 +50,6 @@ module.exports = app => {
   app.route("/schedule-workout").post(verifyToken, scheduleWorkout);
   app.route("/workouts").get(verifyToken, fetchAllWorkouts);
   app.route("/workouts/:id").delete(verifyToken, deleteWorkout);
-  // app.route("/workouts/:id").get(verifyToken, fetchWorkoutDocForCheckOff);
 
   app.route("/routine").get(verifyToken, fetchRoutineDoc);
   app.route("/routine-rich").post(verifyToken, fetchHydratedRoutine);
@@ -58,5 +58,7 @@ module.exports = app => {
 
   app.route("/exercise").get(verifyToken, fetchExerciseDoc);
   app.route("/exercise").put(verifyToken, updateExerciseDoc);
+
+  app.route("/performance/:id").put(verifyToken, checkOffPerformance)
 
 };

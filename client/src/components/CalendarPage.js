@@ -3,11 +3,12 @@ import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { connect } from "react-redux";
+import axios from 'axios';
 import {
   fetchRoutines,
   scheduleWorkout,
   fetchAllWorkouts,
-  deleteWorkout,
+  deleteWorkout
 } from "../actions";
 import "../less/calendarPage.css";
 
@@ -57,7 +58,7 @@ class CalendarPage extends Component {
   };
 
   onSelectEvent = selected => {
-    
+    console.log(selected)
     this.selectedEventTitle = selected.title;
     this.selectedEventId = selected.id;
     this.selectedEventDate = selected.date;
@@ -77,23 +78,37 @@ class CalendarPage extends Component {
     this.checkboxModalToggle();
   };
 
+  handleCheckOff = (performanceId) => {
+    console.log(performanceId)
+    let token = localStorage.getItem("token");
+    console.log(token)
+    let requestOptions = { headers: { "x-access-token": token } };
+    axios
+      .put(`http://localhost:8080/performance/${performanceId}`, {}, requestOptions)
+        .then(updatedPerformance => {
+          console.log("successfully updated performance")
+        })
+        .catch(err => {
+          console.log("error updating performance")
+        })
+  }
+
+
   events = [];
+  routine;
+  exercise;
+
   selectedRoutineValue;
   selectedRoutineId;
   selectedSlotDate;
-  
+
   selectedExercises;
   selectedEventId;
   selectedEventDate;
   selectedEventTitle;
 
-  routine;
-  exercise;
-
-
   render() {
-
-    console.log(this.props.workouts)
+    // console.log(this.props.workouts);
 
     {
       this.events = this.props.workouts.map(workout => ({
@@ -110,7 +125,27 @@ class CalendarPage extends Component {
       k => BigCalendar.Views[k]
     );
 
-    console.log(this.events);
+    let checkoff = []
+    let checkoffObj = {};
+    let workoutId
+
+    this.props.workouts.map(workout => {
+      workoutId = workout._id 
+      workout.performances.map(performance => {
+        
+        checkoffObj.workoutId = workoutId
+        checkoffObj.performanceId = performance._id
+        checkoffObj.completed = performance.completed
+        checkoffObj.exerciseName = performance.exercise.name
+        checkoffObj.weight = performance.weight
+        checkoffObj.reps = performance.reps
+        checkoffObj.sets = performance.sets
+        checkoff.push(checkoffObj)
+        checkoffObj = {}
+      })
+    })
+     console.log(checkoff)
+    
     return (
       <React.Fragment>
         <div style={{ height: "500px", width: "90%" }}>
@@ -175,74 +210,27 @@ class CalendarPage extends Component {
             {this.selectedEventTitle}
           </ModalHeader>
           <ModalBody>
-          
-              {console.log(this.props.routines)}
+            {console.log(this.props.routines)}
             
-              
-                {this.props.routines.map(
-                  routine =>
-                    routine.title === this.selectedEventTitle
-                      ? //  routine.title === this.selectedEventTitle ? console.log("HURRAY") : console.log("GRRRRRR")
-                        routine.exercises.map(exercise => (
-                           <div key={exercise._id}>
-                            <div style={{ display: "flex" }}>
-                              <div style={{ color: "white" }}>
-                                {exercise.name}
-                              </div>
-                              <input
-                                type="checkbox"
-                                style={{ marginLeft: "15px", marginTop: "5px" }}
-                              />
-                            </div>
-                              {/* {this.events.map(event => event.performances.map(performance => performance.exercise == exercise._id ? 
-                                <div key={performance._id} style={{ color: "white" }}>{performance.weight}{performance.sets}{performance.reps}</div> : null
-                                 ))} */}
-                            </div>
-                        ))
-                      : null
-                )}
-              
-
-              {/* {this.routine = this.props.routines.filter(routine => routine.title == this.selectedEventTitle) || ""}
-                {console.log("ROUTINE" + this.routine)}
-                {this.routine.exercises.forEach(exercise => {
-                    <div>
-                    return <div>{exercise.name}</div> <input
-                    onChange={console.log("checked")}
-                    type="checkbox"
-                    name={exercise.title}
-                    value={exercise.title}
-                  />
-                  </div>
-                } )} */}
-
-              {/* <input
-                onChange={console.log("checked")}
-                type="checkbox"
-                name="vehicle1"
-                value="Bike"
-              />
-              <br />
-              hi
-              <input
-                onChange={console.log("checked")}
-                type="checkbox"
-                name="vehicle2"
-                value="Car"
-              />
-              <br />
-              hello
-              <input
-                onChange={console.log("checked")}
-                type="checkbox"
-                name="vehicle3"
-                value="Boat"
-              />
-              <br />
-              bye */}
-              
-              
-            
+             {checkoff.map(
+             checkoffObj =>
+                checkoffObj.workoutId === this.selectedEventId
+                  ? 
+                     (<div>
+                     <div key={checkoffObj.workoutId} style={{ display: "flex" }}>
+                        <input
+                          type="checkbox"
+                          onChange={() => {this.handleCheckOff(checkoffObj.performanceId)}}
+                          style={{ marginLeft: "15px", marginTop: "5px" }}
+                        />
+                        <div style={{ color: "white" }}>{checkoffObj.exerciseName}</div>
+                      </div>
+                      <div>{`weight : ${checkoffObj.weight}`}{`sets : ${checkoffObj.sets}`}{`reps : ${checkoffObj.reps}`}</div>
+                      </div>
+                      )
+                  : null
+            )}
+        
           </ModalBody>
 
           <ModalFooter>
@@ -276,6 +264,6 @@ export default connect(
     fetchRoutines,
     scheduleWorkout,
     fetchAllWorkouts,
-    deleteWorkout,
+    deleteWorkout
   }
 )(CalendarPage);

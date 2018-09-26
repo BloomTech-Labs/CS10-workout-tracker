@@ -11,6 +11,25 @@ const fetchPerformanceDoc = (req, res) => {
     })
 }
 
+const checkOffPerformance = (req, res) => {
+  const { id } = req.params;
+  Performance.findById(id)
+    .then(performanceDocument => {
+      performanceDocument.completed = !performanceDocument.completed
+      performanceDocument.save()
+        .then(savedDoc => {
+          res.json(savedDoc)
+        })
+        .catch(err => {
+          res.json({msg: "Can't update performance."})
+        })
+    })
+    .catch(err => {
+      res.status(500).json({ err })
+    })
+}
+
 module.exports = {
-  fetchPerformanceDoc
+  fetchPerformanceDoc,
+  checkOffPerformance
 }
