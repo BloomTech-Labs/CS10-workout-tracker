@@ -27,8 +27,6 @@ import combinedReducer from "./reducers";
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 const store = createStoreWithMiddleware(combinedReducer);
 
-// console.log("THIS IS THE STORE: ", store.auth);
-
 ReactDOM.render(
   <Provider store={store}>
     <Router>
