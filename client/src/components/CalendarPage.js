@@ -10,6 +10,7 @@ import {
   deleteWorkout,
   fetchWorkoutDocForCheckOff
 } from "../actions";
+import "../less/calendarPage.css";
 
 BigCalendar.momentLocalizer(moment);
 
@@ -57,8 +58,10 @@ class CalendarPage extends Component {
   };
 
   onSelectEvent = selected => {
+    
     this.selectedTitle = selected.title;
     this.IdToBeDeleted = selected.id;
+    this.selectedEventDate = selected.id;
     this.checkboxModalToggle();
   };
 
@@ -82,6 +85,7 @@ class CalendarPage extends Component {
   selectedTitle;
   selectedExercises;
   IdToBeDeleted;
+  selectedEventDate;
 
   routine;
   exercise;
@@ -184,17 +188,17 @@ class CalendarPage extends Component {
             {this.selectedTitle}
           </ModalHeader>
           <ModalBody>
-            <div>
+          
               {console.log(this.props.routines)}
-
-              <div>
+            
+              
                 {this.props.routines.map(
                   routine =>
                     routine.title === this.selectedTitle
                       ? //  routine.title === this.selectedTitle ? console.log("HURRAY") : console.log("GRRRRRR")
                         routine.exercises.map(exercise => (
-                          <div>
-                            <div key={exercise._id} style={{ display: "flex" }}>
+                           <div key={exercise._id}>
+                            <div style={{ display: "flex" }}>
                               <div style={{ color: "white" }}>
                                 {exercise.name}
                               </div>
@@ -203,11 +207,14 @@ class CalendarPage extends Component {
                                 style={{ marginLeft: "15px", marginTop: "5px" }}
                               />
                             </div>
-                          </div>
+                              {this.events.map(event => event.performances.map(performance => performance.exercise == exercise._id   ? 
+                                <div key={performance._id} style={{ color: "white" }}>{performance.weight}{performance.sets}</div> : null
+                                 ))}
+                            </div>
                         ))
                       : null
                 )}
-              </div>
+              
 
               {/* {this.routine = this.props.routines.filter(routine => routine.title == this.selectedTitle) || ""}
                 {console.log("ROUTINE" + this.routine)}
@@ -246,7 +253,9 @@ class CalendarPage extends Component {
               />
               <br />
               bye */}
-            </div>
+              
+              
+            
           </ModalBody>
 
           <ModalFooter>
