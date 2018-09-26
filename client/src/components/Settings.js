@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { changeEmail, changePassword } from "../actions";
-import NavBar from "./NavBar";
 
 class Settings extends Component {
   state = {
@@ -50,7 +49,6 @@ class Settings extends Component {
   render() {
     return (
       <div>
-        <NavBar />
         <form className="EmailForm" onSubmit={this.handleEmailSubmit}>
           <input
             type="text"

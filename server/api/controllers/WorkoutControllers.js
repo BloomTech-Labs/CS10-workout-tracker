@@ -7,6 +7,10 @@ const Workout = require("../models/Workout");
 const fetchWorkoutDoc = (req, res) => {
   const { workoutId } = req.body;
   Workout.findById(workoutId)
+    .populate("performances")
+    .populate("user")
+    .populate("routine")
+    .populate("workout")
     .then(workoutDocument => {
       return res.status(200).json(workoutDocument);
     })
