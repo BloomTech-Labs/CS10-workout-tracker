@@ -207,9 +207,9 @@ class CalendarPage extends Component {
                                 style={{ marginLeft: "15px", marginTop: "5px" }}
                               />
                             </div>
-                              {this.events.map(event => event.performances.map(performance => performance.exercise == exercise._id   ? 
-                                <div key={performance._id} style={{ color: "white" }}>{performance.weight}{performance.sets}</div> : null
-                                 ))}
+                              {/* {this.events.map(event => event.performances.map(performance => performance.exercise == exercise._id ? 
+                                <div key={performance._id} style={{ color: "white" }}>{performance.weight}{performance.sets}{performance.reps}</div> : null
+                                 ))} */}
                             </div>
                         ))
                       : null
