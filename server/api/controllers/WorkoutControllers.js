@@ -19,7 +19,7 @@ const fetchWorkoutDoc = (req, res) => {
 const fetchAllWorkouts = (req, res) => {
   const { userId } = req;
   Workout.find({ user: userId })
-    .populate("performances")
+    .populate({path: "performances", populate: { path: 'exercise'}})
     .populate("routine")
     .then(workouts => {
       res.status(200).json(workouts);

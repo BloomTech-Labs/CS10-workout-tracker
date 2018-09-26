@@ -8,7 +8,6 @@ import {
   scheduleWorkout,
   fetchAllWorkouts,
   deleteWorkout,
-  fetchWorkoutDocForCheckOff
 } from "../actions";
 import "../less/calendarPage.css";
 
@@ -28,11 +27,11 @@ class CalendarPage extends Component {
   handleChange = e => {
     /* utilizing onChange inside <select> to grab Id of the routine being selected so it 
     can be sent as an argument to scheduleWorkout function */
-    this.selectedValue = e.target.value;
-    console.log(this.selectedValue);
+    this.selectedRoutineValue = e.target.value;
+    console.log(this.selectedRoutineValue);
     this.props.routines.map(routine => {
-      if (this.selectedValue === routine.title) {
-        return (this.selectedId = routine._id);
+      if (this.selectedRoutineValue === routine.title) {
+        return (this.selectedRoutineId = routine._id);
       }
     });
   };
@@ -52,46 +51,49 @@ class CalendarPage extends Component {
   /* the selected in the parameter is an object leveraged by big-react-calendar. 
   It represents the date box which you click on on the calendar. */
   onSelectSlot = selected => {
-    this.selectedDate = selected.start;
-    console.log("SELECTED DATE: " + this.selectedDate);
+    this.selectedSlotDate = selected.start;
+    console.log("SELECTED DATE: " + this.selectedSlotDate);
     this.schedulingModalToggle();
   };
 
   onSelectEvent = selected => {
     
-    this.selectedTitle = selected.title;
-    this.IdToBeDeleted = selected.id;
-    this.selectedEventDate = selected.id;
+    this.selectedEventTitle = selected.title;
+    this.selectedEventId = selected.id;
+    this.selectedEventDate = selected.date;
     this.checkboxModalToggle();
   };
 
   scheduleWorkout = () => {
-    this.props.scheduleWorkout(this.selectedId, this.selectedDate);
-    // this.selectedValue = "";
-    this.selectedId = "";
-    this.selectedDate = "";
+    this.props.scheduleWorkout(this.selectedRoutineId, this.selectedSlotDate);
+    // this.selectedRoutineValue = "";
+    this.selectedRoutineId = "";
+    this.selectedSlotDate = "";
     this.schedulingModalToggle();
   };
 
   deleteWorkout = () => {
-    this.props.deleteWorkout(this.IdToBeDeleted);
+    this.props.deleteWorkout(this.selectedEventId);
     this.checkboxModalToggle();
   };
 
   events = [];
-  selectedValue;
-  selectedId;
-  selectedDate;
-  selectedTitle;
+  selectedRoutineValue;
+  selectedRoutineId;
+  selectedSlotDate;
+  
   selectedExercises;
-  IdToBeDeleted;
+  selectedEventId;
   selectedEventDate;
+  selectedEventTitle;
 
   routine;
   exercise;
 
 
   render() {
+
+    console.log(this.props.workouts)
 
     {
       this.events = this.props.workouts.map(workout => ({
@@ -141,7 +143,7 @@ class CalendarPage extends Component {
             {/* Drop down for selecting a routine */}
             <div>Select Workout</div>
             <select
-              value={this.state.selectedValue}
+              value={this.state.selectedRoutineValue}
               onChange={this.handleChange}
             >
               <option value="select a routine">select a routine</option>
@@ -170,7 +172,7 @@ class CalendarPage extends Component {
           className={this.props.className}
         >
           <ModalHeader toggle={this.checkboxModalToggle}>
-            {this.selectedTitle}
+            {this.selectedEventTitle}
           </ModalHeader>
           <ModalBody>
           
@@ -179,8 +181,8 @@ class CalendarPage extends Component {
               
                 {this.props.routines.map(
                   routine =>
-                    routine.title === this.selectedTitle
-                      ? //  routine.title === this.selectedTitle ? console.log("HURRAY") : console.log("GRRRRRR")
+                    routine.title === this.selectedEventTitle
+                      ? //  routine.title === this.selectedEventTitle ? console.log("HURRAY") : console.log("GRRRRRR")
                         routine.exercises.map(exercise => (
                            <div key={exercise._id}>
                             <div style={{ display: "flex" }}>
@@ -201,7 +203,7 @@ class CalendarPage extends Component {
                 )}
               
 
-              {/* {this.routine = this.props.routines.filter(routine => routine.title == this.selectedTitle) || ""}
+              {/* {this.routine = this.props.routines.filter(routine => routine.title == this.selectedEventTitle) || ""}
                 {console.log("ROUTINE" + this.routine)}
                 {this.routine.exercises.forEach(exercise => {
                     <div>
@@ -275,6 +277,5 @@ export default connect(
     scheduleWorkout,
     fetchAllWorkouts,
     deleteWorkout,
-    fetchWorkoutDocForCheckOff
   }
 )(CalendarPage);
