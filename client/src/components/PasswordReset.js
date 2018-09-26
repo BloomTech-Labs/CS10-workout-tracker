@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import NavBar from "./NavBar";
 import { connect } from "react-redux";
 import { resetPassword } from "../actions";
 import "../less/passwordReset.css";
@@ -40,7 +39,6 @@ class PasswordReset extends Component {
     return (
       <div className="password-reset-outer">
         <div className="password-reset-container">
-          <NavBar />
           <div className="forms-container">
             <div className="single-form-container">
               <Form

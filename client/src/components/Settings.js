@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { changeEmail, changePassword } from "../actions";
-import NavBar from "./NavBar";
 import "../less/settings.css";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 
@@ -53,7 +52,6 @@ class Settings extends Component {
     return (
       <div className="settings-outer">
         <div className="settings-container">
-          <NavBar />
           <div className="forms-container">
             <div className="single-form-container">
               <Form className="emailForm" onSubmit={this.handleEmailSubmit}>
