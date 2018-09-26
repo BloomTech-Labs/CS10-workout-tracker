@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
+import { Button } from "reactstrap";
+import "../less/billing.css";
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -26,14 +28,20 @@ class CheckoutForm extends Component {
   };
 
   render() {
-    if (this.props.premiumUser === true)
-      return <h2>Already a premium user.</h2>;
-    if (this.state.complete) return <h1>Purchase Complete</h1>;
+    if (this.state.complete || this.props.premiumUser) {
+      return (
+        <div className="billing-status">
+          <h3>Premium status obtained.</h3>
+        </div>
+      );
+    }
     return (
       <div className="checkout">
-        <p>Would you like to complete the purchase?</p>
-        <CardElement />
-        <button onClick={this.submit}>Send</button>
+        <p className="checkout-text">Purchase Premium status for only $8.99</p>
+        <CardElement className="cardElement" />
+        <Button className="submit-btn" size="sm" onClick={this.submit}>
+          Process Payment
+        </Button>
       </div>
     );
   }

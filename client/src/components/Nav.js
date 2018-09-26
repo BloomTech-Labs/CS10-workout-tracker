@@ -1,11 +1,18 @@
 import React from "react";
-import { withRouter } from 'react-router-dom';
-import {  Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, InputGroup } from 'reactstrap';
+import { withRouter } from "react-router-dom";
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Input,
+  InputGroup
+} from "reactstrap";
 import { connect } from "react-redux";
-import { register, login, logout, forgotPassword} from "../actions";
+import { register, login, logout, forgotPassword } from "../actions";
 
 class Nav extends React.Component {
-
   constructor() {
     super();
     this.state = {
@@ -30,7 +37,7 @@ class Nav extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  toggleSignInModal =() => {
+  toggleSignInModal = () => {
     this.setState({
       signInModal: !this.state.signInModal
     });
@@ -89,23 +96,25 @@ class Nav extends React.Component {
 
   handleForgotPassword = event => {
     event.preventDefault();
-    if (this.state.password === this.state.confirmPassword) {
-      this.props.forgotPassword({
-        email: this.state.email
-      });
-    }
+
+    this.props.forgotPassword({
+      email: this.state.email
+    });
+
     this.setState({
       email: ""
     });
   };
 
   render() {
-    console.log("This is the Current user ",this.props.userInfo);
+    console.log("This is the Current user ", this.props.userInfo);
     const { authed } = this.props.userInfo;
     const isNotAuth = (
       <div className="right__nav">
         <div>
-          <span className="first__nav__span" onClick={this.toggleSignUpModal}>Signup</span>
+          <span className="first__nav__span" onClick={this.toggleSignUpModal}>
+            Signup
+          </span>
         </div>
         <span onClick={this.toggleSignInModal}>Login</span>
       </div>
@@ -115,16 +124,16 @@ class Nav extends React.Component {
       <div className="right__nav">
         <span onClick={this.handleLogout}>Logout</span>
       </div>
-    )
+    );
 
     return (
-    <header>
-      <nav className="landing__nav">
+      <header>
+        <nav className="landing__nav">
           <div className="left__nav">LOGO</div>
           {authed ? isAuth : isNotAuth}
-      </nav>
+        </nav>
 
-              {/* Signup Modal */}
+        {/* Signup Modal */}
 
         <Modal
           isOpen={this.state.signUpModal}
@@ -251,8 +260,7 @@ class Nav extends React.Component {
             </Button>
           </ModalFooter>
         </Modal>
-
-    </header>
+      </header>
     );
   }
 }
@@ -268,5 +276,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {register, login, logout, forgotPassword})(withRouter(Nav));
-
+export default connect(
+  mapStateToProps,
+  { register, login, logout, forgotPassword }
+)(withRouter(Nav));
