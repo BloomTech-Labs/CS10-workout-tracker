@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import NavBar from "./NavBar";
 import { connect } from "react-redux";
 import { forgotPassword } from "../actions";
 
@@ -27,7 +26,6 @@ class ForgotPassword extends Component {
   render() {
     return (
       <div>
-        <NavBar />
         <form className="ForgotPasswordForm" onSubmit={this.handleSubmit}>
           <input
             type="email"
