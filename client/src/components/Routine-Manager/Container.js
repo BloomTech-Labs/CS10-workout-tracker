@@ -15,7 +15,7 @@ class RoutineManager_container extends Component {
   render() {
     console.log("Rendered the container");
     return (
-      <div className="container">
+      <div className="RoutineManagerContainer">
         <NavBar />
         <div className="WorkoutPlanner">
           <RoutineList />

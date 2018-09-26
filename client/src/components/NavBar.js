@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 import { logout } from "../actions";
 
+import "../less/navBar.css";
+
 class NavBar extends Component {
   handleLogout = event => {
     this.props.logout();
@@ -15,23 +17,23 @@ class NavBar extends Component {
         <div className="NavBar__Links">
           {this.props.authenticated ? null : (
             <div>
-              <NavLink to="/login">Login</NavLink>
-              <NavLink to="/register">Register</NavLink>
+              <NavLink className="NavBar__Link" to="/login">Login</NavLink>
+              <NavLink className="NavBar__Link" to="/register">Register</NavLink>
             </div>
           )}
-          <NavLink to="/schedule">Calendar</NavLink>
-          <NavLink to="/workouts">Workouts</NavLink>
-          <NavLink to="/progress">Progress</NavLink>
-          <NavLink to="/settings">Settings</NavLink>
-          <NavLink to="/billing">Billing</NavLink>
-        </div>
-        {this.props.authenticated ? (
-          <NavLink to="/">
+          <NavLink className="NavBar__Link" to="/schedule">Calendar</NavLink>
+          <NavLink className="NavBar__Link" to="/workouts">Workouts</NavLink>
+          <NavLink className="NavBar__Link" to="/progress">Progress</NavLink>
+          <NavLink className="NavBar__Link" to="/settings">Settings</NavLink>
+          <NavLink className="NavBar__Link" to="/billing">Billing</NavLink>
+          {this.props.authenticated ? (
+          <NavLink className="NavBar__Link" to="/">
             <button className="LogoutButton" onClick={this.handleLogout}>
               Log Out
             </button>
           </NavLink>
         ) : null}
+        </div>
       </div>
     );
   }

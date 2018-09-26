@@ -1,19 +1,40 @@
+.RoutineManagerContainer {
+  background-image: radial-gradient(black, #000033);
+  min-height: 100vh;
+}
 .WorkoutPlanner {
   box-sizing: border-box;
-  max-width: 1000px;
   width: 90%;
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
 }
-.RoutineBuilder {
-  border: 1px lightgreen solid;
+.RoutineList {
+  border-radius: 5px;
+  background-image: linear-gradient(#666666, #cccccc);
   min-width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px;
+}
+.RoutineBuilder {
+  border-radius: 5px;
+  background-image: linear-gradient(#cccccc, #666666);
+  min-width: 40%;
+  margin: 15px;
 }
 .RoutinePicker {
-  border: 1px lightgreen solid;
+  border-radius: 5px;
+  background-image: linear-gradient(#666666, #cccccc);
   min-width: 40%;
 }
 .RoutinePicker__Card {
-  border: 1px green dotted;
+  border: 1px #cc0000 solid;
+  border-radius: 2px;
+  width: 90%;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  display: flex;
+  justify-content: center;
 }
