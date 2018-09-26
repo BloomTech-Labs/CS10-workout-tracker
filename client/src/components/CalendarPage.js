@@ -89,30 +89,15 @@ class CalendarPage extends Component {
 
   routine;
   exercise;
-  performances = [];
-  flattened = [];
+
 
   render() {
-    {
-      this.performances = this.props.workouts.map(workout =>
-        workout.performances.forEach(
-          performance =>
-            this.flattened.indexOf(performance) === -1
-              ? this.flattened.push(performance)
-              : null
-        )
-      );
-    }
-
-    console.log(this.flattened);
-    console.log(this.p);
-    console.log(this.props.workouts);
 
     {
       this.events = this.props.workouts.map(workout => ({
         start: new Date(workout.date),
         end: new Date(workout.date),
-        title: workout.routine.title || this.selectedValue,
+        title: workout.routine.title,
         id: workout._id,
         exercises: workout.routine.exercises,
         performances: workout.performances
@@ -278,8 +263,8 @@ const mapStateToProps = state => {
     state
   );
   return {
-    routines: state.RoutineManager.routines,
-    workouts: state.RoutineManager.workouts
+    routines: state.calendar.routines,
+    workouts: state.calendar.workouts
   };
 };
 

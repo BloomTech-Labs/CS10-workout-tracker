@@ -3,19 +3,7 @@ import * as Actions from "../actions/actionDefinitions";
 const initialState = {
   msg: "Started up.",
   routines: [],
-  focusedRoutine: null,
-  workouts: [],
-  checkoff_items: { workoutDocument: {
-    date: "",
-    performances: []
-  },
-  routine: {
-    exercises: [],
-    title: "",
-    user: "",
-    workoutLog: [],
-  }
-},
+  focusedRoutine: null
 };
 
 export default (state = initialState, action) => {
@@ -156,61 +144,6 @@ export default (state = initialState, action) => {
           return routine;
         })
       };
-      case Actions.FETCHING_WORKOUTS:
-      return {
-        ...state,
-        msg: action.payload
-      };
-    case Actions.FETCH_WORKOUTS_SUCCESS:
-      return {
-        ...state,
-        msg: "Fetched the user's scheduled workouts",
-        workouts: action.payload
-      };
-    case Actions.FETCH_WORKOUTS_FAILURE:
-      return {
-        ...state,
-        msg: "Couldn't fetch the user's scheduled workouts",
-      }
-    case Actions.SCHEDULING_WORKOUT:
-      return {
-        ...state,
-        msg: action.payload
-      }
-    case Actions.SCHEDULE_WORKOUT_SUCCESS:
-      return {
-        ...state,
-        msg: "Scheduled user's workout",
-        workouts: state.workouts.concat(action.payload)
-      }
-    case Actions.SCHEDULE_WORKOUT_FAILURE:
-      return {
-        ...state,
-        msg: "Couldn't schedule the user's workout"
-      }
-    case Actions.DELETE_WORKOUT:
-      return {
-        ...state,
-        workouts: state.workouts.filter(workout => {
-          return workout._id !== action.payload;
-        })
-      }
-    case Actions.FETCHING_CHECKOFF_ITEMS:
-      return {
-        ...state,
-        msg: action.payload
-      }
-    case Actions.FETCH_CHECKOFF_ITEMS_SUCCESS:
-      return {
-        ...state,
-        checkoff_items: Object.assign({}, state.checkoff_items),
-        msg: "Fetched specified day's exercises for checkoff"
-      }
-    case Actions.FETCH_CHECKOFF_ITEMS_FAILURE:
-      return {
-        ...state,
-        msg: "Couldn't fetch specified day's exercises for checkoff"
-      }
     default:
       return state;
   }
