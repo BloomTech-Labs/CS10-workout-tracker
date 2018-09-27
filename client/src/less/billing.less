@@ -1,0 +1,59 @@
+@primary: #cc0000;
+@secondary: #000033;
+@white: white;
+@darkGrey: #666666;
+@grey: #cccccc;
+
+.billing-outer {
+  background: radial-gradient(black, @secondary);
+  min-height: 100vh;
+
+  .billing-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto;
+
+    .billing-inner {
+      margin: 20px;
+      background: radial-gradient(@darkGrey, black);
+
+      .checkout {
+        display: flex;
+        max-width: 420px;
+        flex-direction: column;
+        margin: 40px;
+        padding: 20px;
+        background: linear-gradient(black, @white);
+
+        .checkout-text {
+          color: @grey;
+          margin: 0 0 20px 0;
+          text-align: center;
+        }
+
+        .cardElement {
+          margin: 0 0 20px 0;
+          background-color: @grey;
+          padding: 10px;
+          box-shadow: 1px 1px 7px black;
+        }
+
+        .submit-btn {
+          background: linear-gradient(@primary, black);
+          border-radius: 0;
+          box-shadow: 1px 1px 7px black;
+        }
+      }
+
+      .billing-status {
+        padding: 10px;
+        margin: 20px;
+        color: @grey;
+      }
+    }
+  }
+}
