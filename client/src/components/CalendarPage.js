@@ -3,12 +3,13 @@ import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { connect } from "react-redux";
-import axios from 'axios';
+import axios from "axios";
 import {
   fetchRoutines,
   scheduleWorkout,
   fetchAllWorkouts,
-  deleteWorkout
+  deleteWorkout,
+  fetchAllPerformanceDocs
 } from "../actions";
 import "../less/calendarPage.css";
 
@@ -17,12 +18,26 @@ BigCalendar.momentLocalizer(moment);
 class CalendarPage extends Component {
   state = {
     schedulingModal: false,
-    checkboxModal: false
+    checkboxModal: false,
+    completed: false,
+    workouts: [],
+    performances: []
   };
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.performances !== state.performances) {
+      return {
+        performances: props.performances,
+      };
+    }
+    // Return null if the state hasn't changed
+    return null;
+  }
 
   componentDidMount() {
     this.props.fetchRoutines();
     this.props.fetchAllWorkouts();
+    this.props.fetchAllPerformanceDocs();
   }
 
   handleChange = e => {
@@ -53,19 +68,18 @@ class CalendarPage extends Component {
   It represents the date box which you click on on the calendar. */
   onSelectSlot = selected => {
     this.selectedSlotDate = selected.start;
-    console.log("SELECTED DATE: " + this.selectedSlotDate);
     this.schedulingModalToggle();
   };
 
   onSelectEvent = selected => {
-    console.log(selected)
+    console.log(selected);
     this.selectedEventTitle = selected.title;
     this.selectedEventId = selected.id;
     this.selectedEventDate = selected.date;
     this.checkboxModalToggle();
   };
 
-  scheduleWorkout = () => {
+  scheduleWorkout = (e) => {
     this.props.scheduleWorkout(this.selectedRoutineId, this.selectedSlotDate);
     // this.selectedRoutineValue = "";
     this.selectedRoutineId = "";
@@ -78,21 +92,41 @@ class CalendarPage extends Component {
     this.checkboxModalToggle();
   };
 
-  handleCheckOff = (performanceId) => {
-    console.log(performanceId)
+
+  handleCheckOffInDB = performanceId => {
+
+    console.log(performanceId);
+    
     let token = localStorage.getItem("token");
-    console.log(token)
     let requestOptions = { headers: { "x-access-token": token } };
     axios
-      .put(`http://localhost:8080/performance/${performanceId}`, {}, requestOptions)
-        .then(updatedPerformance => {
-          console.log("successfully updated performance")
-        })
-        .catch(err => {
-          console.log("error updating performance")
-        })
-  }
+      .put(
+        `http://localhost:8080/performance/${performanceId}`,
+        {},
+        requestOptions
+      )
+      .then(updatedPerformance => {
+        console.log("successfully updated performance");
+      })
+      .catch(err => {
+        console.log("error updating performance");
+      });
+    // this.setState({ completed: !this.state.completed });
+   
+    
+  };
 
+  handleIndividualCheckbox = (event) => {
+    // console.log(event.target.value)
+    let performances = this.state.performances
+    performances.forEach(performance => {
+      // console.log(performance._id)
+      if (performances._id === event.target.value)
+        performance.completed =  event.target.checked
+      })
+      console.log(event.target.checked)
+    this.setState({performances: performances}, console.log(this.state.performances))
+ }
 
   events = [];
   routine;
@@ -108,45 +142,49 @@ class CalendarPage extends Component {
   selectedEventTitle;
 
   render() {
-    // console.log(this.props.workouts);
 
-    {
+    console.log(this.state.performances)
+    console.log(this.props.performances)
+
       this.events = this.props.workouts.map(workout => ({
         start: new Date(workout.date),
         end: new Date(workout.date),
-        title: workout.routine.title,
+        title: workout.routine.title || this.selectedRoutineValue, /* TODO: this is buggy. It changes the name 
+        of the previously scheduled routine to the name of the most recently scheduled routine as well. */
         id: workout._id,
         exercises: workout.routine.exercises,
         performances: workout.performances
       }));
-    }
+    
 
     let allViews = Object.keys(BigCalendar.Views).map(
       k => BigCalendar.Views[k]
     );
 
-    let checkoff = []
+    let checkoff = [];
     let checkoffObj = {};
-    let workoutId
+
+    let workoutId;
 
     this.props.workouts.map(workout => {
-      workoutId = workout._id 
+      workoutId = workout._id;
       workout.performances.map(performance => {
-        
-        checkoffObj.workoutId = workoutId
-        checkoffObj.performanceId = performance._id
-        checkoffObj.completed = performance.completed
-        checkoffObj.exerciseName = performance.exercise.name
-        checkoffObj.weight = performance.weight
-        checkoffObj.reps = performance.reps
-        checkoffObj.sets = performance.sets
-        checkoff.push(checkoffObj)
-        checkoffObj = {}
-      })
-    })
-     console.log(checkoff)
-    
-    return (
+        checkoffObj.workoutId = workoutId;
+        checkoffObj.performanceId = performance._id;
+        checkoffObj.completed = performance.completed;
+        checkoffObj.exerciseName = performance.exercise.name;
+        checkoffObj.weight = performance.weight;
+        checkoffObj.reps = performance.reps;
+        checkoffObj.sets = performance.sets;
+
+        checkoff.push(checkoffObj);
+
+        checkoffObj = {};
+      });
+    });
+  
+
+    return ( 
       <React.Fragment>
         <div style={{ height: "500px", width: "90%" }}>
           <BigCalendar
@@ -211,26 +249,39 @@ class CalendarPage extends Component {
           </ModalHeader>
           <ModalBody>
             {console.log(this.props.routines)}
-            
-             {checkoff.map(
-             checkoffObj =>
-                checkoffObj.workoutId === this.selectedEventId
-                  ? 
-                     (<div>
-                     <div key={checkoffObj.workoutId} style={{ display: "flex" }}>
+
+            {checkoff.map(
+              checkoffObj =>
+                checkoffObj.workoutId === this.selectedEventId ? (
+                  <div key={checkoffObj.performanceId}>
+                    <div
+                      style={{ display: "flex" }}
+                    >
+                      <div>
                         <input
                           type="checkbox"
-                          onChange={() => {this.handleCheckOff(checkoffObj.performanceId)}}
+                          key={checkoffObj.performanceId}
+                          value={checkoffObj.performanceId}
+                          onClick={this.handleIndividualCheckbox}
+                          onChange={() => {
+                            this.handleCheckOffInDB(checkoffObj.performanceId);
+                          }}
                           style={{ marginLeft: "15px", marginTop: "5px" }}
+                          checked={this.state.performances.filter(performance => performance._id === checkoffObj.performanceId)[0].completed}
                         />
-                        <div style={{ color: "white" }}>{checkoffObj.exerciseName}</div>
                       </div>
-                      <div>{`weight : ${checkoffObj.weight}`}{`sets : ${checkoffObj.sets}`}{`reps : ${checkoffObj.reps}`}</div>
+                      <div style={{ color: "white" }}>
+                        {checkoffObj.exerciseName}
                       </div>
-                      )
-                  : null
+                    </div>
+                    <div>
+                      {`weight : ${checkoffObj.weight}`}
+                      {`sets : ${checkoffObj.sets}`}
+                      {`reps : ${checkoffObj.reps}`}
+                    </div>
+                  </div>
+                ) : null
             )}
-        
           </ModalBody>
 
           <ModalFooter>
@@ -254,7 +305,8 @@ const mapStateToProps = state => {
   );
   return {
     routines: state.calendar.routines,
-    workouts: state.calendar.workouts
+    workouts: state.calendar.workouts,
+    performances: state.calendar.performances
   };
 };
 
@@ -264,6 +316,7 @@ export default connect(
     fetchRoutines,
     scheduleWorkout,
     fetchAllWorkouts,
-    deleteWorkout
+    deleteWorkout,
+    fetchAllPerformanceDocs
   }
 )(CalendarPage);

@@ -28,7 +28,7 @@ const {
   deleteProgress,
   updateProgress
 } = require("./controllers/ProgressControllers");
-const { checkOffPerformance } = require("./controllers/PerformanceControllers");
+const { checkOffPerformance, fetchAllPerformanceDocs } = require("./controllers/PerformanceControllers");
 const { verifyToken } = require("./utilities/auth");
 
 module.exports = app => {
@@ -60,5 +60,6 @@ module.exports = app => {
   app.route("/exercise").put(verifyToken, updateExerciseDoc);
 
   app.route("/performance/:id").put(verifyToken, checkOffPerformance)
+  app.route("/performances").get(verifyToken, fetchAllPerformanceDocs)
 
 };

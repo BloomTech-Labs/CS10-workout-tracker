@@ -11,6 +11,18 @@ const fetchPerformanceDoc = (req, res) => {
     })
 }
 
+// this is for keeping the completed boolean of each performance on local state for assist in toggling 
+const fetchAllPerformanceDocs = (req, res) => {
+  const { userId } = req;
+  Performance.find({ user: userId })
+    .then(performances => {
+      res.status(200).json(performances);
+    })
+    .catch(err => {
+      res.json("Can not find user's performances!");
+    });
+};
+
 const checkOffPerformance = (req, res) => {
   const { id } = req.params;
   Performance.findById(id)
@@ -31,5 +43,6 @@ const checkOffPerformance = (req, res) => {
 
 module.exports = {
   fetchPerformanceDoc,
-  checkOffPerformance
+  checkOffPerformance,
+  fetchAllPerformanceDocs
 }

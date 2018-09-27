@@ -33,6 +33,10 @@ const PerformanceSchema = Schema({
     type: Boolean,
     required: true,
     default: false
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
   }
 });
 

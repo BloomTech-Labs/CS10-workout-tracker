@@ -78,6 +78,7 @@ const scheduleWorkout = (req, res) => {
               const futureExercisePerformance = new Performance({
                 exercise: exercise._id,
                 date,
+                user: userId // added user ref for fetchAllPerformanceDocs controller. See PerformanceControllers
               });
               futureExercisePerformance
                 .save()

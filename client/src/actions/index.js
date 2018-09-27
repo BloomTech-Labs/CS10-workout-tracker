@@ -413,8 +413,7 @@ export const scheduleWorkout = (routineId, date) => {
       .then(response => {
         dispatch({
           type: Actions.SCHEDULE_WORKOUT_SUCCESS,
-          // payload: response.data
-          payload: response.data.savedWorkout
+          payload: response.data
         });
       })
       .catch(err => {
@@ -541,3 +540,27 @@ export const processPayment = data => {
       });
   };
 };
+
+export const fetchAllPerformanceDocs = () => {
+  return dispatch => {
+    dispatch({
+      type: Actions.FETCHING_PERFORMANCES,
+      payload: "Fetching user's performances"
+
+    });
+    axios
+      .get(`${ROOT_URL}/performances`, requestOptions)
+      .then(response => {
+        dispatch({
+          type: Actions.FETCH_PERFORMANCES_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.FETCH_PERFORMANCES_FAILURE,
+          payload: err
+        });
+      });
+  };
+}

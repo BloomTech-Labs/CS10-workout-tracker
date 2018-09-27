@@ -3,6 +3,7 @@ import * as Actions from "../actions/actionDefinitions";
 const initialState = {
   routines: [],
   workouts: [],
+  performances: [],
   msg: ""
 };
 
@@ -49,7 +50,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         msg: "Scheduled user's workout",
-        workouts: state.workouts.concat(action.payload)
+        workouts: state.workouts.concat(action.payload.savedWorkout),
+        performances: state.performances.concat(action.payload.savedWorkout)
       };
     case Actions.SCHEDULE_WORKOUT_FAILURE:
       return {
@@ -63,6 +65,22 @@ export default (state = initialState, action) => {
           return workout._id !== action.payload;
         })
       };
+    case Actions.FETCHING_PERFORMANCES:
+      return {
+        ...state,
+        msg: action.payload
+      }
+    case Actions.FETCH_PERFORMANCES_SUCCESS:
+      return {
+        ...state,
+        msg: "Fetched the user's performances",
+        performances: action.payload
+      }
+    case Actions.FETCH_PERFORMANCES_FAILURE:
+      return {
+        ...state,
+        msg: "Couldn't fetch the user's performances"
+      }
     default:
       return state;
   }
