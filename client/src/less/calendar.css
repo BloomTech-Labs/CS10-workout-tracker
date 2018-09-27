@@ -30,6 +30,9 @@ body {
   -webkit-user-select: none;
   height: 90%;
 }
+.rbc-addons-dnd.rbc-calendar {
+  height: 81vh !important;
+}
 .rbc-header {
   border-bottom: 0 !important;
   border-left: 0 !important;
