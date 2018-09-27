@@ -11,36 +11,42 @@ const fetchRoutineDoc = (req, res) => {
     })
     .catch(err => {
       return res.status(404).json({ err });
-    })
-}
+    });
+};
 
 const updateRoutineDoc = (req, res) => {
   const { routineId, title } = req.body;
-  Routine.findByIdAndUpdate(routineId, { $set: { title: title }}, { new: true })
+  Routine.findByIdAndUpdate(
+    routineId,
+    { $set: { title: title } },
+    { new: true }
+  )
     .then(updatedRoutine => {
       return res.status(200).json(updatedRoutine);
     })
     .catch(err => {
       return res.status(404).json({ err });
-    })
-}
+    });
+};
 
 const deleteRoutineDoc = (req, res) => {
   const { routineId } = req.body;
   Routine.findByIdAndDelete(routineId)
     .then(deletedDoc => {
-      User.findByIdAndUpdate(req.userId, { $pull: { routines: { $in : [ routineId ]}}})
+      User.findByIdAndUpdate(req.userId, {
+        $pull: { routines: { $in: [routineId] } }
+      })
         .then(updatedUser => {
-          res.status(200).json(deletedDoc)
+          res.status(200).json(deletedDoc);
         })
         .catch(err => {
           return res.status(404).json({ err });
-        })
+        });
     })
     .catch(err => {
       return res.status(404).json({ err });
-    })
-}
+    });
+};
 
 const fetchHydratedRoutine = (req, res) => {
   Routine.findById(req.body.routineId)
@@ -49,13 +55,13 @@ const fetchHydratedRoutine = (req, res) => {
         if (err) {
           res.status(400).json({ err });
         }
-        res.status(200).json(richRoutine)
+        res.status(200).json(richRoutine);
       });
     })
     .catch(err => {
       res.status(404).json({ err });
-    })
-}
+    });
+};
 
 // This responds with a list of the User's Routines, hydrated with Exercise documents.
 // This is useful for perfroming CRUD at the Routine level.
@@ -63,20 +69,22 @@ const fetchHydratedRoutines = (req, res) => {
   User.findById(req.userId)
     .then(user => {
       console.log("Found the user:", user);
-      user.populate({ path:"routines", populate: { path: "exercises"} }, (err, userWithRoutinesHydrated) => {
-        if (err) {
-          res.status(400);
-          res.json({
-            msg: "Failed to hydrate the User's routines",
-            err
-          });
+      user.populate(
+        { path: "routines", populate: { path: "exercises" } },
+        (err, userWithRoutinesHydrated) => {
+          if (err) {
+            res.status(400);
+            res.json({
+              msg: "Failed to hydrate the User's routines",
+              err
+            });
+          }
+          res.status(200).json({ routines: userWithRoutinesHydrated.routines });
         }
-        res.status(200).json({ routines: userWithRoutinesHydrated.routines });
-        }
-      )
+      );
     })
     .catch(err => res.status(404).json({ err }));
-}
+};
 
 const createNewRoutine = (req, res) => {
   const { userId } = req;
@@ -107,22 +115,22 @@ const createNewRoutine = (req, res) => {
 
 const addExerciseToRoutine = (req, res) => {
   const { routineId, exerciseId } = req.body;
-  Routine.findByIdAndUpdate(routineId, { $push: { exercises: exerciseId}})
+  Routine.findByIdAndUpdate(routineId, { $push: { exercises: exerciseId } })
     .then(updatedRoutine => {
       res.status(200);
       return res.json({
         msg: "Successfully updated a Routine document with a new Exercise.",
         routine: updatedRoutine
-      })
+      });
     })
     .catch(err => {
       res.status(500);
       return res.json({
         msg: "Couldn't update the Routine's Exercise list. Error follows: ",
         err
-      })
-    })
-}
+      });
+    });
+};
 
 module.exports = {
   createNewRoutine,

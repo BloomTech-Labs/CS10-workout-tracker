@@ -16,10 +16,12 @@ const ExerciseSchema = Schema({
     require: true,
     default: "Unnamed Exercise"
   },
-  performanceLog: [{
-    type: Schema.Types.ObjectId,
-    ref: "Performance"
-  }],
+  performanceLog: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Performance"
+    }
+  ],
   currentWeight: {
     type: Number,
     default: 10

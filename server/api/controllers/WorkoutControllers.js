@@ -16,8 +16,8 @@ const fetchWorkoutDoc = (req, res) => {
     })
     .catch(err => {
       return res.status(404).json({ err });
-    })
-}
+    });
+};
 
 // This is substantially the most complicated route - it absorbs a lot of complexity
 // to make things easier later on. Here a step-by-step rundown:
