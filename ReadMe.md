@@ -109,4 +109,15 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
   - The token is generated on the client side via a Stripe function `createToken`
   - For more information on using Stripe with React and Express visit the [Stripe Docs](https://stripe.com/docs/recipes/elements-react)
 
+- `/routine`
+  - GET: { routineId }
+  - PUT: { routineId, title }
+    - Returns the document with the update applied.
+  - DELETE: { routineId }
+
+- `/exercise`
+  - GET: { exerciseId }
+  - PUT: { exerciseId, (name, currentWeight, currentReps, currentSets )}
+  - DELETE: { exerciseId }
+
 #### STRONGR is under construction by Amanda Phillips, Iqra Javed, Leon Bates and Xang Thao.
