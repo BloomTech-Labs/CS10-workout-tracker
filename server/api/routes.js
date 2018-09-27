@@ -11,7 +11,8 @@ const {
 const {
   createNewExercise,
   fetchExerciseDoc,
-  updateExerciseDoc
+  updateExerciseDoc,
+  deleteExerciseDoc
 } = require("./controllers/ExerciseControllers");
 const {
   createNewRoutine,
@@ -61,9 +62,11 @@ module.exports = app => {
 
 // EXERCISES
   app.route("/new-exercise").post(verifyToken, createNewExercise);
-  app.route("/add-exercise").post(verifyToken, addExerciseToRoutine);
   app.route("/exercise").get(verifyToken, fetchExerciseDoc);
   app.route("/exercise").put(verifyToken, updateExerciseDoc);
+  app.route("/exercise").delete(verifyToken, deleteExerciseDoc);
+
+  app.route("/add-exercise").post(verifyToken, addExerciseToRoutine);
 
 // WORKOUTS
   app.route("/schedule-workout").post(verifyToken, scheduleWorkout);
@@ -74,7 +77,7 @@ module.exports = app => {
 };
 
 // NOTES
-// In order to pass a request body in a PUT, DELETE, or GET request, set the `data` property on the config parameter in your request.
+// In order to pass a request body in a DELETE request, set the `data` property on the config parameter in your request.
 // You will need to do this to target the document you are after when manipulating any collection other than Users
 // Example: axios.delete(url, { data: { foo: "bar" } });
 // Also see https://github.com/axios/axios/issues/897#issuecomment-343715381

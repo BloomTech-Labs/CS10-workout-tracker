@@ -29,14 +29,18 @@ const deleteRoutineDoc = (req, res) => {
   const { routineId } = req.body;
   Routine.findByIdAndDelete(routineId)
     .then(deletedDoc => {
-      return res.status(200).json(deletedDoc);
+      User.findByIdAndUpdate(req.userId, { $pull: { routines: { $in : [ routineId ]}}})
+        .then(updatedUser => {
+          res.status(200).json(deletedDoc)
+        })
+        .catch(err => {
+          return res.status(404).json({ err });
+        })
     })
     .catch(err => {
       return res.status(404).json({ err });
     })
 }
-// This responds with a list of the User's Routines, hydrated with Exercise documents.
-// This is useful for perfroming CRUD at the Routine level.
 
 const fetchHydratedRoutine = (req, res) => {
   Routine.findById(req.body.routineId)
@@ -53,6 +57,8 @@ const fetchHydratedRoutine = (req, res) => {
     })
 }
 
+// This responds with a list of the User's Routines, hydrated with Exercise documents.
+// This is useful for perfroming CRUD at the Routine level.
 const fetchHydratedRoutines = (req, res) => {
   User.findById(req.userId)
     .then(user => {
