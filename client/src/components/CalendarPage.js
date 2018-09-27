@@ -19,11 +19,12 @@ class CalendarPage extends Component {
   state = {
     schedulingModal: false,
     checkboxModal: false,
-    completed: false,
-    workouts: [],
+    // completed: false,
+    // workouts: [],
     performances: []
   };
 
+  // This is for putting the performances array from the calendar reducer onto local state
   static getDerivedStateFromProps(props, state) {
     if (props.performances !== state.performances) {
       return {
@@ -117,15 +118,21 @@ class CalendarPage extends Component {
   };
 
   handleIndividualCheckbox = (event) => {
-    // console.log(event.target.value)
+    console.log(typeof(event.target.value))
     let performances = this.state.performances
+    console.log(typeof(performances[0]._id))
     performances.forEach(performance => {
       // console.log(performance._id)
-      if (performances._id === event.target.value)
-        performance.completed =  event.target.checked
+      if (performance._id === event.target.value) {
+        // performance.completed =  event.target.checked
+        performance.completed =  !performance.completed
+        console.log("PERFORMANCE.COMPLETED" + performance.completed)
+      }
+        // console.log("PERFORMANCE.COMPLETED" + performance.completed)
       })
-      console.log(event.target.checked)
-    this.setState({performances: performances}, console.log(this.state.performances))
+      console.log("EVENT.TARGET.CHECKED" + event.target.checked)
+     
+    this.setState({performances: performances})
  }
 
   events = [];
