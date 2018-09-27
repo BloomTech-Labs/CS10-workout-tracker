@@ -25,6 +25,16 @@ const updateRoutineDoc = (req, res) => {
     })
 }
 
+const deleteRoutineDoc = (req, res) => {
+  const { routineId } = req.body;
+  Routine.findByIdAndDelete(routineId)
+    .then(deletedDoc => {
+      return res.status(200).json(deletedDoc);
+    })
+    .catch(err => {
+      return res.status(404).json({ err });
+    })
+}
 // This responds with a list of the User's Routines, hydrated with Exercise documents.
 // This is useful for perfroming CRUD at the Routine level.
 
@@ -114,5 +124,6 @@ module.exports = {
   fetchRoutineDoc,
   updateRoutineDoc,
   fetchHydratedRoutine,
-  fetchHydratedRoutines
+  fetchHydratedRoutines,
+  deleteRoutineDoc
 };
