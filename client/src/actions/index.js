@@ -87,7 +87,7 @@ export const loginWithToken = token => {
 };
 
 export const logout = () => {
-  localStorage.setItem("token", "");
+  localStorage.clear();
   return {
     type: Actions.LOGOUT
   };

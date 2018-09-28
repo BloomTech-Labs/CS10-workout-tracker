@@ -1,10 +1,5 @@
-import React, { Component } from "react";
-import MainLandingImg from "../img/main_landing.png";
-import "../less/landing.css";
-import { connect } from "react-redux";
-// import { withRouter } from 'react-router-dom';
-import { register, login, forgotPassword } from "../actions";
-import ScrollAnimation from "react-animate-on-scroll";
+import React from "react";
+import { withRouter } from "react-router-dom";
 import {
   Button,
   Modal,
@@ -14,18 +9,10 @@ import {
   Input,
   InputGroup
 } from "reactstrap";
-import "animate.css/animate.min.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faCalendarAlt,
-  faCreditCard,
-  faDumbbell
-} from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
+import { register, login, logout, forgotPassword } from "../actions";
 
-library.add(faCalendarAlt, faCreditCard, faDumbbell);
-
-class LandingPage extends Component {
+class Nav extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -40,6 +27,11 @@ class LandingPage extends Component {
       forgotModal: false
     };
   }
+
+  handleLogout = event => {
+    this.props.logout();
+    this.props.history.push("/");
+  };
 
   handleFieldChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -104,57 +96,42 @@ class LandingPage extends Component {
 
   handleForgotPassword = event => {
     event.preventDefault();
-    if (this.state.password === this.state.confirmPassword) {
-      this.props.forgotPassword({
-        email: this.state.email
-      });
-    }
+
+    this.props.forgotPassword({
+      email: this.state.email
+    });
+
     this.setState({
       email: ""
     });
   };
 
   render() {
+    console.log("This is the Current user ", this.props.userInfo);
+    const { authed } = this.props.userInfo;
+    const isNotAuth = (
+      <div className="right__nav">
+        <div>
+          <span className="first__nav__span" onClick={this.toggleSignUpModal}>
+            Signup
+          </span>
+        </div>
+        <span onClick={this.toggleSignInModal}>Login</span>
+      </div>
+    );
+
+    const isAuth = (
+      <div className="right__nav">
+        <span onClick={this.handleLogout}>Logout</span>
+      </div>
+    );
+
     return (
-      <div className="main__landing__page">
+      <header>
         <nav className="landing__nav">
           <div className="left__nav">LOGO</div>
-          <div className="right__nav">
-            <div>
-              <span
-                className="first__nav__span"
-                onClick={this.toggleSignUpModal}
-              >
-                Signup
-              </span>
-            </div>
-            <span onClick={this.toggleSignInModal}>Login</span>
-          </div>
+          {authed ? isAuth : isNotAuth}
         </nav>
-
-        <section className="main__landing__background">
-          <div className="container">
-            <div className="col__2">
-              <div className="main__content__text">
-                <ScrollAnimation animateIn="fadeInUp">
-                  <h1>
-                    <span className="primary__color__font">WELCOME TO </span>
-                    WORKOUT TRACKER
-                  </h1>
-                  <p>
-                    Lorem Ipsum has been the industry's standard dummy. Lorem
-                    Ipsum has been the industry's.
-                  </p>
-                </ScrollAnimation>
-              </div>
-              <img
-                className="main__landing__image"
-                src={MainLandingImg}
-                alt="Main Workout"
-              />
-            </div>
-          </div>
-        </section>
 
         {/* Signup Modal */}
 
@@ -283,74 +260,7 @@ class LandingPage extends Component {
             </Button>
           </ModalFooter>
         </Modal>
-
-        <section className="about__app__landing">
-          <div className="container">
-            <ScrollAnimation animateIn="fadeInUp">
-              <div className="display__more">
-                <div className="container">
-                  <img src={MainLandingImg} alt="Read more" />
-                  <p>
-                    Lorem Ipsum has been the industry's standard dummy. this is
-                    a test to test. Lorem Ipsum has been the industry's standard
-                    dummy. this is a test to test. Lorem Ipsum has been the
-                    industry's.
-                  </p>
-                </div>
-              </div>
-            </ScrollAnimation>
-          </div>
-          <ScrollAnimation animateIn="fadeInUp">
-            <h2>About the app</h2>
-          </ScrollAnimation>
-          <ScrollAnimation animateIn="fadeInUp">
-            <div className="landing__icons">
-              <div className="container">
-                <FontAwesomeIcon icon="calendar-alt" />
-                <FontAwesomeIcon icon="credit-card" />
-                <FontAwesomeIcon icon="dumbbell" />
-              </div>
-            </div>
-          </ScrollAnimation>
-        </section>
-
-        <section>
-          <div className="landing__quote">
-            <h2>
-              <strong>
-                <ScrollAnimation animateIn="fadeInUp">
-                  "PAIN IS WEAKNESS LEAVING THE BODY"
-                </ScrollAnimation>
-              </strong>
-            </h2>
-          </div>
-        </section>
-
-        <section className="landing__start">
-          <div className="landing__start__content">
-            <ScrollAnimation animateIn="fadeInUp">
-              <h2>How To Start</h2>
-            </ScrollAnimation>
-            <div>
-              <ScrollAnimation animateIn="fadeInUp">
-                <p>
-                  <span>1</span> Signup
-                </p>
-                <p>
-                  <span>2</span> Add data
-                </p>
-                <p>
-                  <span>3</span> Workout
-                </p>
-              </ScrollAnimation>
-            </div>
-          </div>
-        </section>
-
-        <footer>
-          <p>&copy; Workout Tracker 2018</p>
-        </footer>
-      </div>
+      </header>
     );
   }
 }
@@ -361,12 +271,12 @@ const mapStateToProps = state => {
     state
   );
   return {
-    userInfo: state.auth.currentUser,
+    userInfo: state.auth,
     msg: state.auth.message
   };
 };
 
 export default connect(
   mapStateToProps,
-  { register, login, forgotPassword }
-)(LandingPage);
+  { register, login, logout, forgotPassword }
+)(withRouter(Nav));

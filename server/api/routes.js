@@ -21,7 +21,11 @@ const {
   fetchHydratedRoutine,
   fetchHydratedRoutines
 } = require("./controllers/RoutineControllers");
+<<<<<<< HEAD
 const { scheduleWorkout, fetchAllWorkouts, deleteWorkout } = require("./controllers/WorkoutControllers");
+=======
+const { scheduleWorkout, fetchWorkoutDoc } = require("./controllers/WorkoutControllers");
+>>>>>>> 858287efc66b3620960e601f00f86e88c5376259
 const {
   addProgress,
   fetchProgress,
@@ -50,6 +54,7 @@ module.exports = app => {
   app.route("/schedule-workout").post(verifyToken, scheduleWorkout);
   app.route("/workouts").get(verifyToken, fetchAllWorkouts);
   app.route("/workouts/:id").delete(verifyToken, deleteWorkout);
+  app.route("/fetch-workout").post(verifyToken, fetchWorkoutDoc);
 
   app.route("/routine").get(verifyToken, fetchRoutineDoc);
   app.route("/routine-rich").post(verifyToken, fetchHydratedRoutine);

@@ -1,3 +1,9 @@
+/* @primary: #CC0000;
+@secondary: #000033;
+@white: white;
+@darkGrey: #666666;
+@grey: #CCCCCC; */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,9 +11,29 @@
 }
 
 body {
+
   margin: 0;
   padding: 0;
   font-family: sans-serif;
   min-width: 100vw;
   min-height: 100vh;
+}
+
+.push__nav {
+  height: 90px;
+}
+
+.main__side__content {
+  display: flex;
+  max-width: 1500px;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: space-between;
+  background: radial-gradient(black, white);
+}
+
+.main__container {
+  flex-basis: 85%;
+  min-height: 77vh;
 }

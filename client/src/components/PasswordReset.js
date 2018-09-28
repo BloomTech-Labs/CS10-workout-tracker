@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import NavBar from "./NavBar";
 import { connect } from "react-redux";
 import { resetPassword } from "../actions";
+import "../less/passwordReset.css";
+import { Button, Form, FormGroup, Input } from "reactstrap";
 
 class PasswordReset extends Component {
   state = {
@@ -36,27 +37,41 @@ class PasswordReset extends Component {
 
   render() {
     return (
-      <div>
-        <NavBar />
-        <form className="PasswordResetForm" onSubmit={this.handleSubmit}>
-          <input
-            type="password"
-            name="newPassword"
-            placeholder="Password"
-            value={this.state.newPassword}
-            onChange={this.handleFieldChange}
-          />
-          <input
-            type="password"
-            name="confirmNewPassword"
-            placeholder="Confirm Password"
-            value={this.state.confirmNewPassword}
-            onChange={this.handleFieldChange}
-          />
-          <button className="Form__submit" type="submit">
-            Set New Password
-          </button>
-        </form>
+      <div className="password-reset-outer">
+        <div className="password-reset-container">
+          <div className="forms-container">
+            <div className="single-form-container">
+              <Form
+                className="password-reset-form"
+                onSubmit={this.handleSubmit}
+              >
+                <FormGroup row>
+                  <Input
+                    className="pw-reset-input"
+                    type="password"
+                    name="newPassword"
+                    placeholder="Password"
+                    value={this.state.newPassword}
+                    onChange={this.handleFieldChange}
+                  />
+                </FormGroup>
+                <FormGroup row>
+                  <Input
+                    className="pw-reset-input"
+                    type="password"
+                    name="confirmNewPassword"
+                    placeholder="Confirm Password"
+                    value={this.state.confirmNewPassword}
+                    onChange={this.handleFieldChange}
+                  />
+                </FormGroup>
+                <Button className="submit-btn" size="sm" type="submit">
+                  Set New Password
+                </Button>
+              </Form>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
