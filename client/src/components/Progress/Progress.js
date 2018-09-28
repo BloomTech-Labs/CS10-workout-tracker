@@ -22,7 +22,7 @@ class Progress extends Component {
 
     return (
       <div className="outer-container">
-        {this.props.userInfo.user.premiumUser ? (
+        {this.props.premiumUser || this.props.userInfo.user.premiumUser ? (
           <div className="container">
             <ProgressTracker />
             <ProgressForm />
@@ -48,6 +48,7 @@ class Progress extends Component {
 const mapStateToProps = state => {
   return {
     progressRecords: state.progress.progressRecords,
+    premiumUser: state.user.premiumUser,
     userInfo: state.auth.currentUser
   };
 };
