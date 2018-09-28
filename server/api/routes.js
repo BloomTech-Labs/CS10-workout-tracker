@@ -21,11 +21,7 @@ const {
   fetchHydratedRoutine,
   fetchHydratedRoutines
 } = require("./controllers/RoutineControllers");
-<<<<<<< HEAD
-const { scheduleWorkout, fetchAllWorkouts, deleteWorkout } = require("./controllers/WorkoutControllers");
-=======
-const { scheduleWorkout, fetchWorkoutDoc } = require("./controllers/WorkoutControllers");
->>>>>>> 858287efc66b3620960e601f00f86e88c5376259
+const { scheduleWorkout, fetchWorkoutDoc, fetchAllWorkouts, deleteWorkout } = require("./controllers/WorkoutControllers");
 const {
   addProgress,
   fetchProgress,

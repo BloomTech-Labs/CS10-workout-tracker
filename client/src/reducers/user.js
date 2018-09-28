@@ -1,7 +1,8 @@
 import * as Actions from "../actions/actionDefinitions";
 
 const initialState = {
-  message: ""
+  message: "",
+  premiumUser: false
 };
 
 export default (state = initialState, action) => {
@@ -74,7 +75,8 @@ export default (state = initialState, action) => {
     case Actions.PAYMENT_SUCCESS:
       return {
         ...state,
-        message: "Payment was successful"
+        message: "Payment was successful",
+        premiumUser: true
       };
     case Actions.PAYMENT_FAILURE:
       return {
