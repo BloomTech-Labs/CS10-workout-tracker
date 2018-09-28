@@ -16,6 +16,7 @@ class Billing extends Component {
               <Elements>
                 <CheckoutForm
                   id={this.props.userInfo.user._id}
+                  // !! Experimental patch !!
                   premiumUser={
                     this.props.premiumUser ||
                     this.props.userInfo.user.premiumUser

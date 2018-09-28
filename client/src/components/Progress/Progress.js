@@ -22,6 +22,7 @@ class Progress extends Component {
 
     return (
       <div className="outer-container">
+        {/* Experimental Patch - Premium User Toggle */}
         {this.props.premiumUser || this.props.userInfo.user.premiumUser ? (
           <div className="container">
             <ProgressTracker />
