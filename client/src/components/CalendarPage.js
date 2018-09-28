@@ -19,16 +19,15 @@ class CalendarPage extends Component {
   state = {
     schedulingModal: false,
     checkboxModal: false,
-    // completed: false,
-    // workouts: [],
-    performances: []
+    performances: [],
   };
 
-  // This is for putting the performances array from the calendar reducer onto local state
+  /* This is for putting the performances array from the calendar reducer onto local state.
+  this.state.performances is being used to toggle completed field of each Performance Doc*/
   static getDerivedStateFromProps(props, state) {
     if (props.performances !== state.performances) {
       return {
-        performances: props.performances,
+        performances: props.performances
       };
     }
     // Return null if the state hasn't changed
@@ -40,18 +39,6 @@ class CalendarPage extends Component {
     this.props.fetchAllWorkouts();
     this.props.fetchAllPerformanceDocs();
   }
-
-  handleChange = e => {
-    /* utilizing onChange inside <select> to grab Id of the routine being selected so it 
-    can be sent as an argument to scheduleWorkout function */
-    this.selectedRoutineValue = e.target.value;
-    console.log(this.selectedRoutineValue);
-    this.props.routines.map(routine => {
-      if (this.selectedRoutineValue === routine.title) {
-        return (this.selectedRoutineId = routine._id);
-      }
-    });
-  };
 
   schedulingModalToggle = () => {
     this.setState({
@@ -73,19 +60,30 @@ class CalendarPage extends Component {
   };
 
   onSelectEvent = selected => {
-    console.log(selected);
     this.selectedEventTitle = selected.title;
     this.selectedEventId = selected.id;
-    this.selectedEventDate = selected.date;
     this.checkboxModalToggle();
   };
 
-  scheduleWorkout = (e) => {
+  handleChange = e => {
+    /* this is utilizing the onChange inside <select> of the scheduling modal to grab 
+    the Id of the selected routine so it can be sent as an argument to this.props.scheduleWorkout */
+    this.selectedRoutineValue = e.target.value;
+    this.props.routines.map(routine => {
+      if (this.selectedRoutineValue === routine.title) {
+        return (this.selectedRoutineId = routine._id);
+      }
+    });
+  };
+
+  scheduleWorkout = () => {
     this.props.scheduleWorkout(this.selectedRoutineId, this.selectedSlotDate);
-    // this.selectedRoutineValue = "";
     this.selectedRoutineId = "";
     this.selectedSlotDate = "";
     this.schedulingModalToggle();
+    window.location.reload() /* TODO: this is  a temp fix for performance(s) being absent in workout 
+    doc upon scheduling. Hypothesis: they are absent because findByIdAndUpdate is not returning
+    the updated workout doc. Tried {new: true} but to no avail */
   };
 
   deleteWorkout = () => {
@@ -93,11 +91,8 @@ class CalendarPage extends Component {
     this.checkboxModalToggle();
   };
 
-
+  // this updates the toggled boolean of the specified performance doc in the DB
   handleCheckOffInDB = performanceId => {
-
-    console.log(performanceId);
-    
     let token = localStorage.getItem("token");
     let requestOptions = { headers: { "x-access-token": token } };
     axios
@@ -112,32 +107,21 @@ class CalendarPage extends Component {
       .catch(err => {
         console.log("error updating performance");
       });
-    // this.setState({ completed: !this.state.completed });
-   
-    
   };
 
-  handleIndividualCheckbox = (event) => {
-    console.log(typeof(event.target.value))
-    let performances = this.state.performances
-    console.log(typeof(performances[0]._id))
+  /* this uses the performances array in the local component state
+    to keep track of which checkbox(es) have been marked and which remain unmarked */
+  handleIndividualCheckbox = event => {
+    let performances = this.state.performances;
     performances.forEach(performance => {
-      // console.log(performance._id)
       if (performance._id === event.target.value) {
-        // performance.completed =  event.target.checked
-        performance.completed =  !performance.completed
-        console.log("PERFORMANCE.COMPLETED" + performance.completed)
+        performance.completed = !performance.completed;
       }
-        // console.log("PERFORMANCE.COMPLETED" + performance.completed)
-      })
-      console.log("EVENT.TARGET.CHECKED" + event.target.checked)
-     
-    this.setState({performances: performances})
- }
+    });
+    this.setState({ performances });
+  };
 
   events = [];
-  routine;
-  exercise;
 
   selectedRoutineValue;
   selectedRoutineId;
@@ -145,24 +129,17 @@ class CalendarPage extends Component {
 
   selectedExercises;
   selectedEventId;
-  selectedEventDate;
   selectedEventTitle;
 
   render() {
-
-    console.log(this.state.performances)
-    console.log(this.props.performances)
-
-      this.events = this.props.workouts.map(workout => ({
-        start: new Date(workout.date),
-        end: new Date(workout.date),
-        title: workout.routine.title || this.selectedRoutineValue, /* TODO: this is buggy. It changes the name 
-        of the previously scheduled routine to the name of the most recently scheduled routine as well. */
-        id: workout._id,
-        exercises: workout.routine.exercises,
-        performances: workout.performances
-      }));
     
+    // the events array is required by react-big-calendar
+    this.events = this.props.workouts.map(workout => ({
+      start: new Date(workout.date),
+      end: new Date(workout.date),
+      title: workout.routine.title,
+      id: workout._id,
+    }));
 
     let allViews = Object.keys(BigCalendar.Views).map(
       k => BigCalendar.Views[k]
@@ -173,6 +150,8 @@ class CalendarPage extends Component {
 
     let workoutId;
 
+    /* the checkoffObj contains the info that gets populated on the modal 
+    that allows the user to checkoff completed exercise(s)/performance(s) */
     this.props.workouts.map(workout => {
       workoutId = workout._id;
       workout.performances.map(performance => {
@@ -189,9 +168,8 @@ class CalendarPage extends Component {
         checkoffObj = {};
       });
     });
-  
 
-    return ( 
+    return (
       <React.Fragment>
         <div style={{ height: "500px", width: "90%" }}>
           <BigCalendar
@@ -255,15 +233,11 @@ class CalendarPage extends Component {
             {this.selectedEventTitle}
           </ModalHeader>
           <ModalBody>
-            {console.log(this.props.routines)}
-
             {checkoff.map(
               checkoffObj =>
                 checkoffObj.workoutId === this.selectedEventId ? (
                   <div key={checkoffObj.performanceId}>
-                    <div
-                      style={{ display: "flex" }}
-                    >
+                    <div style={{ display: "flex" }}>
                       <div>
                         <input
                           type="checkbox"
@@ -274,7 +248,12 @@ class CalendarPage extends Component {
                             this.handleCheckOffInDB(checkoffObj.performanceId);
                           }}
                           style={{ marginLeft: "15px", marginTop: "5px" }}
-                          checked={this.state.performances.filter(performance => performance._id === checkoffObj.performanceId)[0].completed}
+                          checked={
+                            this.state.performances.filter(
+                              performance =>
+                                performance._id === checkoffObj.performanceId
+                            )[0].completed
+                          }
                         />
                       </div>
                       <div style={{ color: "white" }}>

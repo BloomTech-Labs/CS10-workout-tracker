@@ -50,8 +50,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         msg: "Scheduled user's workout",
-        workouts: state.workouts.concat(action.payload.savedWorkout),
-        performances: state.performances.concat(action.payload.savedWorkout)
+        workouts: [...state.workouts, action.payload.hydratedWorkout]
       };
     case Actions.SCHEDULE_WORKOUT_FAILURE:
       return {

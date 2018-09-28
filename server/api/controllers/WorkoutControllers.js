@@ -3,6 +3,7 @@ const Performance = require("../models/Performance");
 const User = require("../models/User");
 const Routine = require("../models/Routine");
 const Workout = require("../models/Workout");
+// require('mongoose').set('debug', true)
 
 const fetchWorkoutDoc = (req, res) => {
   const { workoutId } = req.body;
@@ -46,7 +47,6 @@ const fetchAllWorkouts = (req, res) => {
 
 const scheduleWorkout = (req, res) => {
   const { routineId, date, note } = req.body;
-  console.log(req.body)
   const userId = req.userId;
   const workoutParams = { routine: routineId, user: userId, date, note };
   const newWorkout = new Workout(workoutParams);
@@ -58,7 +58,7 @@ const scheduleWorkout = (req, res) => {
     .save()
     .then(savedWorkout => {
       console.log("Saved this Workout doc: ", savedWorkout);
-      return savedWorkout;
+      return savedWorkout
     })
     .then(savedWorkout => {
       Routine.findByIdAndUpdate(routineId, {
@@ -127,12 +127,24 @@ const scheduleWorkout = (req, res) => {
               }
             })
               .then(updatedUser => {
-                return res.status(201).json({
-                  msg: "Succeeded in scheduling workout!",
-                  updatedUser,
-                  savedWorkout
-                });
+                savedWorkout.populate({path: "routine", populate: { path: "exercises"}}, (err, hydratedWorkout) => {
+                  if (err) {
+                    res.status(400);
+                    res.json({
+                      msg:
+                        "Failed to hydrate the Workout document",
+                      err
+                    });
+                  }
+                  return res.status(201).json( {
+                    msg: "Succeeded in scheduling workout!",
+                    updatedUser,
+                    hydratedWorkout
+                  });
+                })
+                
               })
+              
               .catch(err => {
                 res.status(409).json({
                   msg:
