@@ -1,0 +1,111 @@
+@primary: #cc0000;
+@secondary: #000033;
+@thirdary: #260951;
+@white: white;
+@darkGrey: #666666;
+@grey: #cccccc;
+
+.main__workout {
+  display: flex;
+  width: 100%;
+  min-height: 88vh;
+  color: black;
+  background: radial-gradient(@secondary, black);
+
+  .routine__list {
+    flex-basis: 33%;
+    min-height: 100%;
+    // background-color: lightgreen;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: scroll;
+
+    .routine__list__container {
+      min-height: 90%;
+      // background-color: red;
+      max-height: 90%;
+      overflow: scroll;
+      background: radial-gradient(@primary, black);
+      padding: 15px;
+      color: @grey;
+      width: 90%;
+      box-shadow: 0 0 20px grey;
+
+      h2 {
+        // background: radial-gradient(@thirdary, black);
+        font-size: 24px;
+        padding: 10px 15px;
+      }
+      
+      .routine {
+        padding: 5px 10px;
+        background: grey;
+        margin: 5px;
+        overflow: hidden;
+        color: white;
+        background: radial-gradient(@grey, black);
+      }
+    }
+    
+  }
+  
+  .workout__form {
+    flex-basis: 33%;
+    min-height:100%;
+    // background-color: lightcoral;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    
+    .routine__input__form {
+      padding: 30px 15px;
+      // background-color: black;
+      background: radial-gradient(@thirdary, black);
+      margin:0 5px;
+      min-height: 90%;
+      margin: 0px 13px;
+      box-shadow: 0 0 20px grey;
+
+      h2 {
+        font-size: 24px;
+      }
+
+      input {
+        margin: 15px 0;
+        width: 90%;
+        padding: 5px;
+      }
+
+      button {
+        padding: 5px 15px;
+        color: @grey;
+        border: none;
+        background: radial-gradient(#CC0000, black);
+      }
+    }
+  }
+
+  .current__routine {
+    flex-basis: 33%;
+    min-height: 100%;
+    // background-color: lightgoldenrodyellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .current__routine__container {
+      min-height: 90%;
+      width: 90%;
+      background: radial-gradient(@grey, black);
+      padding: 30px 15px;
+      box-shadow: 0 0 20px grey;
+      color: @grey;
+      h2 {
+        font-size: 24px;
+      }
+    }
+  }
+}
+

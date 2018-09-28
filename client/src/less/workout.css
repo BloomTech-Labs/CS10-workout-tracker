@@ -1,0 +1,85 @@
+.main__workout {
+  display: flex;
+  width: 100%;
+  min-height: 88vh;
+  color: black;
+  background: radial-gradient(#000033, black);
+}
+.main__workout .routine__list {
+  flex-basis: 33%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: scroll;
+}
+.main__workout .routine__list .routine__list__container {
+  min-height: 90%;
+  max-height: 90%;
+  overflow: scroll;
+  background: radial-gradient(#cc0000, black);
+  padding: 15px;
+  color: #cccccc;
+  width: 90%;
+  box-shadow: 0 0 20px grey;
+}
+.main__workout .routine__list .routine__list__container h2 {
+  font-size: 24px;
+  padding: 10px 15px;
+}
+.main__workout .routine__list .routine__list__container .routine {
+  padding: 5px 10px;
+  background: grey;
+  margin: 5px;
+  overflow: hidden;
+  color: white;
+  background: radial-gradient(#cccccc, black);
+}
+.main__workout .workout__form {
+  flex-basis: 33%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.main__workout .workout__form .routine__input__form {
+  padding: 30px 15px;
+  background: radial-gradient(#260951, black);
+  margin: 0 5px;
+  min-height: 90%;
+  margin: 0px 13px;
+  box-shadow: 0 0 20px grey;
+}
+.main__workout .workout__form .routine__input__form h2 {
+  font-size: 24px;
+}
+.main__workout .workout__form .routine__input__form input {
+  margin: 15px 0;
+  width: 90%;
+  padding: 5px;
+}
+.main__workout .workout__form .routine__input__form button {
+  padding: 5px 15px;
+  color: #cccccc;
+  border: none;
+  background: radial-gradient(#CC0000, black);
+}
+.main__workout .current__routine {
+  flex-basis: 33%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main__workout .current__routine .current__routine__container {
+  min-height: 90%;
+  width: 90%;
+  background: radial-gradient(#cccccc, black);
+  padding: 30px 15px;
+  box-shadow: 0 0 20px grey;
+  color: #cccccc;
+}
+.main__workout .current__routine .current__routine__container h2 {
+  font-size: 24px;
+}

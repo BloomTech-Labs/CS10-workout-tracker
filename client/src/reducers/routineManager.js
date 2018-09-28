@@ -59,11 +59,14 @@ export default (state = initialState, action) => {
     case Actions.POST_NEW_ROUTINE_SUCCESS:
       const updatedRoutineList = state.routines.slice(0);
       updatedRoutineList.push(action.payload);
+      console.log("LOGGING THE PAYLOAD Title",action.payload);
+      const currentR = {name: action.currentR, exercises: []};
       return {
         ...state,
         msg: "Posting a new workout routine...",
         focusedRoutine: action.payload,
-        routines: updatedRoutineList
+        routines: updatedRoutineList,
+        currentRoutine: currentR
       };
     case Actions.POSTING_NEW_EXERCISE_IN_ROUTINE:
       return {
