@@ -17,7 +17,6 @@ class Settings extends Component {
   };
 
   handleEmailSubmit = event => {
-    event.preventDefault();
     this.props.changeEmail({
       username: this.props.userInfo.user.username,
       newEmail: this.state.email
