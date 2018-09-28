@@ -16,7 +16,11 @@ class Billing extends Component {
               <Elements>
                 <CheckoutForm
                   id={this.props.userInfo.user._id}
-                  premiumUser={this.props.userInfo.user.premiumUser}
+                  // !! Experimental patch !!
+                  premiumUser={
+                    this.props.premiumUser ||
+                    this.props.userInfo.user.premiumUser
+                  }
                   processPayment={this.props.processPayment}
                 />
               </Elements>
@@ -35,6 +39,7 @@ const mapStateToProps = state => {
   );
   return {
     userInfo: state.auth.currentUser,
+    premiumUser: state.user.premiumUser,
     msg: state.user.message
   };
 };
