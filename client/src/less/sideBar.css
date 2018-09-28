@@ -23,7 +23,7 @@
 .side__box {
   padding: 10px 5px;
   margin-bottom: 10px;
-  background: radial-gradient(#CC0000, black);
+  background: linear-gradient(black, #CC0000, black);
 }
 .side__box a {
   color: #CCCCCC;
