@@ -59,14 +59,13 @@ export default (state = initialState, action) => {
     case Actions.POST_NEW_ROUTINE_SUCCESS:
       const updatedRoutineList = state.routines.slice(0);
       updatedRoutineList.push(action.payload);
-      console.log("LOGGING THE PAYLOAD Title",action.payload);
-      const currentR = {name: action.currentR, exercises: []};
+      // console.log("LOGGING THE PAYLOAD Title",action.payload);
+      // const currentR = {name: action.currentR, exercises: []};
       return {
         ...state,
         msg: "Posting a new workout routine...",
         focusedRoutine: action.payload,
-        routines: updatedRoutineList,
-        currentRoutine: currentR
+        routines: updatedRoutineList
       };
     case Actions.POSTING_NEW_EXERCISE_IN_ROUTINE:
       return {
@@ -113,6 +112,11 @@ export default (state = initialState, action) => {
           })
         })
         // msg: "Updated an exercise"
+      };
+    case Actions.CLEAR_CURRENT_ROUTINE:
+      return {
+        ...state,
+        focusedRoutine: action.payload
       };
     case Actions.UPDATING_ROUTINE:
       return {

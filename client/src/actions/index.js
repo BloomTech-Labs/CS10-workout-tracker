@@ -316,13 +316,13 @@ export const postNewRoutine = (title) => {
   };
 };
 
-export const postNewExerciseInRoutine = routineId => {
+export const postNewExerciseInRoutine = (routineId, exerciseObj) => {
   return dispatch => {
     dispatch({
       type: Actions.POSTING_NEW_EXERCISE_IN_ROUTINE
     });
     axios
-      .post(`${ROOT_URL}/new-exercise`, {}, requestOptions)
+      .post(`${ROOT_URL}/new-exercise`, exerciseObj, requestOptions)
       .then(exerciseDoc => {
         console.log(
           "This is the newly created exercise document: ",
@@ -361,6 +361,14 @@ export const postNewExerciseInRoutine = routineId => {
       );
   };
 };
+
+export const clearCurrentRoutine = () => {
+  return {
+    type: Actions.CLEAR_CURRENT_ROUTINE,
+    payload: null
+  }
+
+}
 
 export const updateExercise = (
   exerciseId,

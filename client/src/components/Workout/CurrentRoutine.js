@@ -11,14 +11,11 @@ class CurrentRoutine extends React.Component {
     return (
       <div className="current__routine">
         <div className="current__routine__container">
-        {/* <h2>
-        This is the current container
-        </h2> */}
         <h2 style={{background: "white", color: "black"}}>{currentRoutine && currentRoutine.title}</h2>
         
         {currentRoutine && currentRoutine.exercises.map(exercise => {
           return(
-            <div>
+            <div key={exercise._id}>
               <hr/>
               <h3 style={{color: "red"}}>{exercise.name}</h3>
               <hr/>
