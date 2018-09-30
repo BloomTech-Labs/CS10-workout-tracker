@@ -34,9 +34,9 @@ class WorkoutForm extends React.Component {
 
     const exerciseData = {
       name: this.state.exerciseName,
-      weight: this.state.weight,
-      sets: this.state.sets,
-      reps: this.state.reps
+      currentWeight: this.state.weight,
+      currentSets: this.state.sets,
+      currentReps: this.state.reps
     }
     if(this.props.focusRoutine) {
       this.props.postNewExerciseInRoutine(this.props.focusRoutine._id, exerciseData);
@@ -50,25 +50,26 @@ class WorkoutForm extends React.Component {
     });
   }
 
-  render() {
-    console.log("WHAT IS FOCUSEDROUTE ",this.props.focusRoutine);
-    let routineForm = (
-      <div className="routine__input__form">
-        <h2>Please add a routine name</h2>
-    {this.props.focusRoutine && (<p>this is a test: {this.props.focusRoutine.title}</p>) }
-        <form onSubmit={this.handleRoutineSubmit}>
-          <input
-          value={this.state.routineName}
-          name="routineName"
-          placeholder="Routine Name"
-          onChange={this.handleChange}
-          />
-          <button>Add Routine</button>
-        </form>
-      </div>
-    )
+  showRoutineForm = () => {
+    return (
+        <div className="routine__input__form">
+          <h2>Please add a routine name</h2>
+          <form onSubmit={this.handleRoutineSubmit}>
+            <input
+            value={this.state.routineName}
+            name="routineName"
+            placeholder="Routine Name"
+            onChange={this.handleChange}
+            />
+            <button>Add Routine</button>
+          </form>
+        </div>
+      )
 
-    let exerciseForm = (
+  }
+
+  showExerciseForm = () => {
+    return (
       <div className="routine__input__form">
         <button onClick={() => this.props.clearCurrentRoutine()}>Create a new routine</button>
         <h2>Please add your exercise</h2>
@@ -82,18 +83,21 @@ class WorkoutForm extends React.Component {
           <input
           value={this.state.weight}
           name="weight"
+          type="number"
           placeholder="Weight"
           onChange={this.handleChange}
           />
           <input
           value={this.state.sets}
           name="sets"
+          type="number"
           placeholder="Sets"
           onChange={this.handleChange}
           />
           <input
           value={this.state.reps}
           name="reps"
+          type="number"
           placeholder="Reps"
           onChange={this.handleChange}
           />
@@ -101,10 +105,13 @@ class WorkoutForm extends React.Component {
         </form>
       </div>
     )
+  }
+  
+  render() {
 
     return (
       <div className="workout__form">
-        {this.props.focusRoutine ? (exerciseForm): (routineForm)}
+        {this.props.focusRoutine ? (this.showExerciseForm()): (this.showRoutineForm())}
       </div>
     )
   }

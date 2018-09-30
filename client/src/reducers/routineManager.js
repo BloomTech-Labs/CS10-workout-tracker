@@ -82,6 +82,7 @@ export default (state = initialState, action) => {
       const memoOfLoadedExercises = memoOfFocusedRoutine.exercises.slice(0);
       memoOfLoadedExercises.push(action.payload.exercise);
       memoOfFocusedRoutine.exercises = memoOfLoadedExercises;
+      console.log(memoOfLoadedExercises);
       return {
         ...state,
         msg: "Posted a new exercise a part of a routine.",
