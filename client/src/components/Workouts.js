@@ -10,7 +10,7 @@ import {
   scheduleWorkout
 } from "../actions";
 
-import "../less/workouts.css";
+import "../css/main.css";
 
 class Workouts extends Component {
   componentDidMount() {

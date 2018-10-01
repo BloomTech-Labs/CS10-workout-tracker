@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 import moment from "moment";
 import { deleteProgress, updateProgress } from "../../actions";
-import "../../less/progressCard.css";
+import "../../css/main.css";
 
 class ProgressCard extends Component {
   state = {

@@ -3,7 +3,7 @@ import CheckoutForm from "./CheckoutForm";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import { connect } from "react-redux";
 import { processPayment } from "../actions";
-import "../less/billing.css";
+import "../css/main.css";
 
 class Billing extends Component {
   render() {

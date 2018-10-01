@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import { Button } from "reactstrap";
-import "../less/billing.css";
+import "../css/main.css";
 
 class CheckoutForm extends Component {
   constructor(props) {

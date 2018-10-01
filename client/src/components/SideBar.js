@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { logout } from "../actions";
-import "../less/sideBar.css";
+import "../css/main.css";
 
 class SideBar extends Component {
   handleLogout = event => {
@@ -11,30 +11,29 @@ class SideBar extends Component {
   render() {
     const { authenticated } = this.props;
     return (
-        <div className="sideBar">
-          <div className="sideBar__Links" id="test">
-            {authenticated && (           
-                <div>
-                  <div className="side__box">
-                    <NavLink to="/schedule">Calendar</NavLink>
-                  </div>
-                  <div className="side__box">
-                    <NavLink to="/workouts">Workouts</NavLink>
-                  </div>
-                  <div className="side__box">
-                    <NavLink to="/progress">Progress</NavLink>
-                  </div>
-                  <div className="side__box">
-                    <NavLink to="/settings">Settings</NavLink>
-                  </div>
-                  <div className="side__box">
-                    <NavLink to="/billing">Billing</NavLink>
-                  </div>
-                </div>
-            )}
-          </div>
+      <div className="sideBar">
+        <div className="sideBar__Links" id="test">
+          {authenticated && (
+            <div>
+              <div className="side__box">
+                <NavLink to="/schedule">Calendar</NavLink>
+              </div>
+              <div className="side__box">
+                <NavLink to="/workouts">Workouts</NavLink>
+              </div>
+              <div className="side__box">
+                <NavLink to="/progress">Progress</NavLink>
+              </div>
+              <div className="side__box">
+                <NavLink to="/settings">Settings</NavLink>
+              </div>
+              <div className="side__box">
+                <NavLink to="/billing">Billing</NavLink>
+              </div>
+            </div>
+          )}
         </div>
-  
+      </div>
     );
   }
 }

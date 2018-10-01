@@ -7,7 +7,7 @@ import {
   scheduleWorkout
 } from "../../actions";
 
-import "../../less/workouts.css";
+import "../../css/main.css";
 
 class FocusedRoutine extends Component {
   render() {
@@ -67,17 +67,17 @@ class FocusedRoutine extends Component {
                     placeholder={exerciseInRoutine.currentSets}
                     className="RoutineBuilder__ExerciseCardField--sets"
                   />
-                  <button type="button"
-                    onClick={() =>{
+                  <button
+                    type="button"
+                    onClick={() => {
                       this.props.updateExercise(
                         exerciseInRoutine._id,
                         name,
                         currentWeight,
                         currentReps,
                         currentSets
-                      )
-                    }
-                    }
+                      );
+                    }}
                   >
                     Update Exercise
                   </button>

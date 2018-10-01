@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { changeEmail, changePassword } from "../actions";
-import "../less/settings.css";
 import { Button, Form, FormGroup, Input } from "reactstrap";
+import "../css/main.css";
 
 class Settings extends Component {
   state = {

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import moment from "moment";
-import "../../less/progressTracker.css";
+import "../../css/main.css";
 
 const ProgressTracker = props => {
   // || operator is used to short circuit the absence of props upon render
@@ -24,8 +24,14 @@ const ProgressTracker = props => {
   let inchesGained = (parseInt(inchesLost, 10) * -1).toFixed(1) + " inches";
 
   return (
-    <div className={props.progressRecords.length <= 1 ? " progress-tracker gray" : "progress-tracker"}>
-      {props.progressRecords.length <= 1 ? ( 
+    <div
+      className={
+        props.progressRecords.length <= 1
+          ? " progress-tracker gray"
+          : "progress-tracker"
+      }
+    >
+      {props.progressRecords.length <= 1 ? (
         <div>
           <div className="progress-tracker-title">Progress Tracker</div>
           <div className="tracker-requirement">

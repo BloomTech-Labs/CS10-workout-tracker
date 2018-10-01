@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { addProgress } from "../../actions";
-import "../../less/progressForm.css";
+import "../../css/main.css";
 
 class ProgressForm extends Component {
   state = {
