@@ -27,7 +27,9 @@ const {
   scheduleWorkout,
   fetchWorkoutDoc,
   fetchAllWorkouts,
-  deleteWorkout
+  deleteWorkout,
+  copyWorkoutRange,
+  createAndScheduleWorkout
 } = require("./controllers/WorkoutControllers");
 const {
   addProgress,
@@ -75,10 +77,11 @@ module.exports = app => {
   app.route("/add-exercise").post(verifyToken, addExerciseToRoutine);
 
   // WORKOUTS
-  app.route("/schedule-workout").post(verifyToken, scheduleWorkout);
+  app.route("/schedule-workout").post(verifyToken, createAndScheduleWorkout);
   app.route("/fetch-workout").post(verifyToken, fetchWorkoutDoc);
   app.route("/workouts").get(verifyToken, fetchAllWorkouts);
   app.route("/workouts/:id").delete(verifyToken, deleteWorkout);
+  app.route("/workouts-copy").post(verifyToken, copyWorkoutRange)
 
   // PERFORMANCES
   app.route("/performance/:id").put(verifyToken, checkOffPerformance);
