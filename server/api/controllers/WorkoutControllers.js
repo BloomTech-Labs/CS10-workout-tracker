@@ -191,7 +191,7 @@ const scheduleWorkout = (
             msg: "Failed to hydrate the Routine document used by your Workout",
             err
           };
-          next(error);
+          return next(error);
         }
         hydratedRoutine.exercises.forEach(exercise => {
           const futureExercisePerformance = new Performance({
@@ -205,7 +205,7 @@ const scheduleWorkout = (
             .then(scheduledPerformance => {
               Workout.findByIdAndUpdate(workoutDoc._id, {
                 $push: { performances: scheduledPerformance._id }
-              })
+              }, {new: true})
                 .then(workoutWithPerformanceRecord => {
                   Exercise.findByIdAndUpdate(exercise._id, {
                     $push: { performanceLog: scheduledPerformance._id }
@@ -220,7 +220,7 @@ const scheduleWorkout = (
                           "Failed to update Exercise log with the upcoming Performance",
                         err
                       };
-                      next(error);
+                      return next(error);
                     });
                 })
                 .catch(err => {
@@ -238,7 +238,7 @@ const scheduleWorkout = (
                 msg: "There was an issue creating the new Performance document",
                 err
               };
-              next(error);
+              return next(error);
             });
         });
         User.findByIdAndUpdate(userId, {
@@ -254,14 +254,13 @@ const scheduleWorkout = (
             workoutDoc.populate(
               { path: "routine", populate: { path: "exercises" } },
               (err, hydratedWorkout) => {
-                console.log("HIT THIS");
                 if (err) {
                   const error = {
                     status: 400,
                     msg: "Failed to hydrate the Workout document",
                     err
                   };
-                  next(error);
+                  return next(error);
                 }
 
                 const success = {
@@ -270,7 +269,7 @@ const scheduleWorkout = (
                   updatedUser,
                   hydratedWorkout
                 };
-                next(success);
+                return next(success);
               }
             );
           })
@@ -280,7 +279,7 @@ const scheduleWorkout = (
               msg: "Failed to update User's calendar with their new Workout.",
               err
             };
-            next(error);
+            return next(error);
           });
       });
     })
@@ -290,7 +289,7 @@ const scheduleWorkout = (
         msg: "Failed to update Routine log with the upcoming Workout",
         err
       });
-      next(error);
+      return next(error);
     });
 };
 
@@ -386,23 +385,24 @@ const copyWorkoutRange = (req, res) => {
         );
       });
 
-      console.log("FILTERED CALENDAR", filteredCalendar);
+      // console.log("FILTERED CALENDAR", filteredCalendar);
       filteredCalendar.forEach(workoutInRange => {
         // console.log("FILTERED CALENDAR", filteredCalendar)
         // console.log("ROUTINE ID", routineId)
         const routineId = workoutInRange.workout.routine;
-        console.log("ROUTINE ID", routineId)
-        console.log("Workout in Range", workoutInRange)
-        const date = workoutInRange.date + shiftDistance;
+        // console.log("ROUTINE ID", routineId)
+        // console.log("Workout in Range", workoutInRange)
+        const millisecondsDate = Date.parse(workoutInRange.date) + shiftDistance;
+        const unixDate = new Date(millisecondsDate)
         const newWorkout = new Workout({
           routine: routineId,
           user: userId,
-          date
+          date: unixDate
         });
         newWorkout
           .save()
           .then(savedWorkout => {
-            console.log("ABOUT TO SCHEDULE WORKOUT")
+            // console.log("ABOUT TO SCHEDULE WORKOUT")
             scheduleWorkout(
               savedWorkout,
               routineId,
