@@ -8,8 +8,8 @@ const fetchPerformanceDoc = (req, res) => {
     })
     .catch(err => {
       return res.status(404).json({ err });
-    })
-}
+    });
+};
 
 /* this is for keeping the completed boolean of each performance on 
 local component state so that the checkbox state can be persisted on the UI */ 
