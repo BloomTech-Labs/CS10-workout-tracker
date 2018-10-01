@@ -81,9 +81,9 @@ class CalendarPage extends Component {
     this.selectedRoutineId = "";
     this.selectedSlotDate = "";
     this.schedulingModalToggle();
-    window.location.reload() /* TODO: this is  a temp fix for performance(s) being absent in workout 
-    doc upon scheduling. Hypothesis: they are absent because findByIdAndUpdate is not returning
-    the updated workout doc. Tried {new: true} but to no avail */
+    // window.location.reload() /* TODO: this is  a temp fix for performance(s) being absent in workout 
+    // doc upon scheduling. Hypothesis: they are absent because findByIdAndUpdate is not returning
+    // the updated workout doc. Tried {new: true} but to no avail */
   };
 
   deleteWorkout = () => {
@@ -154,19 +154,20 @@ class CalendarPage extends Component {
     that allows the user to checkoff completed exercise(s)/performance(s) */
     this.props.workouts.map(workout => {
       workoutId = workout._id;
-      workout.performances.map(performance => {
+     workout.performances.map(performance => {
+      
         checkoffObj.workoutId = workoutId;
         checkoffObj.performanceId = performance._id;
         checkoffObj.completed = performance.completed;
-        checkoffObj.exerciseName = performance.exercise.name;
+        checkoffObj.exerciseName = performance.exercise.name || performance.exerciseName;
         checkoffObj.weight = performance.weight;
-        checkoffObj.reps = performance.reps;
         checkoffObj.sets = performance.sets;
+        checkoffObj.reps = performance.reps;
 
         checkoff.push(checkoffObj);
 
         checkoffObj = {};
-      });
+      })
     });
 
     return (
@@ -261,9 +262,9 @@ class CalendarPage extends Component {
                       </div>
                     </div>
                     <div>
-                      {`weight : ${checkoffObj.weight}`}
-                      {`sets : ${checkoffObj.sets}`}
-                      {`reps : ${checkoffObj.reps}`}
+                     {`weight : ${checkoffObj.weight}`}
+                     {`sets : ${checkoffObj.sets}`}
+                     {`reps : ${checkoffObj.reps}`}
                     </div>
                   </div>
                 ) : null

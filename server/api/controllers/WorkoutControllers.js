@@ -80,6 +80,7 @@ const scheduleWorkout = (req, res) => {
             }
             hydratedRoutine.exercises.forEach(exercise => {
               const futureExercisePerformance = new Performance({
+                exerciseName: exercise.name,
                 exercise: exercise._id,
                 date,
                 user: userId // added user ref for fetchAllPerformanceDocs controller. See PerformanceControllers
@@ -146,9 +147,7 @@ const scheduleWorkout = (req, res) => {
                     hydratedWorkout
                   });
                 })
-                
               })
-              
               .catch(err => {
                 res.status(409).json({
                   msg:
@@ -180,8 +179,6 @@ const deleteWorkout = (req, res) => {
     console.log(removedWorkout);
     let user_id = removedWorkout.user;
     let routine_id = removedWorkout.routine;
-    console.log("TYPE OF USER ID " + typeof user_id);
-    console.log("TYPE OF ROUTINE ID " + typeof routine_id);
 
     User.findByIdAndUpdate(user_id, { $pull: { calendar: { workout: id } } })
       .then(removedRefFromUser => {

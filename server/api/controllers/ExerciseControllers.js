@@ -67,6 +67,25 @@ const createNewExercise = (req, res) => {
   });
 };
 
+const deleteExerciseDoc = (req, res) => {
+
+  const { id } = req.body;
+  const { userId } = req;
+  Exercise.findByIdAndRemove(id)
+    .then(deletedExerciseDoc => {
+      User.findByIdAndUpdate(userId, { $pull: { exercises: id } }, function(
+        err
+      ) {
+        if (err) console.log(err);
+      });
+        
+      res.status(200).json({ deletedExerciseDoc })
+    })
+    .catch(err => {
+      res.status(500).json({ err })
+    })
+}
+
 module.exports = {
   createNewExercise,
   fetchExerciseDoc,

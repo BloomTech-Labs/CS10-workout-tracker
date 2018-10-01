@@ -6,6 +6,9 @@ const PerformanceSchema = Schema({
     type: Schema.Types.ObjectId,
     ref: "Exercise"
   },
+  exerciseName: {
+    type: String
+  },
   note: {
     type: String
   },
