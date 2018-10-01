@@ -8,9 +8,9 @@ const fetchPerformanceDoc = (req, res) => {
     })
     .catch(err => {
       return res.status(404).json({ err });
-    })
-}
+    });
+};
 
 module.exports = {
   fetchPerformanceDoc
-}
+};

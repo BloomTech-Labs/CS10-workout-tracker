@@ -18,11 +18,31 @@ const fetchExerciseDoc = (req, res) => {
 };
 
 const updateExerciseDoc = (req, res) => {
-  const { name, currentWeight, currentReps, currentSets, exerciseId } = req.body;
-  console.log("Got these vars from req.body: ", name, currentWeight, currentReps, currentSets, exerciseId);
+  const {
+    name,
+    currentWeight,
+    currentReps,
+    currentSets,
+    exerciseId
+  } = req.body;
+  console.log(
+    "Got these vars from req.body: ",
+    name,
+    currentWeight,
+    currentReps,
+    currentSets,
+    exerciseId
+  );
   Exercise.findByIdAndUpdate(
     exerciseId,
-    { $set: { name: name, currentWeight: currentWeight, currentReps: currentReps, currentSets: currentSets } },
+    {
+      $set: {
+        name: name,
+        currentWeight: currentWeight,
+        currentReps: currentReps,
+        currentSets: currentSets
+      }
+    },
     { new: true }
   )
     .then(exerciseDocument => {
@@ -67,8 +87,28 @@ const createNewExercise = (req, res) => {
   });
 };
 
+const deleteExerciseDoc = (req, res) => {
+  const { exerciseId } = req.body;
+  Exercise.findByIdAndDelete(exerciseId)
+    .then(deletedDoc => {
+      User.findByIdAndUpdate(req.userId, {
+        $pull: { exercises: { $in: [exerciseId] } }
+      })
+        .then(updatedUser => {
+          res.status(200).json(deletedDoc);
+        })
+        .catch(err => {
+          return res.status(404).json({ err });
+        });
+    })
+    .catch(err => {
+      return res.status(404).json({ err });
+    });
+};
+
 module.exports = {
   createNewExercise,
   fetchExerciseDoc,
-  updateExerciseDoc
+  updateExerciseDoc,
+  deleteExerciseDoc
 };
