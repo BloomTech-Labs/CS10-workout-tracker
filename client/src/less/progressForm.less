@@ -1,24 +1,14 @@
-// TODO: Remove variables once they exist in a separate variables file
-@primary: #cc0000;
-@secondary: #000033;
-@white: white;
-@darkGrey: #666666;
-@grey: #cccccc;
-
 .modal-container {
   margin: 10px 0;
-  background-image: linear-gradient(@darkGrey, black);
+  background: linear-gradient(@darkGrey, black);
 
   .add-progress-btn {
-    background-image: linear-gradient(@darkGrey, black);
-    color: @grey;
-    border: none;
+    .button-creator(linear-gradient(@darkGrey, black), @grey);
     margin-bottom: 5px;
-  }
 
-  .add-progress-btn:hover {
-    color: white;
-    cursor: pointer;
+    &:hover {
+      color: white;
+    }
   }
 }
 
@@ -26,37 +16,21 @@
   width: 80%;
 
   .modal-header {
-    background-image: linear-gradient(@darkGrey, black);
+    background: linear-gradient(@darkGrey, black);
     color: white;
   }
 
   .modal-body {
-    background-image: linear-gradient(@secondary, black) !important;
+    background: linear-gradient(@secondary, black) !important;
   }
 
   .modal-footer {
-    background-image: linear-gradient(@darkGrey, black);
-
-    .cancel-btn {
-      background-image: linear-gradient(@primary, black) !important;
-    }
-
-    .cancel-btn:hover {
-      cursor: pointer;
-    }
-
-    .submit-btn {
-      background-image: linear-gradient(@secondary, black) !important;
-    }
-
-    .submit-btn:hover {
-      cursor: pointer;
-    }
+    background: linear-gradient(@darkGrey, black);
   }
 }
 
 .error {
-  background-image: linear-gradient(@secondary, black);
+  background: linear-gradient(@secondary, black);
   font-size: 16px;
   color: red;
   padding-left: 15px;

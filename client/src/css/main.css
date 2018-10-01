@@ -1,7 +1,40 @@
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .submit-btn {
   background: linear-gradient(#cc0000, black);
+  color: white;
   border-radius: 0;
   box-shadow: 1px 1px 7px black;
+}
+.submit-btn--blue {
+  background: linear-gradient(#000033, black);
+  color: white;
+  border-radius: 0;
+  box-shadow: 1px 1px 7px black;
+}
+.submit-btn--grey {
+  background: linear-gradient(#cccccc, black);
+  color: white;
+  border-radius: 0;
+  box-shadow: 1px 1px 7px black;
+}
+.forms-container {
+  display: flex;
+  width: 300px;
+  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+  background: radial-gradient(#666666, black);
+}
+.forms-container .single-form-container {
+  width: 90%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px 20px;
+  background: linear-gradient(black, white);
 }
 .billing-outer {
   background: radial-gradient(black, #000033);
@@ -22,8 +55,8 @@
 }
 .billing-outer .billing-container .billing-inner .checkout {
   display: flex;
-  max-width: 420px;
   flex-direction: column;
+  max-width: 420px;
   margin: 40px;
   padding: 20px;
   background: linear-gradient(black, white);
@@ -57,7 +90,6 @@ body {
 .rbc-month-view {
   position: relative;
   border: none !important;
-  /* border: 1px solid #DDD; */
   background: black;
   margin: 0 auto;
   box-shadow: 0, 0, 20px, black;
@@ -99,7 +131,7 @@ body {
   color: white;
   margin: 1px;
   /* box-shadow: 0px 0px 10px darkgrey; */
-  background-image: linear-gradient(black, #000033);
+  background: linear-gradient(black, #000033);
   /* linear-gradient(blue, black): ; */
   /* border-radius: 4px; */
   /* background: grey; */
@@ -108,7 +140,7 @@ body {
   background-image: linear-gradient(black, green);
 } */
 .rbc-off-range-bg {
-  background-image: linear-gradient(black, #37015b) !important;
+  background: linear-gradient(black, #37015b) !important;
 }
 .rbc-row-bg {
   display: -ms-flexbox;
@@ -140,12 +172,12 @@ body {
 }
 .rbc-today {
   background-color: #eaf6ff;
-  background-image: linear-gradient(black, white) !important;
+  background: linear-gradient(black, white) !important;
 }
 .rbc-event {
   padding: 21px 5px 5px 5px !important;
   box-shadow: 0px 0px 20px black;
-  background-image: linear-gradient(black, darkred);
+  background: linear-gradient(black, darkred);
   /* background-color: #3174ad; */
   color: #fff;
   margin: 0 5px;
@@ -160,7 +192,7 @@ body {
 .rbc-event {
   padding: 2px 5px;
   border-radius: 5px;
-  background-image: linear-gradient(black, darkred) !important;
+  background: linear-gradient(black, darkred) !important;
   color: #fff;
   background-color: rgba(0, 0, 255, 0) !important;
   cursor: pointer;
@@ -238,13 +270,13 @@ p {
 .about__app__landing {
   padding: 0 35px 120px 35px;
   width: 100%;
-  background-image: radial-gradient(#666666, black);
+  background: radial-gradient(#666666, black);
 }
 .about__app__landing .display__more {
   position: relative;
   bottom: 30px;
   margin-bottom: 10px;
-  background-image: radial-gradient(#cc0000, black);
+  background: radial-gradient(#cc0000, black);
 }
 .about__app__landing .display__more .container {
   display: flex;
@@ -294,7 +326,7 @@ p {
   width: 100%;
   padding: 100px 0;
   text-align: center;
-  background-image: radial-gradient(#000033, black);
+  background: radial-gradient(#000033, black);
 }
 .landing__quote h2 {
   font-size: 40px;
@@ -349,7 +381,7 @@ p {
 }
 footer {
   font-size: 24px;
-  background-image: radial-gradient(#000033, black);
+  background: radial-gradient(#000033, black);
   color: #cc0000;
   text-align: center;
 }
@@ -378,34 +410,19 @@ footer p {
   width: 90%;
   margin: 0 auto;
 }
-.password-reset-outer .password-reset-container .forms-container {
-  display: flex;
-  width: 300px;
-  padding: 20px;
-  flex-direction: column;
-  align-items: center;
-  background: radial-gradient(#666666, black);
-}
-.password-reset-outer .password-reset-container .forms-container .single-form-container {
-  width: 90%;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 20px 20px;
-  background: linear-gradient(black, white);
-}
-.password-reset-outer .password-reset-container .forms-container .single-form-container .password-reset-form {
+.password-reset-outer .password-reset-container .password-reset-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 25px 0 20px 0;
 }
-.password-reset-outer .password-reset-container .forms-container .single-form-container .pw-reset-input {
+.password-reset-outer .password-reset-container .pw-reset-input {
   border-radius: 0;
   background: #cccccc;
   box-shadow: 1px 1px 7px black;
 }
 .outer-container {
-  background-image: radial-gradient(black, #000033);
+  background: radial-gradient(black, #000033);
   min-height: 100vh;
 }
 .outer-container .container {
@@ -423,7 +440,7 @@ footer p {
   justify-content: flex-start;
   width: 100%;
   padding: 7px 0;
-  background-image: radial-gradient(#cccccc, black);
+  background: radial-gradient(#cccccc, black);
   min-height: 500px;
   height: 100%;
 }
@@ -445,7 +462,7 @@ footer p {
   justify-content: space-between;
   padding: 0;
   color: #cccccc;
-  background-image: linear-gradient(to right, black, #cccccc);
+  background: linear-gradient(to right, black, #cccccc);
 }
 .card-container .card .card-header .card-date {
   display: inline-block;
@@ -464,50 +481,38 @@ footer p {
   color: black;
 }
 .card-container .card .card-body {
-  background-image: radial-gradient(#000033, black);
+  background: radial-gradient(#000033, black);
   color: #cccccc;
 }
 .modal-container {
   margin: 10px 0;
-  background-image: linear-gradient(#666666, black);
+  background: linear-gradient(#666666, black);
 }
 .modal-container .add-progress-btn {
-  background-image: linear-gradient(#666666, black);
+  background: linear-gradient(#666666, black);
   color: #cccccc;
-  border: none;
+  border-radius: 0;
+  box-shadow: 1px 1px 7px black;
   margin-bottom: 5px;
 }
 .modal-container .add-progress-btn:hover {
   color: white;
-  cursor: pointer;
 }
 .modal-content {
   width: 80%;
 }
 .modal-content .modal-header {
-  background-image: linear-gradient(#666666, black);
+  background: linear-gradient(#666666, black);
   color: white;
 }
 .modal-content .modal-body {
-  background-image: linear-gradient(#000033, black) !important;
+  background: linear-gradient(#000033, black) !important;
 }
 .modal-content .modal-footer {
-  background-image: linear-gradient(#666666, black);
-}
-.modal-content .modal-footer .cancel-btn {
-  background-image: linear-gradient(#cc0000, black) !important;
-}
-.modal-content .modal-footer .cancel-btn:hover {
-  cursor: pointer;
-}
-.modal-content .modal-footer .submit-btn {
-  background-image: linear-gradient(#000033, black) !important;
-}
-.modal-content .modal-footer .submit-btn:hover {
-  cursor: pointer;
+  background: linear-gradient(#666666, black);
 }
 .error {
-  background-image: linear-gradient(#000033, black);
+  background: linear-gradient(#000033, black);
   font-size: 16px;
   color: red;
   padding-left: 15px;
@@ -582,38 +587,18 @@ footer p {
   width: 90%;
   margin: 0 auto;
 }
-.settings-outer .settings-container .forms-container {
-  display: flex;
-  width: 300px;
-  padding: 20px;
-  flex-direction: column;
-  align-items: center;
-  background: radial-gradient(#666666, black);
-}
-.settings-outer .settings-container .single-form-container {
-  width: 90%;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 20px 20px;
-  background: linear-gradient(black, white);
-}
-.settings-outer .settings-container .single-form-container .emailForm {
+.settings-outer .settings-container .emailForm {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 20px 0 25px 0;
 }
-.settings-outer .settings-container .single-form-container .settings-input {
+.settings-outer .settings-container .settings-input {
   border-radius: 0;
   background: #cccccc;
   box-shadow: 1px 1px 7px black;
 }
-.settings-outer .settings-container .single-form-container .submit-btn {
-  background: linear-gradient(#cc0000, black);
-  border-radius: 0;
-  box-shadow: 1px 1px 7px black;
-}
-.settings-outer .settings-container .single-form-container .passwordForm {
+.settings-outer .settings-container .passwordForm {
   display: flex;
   flex-direction: column;
   align-items: center;

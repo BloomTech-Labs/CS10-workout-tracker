@@ -152,10 +152,10 @@ class ProgressForm extends Component {
             </form>
           </ModalBody>
           <ModalFooter>
-            <Button className="submit-btn" onClick={this.handleSubmit}>
+            <Button className="submit-btn--blue" onClick={this.handleSubmit}>
               Submit Progress
             </Button>{" "}
-            <Button className="cancel-btn" onClick={this.toggle}>
+            <Button className="submit-btn" onClick={this.toggle}>
               Cancel
             </Button>
           </ModalFooter>

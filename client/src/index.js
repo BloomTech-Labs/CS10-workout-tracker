@@ -33,10 +33,10 @@ ReactDOM.render(
         <Switch>
           <Route exact path="/" component={LandingPage} />
 
+          <Route path="/reset" exact component={PasswordReset} />
           <div className="main__side__content">
             <SideBar />
             <div className="main__container">
-              <Route path="/reset" exact component={PasswordReset} />
               <Route
                 path="/schedule"
                 exact

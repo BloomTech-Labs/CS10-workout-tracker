@@ -179,10 +179,13 @@ class Nav extends React.Component {
             </InputGroup>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.handleSignup}>
+            <Button className="submit-btn--blue" onClick={this.handleSignup}>
               Signup
             </Button>{" "}
-            <Button color="secondary" onClick={this.toggleSignUpModal}>
+            <Button
+              className="submit-btn--grey"
+              onClick={this.toggleSignUpModal}
+            >
               Cancel
             </Button>
           </ModalFooter>
@@ -216,13 +219,16 @@ class Nav extends React.Component {
             </InputGroup>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.handleSignin}>
+            <Button className="submit-btn--blue" onClick={this.handleSignin}>
               Signin
             </Button>{" "}
-            <Button color="secondary" onClick={this.toggleSignInModal}>
+            <Button
+              className="submit-btn--grey"
+              onClick={this.toggleSignInModal}
+            >
               Cancel
             </Button>
-            <Button color="danger" onClick={this.toggleForgotModal}>
+            <Button className="submit-btn" onClick={this.toggleForgotModal}>
               Forgot Password?
             </Button>
           </ModalFooter>
