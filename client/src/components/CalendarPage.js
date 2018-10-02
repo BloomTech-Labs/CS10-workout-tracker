@@ -172,7 +172,7 @@ class CalendarPage extends Component {
 
     return (
       <React.Fragment>
-        <div style={{ height: "500px", width: "90%" }}>
+        <div style={{ height: "500px", width: "85%" }}>
           <BigCalendar
             popup
             events={this.events}
@@ -184,6 +184,11 @@ class CalendarPage extends Component {
             style={{ height: "100vh" }}
             selectable={true}
             onSelectSlot={this.onSelectSlot}
+            // onSelectSlot={(slotInfo) => alert(
+            //   `selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` +
+            //   `\nend: ${slotInfo.end.toLocaleString()}` +
+            //   `\naction: ${slotInfo.action}`
+            // )}
             onSelectEvent={this.onSelectEvent}
           />
         </div>

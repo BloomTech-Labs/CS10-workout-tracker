@@ -200,7 +200,9 @@ const scheduleWorkout = (
           };
           return next(error);
         }
-        hydratedRoutine.exercises.forEach(exercise => {
+        
+
+        hydratedRoutine.exercises.forEach((exercise) => {
           console.log("ABOUT TO CREATE A PERFORMANCE RECORD")
           const futureExercisePerformance = new Performance({
             exerciseName: exercise.name,
@@ -310,7 +312,6 @@ const createAndScheduleWorkout = (req, res) => {
   newWorkout
     .save()
     .then(savedWorkout => {
-      console.log("ABOUT TO SCHEDULE WORKOUT", savedWorkout, routineId, userId, date)
       scheduleWorkout(
         savedWorkout,
         routineId,
@@ -344,8 +345,8 @@ const copyWorkoutRange = (req, res) => {
           Date.parse(calendarEntry.date) < Date.parse(endDate)
         );
       })
-
-      filteredCalendar.forEach(workoutInRange => {
+      const numberOfWorkoutsToSchedule = filteredCalendar.length;
+      filteredCalendar.forEach((workoutInRange, index) => {
         const routineId = workoutInRange.workout.routine;
         const millisecondsDate = Date.parse(workoutInRange.date) + shiftDistance;
         const unixDate = new Date(millisecondsDate)
@@ -357,13 +358,17 @@ const copyWorkoutRange = (req, res) => {
         newWorkout
           .save()
           .then(savedWorkout => {
+            const scheduledWorkouts = [];
             scheduleWorkout(
               savedWorkout,
               routineId,
               userId,
               savedWorkout.date,
               schedulingResult => {
-                res.status(schedulingResult.status).json(schedulingResult);
+                scheduledWorkouts.push(schedulingResult)
+                if (index === numberOfWorkoutsToSchedule - 1) {
+                  res.status(201).json(scheduledWorkouts);
+                }
               }
             );
           })
