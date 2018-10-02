@@ -180,11 +180,18 @@ const scheduleWorkout = (
   date,
   next
 ) => {
+  console.log("ARGUMENTS", workoutDoc,
+    routineId,
+    userId,
+    date,
+    next)
+
   Routine.findByIdAndUpdate(routineId, {
     $push: { workoutLog: workoutDoc._id }
   })
     .then(workoutRoutine => {
       workoutRoutine.populate("exercises", (err, hydratedRoutine) => {
+        console.log("JUST POPULATED THE EXERCISES")
         if (err) {
           const error = {
             status: 400,
@@ -194,6 +201,7 @@ const scheduleWorkout = (
           return next(error);
         }
         hydratedRoutine.exercises.forEach(exercise => {
+          console.log("ABOUT TO CREATE A PERFORMANCE RECORD")
           const futureExercisePerformance = new Performance({
             exerciseName: exercise.name,
             exercise: exercise._id,
@@ -302,12 +310,7 @@ const createAndScheduleWorkout = (req, res) => {
   newWorkout
     .save()
     .then(savedWorkout => {
-      // const schedulingResult = scheduleWorkout(
-      //   savedWorkout,
-      //   routineId,
-      //   userId,
-      //   date
-      // );
+      console.log("ABOUT TO SCHEDULE WORKOUT", savedWorkout, routineId, userId, date)
       scheduleWorkout(
         savedWorkout,
         routineId,
@@ -317,12 +320,6 @@ const createAndScheduleWorkout = (req, res) => {
           res.status(schedulingResult.status).json(schedulingResult);
         }
       );
-      // .then(schedulingResult => {
-      //   console.log("SCHEDULING RESULT", schedulingResult);
-      //   res.status(schedulingResult.status).json(schedulingResult);
-      // })
-      // console.log("SCHEDULING RESULT", schedulingResult);
-      // res.status(schedulingResult.status).json(schedulingResult);
     })
     .catch(err => {
       res.status(410).json({
@@ -331,6 +328,52 @@ const createAndScheduleWorkout = (req, res) => {
       });
     });
 };
+
+
+const copyWorkoutRange = (req, res) => {
+  const { startDate, endDate, shiftDistance } = req.body;
+  const { userId } = req;
+
+  User.findById(userId)
+    .populate("calendar.workout")
+
+    .then(foundUser => {
+      const filteredCalendar = foundUser.calendar.filter(calendarEntry => {
+        return (
+          Date.parse(calendarEntry.date) >= Date.parse(startDate) &&
+          Date.parse(calendarEntry.date) < Date.parse(endDate)
+        );
+      })
+
+      filteredCalendar.forEach(workoutInRange => {
+        const routineId = workoutInRange.workout.routine;
+        const millisecondsDate = Date.parse(workoutInRange.date) + shiftDistance;
+        const unixDate = new Date(millisecondsDate)
+        const newWorkout = new Workout({
+          routine: routineId,
+          user: userId,
+          date: unixDate
+        });
+        newWorkout
+          .save()
+          .then(savedWorkout => {
+            scheduleWorkout(
+              savedWorkout,
+              routineId,
+              userId,
+              savedWorkout.date,
+              schedulingResult => {
+                res.status(schedulingResult.status).json(schedulingResult);
+              }
+            );
+          })
+          .catch(err => {
+            res.status(500).json({ err });
+          });
+      });
+    })
+};
+
 
 const deleteWorkout = (req, res) => {
   const { id } = req.params;
@@ -364,74 +407,20 @@ const deleteWorkout = (req, res) => {
   });
 };
 
-const copyWorkoutRange = (req, res) => {
-  const { startDate, endDate, shiftDistance } = req.body;
-  const { userId } = req;
-
-  User.findById(userId)
-    .populate("calendar.workout")
-
-    .then(foundUser => {
-      // const filteredCalendar = foundUser.calendar.filter(calendarEntry => {
-      //   console.log("CALENDAR ENTRY", calendarEntry)
-      //   if (Date.parse(calendarEntry.date) >= Date.parse(startDate) && Date.parse(calendarEntry.date) < Date.parse(endDate)) {
-      //     return calendarEntry.workout;
-      //   }
-      // });
-      const filteredCalendar = foundUser.calendar.filter(calendarEntry => {
-        return (
-          Date.parse(calendarEntry.date) >= Date.parse(startDate) &&
-          Date.parse(calendarEntry.date) < Date.parse(endDate)
-        );
-      });
-
-      // console.log("FILTERED CALENDAR", filteredCalendar);
-      filteredCalendar.forEach(workoutInRange => {
-        // console.log("FILTERED CALENDAR", filteredCalendar)
-        // console.log("ROUTINE ID", routineId)
-        const routineId = workoutInRange.workout.routine;
-        // console.log("ROUTINE ID", routineId)
-        // console.log("Workout in Range", workoutInRange)
-        const millisecondsDate = Date.parse(workoutInRange.date) + shiftDistance;
-        const unixDate = new Date(millisecondsDate)
-        const newWorkout = new Workout({
-          routine: routineId,
-          user: userId,
-          date: unixDate
-        });
-        newWorkout
-          .save()
-          .then(savedWorkout => {
-            // console.log("ABOUT TO SCHEDULE WORKOUT")
-            scheduleWorkout(
-              savedWorkout,
-              routineId,
-              userId,
-              date,
-              schedulingResult => {
-                console.log("SCHEDULED WORKOUT", schedulingResult);
-              }
-            );
-          })
-          .catch(err => {
-            res.status(500).json({ err });
-          });
-        // const body = { routineId, date };
-        // scheduleWorkout({ body, userId }, res);
-      });
-      res.status(201).json({ msg: "Copied Workouts in Range Successfully." });
-    })
-    .catch(err => {
-      res.status(500).json({ err });
-    });
-};
-// workoutDoc, routineId, userId, date, next
-
 module.exports = {
   scheduleWorkout,
   fetchWorkoutDoc,
   fetchAllWorkouts,
-  deleteWorkout,
   copyWorkoutRange,
-  createAndScheduleWorkout
+  createAndScheduleWorkout,
+  deleteWorkout
 };
+
+// ARGUMENTS { performances: [],
+//   _id: 5bb393c55688c958b5d1e6bd,
+//   routine: 5bae986721d52cd738756d2d,
+//   user: 5bae792e21d52cd738756d1a,
+//   date: 2018-10-18T05:00:00.000Z,
+//   __v: 0 } 5bae986721d52cd738756d2d 5bae792e21d52cd738756d1a 2018-10-18T05:00:00.000Z schedulingResult => {
+//           res.status(schedulingResult.status).json(schedulingResult);
+//         }
