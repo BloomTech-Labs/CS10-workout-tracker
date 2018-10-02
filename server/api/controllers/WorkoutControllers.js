@@ -349,6 +349,7 @@ const copyWorkoutRange = (req, res) => {
       console.log("END DATE", endDate)
       console.log("FILTERED CALENDAR", filteredCalendar)
       const numberOfWorkoutsToSchedule = filteredCalendar.length;
+      const scheduledWorkouts = [];
       filteredCalendar.forEach((workoutInRange, index) => {
         const routineId = workoutInRange.workout.routine;
         const millisecondsDate = Date.parse(workoutInRange.date) + shiftDistance;
@@ -361,7 +362,8 @@ const copyWorkoutRange = (req, res) => {
         newWorkout
           .save()
           .then(savedWorkout => {
-            const scheduledWorkouts = [];
+            // const scheduledWorkouts = [];
+            
             scheduleWorkout(
               savedWorkout,
               routineId,
@@ -369,6 +371,7 @@ const copyWorkoutRange = (req, res) => {
               savedWorkout.date,
               schedulingResult => {
                 scheduledWorkouts.push(schedulingResult)
+                console.log("SCHEDULED WORKOUTS", scheduledWorkouts)
                 if (index === numberOfWorkoutsToSchedule - 1) {
                   res.status(201).json(scheduledWorkouts);
                 }

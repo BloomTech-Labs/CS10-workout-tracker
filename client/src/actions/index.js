@@ -429,11 +429,13 @@ export const copyWorkouts = (copyFromStartDate, copyFromEndDate, copyToStartDate
   const shiftDistance = Date.parse(copyToStartDate) - Date.parse(copyFromStartDate);
   return dispatch => {
     dispatch({
-      type: Actions.COPYING_WORKOUTS
+      type: Actions.COPYING_WORKOUTS,
+      payload: "About to copy workouts..."
     });
     axios
       .post(`${ROOT_URL}/workouts-copy`, { startDate: copyFromStartDate, endDate: copyFromEndDate, shiftDistance }, requestOptions)
       .then(response => {
+        console.log("RESPONSE DATA", response.data)
         dispatch({
           type: Actions.COPY_WORKOUTS_SUCCESS,
           payload: response.data

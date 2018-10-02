@@ -1,31 +1,30 @@
 import * as Actions from "../actions/actionDefinitions";
 
 const initialState = {
-  routines: [],
+  // routines: [],
   workouts: [],
   performances: [],
   msg: "",
-  // usageMode: "NEW_WORKOUT" // or COPY_WORKOUTS
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case Actions.FETCHING_ROUTINES:
-      return {
-        ...state,
-        msg: action.payload
-      };
-    case Actions.FETCH_ROUTINES_SUCCESS:
-      return {
-        ...state,
-        msg: "Fetched the user's workout routines.",
-        routines: action.payload.data.routines
-      };
-    case Actions.FETCH_ROUTINES_FAILURE:
-      return {
-        ...state,
-        msg: "Couldn't fetch the user's workout routines."
-      };
+    // case Actions.FETCHING_ROUTINES:
+    //   return {
+    //     ...state,
+    //     msg: action.payload
+    //   };
+    // case Actions.FETCH_ROUTINES_SUCCESS:
+    //   return {
+    //     ...state,
+    //     msg: "Fetched the user's workout routines.",
+    //     routines: action.payload.data.routines
+    //   };
+    // case Actions.FETCH_ROUTINES_FAILURE:
+    //   return {
+    //     ...state,
+    //     msg: "Couldn't fetch the user's workout routines."
+    //   };
     case Actions.FETCHING_WORKOUTS:
       return {
         ...state,
@@ -58,6 +57,26 @@ export default (state = initialState, action) => {
         ...state,
         msg: "Couldn't schedule the user's workout"
       };
+    case Actions.COPYING_WORKOUTS:
+      return {
+        ...state,
+        msg: action.payload,
+      };
+    case Actions.COPY_WORKOUTS_SUCCESS:
+    console.log("ACTION PAYLOAD", action.payload)
+    const newWorkouts = action.payload.map(subResponse => { return subResponse.hydratedWorkout})
+    console.log("WORKOUTS ARRAY WITH PAYLOAD", newWorkouts)
+      return {
+        ...state,
+        msg: "Successfully copied workouts",
+        workouts: state.workouts.concat(newWorkouts)
+      }
+    case Actions.COPY_WORKOUTS_FAILURE:
+      return {
+        ...state,
+        msg: "Failed to duplicate workouts."
+      }
+
     case Actions.DELETE_WORKOUT:
       return {
         ...state,

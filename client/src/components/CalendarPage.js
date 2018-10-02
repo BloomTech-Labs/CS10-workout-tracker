@@ -334,7 +334,7 @@ const mapStateToProps = state => {
     state
   );
   return {
-    routines: state.calendar.routines,
+    routines: state.RoutineManager.routines,
     workouts: state.calendar.workouts,
     // usageMode: state.calendar.usageMode,
     performances: state.calendar.performances
