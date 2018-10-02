@@ -432,6 +432,34 @@ export const updateExercise = (
   };
 };
 
+export const deleteRoutine = (routineId) => {
+  let token = localStorage.getItem("token");
+    requestOptions = { headers: { "x-access-token": token },
+    data: {
+      routineId
+    }
+  };
+  return dispatch => {
+    dispatch({
+      type: Actions.DELETING_ROUTINE,
+      payload: "Deleting routine"
+    });
+    axios.delete(`${ROOT_URL}/routine`, requestOptions)
+    .then(deletedRoutine => {
+      dispatch({
+        type: Actions.DELETE_ROUTINE_SUCCESS,
+        payload: routineId
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: Actions.DELETE_ROUTINE_FAILURE,
+        payload: "Error deleting routine"
+      })
+    })
+  }
+}
+
 export const updateRoutine = (routineId, title) => {
   return dispatch => {
     dispatch({
