@@ -119,3 +119,6 @@ body {
   background-color: rgba(0, 0, 255, 0) !important;
   cursor: pointer;
 }
+.rbc-toolbar .rbc-toolbar-label {
+  flex-grow: 0.5;
+}

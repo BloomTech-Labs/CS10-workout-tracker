@@ -9,7 +9,8 @@ import {
   scheduleWorkout,
   fetchAllWorkouts,
   deleteWorkout,
-  fetchAllPerformanceDocs
+  fetchAllPerformanceDocs, 
+  copyWorkouts
 } from "../actions";
 import "../less/calendarPage.css";
 
@@ -20,6 +21,10 @@ class CalendarPage extends Component {
     schedulingModal: false,
     checkboxModal: false,
     performances: [],
+    usageMode: "NEW_WORKOUT", // or COPY_WORKOUTS
+    copyFromStartDate: "",
+    copyFromEndDate: "",
+    copyToStartDate: ""
   };
 
   /* This is for putting the performances array from the calendar reducer onto local state.
@@ -55,8 +60,12 @@ class CalendarPage extends Component {
   /* the selected in the parameter is an object leveraged by big-react-calendar. 
   It represents the date box which you click on on the calendar. */
   onSelectSlot = selected => {
-    this.selectedSlotDate = selected.start;
+    if (this.state.usageMode === "NEW_WORKOUT") {
+      this.selectedSlotDate = selected.start;
     this.schedulingModalToggle();
+    } else {
+      
+    }
   };
 
   onSelectEvent = selected => {
@@ -64,6 +73,10 @@ class CalendarPage extends Component {
     this.selectedEventId = selected.id;
     this.checkboxModalToggle();
   };
+
+  handleDateChange = e => {
+    this.setState({[e.target.name]: e.target.value})
+  }
 
   handleChange = e => {
     /* this is utilizing the onChange inside <select> of the scheduling modal to grab 
@@ -85,6 +98,12 @@ class CalendarPage extends Component {
     // doc upon scheduling. Hypothesis: they are absent because findByIdAndUpdate is not returning
     // the updated workout doc. Tried {new: true} but to no avail */
   };
+
+  handleSubmitCopyWorkouts = () => {
+    const { copyFromStartDate, copyFromEndDate, copyToStartDate } = this.state;
+    this.props.copyWorkouts(copyFromStartDate, copyFromEndDate, copyToStartDate )
+    this.setState({copyFromStartDate: "", copyFromEndDate: "", copyToStartDate: ""})
+  }
 
   deleteWorkout = () => {
     this.props.deleteWorkout(this.selectedEventId);
@@ -171,8 +190,8 @@ class CalendarPage extends Component {
     });
 
     return (
-      <React.Fragment>
-        <div style={{ height: "500px", width: "85%" }}>
+      <div style={{display: "flex"}}>
+        <div style={{ height: "500px", width: "90%"}}>
           <BigCalendar
             popup
             events={this.events}
@@ -181,18 +200,37 @@ class CalendarPage extends Component {
             showMultiDayTimes
             defaultDate={new Date()}
             defaultView="month"
-            style={{ height: "100vh" }}
+            style={{ height: "100vh"}}
             selectable={true}
             onSelectSlot={this.onSelectSlot}
-            // onSelectSlot={(slotInfo) => alert(
-            //   `selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` +
-            //   `\nend: ${slotInfo.end.toLocaleString()}` +
-            //   `\naction: ${slotInfo.action}`
-            // )}
             onSelectEvent={this.onSelectEvent}
           />
         </div>
-
+        <div style={{marginTop: "40px", marginRight: "70px"}}> 
+          <div style={{display: "flex"}}>
+            <Button style={{height: "50px", width: "100px", fontSize: "10px", backgroundColor: this.state.usageMode === "NEW_WORKOUT" ? "red" : null }} onClick={() => {this.setState({usageMode: "NEW_WORKOUT"})}}>NEW WORKOUT</Button>
+            <Button style={{height: "50px", width: "100px", fontSize: "10px", backgroundColor: this.state.usageMode === "COPY_WORKOUTS" ? "red" : null}} onClick={() => {this.setState({usageMode: "COPY_WORKOUTS"})}}>COPY WORKOUTS</Button>
+          </div>
+          {this.state.usageMode === "COPY_WORKOUTS" &&  
+          <form style={{backgroundColor: "blue", height: "300px", width: "200px"}}>
+            <div>
+              <label>copy from start date</label>
+              <input type="date" name="copyFromStartDate" value={this.state.copyFromStartDate} onChange={this.handleDateChange}>
+              </input>
+            </div>
+            <div>
+              <label>copy from end date</label>
+              <input type="date" name="copyFromEndDate" value={this.state.copyFromEndDate} onChange={this.handleDateChange}>
+              </input>
+            </div>
+            <div>
+              <label>copy to date</label>
+              <input type="date" name="copyToStartDate" value={this.state.copyToStartDate} onChange={this.handleDateChange}>
+              </input>
+            </div>
+            <Button onClick={this.handleSubmitCopyWorkouts}>Submit</Button>
+          </form>}
+        </div>
         {/* Scheduling Modal */}
 
         <Modal
@@ -285,7 +323,7 @@ class CalendarPage extends Component {
             </Button>
           </ModalFooter>
         </Modal>
-      </React.Fragment>
+      </div>
     );
   }
 }
@@ -298,6 +336,7 @@ const mapStateToProps = state => {
   return {
     routines: state.calendar.routines,
     workouts: state.calendar.workouts,
+    // usageMode: state.calendar.usageMode,
     performances: state.calendar.performances
   };
 };
@@ -309,6 +348,7 @@ export default connect(
     scheduleWorkout,
     fetchAllWorkouts,
     deleteWorkout,
-    fetchAllPerformanceDocs
+    fetchAllPerformanceDocs,
+    copyWorkouts
   }
 )(CalendarPage);

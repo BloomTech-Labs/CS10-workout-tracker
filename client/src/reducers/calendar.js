@@ -4,7 +4,8 @@ const initialState = {
   routines: [],
   workouts: [],
   performances: [],
-  msg: ""
+  msg: "",
+  // usageMode: "NEW_WORKOUT" // or COPY_WORKOUTS
 };
 
 export default (state = initialState, action) => {

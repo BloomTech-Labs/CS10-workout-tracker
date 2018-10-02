@@ -425,6 +425,29 @@ export const scheduleWorkout = (routineId, date) => {
   };
 };
 
+export const copyWorkouts = (copyFromStartDate, copyFromEndDate, copyToStartDate) => {
+  const shiftDistance = Date.parse(copyToStartDate) - Date.parse(copyFromStartDate);
+  return dispatch => {
+    dispatch({
+      type: Actions.COPYING_WORKOUTS
+    });
+    axios
+      .post(`${ROOT_URL}/workouts-copy`, { startDate: copyFromStartDate, endDate: copyFromEndDate, shiftDistance }, requestOptions)
+      .then(response => {
+        dispatch({
+          type: Actions.COPY_WORKOUTS_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.COPY_WORKOUTS_FAILURE,
+          payload: err
+        });
+      });
+    };
+};
+
 export const fetchAllWorkouts = () => {
   return dispatch => {
     dispatch({
