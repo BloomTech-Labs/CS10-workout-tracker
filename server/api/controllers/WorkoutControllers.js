@@ -342,9 +342,12 @@ const copyWorkoutRange = (req, res) => {
       const filteredCalendar = foundUser.calendar.filter(calendarEntry => {
         return (
           Date.parse(calendarEntry.date) >= Date.parse(startDate) &&
-          Date.parse(calendarEntry.date) < Date.parse(endDate)
+          Date.parse(calendarEntry.date) <= (Date.parse(endDate) + 86000399) /* 86000399 ms / day. This is an additional 
+          buffer on the end date, to ensure the workout on the end date is captured. */
         );
       })
+      console.log("END DATE", endDate)
+      console.log("FILTERED CALENDAR", filteredCalendar)
       const numberOfWorkoutsToSchedule = filteredCalendar.length;
       filteredCalendar.forEach((workoutInRange, index) => {
         const routineId = workoutInRange.workout.routine;
