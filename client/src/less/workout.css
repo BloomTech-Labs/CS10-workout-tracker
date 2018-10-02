@@ -81,8 +81,13 @@
   background: radial-gradient(#cccccc, black);
   padding: 30px 15px;
   box-shadow: 5px 5px 15px black;
-  color: #cccccc;
+  color: black;
 }
 .main__workout .current__routine .current__routine__container h2 {
-  font-size: 24px;
+  font-size: 22px;
+  background: none;
+}
+.main__workout .current__routine .current__routine__container h3 {
+  font-size: 18px;
+  color: #cc0000;
 }

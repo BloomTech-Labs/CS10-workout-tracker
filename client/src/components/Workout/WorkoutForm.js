@@ -11,7 +11,8 @@ class WorkoutForm extends React.Component {
       exerciseName: "",
       weight: "",
       sets: "",
-      reps: ""
+      reps: "",
+      errors: {}
     }
   }
 
@@ -21,23 +22,68 @@ class WorkoutForm extends React.Component {
 
   handleRoutineSubmit = e => {
     e.preventDefault();
+    const newErrors = {}
     // call the routine add action here
+    if(this.state.routineName.trim() === "") {
+      newErrors.routineName = "Required Routine Name"
+    }
+
+    if(Object.keys(newErrors).length > 0) {
+      return this.setState({errors: newErrors});
+    }
+
     this.props.postNewRoutine(this.state.routineName);
 
     this.setState({
-      routineName: ""
+      routineName: "",
+      errors: {}
     });
   }
 
   handleExerciseSubmit = (e, rountineId) => {
     e.preventDefault();
+    const { exerciseName, weight, sets, reps } = this.state;
+    const newError = {}
+    if(exerciseName.trim() === "") {
+      newError.exerciseName = "Required Exercise Name"
+    }
+
+    if(weight <= 0 || weight > 1000) {
+      newError.weight = "Weight should be between 1 and 1000"
+    }
+
+    if(weight == "") {
+      newError.weight = "Required Weight";
+    }
+
+    if(sets <= 0 || weight > 1000) {
+      newError.sets = "Sets mush be between 1 and 1000"
+    }
+
+    if(sets == "") {
+      newError.sets = "Required Sets";
+    }
+
+    if(reps <= 0 || weight > 1000) {
+      newError.reps = "Reps mush be between 1 and 1000"
+    }
+
+    if(reps == "") {
+      newError.reps = "Required Reps";
+    }
+
+    if(Object.keys(newError).length > 0) {
+      return this.setState({errors: newError});
+    }
 
     const exerciseData = {
-      name: this.state.exerciseName,
-      currentWeight: this.state.weight,
-      currentSets: this.state.sets,
-      currentReps: this.state.reps
+      name: exerciseName,
+      currentWeight: weight,
+      currentSets: sets,
+      currentReps: reps
     }
+  
+
     if(this.props.focusRoutine) {
       this.props.postNewExerciseInRoutine(this.props.focusRoutine._id, exerciseData);
     }
@@ -46,7 +92,8 @@ class WorkoutForm extends React.Component {
       exerciseName: "",
       weight: "",
       sets: "",
-      reps: ""
+      reps: "",
+      errors: {}
     });
   }
 
@@ -61,6 +108,7 @@ class WorkoutForm extends React.Component {
             placeholder="Routine Name"
             onChange={this.handleChange}
             />
+            {this.state.errors.routineName ? <span>{this.state.errors.routineName} </span>: null}
             <button>Add Routine</button>
           </form>
         </div>
@@ -80,6 +128,7 @@ class WorkoutForm extends React.Component {
           placeholder="Exercise Name"
           onChange={this.handleChange}
           />
+          {this.state.errors.exerciseName ? <span>{this.state.errors.exerciseName}</span>: null}
           <input
           value={this.state.weight}
           name="weight"
@@ -87,6 +136,7 @@ class WorkoutForm extends React.Component {
           placeholder="Weight"
           onChange={this.handleChange}
           />
+          {this.state.errors.weight ? <span>{this.state.errors.weight}</span>: null}
           <input
           value={this.state.sets}
           name="sets"
@@ -94,6 +144,7 @@ class WorkoutForm extends React.Component {
           placeholder="Sets"
           onChange={this.handleChange}
           />
+          {this.state.errors.sets ? <span>{this.state.errors.sets}</span>: null}
           <input
           value={this.state.reps}
           name="reps"
@@ -101,6 +152,7 @@ class WorkoutForm extends React.Component {
           placeholder="Reps"
           onChange={this.handleChange}
           />
+          {this.state.errors.reps ? <span>{this.state.errors.reps}</span>: null}
           <button>Add Exercise</button>
         </form>
       </div>
