@@ -382,11 +382,7 @@ export const deleteExercise = (exerciseId) => {
       type: Actions.DELETING_EXCERCISE,
       payload: "Deleting exercise"
     })
-    axios.delete(`${ROOT_URL}/exercise`,  requestOptions
-    // { 
-    //   params: { exerciseId: exerciseId}   
-    // } 
-      )
+    axios.delete(`${ROOT_URL}/exercise`,  requestOptions)
       .then(deletedExercise => {
         console.log("Deleted succuss " + deletedExercise.name)
         dispatch({

@@ -21,7 +21,7 @@
   padding: 15px;
   color: #cccccc;
   width: 90%;
-  box-shadow: 0 0 20px grey;
+  box-shadow: 5px 5px 15px black;
 }
 .main__workout .routine__list .routine__list__container h2 {
   font-size: 24px;
@@ -29,11 +29,14 @@
 }
 .main__workout .routine__list .routine__list__container .routine {
   padding: 5px 10px;
+  text-align: start;
+  padding-left: 30px;
   background: grey;
   margin: 5px;
   overflow: hidden;
+  text-shadow: 3px 3px black;
   color: white;
-  background: radial-gradient(#cccccc, black);
+  background: linear-gradient(to right, black, darkgrey);
 }
 .main__workout .workout__form {
   flex-basis: 33%;
@@ -49,7 +52,7 @@
   margin: 0 5px;
   min-height: 90%;
   margin: 0px 13px;
-  box-shadow: 0 0 20px grey;
+  box-shadow: 5px 5px 15px black;
 }
 .main__workout .workout__form .routine__input__form h2 {
   font-size: 24px;
@@ -77,7 +80,7 @@
   width: 90%;
   background: radial-gradient(#cccccc, black);
   padding: 30px 15px;
-  box-shadow: 0 0 20px grey;
+  box-shadow: 5px 5px 15px black;
   color: #cccccc;
 }
 .main__workout .current__routine .current__routine__container h2 {

@@ -24,7 +24,7 @@
   padding: 10px 5px;
   margin-bottom: 10px;
   box-shadow: 5px 5px 15px black;
-  background-image: linear-gradient(to right, black, #CC0000);
+  background-image: linear-gradient(to right, black, #000033);
 }
 .side__box a {
   color: #CCCCCC;
