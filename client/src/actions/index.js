@@ -370,6 +370,40 @@ export const clearCurrentRoutine = () => {
 
 }
 
+export const deleteExercise = (exerciseId) => {
+  return dispatch => {
+    let token = localStorage.getItem("token");
+    requestOptions = { headers: { "x-access-token": token },
+    data: {
+      exerciseId
+    }
+  };
+    dispatch({
+      type: Actions.DELETING_EXCERCISE,
+      payload: "Deleting exercise"
+    })
+    axios.delete(`${ROOT_URL}/exercise`,  requestOptions
+    // { 
+    //   params: { exerciseId: exerciseId}   
+    // } 
+      )
+      .then(deletedExercise => {
+        console.log("Deleted succuss " + deletedExercise.name)
+        dispatch({
+          type: Actions.DELETE_EXERCISE_SUCCESS,
+          payload: exerciseId
+        });
+      })
+      .catch(err => {
+        console.log("Error deleting exercise");
+        dispatch({
+          type: Actions.DELETE_EXERCISE_FAILURE,
+          payload: "Fail to delete exercise"
+        })
+      })
+  }
+}
+
 export const updateExercise = (
   exerciseId,
   name,

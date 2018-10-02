@@ -114,6 +114,29 @@ export default (state = initialState, action) => {
         })
         // msg: "Updated an exercise"
       };
+    case Actions.DELETING_EXCERCISE:
+      return {
+        ...state,
+        msg: action.payload
+      };
+    case Actions.DELETE_EXERCISE_SUCCESS: 
+      let newExercises = state.focusedRoutine.exercises.slice();
+      newExercises = newExercises.filter((exercise) => {
+        return exercise._id !== action.payload;
+      });
+      return {
+        ...state,
+        msg: "Delete Success",
+        focusedRoutine: {
+          ...state.focusedRoutine,
+          exercises: newExercises
+        }
+      }
+    case Actions.DELETE_EXERCISE_FAILURE:
+      return {
+        ...state,
+        msg: action.payload
+      }
     case Actions.CLEAR_CURRENT_ROUTINE:
       return {
         ...state,

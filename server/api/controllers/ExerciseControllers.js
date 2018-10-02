@@ -89,6 +89,7 @@ const createNewExercise = (req, res) => {
 
 const deleteExerciseDoc = (req, res) => {
   const { exerciseId } = req.body;
+  console.log("THIS IS EXERCIse DELETE", exerciseId);
   Exercise.findByIdAndDelete(exerciseId)
     .then(deletedDoc => {
       User.findByIdAndUpdate(req.userId, {

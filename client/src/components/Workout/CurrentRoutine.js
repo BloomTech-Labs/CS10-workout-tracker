@@ -1,7 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
+import { deleteExercise } from "../../actions";
 
 class CurrentRoutine extends React.Component {
+
+  handleDelete = (exerciseId) => {
+    this.props.deleteExercise(exerciseId);
+  }
 
   render() {
     const { currentRoutine } = this.props;
@@ -18,6 +23,7 @@ class CurrentRoutine extends React.Component {
             <div key={exercise._id}>
               <hr/>
               <h3 style={{color: "red"}}>{exercise.name}</h3>
+              <button onClick={() => this.handleDelete(exercise._id)}>Delete</button>
               <hr/>
               <div>Weight: {exercise.currentWeight}</div>
               <div>Reps: {exercise.currentReps}</div>
@@ -37,4 +43,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(CurrentRoutine);
+export default connect(mapStateToProps, { deleteExercise })(CurrentRoutine);
