@@ -11,23 +11,6 @@ body {
   min-height: 100vh;
   background: linear-gradient(#000033, black);
 }
-.push__nav {
-  height: 90px;
-}
-.main__side__content {
-  display: flex;
-  justify-content: space-between;
-  text-align: center;
-  max-width: 1500px;
-  height: 100%;
-  width: 100%;
-  margin: 0 auto;
-  background: radial-gradient(black, white);
-}
-.main__container {
-  flex-basis: 85%;
-  min-height: 77vh;
-}
 .submit-btn {
   background: linear-gradient(#cc0000, black);
   color: white;
@@ -412,6 +395,23 @@ footer {
 footer p {
   padding: 40px 0;
   margin-bottom: 0 !important;
+}
+.push__nav {
+  height: 90px;
+}
+.main__side__content {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  max-width: 1500px;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  background: radial-gradient(black, white);
+}
+.main__container {
+  flex-basis: 85%;
+  min-height: 77vh;
 }
 .password-reset-outer {
   background: radial-gradient(black, #000033);
