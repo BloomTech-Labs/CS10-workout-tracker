@@ -1,3 +1,7 @@
+.flexCol {
+  display: flex;
+  flex-direction: column;
+}
 .center {
   display: flex;
   flex-direction: column;
@@ -23,10 +27,11 @@
 }
 .forms-container {
   display: flex;
-  width: 300px;
-  padding: 20px;
   flex-direction: column;
   align-items: center;
+  margin-top: 40px;
+  width: 300px;
+  padding: 20px;
   background: radial-gradient(#666666, black);
 }
 .forms-container .single-form-container {
@@ -41,7 +46,6 @@
   min-height: 100vh;
 }
 .billing-outer .billing-container {
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -50,7 +54,7 @@
   margin: 0 auto;
 }
 .billing-outer .billing-container .billing-inner {
-  margin: 20px;
+  margin: 40px;
   background: radial-gradient(#666666, black);
 }
 .billing-outer .billing-container .billing-inner .checkout {
@@ -341,7 +345,7 @@ p {
   width: 100%;
   color: #cccccc;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 .landing__start .landing__start__content {
@@ -389,20 +393,11 @@ footer p {
   padding: 40px 0;
   margin-bottom: 0 !important;
 }
-.NavBar {
-  background-image: radial-gradient(#666666, #cccccc);
-  width: 100%;
-}
-.NavBar__Links {
-  display: flex;
-  flex-direction: column;
-}
 .password-reset-outer {
   background: radial-gradient(black, #000033);
   min-height: 100vh;
 }
 .password-reset-outer .password-reset-container {
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -579,7 +574,6 @@ footer p {
   min-height: 100vh;
 }
 .settings-outer .settings-container {
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
