@@ -403,13 +403,13 @@ export const updateProgress = (id, data) => {
   };
 };
 
-export const scheduleWorkout = routineId => {
+export const scheduleWorkout = (routineId, date) => {
   return dispatch => {
     dispatch({
       type: Actions.SCHEDULING_WORKOUT
     });
     axios
-      .post(`${ROOT_URL}/schedule-workout`, { routineId }, requestOptions)
+      .post(`${ROOT_URL}/schedule-workout`, { routineId, date }, requestOptions)
       .then(response => {
         dispatch({
           type: Actions.SCHEDULE_WORKOUT_SUCCESS,
@@ -424,6 +424,106 @@ export const scheduleWorkout = routineId => {
       });
   };
 };
+
+export const copyWorkouts = (
+  copyFromStartDate,
+  copyFromEndDate,
+  copyToStartDate
+) => {
+  const shiftDistance =
+    Date.parse(copyToStartDate) - Date.parse(copyFromStartDate);
+  return dispatch => {
+    dispatch({
+      type: Actions.COPYING_WORKOUTS,
+      payload: "About to copy workouts..."
+    });
+    axios
+      .post(
+        `${ROOT_URL}/workouts-copy`,
+        {
+          startDate: copyFromStartDate,
+          endDate: copyFromEndDate,
+          shiftDistance
+        },
+        requestOptions
+      )
+      .then(response => {
+        dispatch({
+          type: Actions.COPY_WORKOUTS_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.COPY_WORKOUTS_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
+export const fetchAllWorkouts = () => {
+  return dispatch => {
+    dispatch({
+      type: Actions.FETCHING_WORKOUTS,
+      payload: "Fetching user's workouts"
+    });
+    axios
+      .get(`${ROOT_URL}/workouts`, requestOptions)
+      .then(response => {
+        dispatch({
+          type: Actions.FETCH_WORKOUTS_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.FETCH_WORKOUTS_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
+export const deleteWorkout = id => {
+  return dispatch => {
+    axios
+      .delete(`${ROOT_URL}/workouts/${id}`, requestOptions)
+      .then(res => {
+        dispatch({
+          type: Actions.DELETE_WORKOUT,
+          payload: id
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+};
+
+export const fetchAllPerformanceDocs = () => {
+  return dispatch => {
+    dispatch({
+      type: Actions.FETCHING_PERFORMANCES,
+      payload: "Fetching user's performances"
+    });
+    axios
+      .get(`${ROOT_URL}/performances`, requestOptions)
+      .then(response => {
+        dispatch({
+          type: Actions.FETCH_PERFORMANCES_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.FETCH_PERFORMANCES_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
 export const changePassword = data => {
   let token = localStorage.getItem("token");
   return dispatch => {
