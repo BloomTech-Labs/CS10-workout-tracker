@@ -108,7 +108,7 @@ class WorkoutForm extends React.Component {
             placeholder="Routine Name"
             onChange={this.handleChange}
             />
-            {this.state.errors.routineName ? <span>{this.state.errors.routineName} </span>: null}
+            {this.state.errors.routineName ? <span className="form__validation">{this.state.errors.routineName} </span>: null}
             <button>Add Routine</button>
           </form>
         </div>
@@ -128,7 +128,7 @@ class WorkoutForm extends React.Component {
           placeholder="Exercise Name"
           onChange={this.handleChange}
           />
-          {this.state.errors.exerciseName ? <span>{this.state.errors.exerciseName}</span>: null}
+          {this.state.errors.exerciseName ? <span className="form__validation">{this.state.errors.exerciseName}</span>: null}
           <input
           value={this.state.weight}
           name="weight"
@@ -136,7 +136,7 @@ class WorkoutForm extends React.Component {
           placeholder="Weight"
           onChange={this.handleChange}
           />
-          {this.state.errors.weight ? <span>{this.state.errors.weight}</span>: null}
+          {this.state.errors.weight ? <span className="form__validation">{this.state.errors.weight}</span>: null}
           <input
           value={this.state.sets}
           name="sets"
@@ -144,7 +144,7 @@ class WorkoutForm extends React.Component {
           placeholder="Sets"
           onChange={this.handleChange}
           />
-          {this.state.errors.sets ? <span>{this.state.errors.sets}</span>: null}
+          {this.state.errors.sets ? <span className="form__validation">{this.state.errors.sets}</span>: null}
           <input
           value={this.state.reps}
           name="reps"
@@ -152,7 +152,7 @@ class WorkoutForm extends React.Component {
           placeholder="Reps"
           onChange={this.handleChange}
           />
-          {this.state.errors.reps ? <span>{this.state.errors.reps}</span>: null}
+          {this.state.errors.reps ? <span className="form__validation">{this.state.errors.reps}</span>: null}
           <br/>
           <button>Add Exercise</button>
         </form>

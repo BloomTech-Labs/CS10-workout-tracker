@@ -10,7 +10,7 @@ import {
   InputGroup
 } from "reactstrap";
 import { connect } from "react-redux";
-import { register, login, logout, forgotPassword } from "../actions";
+import { register, login, logout, forgotPassword, clearCurrentRoutine } from "../actions";
 import validator from "validator";
 
 class Nav extends React.Component {
@@ -32,6 +32,7 @@ class Nav extends React.Component {
 
   handleLogout = event => {
     this.props.logout();
+    this.props.clearCurrentRoutine();
     this.props.history.push("/");
   };
 
@@ -174,19 +175,19 @@ class Nav extends React.Component {
     );
 
     const emailErrors = (
-      this.state.errors.email ? <span>{this.state.errors.email}</span>: null
+      this.state.errors.email ? <span className="form__validation">{this.state.errors.email}</span>: null
     )
 
     const usernameErrors = (
-      this.state.errors.username ? <span>{this.state.errors.username}</span>: null
+      this.state.errors.username ? <span className="form__validation">{this.state.errors.username}</span>: null
     )
 
     const passwordErrors = (
-      this.state.errors.password ? <span>{this.state.errors.password}</span>: null
+      this.state.errors.password ? <span className="form__validation">{this.state.errors.password}</span>: null
     )
 
     const confirmPasswordErrors = (
-      this.state.errors.confirmPassword ? <span>{this.state.errors.confirmPassword}</span>: null
+      this.state.errors.confirmPassword ? <span className="form__validation">{this.state.errors.confirmPassword}</span>: null
     )
 
     return (
@@ -345,5 +346,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { register, login, logout, forgotPassword }
+  { register, login, logout, forgotPassword, clearCurrentRoutine }
 )(withRouter(Nav));

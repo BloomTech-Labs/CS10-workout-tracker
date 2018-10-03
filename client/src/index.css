@@ -38,3 +38,8 @@ body {
   min-height: 88vh;
   background: radial-gradient(#000033, black);
 }
+
+.form__validation {
+  font-size: 12px;
+  color: red;
+}
