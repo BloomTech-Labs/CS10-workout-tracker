@@ -10,7 +10,7 @@ import {
   InputGroup
 } from "reactstrap";
 import { connect } from "react-redux";
-import { register, login, logout, forgotPassword, clearCurrentRoutine } from "../actions";
+import { register, login, logout, clearErrors, forgotPassword, clearCurrentRoutine } from "../actions";
 import validator from "validator";
 
 class Nav extends React.Component {
@@ -41,12 +41,15 @@ class Nav extends React.Component {
   };
 
   toggleSignInModal = () => {
+    this.props.clearErrors();
     this.setState({
-      signInModal: !this.state.signInModal
+      signInModal: !this.state.signInModal,
+      errors: {}
     });
   };
 
   toggleSignUpModal = () => {
+    this.props.clearErrors();
     this.setState({
       signUpModal: !this.state.signUpModal,
       errors: {}
@@ -112,17 +115,19 @@ class Nav extends React.Component {
           password: this.state.password,
           email: this.state.email
         },
-        this.props.history
+        this.props.history,
+        this.toggleSignUpModal
       );
     }
     this.setState({
       username: "",
       password: "",
       confirmPassword: "",
-      email: ""
+      email: "",
+      errors: {}
     });
-    console.log("submitted");
-    this.toggleSignUpModal();
+    // console.log("submitted");
+    // this.toggleSignUpModal();
   };
 
   handleSignin = event => {
@@ -132,14 +137,23 @@ class Nav extends React.Component {
         username: this.state.signInName,
         password: this.state.signInPass
       },
-      this.props.history
+      this.props.history,
+      this.toggleSignInModal
     );
 
     this.setState({
       signInName: "",
       signInPass: ""
     });
-    this.toggleSignInModal();
+    // console.log(this.props.userInfo.authed);
+    // if(this.props.userInfo.authed) {
+    //   this.setState({
+    //     signInName: "",
+    //     signInPass: ""
+    //   });
+    //   this.toggleSignInModal();
+    // } else {
+    // }
   };
 
   handleForgotPassword = event => {
@@ -156,6 +170,7 @@ class Nav extends React.Component {
 
   render() {
     console.log("This is the Current user ", this.props.userInfo);
+    const { error } = this.props.valError;
     const { authed } = this.props.userInfo;
     const isNotAuth = (
       <div className="right__nav">
@@ -214,7 +229,9 @@ class Nav extends React.Component {
                 name="username"
               />
             </InputGroup>
-            {usernameErrors}
+            {usernameErrors ? usernameErrors : (this.props.valError.message ? <span className="form__validation">{this.props.valError.message}</span>: null)}
+            {/* {usernameErrors}
+            {this.props.valError.message ? <span>{this.props.valError.message}</span>: null} */}
             <InputGroup>
               <Input
                 placeholder="password"
@@ -244,7 +261,7 @@ class Nav extends React.Component {
                 name="email"
               />   
             </InputGroup>
-            {emailErrors}
+            {emailErrors ? emailErrors : (this.props.valError.message ? <span className="form__validation">{this.props.valError.message}</span>: null)}
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.handleSignup}>
@@ -273,6 +290,7 @@ class Nav extends React.Component {
                 name="signInName"
               />
             </InputGroup>
+            {this.props.valError.error ?<span className="form__validation">{this.props.valError.error}</span> : null}
             <InputGroup>
               <Input
                 placeholder="password"
@@ -282,6 +300,7 @@ class Nav extends React.Component {
                 name="signInPass"
               />
             </InputGroup>
+            {this.props.valError.error ? <span className="form__validation">{this.props.valError.error}</span> : null}
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.handleSignin}>
@@ -340,11 +359,12 @@ const mapStateToProps = state => {
   );
   return {
     userInfo: state.auth,
-    msg: state.auth.message
+    msg: state.auth.message,
+    valError: state.valError
   };
 };
 
 export default connect(
   mapStateToProps,
-  { register, login, logout, forgotPassword, clearCurrentRoutine }
+  { register, login, logout, clearErrors, forgotPassword, clearCurrentRoutine }
 )(withRouter(Nav));

@@ -9,7 +9,7 @@ let requestOptions = {};
 // to do to interact with an access-controlled route is include this
 // requestOptions object as the final parameter in your Axios call.
 
-export const register = (data, history) => {
+export const register = (data, history, modal) => {
   return dispatch => {
     dispatch({
       type: Actions.REGISTERING,
@@ -24,7 +24,8 @@ export const register = (data, history) => {
           type: Actions.REGISTER_SUCCESS,
           payload: res
         });
-        history.push("/progress");
+        modal();
+        history.push("/workouts");
       })
       .catch(err => {
         dispatch({
@@ -39,7 +40,7 @@ export const register = (data, history) => {
   };
 };
 
-export const login = (data, history) => {
+export const login = (data, history, modal) => {
   return dispatch => {
     dispatch({
       type: Actions.LOGGING_IN,
@@ -54,17 +55,21 @@ export const login = (data, history) => {
           type: Actions.LOGIN_SUCCESS,
           payload: res
         });
-        history.push("/progress");
+        modal();
+        history.push("/workouts");
       })
       .catch(err => {
         dispatch({
           type: Actions.LOGIN_FAILURE,
           payload: err
         });
+        dispatch({
+          type: Actions.GET_VAL_ERRORS,
+          payload: err.response.data
+        })
       });
   };
 };
-
 export const loginWithToken = token => {
   return dispatch => {
     dispatch({
@@ -372,6 +377,13 @@ export const clearCurrentRoutine = () => {
     payload: null
   }
 
+}
+
+export const clearErrors = () => {
+  return {
+    type: Actions.CLEAR_VAL_ERRORS,
+    payload: {}
+  }
 }
 
 export const deleteExercise = (exerciseId) => {

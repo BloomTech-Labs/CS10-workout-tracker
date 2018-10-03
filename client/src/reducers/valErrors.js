@@ -9,7 +9,7 @@ export default (state=initialState, action) => {
     case Actions.GET_VAL_ERRORS: 
       return action.payload;
     case Actions.CLEAR_VAL_ERRORS:
-      return {};
+      return action.payload;
     default:
       return state;
   }
