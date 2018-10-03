@@ -1,6 +1,5 @@
 .progress-tracker {
-  display: flex;
-  justify-content: space-between;
+  .flex-and-justify(space-between);
   text-align: center;
   padding: 15px;
   height: 200px;
@@ -8,7 +7,7 @@
   width: 50%;
   margin: 0 0 15px 8px;
   color: @grey;
-  .bg-linear(@primary, black);
+  .bg-linear(@primary, @black);
 
   .progress-tracker-title {
     font-size: 25px;
@@ -24,7 +23,7 @@
 }
 
 .gray {
-  .bg-linear(@darkGrey, black);
+  .bg-linear(@darkGrey, @black);
 }
 
 .progress-box {

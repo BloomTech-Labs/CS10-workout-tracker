@@ -21,18 +21,18 @@
   }
 
   .modal-body {
-    .bg-linear(@secondary, black) !important;
+    .bg-linear(@secondary, @black) !important;
   }
 
   .modal-footer {
-    .bg-linear(@darkGrey, black);
+    .bg-linear(@darkGrey, @black);
   }
 }
 
 .error {
-  .bg-linear(@secondary, black);
+  .bg-linear(@secondary, @black);
   font-size: 16px;
-  color: red;
+  color: @red;
   padding-left: 15px;
 }
 
@@ -42,8 +42,7 @@
   color: @grey;
 
   .label-input {
-    display: flex;
-    justify-content: space-between;
+    .flex-and-justify(space-between);
     margin: 5px;
     padding: 0 50px;
 

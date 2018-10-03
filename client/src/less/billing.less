@@ -1,5 +1,5 @@
 .billing-outer {
-  .bg-radial(black, @secondary);
+  .bg-radial(@black, @secondary);
   min-height: 100vh;
 
   .billing-container {
@@ -10,7 +10,7 @@
 
     .billing-inner {
       margin: 40px;
-      .bg-radial(@darkGrey, black);
+      .bg-radial(@darkGrey, @black);
 
       .checkout {
         .flexCol();
@@ -29,7 +29,7 @@
           margin: 0 0 20px 0;
           background-color: @grey;
           padding: 10px;
-          box-shadow: 1px 1px 7px black;
+          box-shadow: 1px 1px 7px @black;
         }
       }
 

@@ -9,25 +9,25 @@ body {
   font-family: sans-serif;
   min-width: 100vw;
   min-height: 100vh;
-  background: linear-gradient(#000033, black);
+  background: linear-gradient(#000033, #000000);
 }
 .submit-btn {
-  background: linear-gradient(#cc0000, black);
-  color: white;
+  background: linear-gradient(#cc0000, #000000);
+  color: #ffffff;
   border-radius: 0;
-  box-shadow: 1px 1px 7px black;
+  box-shadow: 1px 1px 7px #000000;
 }
 .submit-btn--blue {
-  background: linear-gradient(#000033, black);
-  color: white;
+  background: linear-gradient(#000033, #000000);
+  color: #ffffff;
   border-radius: 0;
-  box-shadow: 1px 1px 7px black;
+  box-shadow: 1px 1px 7px #000000;
 }
 .submit-btn--grey {
-  background: linear-gradient(#cccccc, black);
-  color: white;
+  background: linear-gradient(#cccccc, #000000);
+  color: #ffffff;
   border-radius: 0;
-  box-shadow: 1px 1px 7px black;
+  box-shadow: 1px 1px 7px #000000;
 }
 .forms-container {
   display: flex;
@@ -36,17 +36,17 @@ body {
   margin-top: 40px;
   width: 300px;
   padding: 20px;
-  background: radial-gradient(#666666, black);
+  background: radial-gradient(#666666, #000000);
 }
 .forms-container .single-form-container {
   width: 90%;
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 20px 20px;
-  background: linear-gradient(black, white);
+  background: linear-gradient(#000000, #ffffff);
 }
 .billing-outer {
-  background: radial-gradient(black, #000033);
+  background: radial-gradient(#000000, #000033);
   min-height: 100vh;
 }
 .billing-outer .billing-container {
@@ -59,7 +59,7 @@ body {
 }
 .billing-outer .billing-container .billing-inner {
   margin: 40px;
-  background: radial-gradient(#666666, black);
+  background: radial-gradient(#666666, #000000);
 }
 .billing-outer .billing-container .billing-inner .checkout {
   display: flex;
@@ -67,7 +67,7 @@ body {
   max-width: 420px;
   margin: 40px;
   padding: 20px;
-  background: linear-gradient(black, white);
+  background: linear-gradient(black, #ffffff);
 }
 .billing-outer .billing-container .billing-inner .checkout .checkout-text {
   color: #cccccc;
@@ -78,7 +78,7 @@ body {
   margin: 0 0 20px 0;
   background-color: #cccccc;
   padding: 10px;
-  box-shadow: 1px 1px 7px black;
+  box-shadow: 1px 1px 7px #000000;
 }
 .billing-outer .billing-container .billing-inner .billing-status {
   padding: 10px;
@@ -91,29 +91,29 @@ body {
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.5;
-  color: lightgray;
+  color: #cccccc;
   text-align: center;
-  background: radial-gradient(black, white);
+  background: radial-gradient(#000000, #ffffff);
 }
 .rbc-month-view {
   position: relative;
   border: none !important;
-  background: black;
+  background: #000000;
   margin: 0 auto;
-  box-shadow: 0, 0, 20px, black;
+  box-shadow: 0, 0, 20px, #000000;
   display: -ms-flexbox;
   display: flex;
-  box-shadow: 0px 0px 40px black;
+  box-shadow: 0px 0px 40px #000000;
   -ms-flex-direction: column;
   flex-direction: column;
   -ms-flex: 1 0 0px;
   flex: 1 0;
   max-width: 900px;
   width: 80% !important;
+  -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  -webkit-user-select: none;
   height: 90%;
 }
 .rbc-header {
@@ -136,19 +136,12 @@ body {
 .rbc-day-bg {
   -ms-flex: 1 0 0%;
   flex: 1 0;
-  color: white;
+  color: #ffffff;
   margin: 1px;
-  /* box-shadow: 0px 0px 10px darkgrey; */
-  background: linear-gradient(black, #000033);
-  /* linear-gradient(blue, black): ; */
-  /* border-radius: 4px; */
-  /* background: grey; */
+  background: linear-gradient(#000000, #000033);
 }
-/* .rbc-day-bg:hover {
-  background-image: linear-gradient(black, green);
-} */
 .rbc-off-range-bg {
-  background: linear-gradient(black, #37015b) !important;
+  background: linear-gradient(#000000, #37015b) !important;
 }
 .rbc-row-bg {
   display: -ms-flexbox;
@@ -175,19 +168,17 @@ body {
   overflow: hidden;
 }
 .rbc-month-row + .rbc-month-row {
-  /* border-top: 1px solid #DDD; */
   border-top: none !important;
 }
 .rbc-today {
-  background-color: #eaf6ff;
-  background: linear-gradient(black, white) !important;
+  background-color: #ffffff;
+  background: linear-gradient(#000000, #ffffff) !important;
 }
 .rbc-event {
   padding: 21px 5px 5px 5px !important;
-  box-shadow: 0px 0px 20px black;
-  background: linear-gradient(black, darkred);
-  /* background-color: #3174ad; */
-  color: #fff;
+  box-shadow: 0px 0px 20px #000000;
+  background: linear-gradient(#000000, #cc0000);
+  color: #ffffff;
   margin: 0 5px;
   padding-bottom: 10px;
   font-size: 15px;
@@ -200,13 +191,13 @@ body {
 .rbc-event {
   padding: 2px 5px;
   border-radius: 5px;
-  background: linear-gradient(black, darkred) !important;
-  color: #fff;
-  background-color: rgba(0, 0, 255, 0) !important;
+  background: linear-gradient(#000000, #cc0000) !important;
+  color: #ffffff;
+  background-color: #000033 !important;
   cursor: pointer;
 }
 .main__landing__page {
-  text-shadow: 0px 0px 5px black;
+  text-shadow: 0px 0px 5px #000000;
 }
 p {
   margin-bottom: 0;
@@ -229,7 +220,7 @@ p {
   justify-content: space-between;
   align-items: center;
   padding: 20px 35px;
-  background: linear-gradient(black, #222222, #111111);
+  background: linear-gradient(#000000, #222222, #111111);
   opacity: 0.9;
   position: fixed;
   z-index: 10;
@@ -243,7 +234,7 @@ p {
   color: #cccccc;
 }
 .landing__nav .right__nav span:hover {
-  color: white;
+  color: #ffffff;
   cursor: pointer;
 }
 .landing__nav .right__nav .first__nav__span {
@@ -278,13 +269,13 @@ p {
 .about__app__landing {
   padding: 0 35px 120px 35px;
   width: 100%;
-  background: radial-gradient(#666666, black);
+  background: radial-gradient(#666666, #000000);
 }
 .about__app__landing .display__more {
   position: relative;
   bottom: 30px;
   margin-bottom: 10px;
-  background: radial-gradient(#cc0000, black);
+  background: radial-gradient(#cc0000, #000000);
 }
 .about__app__landing .display__more .container {
   display: flex;
@@ -334,7 +325,7 @@ p {
   width: 100%;
   padding: 100px 0;
   text-align: center;
-  background: radial-gradient(#000033, black);
+  background: radial-gradient(#000033, #000000);
 }
 .landing__quote h2 {
   font-size: 40px;
@@ -388,7 +379,7 @@ p {
 }
 footer {
   font-size: 24px;
-  background: radial-gradient(#000033, black);
+  background: radial-gradient(#000033, #000000);
   color: #cc0000;
   text-align: center;
 }
@@ -407,7 +398,7 @@ footer p {
   height: 100%;
   width: 100%;
   margin: 0 auto;
-  background: radial-gradient(black, white);
+  background: radial-gradient(#000000, white);
 }
 .main__container {
   flex-basis: 85%;
@@ -450,11 +441,11 @@ footer p {
 }
 .outer-container .container .progress-records {
   display: flex;
-  flex-wrap: wrap;
   justify-content: flex-start;
+  flex-wrap: wrap;
   width: 100%;
   padding: 7px 0;
-  background: radial-gradient(#cccccc, black);
+  background: radial-gradient(#cccccc, #000000);
   min-height: 500px;
   height: 100%;
 }
@@ -469,14 +460,14 @@ footer p {
 .card-container .card {
   border: none;
   border-radius: none;
-  box-shadow: 5px 5px 15px black;
+  box-shadow: 5px 5px 15px #000000;
 }
 .card-container .card .card-header {
   display: flex;
   justify-content: space-between;
   padding: 0;
   color: #cccccc;
-  background: linear-gradient(to right, black, #cccccc);
+  background: linear-gradient(to right, #000000, #cccccc);
 }
 .card-container .card .card-header .card-date {
   display: inline-block;
@@ -492,10 +483,10 @@ footer p {
   margin: 6px;
 }
 .card-container .card .card-header .btn-container .icon-btn .icon {
-  color: black;
+  color: #000000;
 }
 .card-container .card .card-body {
-  background: radial-gradient(#000033, black);
+  background: radial-gradient(#000033, #000000);
   color: #cccccc;
 }
 .modal-container {
@@ -506,7 +497,7 @@ footer p {
   background: linear-gradient(#666666, black);
   color: #cccccc;
   border-radius: 0;
-  box-shadow: 1px 1px 7px black;
+  box-shadow: 1px 1px 7px #000000;
   margin-bottom: 5px;
 }
 .modal-container .add-progress-btn:hover {
@@ -520,15 +511,15 @@ footer p {
   color: white;
 }
 .modal-content .modal-body {
-  background: linear-gradient(#000033, black) !important;
+  background: linear-gradient(#000033, #000000) !important;
 }
 .modal-content .modal-footer {
-  background: linear-gradient(#666666, black);
+  background: linear-gradient(#666666, #000000);
 }
 .error {
-  background: linear-gradient(#000033, black);
+  background: linear-gradient(#000033, #000000);
   font-size: 16px;
-  color: red;
+  color: #e60a05;
   padding-left: 15px;
 }
 .progressForm {
@@ -557,7 +548,7 @@ footer p {
   width: 50%;
   margin: 0 0 15px 8px;
   color: #cccccc;
-  background: linear-gradient(#cc0000, black);
+  background: linear-gradient(#cc0000, #000000);
 }
 .progress-tracker .progress-tracker-title {
   font-size: 25px;
@@ -570,7 +561,7 @@ footer p {
   margin-bottom: 10px;
 }
 .gray {
-  background: linear-gradient(#666666, black);
+  background: linear-gradient(#666666, #000000);
 }
 .progress-box {
   width: 50%;
@@ -588,7 +579,7 @@ footer p {
   border-right: 1px solid #cccccc;
 }
 .settings-outer {
-  background: radial-gradient(black, #000033);
+  background: radial-gradient(#000000, #000033);
   min-height: 100vh;
 }
 .settings-outer .settings-container {
@@ -608,7 +599,7 @@ footer p {
 .settings-outer .settings-container .settings-input {
   border-radius: 0;
   background: #cccccc;
-  box-shadow: 1px 1px 7px black;
+  box-shadow: 1px 1px 7px #000000;
 }
 .settings-outer .settings-container .password-form {
   display: flex;
@@ -623,7 +614,7 @@ footer p {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: red;
+  background-color: #e60a05;
   font-size: 40px !important;
   height: 50%;
   width: 100%;
@@ -634,14 +625,14 @@ footer p {
 #test {
   display: flex;
   flex-direction: column;
-  background: radial-gradient(#cccccc, black);
+  background: radial-gradient(#cccccc, #000000);
   font-size: 20px !important;
   height: 100%;
 }
 .side__box {
   padding: 10px 5px;
   margin-bottom: 10px;
-  background: radial-gradient(#cc0000, black);
+  background: radial-gradient(#cc0000, #000000);
 }
 .side__box a {
   color: #cccccc;

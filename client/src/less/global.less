@@ -10,19 +10,19 @@ body {
   font-family: sans-serif;
   min-width: 100vw;
   min-height: 100vh;
-  .bg-linear(@secondary, black);
+  .bg-linear(@secondary, @black);
 }
 
 .submit-btn {
-  .button-creator(linear-gradient(@primary, black));
+  .button-creator(linear-gradient(@primary, @black));
 }
 
 .submit-btn--blue {
-  .button-creator(linear-gradient(@secondary, black));
+  .button-creator(linear-gradient(@secondary, @black));
 }
 
 .submit-btn--grey {
-  .button-creator(linear-gradient(@grey, black));
+  .button-creator(linear-gradient(@grey, @black));
 }
 
 .forms-container {
@@ -30,13 +30,13 @@ body {
   margin-top: 40px;
   width: 300px;
   padding: 20px;
-  .bg-radial(@darkGrey, black);
+  .bg-radial(@darkGrey, @black);
 
   .single-form-container {
     width: 90%;
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 20px 20px;
-    .bg-linear(black, @white);
+    .bg-linear(@black, @white);
   }
 }

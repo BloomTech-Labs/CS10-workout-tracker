@@ -1,5 +1,5 @@
 .main__landing__page {
-  text-shadow: 0px 0px 5px black;
+  text-shadow: 0px 0px 5px @black;
 }
 
 p {
@@ -14,8 +14,7 @@ p {
 
 .col__2 {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+  .flex-and-justify(space-between);
 }
 
 .primary__color__font {
@@ -23,11 +22,9 @@ p {
 }
 
 .landing__nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  .justify-align-center(space-between);
   padding: 20px 35px;
-  background: linear-gradient(black, #222222, #111111);
+  background: linear-gradient(@black, @mineshaft, @codGrey);
   opacity: 0.9;
   position: fixed;
   z-index: 10;
@@ -42,7 +39,7 @@ p {
     color: @grey;
 
     span:hover {
-      color: white;
+      color: @white;
       cursor: pointer;
     }
 
@@ -53,8 +50,7 @@ p {
 }
 
 .right__nav {
-  display: flex;
-  justify-content: space-between;
+  .flex-and-justify(space-between);
 }
 
 .main__landing__background {
@@ -87,16 +83,15 @@ p {
 .about__app__landing {
   padding: 0 35px 120px 35px;
   width: 100%;
-  .bg-radial(@darkGrey, black);
+  .bg-radial(@darkGrey, @black);
   .display__more {
     position: relative;
     bottom: 30px;
     margin-bottom: 10px;
-    .bg-radial(@primary, black);
+    .bg-radial(@primary, @black);
 
     .container {
-      display: flex;
-      justify-content: space-between;
+      .flex-and-justify(space-between);
       align-items: flex-end;
       position: relative;
       bottom: 50px;
@@ -119,8 +114,7 @@ p {
   width: 100%;
   color: @grey;
   .container {
-    display: flex;
-    justify-content: space-around;
+    .flex-and-justify(space-around);
 
     i {
       width: 80px;
@@ -154,7 +148,7 @@ p {
   width: 100%;
   padding: 100px 0;
   text-align: center;
-  .bg-radial(@secondary, black);
+  .bg-radial(@secondary, @black);
 
   h2 {
     font-size: 40px;
@@ -182,16 +176,13 @@ p {
     }
 
     div {
-      display: flex;
-      justify-content: space-around;
+      .flex-and-justify(space-around);
       max-width: 800px;
       width: 80%;
       margin: 0 auto;
 
       p {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        .justify-align-center(center);
         font-size: 32px;
         flex-basis: 30%;
         border-left: 3px solid @grey;
@@ -215,7 +206,7 @@ p {
 
 footer {
   font-size: 24px;
-  .bg-radial(@secondary, black);
+  .bg-radial(@secondary, @black);
   color: @primary;
   text-align: center;
 

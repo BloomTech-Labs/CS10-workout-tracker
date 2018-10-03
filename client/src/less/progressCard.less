@@ -6,14 +6,13 @@
   .card {
     border: none;
     border-radius: none;
-    box-shadow: 5px 5px 15px black;
+    box-shadow: 5px 5px 15px @black;
 
     .card-header {
-      display: flex;
-      justify-content: space-between;
+      .flex-and-justify(space-between);
       padding: 0;
       color: @grey;
-      background: linear-gradient(to right, black, @grey);
+      background: linear-gradient(to right, @black, @grey);
 
       .card-date {
         display: inline-block;
@@ -23,21 +22,20 @@
       }
 
       .btn-container {
-        display: flex;
-        justify-content: flex-end;
+        .flex-and-justify(flex-end);
 
         .icon-btn {
           margin: 6px;
 
           .icon {
-            color: black;
+            color: @black;
           }
         }
       }
     }
 
     .card-body {
-      .bg-radial(@secondary, black);
+      .bg-radial(@secondary, @black);
       color: @grey;
     }
   }
