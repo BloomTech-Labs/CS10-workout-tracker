@@ -1,9 +1,8 @@
 .outer-container {
-  background: radial-gradient(black, @secondary);
+  .bg-radial(black, @secondary);
   min-height: 100vh;
 
   .container {
-    box-sizing: border-box;
     .center();
     max-width: 1000px;
     width: 90%;
@@ -15,7 +14,7 @@
       justify-content: flex-start;
       width: 100%;
       padding: 7px 0;
-      background: radial-gradient(@grey, black);
+      .bg-radial(@grey, black);
       min-height: 500px;
       height: 100%;
     }

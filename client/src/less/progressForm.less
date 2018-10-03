@@ -1,6 +1,6 @@
 .modal-container {
   margin: 10px 0;
-  background: linear-gradient(@darkGrey, black);
+  .bg-linear(@darkGrey, black);
 
   .add-progress-btn {
     .button-creator(linear-gradient(@darkGrey, black), @grey);
@@ -16,21 +16,21 @@
   width: 80%;
 
   .modal-header {
-    background: linear-gradient(@darkGrey, black);
+    .bg-linear(@darkGrey, black);
     color: white;
   }
 
   .modal-body {
-    background: linear-gradient(@secondary, black) !important;
+    .bg-linear(@secondary, black) !important;
   }
 
   .modal-footer {
-    background: linear-gradient(@darkGrey, black);
+    .bg-linear(@darkGrey, black);
   }
 }
 
 .error {
-  background: linear-gradient(@secondary, black);
+  .bg-linear(@secondary, black);
   font-size: 16px;
   color: red;
   padding-left: 15px;

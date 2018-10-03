@@ -10,7 +10,7 @@ body {
   font-family: sans-serif;
   min-width: 100vw;
   min-height: 100vh;
-  background: linear-gradient(@secondary, black);
+  .bg-linear(@secondary, black);
 }
 
 .push__nav {
@@ -19,13 +19,13 @@ body {
 
 .main__side__content {
   display: flex;
+  justify-content: space-between;
   text-align: center;
   max-width: 1500px;
   height: 100%;
   width: 100%;
   margin: 0 auto;
-  justify-content: space-between;
-  background: radial-gradient(black, white);
+  .bg-radial(black, white);
 }
 
 .main__container {
@@ -50,13 +50,13 @@ body {
   margin-top: 40px;
   width: 300px;
   padding: 20px;
-  background: radial-gradient(@darkGrey, black);
+  .bg-radial(@darkGrey, black);
 
   .single-form-container {
     width: 90%;
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 20px 20px;
-    background: linear-gradient(black, @white);
+    .bg-linear(black, @white);
   }
 }

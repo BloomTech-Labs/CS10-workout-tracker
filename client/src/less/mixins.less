@@ -5,12 +5,20 @@
   box-shadow: 1px 1px 7px black;
 }
 
-.flexCol {
+.flexCol() {
   display: flex;
   flex-direction: column;
 }
 
-.center {
+.center() {
   .flexCol();
   align-items: center;
+}
+
+.bg-linear(@first, @second) {
+  background: linear-gradient(@first, @second);
+}
+
+.bg-radial(@first, @second) {
+  background: radial-gradient(@first, @second);
 }

@@ -27,7 +27,7 @@ p {
   justify-content: space-between;
   align-items: center;
   padding: 20px 35px;
-  background-image: linear-gradient(black, #222222, #111111);
+  background: linear-gradient(black, #222222, #111111);
   opacity: 0.9;
   position: fixed;
   z-index: 10;
@@ -87,12 +87,12 @@ p {
 .about__app__landing {
   padding: 0 35px 120px 35px;
   width: 100%;
-  background: radial-gradient(@darkGrey, black);
+  .bg-radial(@darkGrey, black);
   .display__more {
     position: relative;
     bottom: 30px;
     margin-bottom: 10px;
-    background: radial-gradient(@primary, black);
+    .bg-radial(@primary, black);
 
     .container {
       display: flex;
@@ -154,7 +154,7 @@ p {
   width: 100%;
   padding: 100px 0;
   text-align: center;
-  background: radial-gradient(@secondary, black);
+  .bg-radial(@secondary, black);
 
   h2 {
     font-size: 40px;
@@ -215,7 +215,7 @@ p {
 
 footer {
   font-size: 24px;
-  background: radial-gradient(@secondary, black);
+  .bg-radial(@secondary, black);
   color: @primary;
   text-align: center;
 

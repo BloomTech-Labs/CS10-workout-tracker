@@ -52,7 +52,7 @@ class Settings extends Component {
         <div className="settings-container">
           <div className="forms-container">
             <div className="single-form-container">
-              <Form className="emailForm" onSubmit={this.handleEmailSubmit}>
+              <Form className="email-form" onSubmit={this.handleEmailSubmit}>
                 <FormGroup row>
                   <Input
                     className="settings-input"
@@ -70,7 +70,7 @@ class Settings extends Component {
             </div>
             <div className="single-form-container">
               <Form
-                className="passwordForm"
+                className="password-form"
                 onSubmit={this.handlePasswordSubmit}
               >
                 <FormGroup row>
