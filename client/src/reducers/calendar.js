@@ -1,7 +1,6 @@
 import * as Actions from "../actions/actionDefinitions";
 
 const initialState = {
-  // routines: [],
   workouts: [],
   performances: [],
   msg: "",
@@ -9,22 +8,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    // case Actions.FETCHING_ROUTINES:
-    //   return {
-    //     ...state,
-    //     msg: action.payload
-    //   };
-    // case Actions.FETCH_ROUTINES_SUCCESS:
-    //   return {
-    //     ...state,
-    //     msg: "Fetched the user's workout routines.",
-    //     routines: action.payload.data.routines
-    //   };
-    // case Actions.FETCH_ROUTINES_FAILURE:
-    //   return {
-    //     ...state,
-    //     msg: "Couldn't fetch the user's workout routines."
-    //   };
     case Actions.FETCHING_WORKOUTS:
       return {
         ...state,
@@ -47,13 +30,10 @@ export default (state = initialState, action) => {
         msg: action.payload
       };
     case Actions.SCHEDULE_WORKOUT_SUCCESS:
-    // console.log("ACTION PAYLOAD", action.payload)
-    // const newPerformances = action.payload.hydratedWorkout.performances.map(performance => { return performance})
       return {
         ...state,
         msg: "Scheduled user's workout",
         workouts: [...state.workouts, action.payload.hydratedWorkout],
-        // performances: state.performances.concat(newPerformances)
         performances: state.performances.concat(action.payload.hydratedWorkout.performances)
       };
     case Actions.SCHEDULE_WORKOUT_FAILURE:

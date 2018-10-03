@@ -94,9 +94,6 @@ class CalendarPage extends Component {
     this.selectedRoutineId = "";
     this.selectedSlotDate = "";
     this.schedulingModalToggle();
-    // window.location.reload() /* TODO: this is  a temp fix for performance(s) being absent in workout 
-    // doc upon scheduling. Hypothesis: they are absent because findByIdAndUpdate is not returning
-    // the updated workout doc. Tried {new: true} but to no avail */
   };
 
   handleSubmitCopyWorkouts = () => {
@@ -151,8 +148,6 @@ class CalendarPage extends Component {
   selectedEventTitle;
 
   render() {
-    // console.log("PERFORMANCES" , this.state.performances[0]["weight"])
-    // console.log("PERFORMANCES FROM COMPONENT", this.props.performances)
     
     // the events array is required by react-big-calendar
     this.events = this.props.workouts.map(workout => ({
@@ -339,7 +334,6 @@ const mapStateToProps = state => {
   return {
     routines: state.RoutineManager.routines,
     workouts: state.calendar.workouts,
-    // usageMode: state.calendar.usageMode,
     performances: state.calendar.performances
   };
 };

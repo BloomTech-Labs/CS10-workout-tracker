@@ -3,7 +3,6 @@ const Performance = require("../models/Performance");
 const User = require("../models/User");
 const Routine = require("../models/Routine");
 const Workout = require("../models/Workout");
-// require('mongoose').set('debug', true)
 
 const fetchWorkoutDoc = (req, res) => {
   const { workoutId } = req.body;
@@ -296,7 +295,6 @@ const fetchAllWorkouts = (req, res) => {
 //     });
 // };
 
-// ###################################################################
 const scheduleWorkout = async (workoutDoc, routineId, userId, date, next) => {
   try {
     const workoutRoutine = await Routine.findByIdAndUpdate(routineId, {
@@ -381,7 +379,6 @@ const scheduleWorkout = async (workoutDoc, routineId, userId, date, next) => {
     return next(error);
   }
 };
-// ###################################################################
 
 const createAndScheduleWorkout = (req, res) => {
   const { routineId, date, note } = req.body;
@@ -444,7 +441,6 @@ const copyWorkoutRange = (req, res) => {
         newWorkout
           .save()
           .then(savedWorkout => {
-            // const scheduledWorkouts = [];
 
             scheduleWorkout(
               savedWorkout,
@@ -508,12 +504,3 @@ module.exports = {
   createAndScheduleWorkout,
   deleteWorkout
 };
-
-// ARGUMENTS { performances: [],
-//   _id: 5bb393c55688c958b5d1e6bd,
-//   routine: 5bae986721d52cd738756d2d,
-//   user: 5bae792e21d52cd738756d1a,
-//   date: 2018-10-18T05:00:00.000Z,
-//   __v: 0 } 5bae986721d52cd738756d2d 5bae792e21d52cd738756d1a 2018-10-18T05:00:00.000Z schedulingResult => {
-//           res.status(schedulingResult.status).json(schedulingResult);
-//         }
