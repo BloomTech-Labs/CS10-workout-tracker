@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import moment from "moment";
-import "../../css/main.css";
 
 const ProgressTracker = props => {
   // || operator is used to short circuit the absence of props upon render

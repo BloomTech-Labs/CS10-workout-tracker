@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { logout } from "../actions";
-import "../css/main.css";
 
 class SideBar extends Component {
   handleLogout = event => {

@@ -10,8 +10,6 @@ import {
   scheduleWorkout
 } from "../actions";
 
-import "../css/main.css";
-
 class Workouts extends Component {
   componentDidMount() {
     this.props.fetchRoutines();

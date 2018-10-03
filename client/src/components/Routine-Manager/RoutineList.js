@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { selectRoutine, postNewRoutine } from "../../actions";
 
-import "../../css/main.css";
-
 class RoutineList extends Component {
   render() {
     return (

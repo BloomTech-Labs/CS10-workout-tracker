@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { resetPassword } from "../actions";
 import { Button, Form, FormGroup, Input } from "reactstrap";
-import "../css/main.css";
 
 class PasswordReset extends Component {
   state = {

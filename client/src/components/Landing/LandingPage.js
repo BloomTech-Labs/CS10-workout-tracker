@@ -4,7 +4,6 @@ import AboutApp from "./AboutApp";
 import Quote from "./Quote";
 import HowToStart from "./HowToStart";
 import "animate.css/animate.min.css";
-import "../../css/main.css";
 
 class LandingPage extends Component {
   render() {
