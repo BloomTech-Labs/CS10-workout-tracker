@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { register, login, logout, forgotPassword } from "../actions";
+import validator from "validator";
 
 class Nav extends React.Component {
   constructor() {
@@ -24,7 +25,8 @@ class Nav extends React.Component {
       email: "",
       signUpModal: false,
       signInModal: false,
-      forgotModal: false
+      forgotModal: false,
+      errors: {}
     };
   }
 
@@ -45,7 +47,8 @@ class Nav extends React.Component {
 
   toggleSignUpModal = () => {
     this.setState({
-      signUpModal: !this.state.signUpModal
+      signUpModal: !this.state.signUpModal,
+      errors: {}
     });
   };
 
@@ -57,6 +60,50 @@ class Nav extends React.Component {
 
   handleSignup = event => {
     event.preventDefault();
+    const { username, password, confirmPassword, email } = this.state;
+    const newErrors = {};
+
+    if(username.trim() === "") {
+      newErrors.username = "Username is Required";
+    }
+
+    
+
+    if(password.trim().length < 6) {
+      newErrors.password = "Password must be at least 6 characters"
+    }
+
+    if(password.trim() === "") {
+      newErrors.password = "Password is Required";
+    }
+
+
+    if(confirmPassword.trim().length < 6) {
+      newErrors.confirmPassword = "Confirm Password must be at least 6 characters";
+    }
+
+    if(confirmPassword.trim() === "") {
+      newErrors.confirmPassword = "Confirm Password is Required";
+    }
+
+    if(password.trim() !== confirmPassword.trim()) {
+      newErrors.password = "Must match Confirm Password";
+      newErrors.confirmPassword = "Must match Password";
+    }
+
+    if(!validator.isEmail(email.trim())) {
+      newErrors.email = "Must be valid email";
+    }
+
+    if(email.trim() === "") {
+      newErrors.email = "Email is required";
+    }
+
+    if(Object.keys(newErrors).length > 0) {
+      return this.setState({errors: newErrors});
+    }
+
+
     if (this.state.password === this.state.confirmPassword) {
       this.props.register(
         {
@@ -126,6 +173,22 @@ class Nav extends React.Component {
       </div>
     );
 
+    const emailErrors = (
+      this.state.errors.email ? <span>{this.state.errors.email}</span>: null
+    )
+
+    const usernameErrors = (
+      this.state.errors.username ? <span>{this.state.errors.username}</span>: null
+    )
+
+    const passwordErrors = (
+      this.state.errors.password ? <span>{this.state.errors.password}</span>: null
+    )
+
+    const confirmPasswordErrors = (
+      this.state.errors.confirmPassword ? <span>{this.state.errors.confirmPassword}</span>: null
+    )
+
     return (
       <header>
         <nav className="landing__nav">
@@ -138,7 +201,7 @@ class Nav extends React.Component {
         <Modal
           isOpen={this.state.signUpModal}
           toggle={this.toggleSignUpModal}
-          className="sign__in"
+          className="sign__up"
         >
           <ModalHeader toggle={this.toggleSignUpModal}>SignUp</ModalHeader>
           <ModalBody>
@@ -150,6 +213,7 @@ class Nav extends React.Component {
                 name="username"
               />
             </InputGroup>
+            {usernameErrors}
             <InputGroup>
               <Input
                 placeholder="password"
@@ -159,6 +223,7 @@ class Nav extends React.Component {
                 name="password"
               />
             </InputGroup>
+            {passwordErrors}
             <InputGroup>
               <Input
                 placeholder="confirm password"
@@ -168,6 +233,7 @@ class Nav extends React.Component {
                 name="confirmPassword"
               />
             </InputGroup>
+            {confirmPasswordErrors}
             <InputGroup>
               <Input
                 placeholder="Email"
@@ -175,8 +241,9 @@ class Nav extends React.Component {
                 value={this.state.email}
                 onChange={this.handleFieldChange}
                 name="email"
-              />
+              />   
             </InputGroup>
+            {emailErrors}
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.handleSignup}>
@@ -193,7 +260,7 @@ class Nav extends React.Component {
         <Modal
           isOpen={this.state.signInModal}
           toggle={this.toggleSignInModal}
-          className="sign__up"
+          className="sign__in"
         >
           <ModalHeader toggle={this.toggleSignInModal}>SignIn</ModalHeader>
           <ModalBody>

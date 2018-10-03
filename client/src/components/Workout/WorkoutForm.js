@@ -49,7 +49,7 @@ class WorkoutForm extends React.Component {
     }
 
     if(weight <= 0 || weight > 1000) {
-      newError.weight = "Weight should be between 1 and 1000"
+      newError.weight = "Weight must be between 1 and 1000"
     }
 
     if(weight == "") {
@@ -57,7 +57,7 @@ class WorkoutForm extends React.Component {
     }
 
     if(sets <= 0 || weight > 1000) {
-      newError.sets = "Sets mush be between 1 and 1000"
+      newError.sets = "Sets must be between 1 and 1000"
     }
 
     if(sets == "") {
@@ -65,7 +65,7 @@ class WorkoutForm extends React.Component {
     }
 
     if(reps <= 0 || weight > 1000) {
-      newError.reps = "Reps mush be between 1 and 1000"
+      newError.reps = "Reps must be between 1 and 1000"
     }
 
     if(reps == "") {
@@ -153,6 +153,7 @@ class WorkoutForm extends React.Component {
           onChange={this.handleChange}
           />
           {this.state.errors.reps ? <span>{this.state.errors.reps}</span>: null}
+          <br/>
           <button>Add Exercise</button>
         </form>
       </div>

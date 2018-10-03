@@ -31,6 +31,10 @@ export const register = (data, history) => {
           type: Actions.REGISTER_FAILURE,
           payload: err
         });
+        dispatch({
+          type: Actions.GET_VAL_ERRORS,
+          payload: err.response.data
+        })
       });
   };
 };
