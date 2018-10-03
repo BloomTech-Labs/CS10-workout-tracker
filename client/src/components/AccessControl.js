@@ -16,11 +16,7 @@ export default ComposedComponent => {
       console.log("Access control is happening");
       return (
         <div>
-          {this.props.authenticated ? (
-            <ComposedComponent />
-          ) : (
-            <LandingPage />
-          )}
+          {this.props.authenticated ? <ComposedComponent /> : <LandingPage />}
         </div>
       );
     }

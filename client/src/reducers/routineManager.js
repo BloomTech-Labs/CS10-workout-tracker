@@ -44,7 +44,7 @@ export default (state = initialState, action) => {
     case Actions.FETCH_ROUTINE_HISTORY_SUCCESS:
       return {
         ...state,
-        focusedRoutine: action.payload,
+        focusedRoutine: action.payload
       };
     case Actions.POSTING_NEW_ROUTINE:
       return {
