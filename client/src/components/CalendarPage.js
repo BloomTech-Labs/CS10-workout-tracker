@@ -151,6 +151,7 @@ class CalendarPage extends Component {
   selectedEventTitle;
 
   render() {
+    // console.log("PERFORMANCES" , this.state.performances[0]["weight"])
     
     // the events array is required by react-big-calendar
     this.events = this.props.workouts.map(workout => ({
@@ -190,6 +191,7 @@ class CalendarPage extends Component {
     });
 
     return (
+     
       <div style={{display: "flex"}}>
         <div style={{ height: "500px", width: "90%"}}>
           <BigCalendar
@@ -292,12 +294,12 @@ class CalendarPage extends Component {
                             this.handleCheckOffInDB(checkoffObj.performanceId);
                           }}
                           style={{ marginLeft: "15px", marginTop: "5px" }}
-                          checked={
-                            this.state.performances.filter(
-                              performance =>
-                                performance._id === checkoffObj.performanceId
-                            )[0].completed
-                          }
+                          // checked={
+                          //   this.state.performances.filter(
+                          //     performance =>
+                          //       performance._id === checkoffObj.performanceId
+                          //   )[0].completed
+                          // }
                         />
                       </div>
                       <div style={{ color: "white" }}>
