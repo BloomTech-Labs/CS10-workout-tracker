@@ -441,7 +441,6 @@ const copyWorkoutRange = (req, res) => {
         newWorkout
           .save()
           .then(savedWorkout => {
-
             scheduleWorkout(
               savedWorkout,
               routineId,
@@ -449,9 +448,19 @@ const copyWorkoutRange = (req, res) => {
               savedWorkout.date,
               schedulingResult => {
                 scheduledWorkouts.push(schedulingResult);
-                console.log("SCHEDULED WORKOUTS", scheduledWorkouts, "INDEX",index);
+                console.log(
+                  "SCHEDULED WORKOUTS",
+                  scheduledWorkouts,
+                  "INDEX",
+                  index
+                );
                 if (scheduledWorkouts.length === numberOfWorkoutsToSchedule) {
-                  console.log("INDEX AND NUMBER OF WORKOUTS TO SCHEDULE", index, numberOfWorkoutsToSchedule, scheduledWorkouts)
+                  console.log(
+                    "INDEX AND NUMBER OF WORKOUTS TO SCHEDULE",
+                    index,
+                    numberOfWorkoutsToSchedule,
+                    scheduledWorkouts
+                  );
                   res.status(201).json(scheduledWorkouts);
                 }
               }

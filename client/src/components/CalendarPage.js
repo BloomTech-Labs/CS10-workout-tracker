@@ -9,7 +9,7 @@ import {
   scheduleWorkout,
   fetchAllWorkouts,
   deleteWorkout,
-  fetchAllPerformanceDocs, 
+  fetchAllPerformanceDocs,
   copyWorkouts
 } from "../actions";
 import "../less/calendarPage.css";
@@ -62,9 +62,8 @@ class CalendarPage extends Component {
   onSelectSlot = selected => {
     if (this.state.usageMode === "NEW_WORKOUT") {
       this.selectedSlotDate = selected.start;
-    this.schedulingModalToggle();
+      this.schedulingModalToggle();
     } else {
-      
     }
   };
 
@@ -75,8 +74,8 @@ class CalendarPage extends Component {
   };
 
   handleDateChange = e => {
-    this.setState({[e.target.name]: e.target.value})
-  }
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   handleChange = e => {
     /* this is utilizing the onChange inside <select> of the scheduling modal to grab 
@@ -98,9 +97,17 @@ class CalendarPage extends Component {
 
   handleSubmitCopyWorkouts = () => {
     const { copyFromStartDate, copyFromEndDate, copyToStartDate } = this.state;
-    this.props.copyWorkouts(copyFromStartDate, copyFromEndDate, copyToStartDate )
-    this.setState({copyFromStartDate: "", copyFromEndDate: "", copyToStartDate: ""})
-  }
+    this.props.copyWorkouts(
+      copyFromStartDate,
+      copyFromEndDate,
+      copyToStartDate
+    );
+    this.setState({
+      copyFromStartDate: "",
+      copyFromEndDate: "",
+      copyToStartDate: ""
+    });
+  };
 
   deleteWorkout = () => {
     this.props.deleteWorkout(this.selectedEventId);
@@ -148,13 +155,12 @@ class CalendarPage extends Component {
   selectedEventTitle;
 
   render() {
-    
     // the events array is required by react-big-calendar
     this.events = this.props.workouts.map(workout => ({
       start: new Date(workout.date),
       end: new Date(workout.date),
       title: workout.routine.title,
-      id: workout._id,
+      id: workout._id
     }));
 
     let allViews = Object.keys(BigCalendar.Views).map(
@@ -170,12 +176,12 @@ class CalendarPage extends Component {
     that allows the user to checkoff completed exercise(s)/performance(s) */
     this.props.workouts.map(workout => {
       workoutId = workout._id;
-     workout.performances.map(performance => {
-      
+      workout.performances.map(performance => {
         checkoffObj.workoutId = workoutId;
         checkoffObj.performanceId = performance._id;
         checkoffObj.completed = performance.completed;
-        checkoffObj.exerciseName = performance.exercise.name || performance.exerciseName;
+        checkoffObj.exerciseName =
+          performance.exercise.name || performance.exerciseName;
         checkoffObj.weight = performance.weight;
         checkoffObj.sets = performance.sets;
         checkoffObj.reps = performance.reps;
@@ -183,13 +189,12 @@ class CalendarPage extends Component {
         checkoff.push(checkoffObj);
 
         checkoffObj = {};
-      })
+      });
     });
 
     return (
-     
-      <div style={{display: "flex"}}>
-        <div style={{ height: "500px", width: "90%"}}>
+      <div style={{ display: "flex" }}>
+        <div style={{ height: "500px", width: "90%" }}>
           <BigCalendar
             popup
             events={this.events}
@@ -198,36 +203,81 @@ class CalendarPage extends Component {
             showMultiDayTimes
             defaultDate={new Date()}
             defaultView="month"
-            style={{ height: "100vh"}}
+            style={{ height: "100vh" }}
             selectable={true}
             onSelectSlot={this.onSelectSlot}
             onSelectEvent={this.onSelectEvent}
           />
         </div>
-        <div style={{marginTop: "40px", marginRight: "70px"}}> 
-          <div style={{display: "flex"}}>
-            <Button style={{height: "50px", width: "100px", fontSize: "10px", backgroundColor: this.state.usageMode === "NEW_WORKOUT" ? "red" : null }} onClick={() => {this.setState({usageMode: "NEW_WORKOUT"})}}>NEW WORKOUT</Button>
-            <Button style={{height: "50px", width: "100px", fontSize: "10px", backgroundColor: this.state.usageMode === "COPY_WORKOUTS" ? "red" : null}} onClick={() => {this.setState({usageMode: "COPY_WORKOUTS"})}}>COPY WORKOUTS</Button>
+        <div style={{ marginTop: "40px", marginRight: "70px" }}>
+          <div style={{ display: "flex" }}>
+            <Button
+              style={{
+                height: "50px",
+                width: "100px",
+                fontSize: "10px",
+                backgroundColor:
+                  this.state.usageMode === "NEW_WORKOUT" ? "red" : null
+              }}
+              onClick={() => {
+                this.setState({ usageMode: "NEW_WORKOUT" });
+              }}
+            >
+              NEW WORKOUT
+            </Button>
+            <Button
+              style={{
+                height: "50px",
+                width: "100px",
+                fontSize: "10px",
+                backgroundColor:
+                  this.state.usageMode === "COPY_WORKOUTS" ? "red" : null
+              }}
+              onClick={() => {
+                this.setState({ usageMode: "COPY_WORKOUTS" });
+              }}
+            >
+              COPY WORKOUTS
+            </Button>
           </div>
-          {this.state.usageMode === "COPY_WORKOUTS" &&  
-          <form style={{backgroundColor: "blue", height: "300px", width: "200px"}}>
-            <div>
-              <label>copy from start date</label>
-              <input type="date" name="copyFromStartDate" value={this.state.copyFromStartDate} onChange={this.handleDateChange}>
-              </input>
-            </div>
-            <div>
-              <label>copy from end date</label>
-              <input type="date" name="copyFromEndDate" value={this.state.copyFromEndDate} onChange={this.handleDateChange}>
-              </input>
-            </div>
-            <div>
-              <label>copy to date</label>
-              <input type="date" name="copyToStartDate" value={this.state.copyToStartDate} onChange={this.handleDateChange}>
-              </input>
-            </div>
-            <Button onClick={this.handleSubmitCopyWorkouts}>Submit</Button>
-          </form>}
+          {this.state.usageMode === "COPY_WORKOUTS" && (
+            <form
+              style={{
+                backgroundColor: "blue",
+                height: "300px",
+                width: "200px"
+              }}
+            >
+              <div>
+                <label>copy from start date</label>
+                <input
+                  type="date"
+                  name="copyFromStartDate"
+                  value={this.state.copyFromStartDate}
+                  onChange={this.handleDateChange}
+                />
+              </div>
+              <div>
+                <label>copy from end date</label>
+                <input
+                  type="date"
+                  name="copyFromEndDate"
+                  value={this.state.copyFromEndDate}
+                  onChange={this.handleDateChange}
+                />
+              </div>
+              <div>
+                <label>copy to date</label>
+                <input
+                  type="date"
+                  name="copyToStartDate"
+                  value={this.state.copyToStartDate}
+                  onChange={this.handleDateChange}
+                />
+              </div>
+              <Button onClick={this.handleSubmitCopyWorkouts}>Submit</Button>
+            </form>
+          )}
         </div>
         {/* Scheduling Modal */}
 
@@ -303,9 +353,9 @@ class CalendarPage extends Component {
                       </div>
                     </div>
                     <div>
-                     {`weight : ${checkoffObj.weight}`}
-                     {`sets : ${checkoffObj.sets}`}
-                     {`reps : ${checkoffObj.reps}`}
+                      {`weight : ${checkoffObj.weight}`}
+                      {`sets : ${checkoffObj.sets}`}
+                      {`reps : ${checkoffObj.reps}`}
                     </div>
                   </div>
                 ) : null

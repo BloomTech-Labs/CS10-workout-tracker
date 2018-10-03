@@ -81,7 +81,7 @@ module.exports = app => {
   app.route("/fetch-workout").post(verifyToken, fetchWorkoutDoc);
   app.route("/workouts").get(verifyToken, fetchAllWorkouts);
   app.route("/workouts/:id").delete(verifyToken, deleteWorkout);
-  app.route("/workouts-copy").post(verifyToken, copyWorkoutRange)
+  app.route("/workouts-copy").post(verifyToken, copyWorkoutRange);
 
   // PERFORMANCES
   app.route("/performance/:id").put(verifyToken, checkOffPerformance);

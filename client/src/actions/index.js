@@ -413,7 +413,7 @@ export const scheduleWorkout = (routineId, date) => {
       .then(response => {
         dispatch({
           type: Actions.SCHEDULE_WORKOUT_SUCCESS,
-          payload: response.data,
+          payload: response.data
         });
       })
       .catch(err => {
@@ -425,15 +425,28 @@ export const scheduleWorkout = (routineId, date) => {
   };
 };
 
-export const copyWorkouts = (copyFromStartDate, copyFromEndDate, copyToStartDate) => {
-  const shiftDistance = Date.parse(copyToStartDate) - Date.parse(copyFromStartDate);
+export const copyWorkouts = (
+  copyFromStartDate,
+  copyFromEndDate,
+  copyToStartDate
+) => {
+  const shiftDistance =
+    Date.parse(copyToStartDate) - Date.parse(copyFromStartDate);
   return dispatch => {
     dispatch({
       type: Actions.COPYING_WORKOUTS,
       payload: "About to copy workouts..."
     });
     axios
-      .post(`${ROOT_URL}/workouts-copy`, { startDate: copyFromStartDate, endDate: copyFromEndDate, shiftDistance }, requestOptions)
+      .post(
+        `${ROOT_URL}/workouts-copy`,
+        {
+          startDate: copyFromStartDate,
+          endDate: copyFromEndDate,
+          shiftDistance
+        },
+        requestOptions
+      )
       .then(response => {
         dispatch({
           type: Actions.COPY_WORKOUTS_SUCCESS,
@@ -446,7 +459,7 @@ export const copyWorkouts = (copyFromStartDate, copyFromEndDate, copyToStartDate
           payload: err
         });
       });
-    };
+  };
 };
 
 export const fetchAllWorkouts = () => {
@@ -454,7 +467,6 @@ export const fetchAllWorkouts = () => {
     dispatch({
       type: Actions.FETCHING_WORKOUTS,
       payload: "Fetching user's workouts"
-
     });
     axios
       .get(`${ROOT_URL}/workouts`, requestOptions)
@@ -485,16 +497,15 @@ export const deleteWorkout = id => {
       })
       .catch(err => {
         console.log(err);
-      })
-  }
-}
+      });
+  };
+};
 
 export const fetchAllPerformanceDocs = () => {
   return dispatch => {
     dispatch({
       type: Actions.FETCHING_PERFORMANCES,
       payload: "Fetching user's performances"
-
     });
     axios
       .get(`${ROOT_URL}/performances`, requestOptions)
@@ -511,7 +522,7 @@ export const fetchAllPerformanceDocs = () => {
         });
       });
   };
-}
+};
 
 export const changePassword = data => {
   let token = localStorage.getItem("token");
@@ -587,5 +598,3 @@ export const processPayment = data => {
       });
   };
 };
-
-

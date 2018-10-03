@@ -3,7 +3,7 @@ import * as Actions from "../actions/actionDefinitions";
 const initialState = {
   workouts: [],
   performances: [],
-  msg: "",
+  msg: ""
 };
 
 export default (state = initialState, action) => {
@@ -34,7 +34,9 @@ export default (state = initialState, action) => {
         ...state,
         msg: "Scheduled user's workout",
         workouts: [...state.workouts, action.payload.hydratedWorkout],
-        performances: state.performances.concat(action.payload.hydratedWorkout.performances)
+        performances: state.performances.concat(
+          action.payload.hydratedWorkout.performances
+        )
       };
     case Actions.SCHEDULE_WORKOUT_FAILURE:
       return {
@@ -44,23 +46,27 @@ export default (state = initialState, action) => {
     case Actions.COPYING_WORKOUTS:
       return {
         ...state,
-        msg: action.payload,
+        msg: action.payload
       };
     case Actions.COPY_WORKOUTS_SUCCESS:
-    const newWorkouts = action.payload.map(subResponse => { return subResponse.hydratedWorkout})
-    const newPerformances = newWorkouts.map(workout => {return workout.performances})
-    const flattenedPerformances = newPerformances.flat()
+      const newWorkouts = action.payload.map(subResponse => {
+        return subResponse.hydratedWorkout;
+      });
+      const newPerformances = newWorkouts.map(workout => {
+        return workout.performances;
+      });
+      const flattenedPerformances = newPerformances.flat();
       return {
         ...state,
         msg: "Successfully copied workouts",
         workouts: state.workouts.concat(newWorkouts),
         performances: state.performances.concat(flattenedPerformances)
-      }
+      };
     case Actions.COPY_WORKOUTS_FAILURE:
       return {
         ...state,
         msg: "Failed to duplicate workouts."
-      }
+      };
 
     case Actions.DELETE_WORKOUT:
       return {
@@ -73,18 +79,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         msg: action.payload
-      }
+      };
     case Actions.FETCH_PERFORMANCES_SUCCESS:
       return {
         ...state,
         msg: "Fetched the user's performances",
         performances: action.payload
-      }
+      };
     case Actions.FETCH_PERFORMANCES_FAILURE:
       return {
         ...state,
         msg: "Couldn't fetch the user's performances"
-      }
+      };
     default:
       return state;
   }
