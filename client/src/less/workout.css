@@ -2,8 +2,15 @@
   display: flex;
   width: 100%;
   min-height: 88vh;
+  max-height: 88vh;
   color: black;
   background: radial-gradient(#000033, black);
+}
+.main__workout h2 {
+  text-shadow: 3px 3px black;
+}
+.main__workout button {
+  cursor: pointer;
 }
 .main__workout .routine__list {
   flex-basis: 33%;
@@ -24,7 +31,7 @@
   box-shadow: 5px 5px 15px black;
 }
 .main__workout .routine__list .routine__list__container h2 {
-  font-size: 24px;
+  font-size: 20px;
   padding: 10px 15px;
 }
 .main__workout .routine__list .routine__list__container .routine {
@@ -34,9 +41,17 @@
   background: grey;
   margin: 5px;
   overflow: hidden;
+  margin: 11px;
+  box-shadow: 10px 8px 15px black;
   text-shadow: 3px 3px black;
   color: white;
   background: linear-gradient(to right, black, darkgrey);
+  cursor: pointer;
+}
+.main__workout .routine__list .routine__list__container .routine:hover {
+  background: linear-gradient(to right, black, #260951);
+  color: #cccccc;
+  text-shadow: 1px 1px #000033;
 }
 .main__workout .workout__form {
   flex-basis: 33%;
@@ -51,43 +66,57 @@
   background: radial-gradient(#260951, black);
   margin: 0 5px;
   min-height: 90%;
+  width: 90%;
   margin: 0px 13px;
   box-shadow: 5px 5px 15px black;
 }
 .main__workout .workout__form .routine__input__form h2 {
-  font-size: 24px;
+  font-size: 20px;
 }
 .main__workout .workout__form .routine__input__form input {
   margin: 15px 0;
   width: 90%;
   padding: 5px;
+  font-weight: bold;
+  box-shadow: 10px 8px 15px black;
 }
 .main__workout .workout__form .routine__input__form button {
   padding: 5px 15px;
-  color: #cccccc;
+  color: white;
   border: none;
-  background: radial-gradient(#CC0000, black);
+  box-shadow: 10px 8px 15px black;
+  text-shadow: 3px 3px black;
+  background: linear-gradient(to left, #cc0000, black);
+}
+.main__workout .workout__form .routine__input__form button:hover {
+  background: linear-gradient(to left, #666666, black);
 }
 .main__workout .current__routine {
   flex-basis: 33%;
   min-height: 100%;
+  max-height: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .main__workout .current__routine .current__routine__container {
   min-height: 90%;
+  max-height: 90%;
   width: 90%;
   background: radial-gradient(#cccccc, black);
   padding: 30px 15px;
   box-shadow: 5px 5px 15px black;
   color: black;
+  overflow: scroll;
 }
 .main__workout .current__routine .current__routine__container h2 {
-  font-size: 22px;
-  background: none;
+  font-size: 20px;
+  color: #cccccc;
 }
 .main__workout .current__routine .current__routine__container h3 {
   font-size: 18px;
   color: #cc0000;
+}
+.main__workout .current__routine .current__routine__container .exercise__list {
+  overflow: scroll;
 }

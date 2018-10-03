@@ -100,15 +100,18 @@ class WorkoutForm extends React.Component {
   showRoutineForm = () => {
     return (
         <div className="routine__input__form">
-          <h2>Please add a routine name</h2>
+          <h2>CREATE NEW ROUTINE</h2>
           <form onSubmit={this.handleRoutineSubmit}>
             <input
             value={this.state.routineName}
             name="routineName"
+            autocomplete="off"
             placeholder="Routine Name"
             onChange={this.handleChange}
             />
             {this.state.errors.routineName ? <span className="form__validation">{this.state.errors.routineName} </span>: null}
+            <br/>
+            <br/>
             <button>Add Routine</button>
           </form>
         </div>
@@ -119,14 +122,15 @@ class WorkoutForm extends React.Component {
   showExerciseForm = () => {
     return (
       <div className="routine__input__form">
+        <h2>CREATE NEW EXERCISE</h2>
         <button onClick={() => this.props.clearCurrentRoutine()}>Create a new routine</button>
-        <h2>Please add your exercise</h2>
         <form onSubmit={this.handleExerciseSubmit}>
           <input
           value={this.state.exerciseName}
           name="exerciseName"
           placeholder="Exercise Name"
           onChange={this.handleChange}
+          autocomplete="off"
           />
           {this.state.errors.exerciseName ? <span className="form__validation">{this.state.errors.exerciseName}</span>: null}
           <input
@@ -134,6 +138,7 @@ class WorkoutForm extends React.Component {
           name="weight"
           type="number"
           placeholder="Weight"
+          autocomplete="off"
           onChange={this.handleChange}
           />
           {this.state.errors.weight ? <span className="form__validation">{this.state.errors.weight}</span>: null}
@@ -142,6 +147,7 @@ class WorkoutForm extends React.Component {
           name="sets"
           type="number"
           placeholder="Sets"
+          autocomplete="off"
           onChange={this.handleChange}
           />
           {this.state.errors.sets ? <span className="form__validation">{this.state.errors.sets}</span>: null}
@@ -150,9 +156,11 @@ class WorkoutForm extends React.Component {
           name="reps"
           type="number"
           placeholder="Reps"
+          autocomplete="off"
           onChange={this.handleChange}
           />
           {this.state.errors.reps ? <span className="form__validation">{this.state.errors.reps}</span>: null}
+          <br/>
           <br/>
           <button>Add Exercise</button>
         </form>

@@ -9,8 +9,16 @@
   display: flex;
   width: 100%;
   min-height: 88vh;
+  max-height: 88vh;
   color: black;
   background: radial-gradient(@secondary, black);
+  h2 {
+    text-shadow: 3px 3px black;
+  }
+
+  button {
+    cursor: pointer;
+  }
 
   .routine__list {
     flex-basis: 33%;
@@ -34,7 +42,7 @@
 
       h2 {
         // background: radial-gradient(@thirdary, black);
-        font-size: 24px;
+        font-size: 20px;
         padding: 10px 15px;
       }
       
@@ -45,9 +53,17 @@
         background: grey;
         margin: 5px;
         overflow: hidden;
+        margin: 11px;
+        box-shadow: 10px 8px 15px black;
         text-shadow: 3px 3px black;
         color: white;
         background: linear-gradient(to right,black, darkgrey);
+        cursor: pointer;
+        &:hover {
+          background:linear-gradient(to right,black, @thirdary);
+          color: @grey;
+          text-shadow: 1px 1px @secondary;
+        }
       }
     }
     
@@ -68,24 +84,33 @@
       background: radial-gradient(@thirdary, black);
       margin:0 5px;
       min-height: 90%;
+      width: 90%;
       margin: 0px 13px;
       box-shadow: 5px 5px 15px black;
 
       h2 {
-        font-size: 24px;
+        font-size: 20px;
       }
 
       input {
         margin: 15px 0;
         width: 90%;
         padding: 5px;
+        font-weight: bold;
+        box-shadow: 10px 8px 15px black;
       }
 
       button {
         padding: 5px 15px;
-        color: @grey;
+        color: white;
         border: none;
-        background: radial-gradient(#CC0000, black);
+        box-shadow: 10px 8px 15px black;
+        text-shadow: 3px 3px black;
+        background: linear-gradient(to left, @primary, black);
+
+        &:hover {
+          background: linear-gradient(to left, @darkGrey, black);
+        }
       }
     }
   }
@@ -93,6 +118,7 @@
   .current__routine {
     flex-basis: 33%;
     min-height: 100%;
+    max-height: 90%;
     // background-color: lightgoldenrodyellow;
     display: flex;
     justify-content: center;
@@ -100,18 +126,23 @@
 
     .current__routine__container {
       min-height: 90%;
+      max-height: 90%;
       width: 90%;
       background: radial-gradient(@grey, black);
       padding: 30px 15px;
       box-shadow: 5px 5px 15px black;
       color: black;
+      overflow: scroll;
       h2 {
-        font-size: 22px;
-        background: none;
+        font-size: 20px;
+        color: @grey;
       }
       h3 {
         font-size: 18px;
         color: @primary;
+      }
+      .exercise__list {
+        overflow: scroll;
       }
     }
   }

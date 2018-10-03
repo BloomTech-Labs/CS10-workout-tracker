@@ -35,9 +35,17 @@
   // background: linear-gradient(black, @primary,black);
   box-shadow: 5px 5px 15px black;
   background-image: linear-gradient(to right, black, @secondary);
+  text-decoration: none !important;
   a {
     color: @grey;
-    text-decoration: none;
+    text-decoration: none !important;
   }
   
+}
+a {
+  color: @grey;
+  text-decoration: none !important;
+  &:hover {
+    color: @primary;
+  }
 }

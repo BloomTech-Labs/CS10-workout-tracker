@@ -20,7 +20,7 @@ class RoutineList extends React.Component {
     return (
       <div className="routine__list">
         <div className="routine__list__container">
-          <h2>Your Routines</h2>
+          <h2>YOUR ROUTINES</h2>
           {routines}
         </div>
       </div>

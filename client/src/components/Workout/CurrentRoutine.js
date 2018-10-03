@@ -21,23 +21,26 @@ class CurrentRoutine extends React.Component {
     return (
       <div className="current__routine">
         <div className="current__routine__container">
-        <h2 style={{background: "white", color: "black"}}>{currentRoutine && currentRoutine.title}</h2>
+        <h2>CURRENT ROUTINE</h2>
+        <h3>{currentRoutine && currentRoutine.title}</h3>
         {currentRoutine ? (
           <button onClick={() => this.handleDeleteRoutine(currentRoutine._id)}>Delete Routine</button >
         ): null} 
-        {currentRoutine && currentRoutine.exercises.map(exercise => {
-          return(
-            <div key={exercise._id}>
-              <hr/>
-              <h3 style={{color: "red"}}>{exercise.name}</h3>
-              <button onClick={() => this.handleDelete(exercise._id)}>Delete</button>
-              <hr/>
-              <div>Weight: {exercise.currentWeight}</div>
-              <div>Reps: {exercise.currentReps}</div>
-              <div>Sets: {exercise.currentSets}</div>
-            </div>
-          )
-        })}
+        <div className="exercise__list">
+          {currentRoutine && currentRoutine.exercises.map(exercise => {
+            return(
+              <div key={exercise._id}>
+                <hr/>
+                <h3>{exercise.name}</h3>
+                <button onClick={() => this.handleDelete(exercise._id)}>Delete</button>
+                <hr/>
+                <div>Weight: {exercise.currentWeight}</div>
+                <div>Reps: {exercise.currentReps}</div>
+                <div>Sets: {exercise.currentSets}</div>
+              </div>
+            )
+          })}
+        </div>
         </div>
       </div>
     );

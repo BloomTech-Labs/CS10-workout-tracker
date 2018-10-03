@@ -227,6 +227,7 @@ class Nav extends React.Component {
                 value={this.state.username}
                 onChange={this.handleFieldChange}
                 name="username"
+                autocomplete="off"
               />
             </InputGroup>
             {usernameErrors ? usernameErrors : (this.props.valError.message ? <span className="form__validation">{this.props.valError.message}</span>: null)}
@@ -239,6 +240,7 @@ class Nav extends React.Component {
                 value={this.state.password}
                 onChange={this.handleFieldChange}
                 name="password"
+                autocomplete="off"
               />
             </InputGroup>
             {passwordErrors}
@@ -249,6 +251,7 @@ class Nav extends React.Component {
                 value={this.state.confirmPassword}
                 onChange={this.handleFieldChange}
                 name="confirmPassword"
+                autocomplete="off"
               />
             </InputGroup>
             {confirmPasswordErrors}
@@ -259,6 +262,7 @@ class Nav extends React.Component {
                 value={this.state.email}
                 onChange={this.handleFieldChange}
                 name="email"
+                autocomplete="off"
               />   
             </InputGroup>
             {emailErrors ? emailErrors : (this.props.valError.message ? <span className="form__validation">{this.props.valError.message}</span>: null)}
@@ -288,6 +292,7 @@ class Nav extends React.Component {
                 value={this.state.signInName}
                 onChange={this.handleFieldChange}
                 name="signInName"
+                autocomplete="off"
               />
             </InputGroup>
             {this.props.valError.error ?<span className="form__validation">{this.props.valError.error}</span> : null}
@@ -298,6 +303,7 @@ class Nav extends React.Component {
                 value={this.state.signInPass}
                 onChange={this.handleFieldChange}
                 name="signInPass"
+                autocomplete="off"
               />
             </InputGroup>
             {this.props.valError.error ? <span className="form__validation">{this.props.valError.error}</span> : null}
@@ -335,6 +341,7 @@ class Nav extends React.Component {
                 value={this.state.email}
                 onChange={this.handleFieldChange}
                 name="email"
+                autocomplete="off"
               />
             </InputGroup>
           </ModalBody>
