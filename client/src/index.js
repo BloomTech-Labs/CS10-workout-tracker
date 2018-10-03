@@ -4,7 +4,7 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import registerServiceWorker from "./registerServiceWorker";
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import ReduxThunk from "redux-thunk";
@@ -25,8 +25,14 @@ import Footer from "./components/Footer";
 
 import combinedReducer from "./reducers";
 
-const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
-const store = createStoreWithMiddleware(combinedReducer);
+// const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
+// const store = createStoreWithMiddleware(combinedReducer);
+const createStoreWithMiddleware = compose(
+  applyMiddleware(ReduxThunk),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+ )(createStore);
+
+ const store = createStoreWithMiddleware(combinedReducer);
 
 ReactDOM.render(
   <Provider store={store}>

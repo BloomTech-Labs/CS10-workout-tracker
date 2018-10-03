@@ -294,12 +294,12 @@ class CalendarPage extends Component {
                             this.handleCheckOffInDB(checkoffObj.performanceId);
                           }}
                           style={{ marginLeft: "15px", marginTop: "5px" }}
-                          // checked={
-                          //   this.state.performances.filter(
-                          //     performance =>
-                          //       performance._id === checkoffObj.performanceId
-                          //   )[0].completed
-                          // }
+                          checked={
+                            this.state.performances.filter(
+                              performance =>
+                                performance._id === checkoffObj.performanceId
+                            )[0].completed
+                          }
                         />
                       </div>
                       <div style={{ color: "white" }}>

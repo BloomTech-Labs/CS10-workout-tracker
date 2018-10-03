@@ -47,10 +47,14 @@ export default (state = initialState, action) => {
         msg: action.payload
       };
     case Actions.SCHEDULE_WORKOUT_SUCCESS:
+    console.log("ACTION PAYLOAD", action.payload)
+    // const newPerformances = action.payload.hydratedWorkout.performances.map(performance => { return performance})
       return {
         ...state,
         msg: "Scheduled user's workout",
-        workouts: [...state.workouts, action.payload.hydratedWorkout]
+        workouts: [...state.workouts, action.payload.hydratedWorkout],
+        // performances: state.performances.concat(newPerformances)
+        performances: state.performances.concat(action.payload.hydratedWorkout.performances)
       };
     case Actions.SCHEDULE_WORKOUT_FAILURE:
       return {
@@ -63,7 +67,7 @@ export default (state = initialState, action) => {
         msg: action.payload,
       };
     case Actions.COPY_WORKOUTS_SUCCESS:
-    console.log("ACTION PAYLOAD", action.payload)
+    // console.log("ACTION PAYLOAD", action.payload)
     const newWorkouts = action.payload.map(subResponse => { return subResponse.hydratedWorkout})
     console.log("WORKOUTS ARRAY WITH PAYLOAD", newWorkouts)
       return {
