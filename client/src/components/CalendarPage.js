@@ -152,6 +152,7 @@ class CalendarPage extends Component {
 
   render() {
     // console.log("PERFORMANCES" , this.state.performances[0]["weight"])
+    // console.log("PERFORMANCES FROM COMPONENT", this.props.performances)
     
     // the events array is required by react-big-calendar
     this.events = this.props.workouts.map(workout => ({

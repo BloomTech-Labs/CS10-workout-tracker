@@ -47,7 +47,7 @@ export default (state = initialState, action) => {
         msg: action.payload
       };
     case Actions.SCHEDULE_WORKOUT_SUCCESS:
-    console.log("ACTION PAYLOAD", action.payload)
+    // console.log("ACTION PAYLOAD", action.payload)
     // const newPerformances = action.payload.hydratedWorkout.performances.map(performance => { return performance})
       return {
         ...state,
@@ -67,13 +67,14 @@ export default (state = initialState, action) => {
         msg: action.payload,
       };
     case Actions.COPY_WORKOUTS_SUCCESS:
-    // console.log("ACTION PAYLOAD", action.payload)
     const newWorkouts = action.payload.map(subResponse => { return subResponse.hydratedWorkout})
-    console.log("WORKOUTS ARRAY WITH PAYLOAD", newWorkouts)
+    const newPerformances = newWorkouts.map(workout => {return workout.performances})
+    const flattenedPerformances = newPerformances.flat()
       return {
         ...state,
         msg: "Successfully copied workouts",
-        workouts: state.workouts.concat(newWorkouts)
+        workouts: state.workouts.concat(newWorkouts),
+        performances: state.performances.concat(flattenedPerformances)
       }
     case Actions.COPY_WORKOUTS_FAILURE:
       return {
