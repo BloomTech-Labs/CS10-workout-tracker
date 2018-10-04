@@ -150,7 +150,6 @@ body {
 }
 .calendarAndForm-container .formAndButton-container {
   margin: 55px 90px 0 0;
-  box-shadow: 0 5px 30px grey !important;
 }
 .calendarAndForm-container .formAndButton-container .button-container {
   display: flex;
@@ -178,6 +177,7 @@ body {
   background-image: radial-gradient(#290245, black);
   height: 85%;
   width: 233px;
+  box-shadow: 0 5px 30px grey !important;
 }
 .calendarAndForm-container .formAndButton-container .form-container div {
   margin-top: 10px;
@@ -185,6 +185,7 @@ body {
 .calendarAndForm-container .formAndButton-container .form-container div input {
   background-color: #cccccc;
   width: 70%;
+  padding-left: 2px;
 }
 .calendarAndForm-container .formAndButton-container .form-container .submit-btn {
   margin-top: 45px;
