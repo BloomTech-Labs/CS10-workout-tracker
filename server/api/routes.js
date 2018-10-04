@@ -24,7 +24,6 @@ const {
   deleteRoutineDoc
 } = require("./controllers/RoutineControllers");
 const {
-  scheduleWorkout,
   fetchWorkoutDoc,
   fetchAllWorkouts,
   deleteWorkout,
