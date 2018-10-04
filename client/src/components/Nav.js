@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { register, login, logout, forgotPassword } from "../actions";
+// import "../less/nav.css";
 
 class Nav extends React.Component {
   constructor() {
