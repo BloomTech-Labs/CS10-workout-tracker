@@ -35,5 +35,7 @@ body {
 
 .main__container {
   flex-basis: 85%;
-  min-height: 77vh;
+  /* min-height: 77vh; */
+  min-height: 88vh;
+  background: radial-gradient(#000033, black);
 }

@@ -150,27 +150,33 @@ body {
 }
 .calendarAndForm-container .formAndButton-container {
   margin: 55px 90px 0 0;
+  box-shadow: 0 5px 30px grey !important;
 }
 .calendarAndForm-container .formAndButton-container .button-container {
   display: flex;
   justify-content: space-around;
   width: 230px;
+  padding: 10px;
 }
 .calendarAndForm-container .formAndButton-container .button-container .newWorkout-btn {
   height: 40px;
   width: 110px;
   font-size: 13px;
+  border: none;
+  border-radius: none !important;
 }
 .calendarAndForm-container .formAndButton-container .button-container .copyWorkouts-btn {
   height: 40px;
   width: 110px;
   font-size: 13px;
+  border: none;
+  border-radius: none !important;
 }
 .calendarAndForm-container .formAndButton-container .form-container {
   padding: 10px;
   margin-top: 20px;
   background-image: radial-gradient(#290245, black);
-  height: 300px;
+  height: 85%;
   width: 233px;
 }
 .calendarAndForm-container .formAndButton-container .form-container div {
@@ -181,7 +187,7 @@ body {
   width: 70%;
 }
 .calendarAndForm-container .formAndButton-container .form-container .submit-btn {
-  margin-top: 25px;
+  margin-top: 45px;
   background-image: radial-gradient(#cc0000, black);
   border: none;
   width: 40%;
