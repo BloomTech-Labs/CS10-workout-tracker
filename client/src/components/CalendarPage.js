@@ -193,8 +193,8 @@ class CalendarPage extends Component {
     });
 
     return (
-      <div style={{ display: "flex" }}>
-        <div style={{ height: "500px", width: "90%" }}>
+      <div className="calendarAndForm-container">
+        <div className="calendar-container">
           <BigCalendar
             popup
             events={this.events}
@@ -203,53 +203,44 @@ class CalendarPage extends Component {
             showMultiDayTimes
             defaultDate={new Date()}
             defaultView="month"
-            style={{ height: "100vh" }}
             selectable={true}
             onSelectSlot={this.onSelectSlot}
             onSelectEvent={this.onSelectEvent}
           />
         </div>
-        <div style={{ marginTop: "40px", marginRight: "70px" }}>
-          <div style={{ display: "flex" }}>
+        <div className="formAndButton-container">
+          <div className="button-container">
             <Button
+            className="newWorkout-btn"
               style={{
-                height: "50px",
-                width: "100px",
-                fontSize: "10px",
-                backgroundColor:
-                  this.state.usageMode === "NEW_WORKOUT" ? "red" : null
+                backgroundImage:
+                  this.state.usageMode === "NEW_WORKOUT" ? "radial-gradient(#cc0000, black)" : "radial-gradient(#666666, black)"
               }}
               onClick={() => {
                 this.setState({ usageMode: "NEW_WORKOUT" });
               }}
             >
-              NEW WORKOUT
+              New Workout
             </Button>
             <Button
+            className="copyWorkouts-btn"
               style={{
-                height: "50px",
-                width: "100px",
-                fontSize: "10px",
-                backgroundColor:
-                  this.state.usageMode === "COPY_WORKOUTS" ? "red" : null
+                backgroundImage:
+                  this.state.usageMode === "COPY_WORKOUTS" ? "radial-gradient(#cc0000, black)" : "radial-gradient(#666666, black)"
               }}
               onClick={() => {
                 this.setState({ usageMode: "COPY_WORKOUTS" });
               }}
             >
-              COPY WORKOUTS
+              Copy Workouts
             </Button>
           </div>
           {this.state.usageMode === "COPY_WORKOUTS" && (
             <form
-              style={{
-                backgroundColor: "blue",
-                height: "300px",
-                width: "200px"
-              }}
+            className="form-container"
             >
               <div>
-                <label>copy from start date</label>
+                <label>Copy from start date</label>
                 <input
                   type="date"
                   name="copyFromStartDate"
@@ -258,7 +249,7 @@ class CalendarPage extends Component {
                 />
               </div>
               <div>
-                <label>copy from end date</label>
+                <label>Copy from end date</label>
                 <input
                   type="date"
                   name="copyFromEndDate"
@@ -267,7 +258,7 @@ class CalendarPage extends Component {
                 />
               </div>
               <div>
-                <label>copy to date</label>
+                <label>Copy to date</label>
                 <input
                   type="date"
                   name="copyToStartDate"
@@ -275,10 +266,11 @@ class CalendarPage extends Component {
                   onChange={this.handleDateChange}
                 />
               </div>
-              <Button onClick={this.handleSubmitCopyWorkouts}>Submit</Button>
+              <Button className="submit-btn" onClick={this.handleSubmitCopyWorkouts}>Submit</Button>
             </form>
           )}
         </div>
+
         {/* Scheduling Modal */}
 
         <Modal
@@ -289,9 +281,8 @@ class CalendarPage extends Component {
           <ModalHeader toggle={this.schedulingModalToggle}>
             Schedule a Workout!
           </ModalHeader>
-          <ModalBody>
+          <ModalBody className="scheduling-modal-body">
             {/* Drop down for selecting a routine */}
-            <div>Select Workout</div>
             <select
               value={this.state.selectedRoutineValue}
               onChange={this.handleChange}
@@ -305,10 +296,10 @@ class CalendarPage extends Component {
             </select>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.scheduleWorkout}>
+            <Button className="schedule-btn" onClick={this.scheduleWorkout}>
               Schedule!
             </Button>{" "}
-            <Button color="secondary" onClick={this.schedulingModalToggle}>
+            <Button className="cancel-btn" onClick={this.schedulingModalToggle}>
               Cancel
             </Button>
           </ModalFooter>
@@ -324,14 +315,15 @@ class CalendarPage extends Component {
           <ModalHeader toggle={this.checkboxModalToggle}>
             {this.selectedEventTitle}
           </ModalHeader>
-          <ModalBody>
+          <ModalBody className="checkoff-modal-body">
             {checkoff.map(
               checkoffObj =>
                 checkoffObj.workoutId === this.selectedEventId ? (
                   <div key={checkoffObj.performanceId}>
-                    <div style={{ display: "flex" }}>
+                    <div>
                       <div>
                         <input
+                          className="checkoff-input"
                           type="checkbox"
                           key={checkoffObj.performanceId}
                           value={checkoffObj.performanceId}
@@ -339,7 +331,6 @@ class CalendarPage extends Component {
                           onChange={() => {
                             this.handleCheckOffInDB(checkoffObj.performanceId);
                           }}
-                          style={{ marginLeft: "15px", marginTop: "5px" }}
                           checked={
                             this.state.performances.filter(
                               performance =>
@@ -348,14 +339,14 @@ class CalendarPage extends Component {
                           }
                         />
                       </div>
-                      <div style={{ color: "white" }}>
+                      <div className="checkoff-exercise">
                         {checkoffObj.exerciseName}
                       </div>
                     </div>
-                    <div>
-                      {`weight : ${checkoffObj.weight}`}
-                      {`sets : ${checkoffObj.sets}`}
-                      {`reps : ${checkoffObj.reps}`}
+                    <div className="checkoff-performance">
+                      <span>{`weight: ${checkoffObj.weight}`}</span>
+                      <span>{`sets: ${checkoffObj.sets}`}</span>
+                      <span>{`reps: ${checkoffObj.reps}`}</span>
                     </div>
                   </div>
                 ) : null
@@ -363,11 +354,11 @@ class CalendarPage extends Component {
           </ModalBody>
 
           <ModalFooter>
-            <Button color="secondary" onClick={this.checkboxModalToggle}>
-              Cancel
-            </Button>
-            <Button color="danger" onClick={this.deleteWorkout}>
+          <Button className="delete-workout-btn" onClick={this.deleteWorkout}>
               Delete Workout
+            </Button>
+            <Button className="cancel-btn" onClick={this.checkboxModalToggle}>
+              Cancel
             </Button>
           </ModalFooter>
         </Modal>
