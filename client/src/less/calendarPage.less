@@ -18,7 +18,6 @@ body {
 .rbc-month-view {
   position: relative;
   border: none !important;
-  /* border: 1px solid #DDD; */
   box-shadow: 0 5px 43px grey !important;
   background: black;
   margin: 0 auto;
@@ -67,15 +66,9 @@ body {
   flex: 1 0;
   color: white;
   margin: 1px;
-  /* box-shadow: 0px 0px 10px darkgrey; */
   background-image: linear-gradient(black, #000033);
-  /* linear-gradient(blue, black): ; */
-  /* border-radius: 4px; */
-  /* background: grey; */
 }
-/* .rbc-day-bg:hover {
-  background-image: linear-gradient(black, green);
-} */
+
 .rbc-off-range-bg {
   background-image: linear-gradient(black, #37015b) !important;
 }
@@ -104,18 +97,13 @@ body {
   overflow: hidden;
 }
 .rbc-month-row + .rbc-month-row {
-  /* border-top: 1px solid #DDD; */
   border-top: none !important;
 }
-.rbc-today {
-  background-color: #eaf6ff;
-  // background-image: linear-gradient(black, white)!important;
-}
+
 .rbc-event {
   padding: 7px 5px 5px 5px !important;
   box-shadow: 0px 0px 20px black;
   background-image: linear-gradient(black, darkred);
-  /* background-color: #3174ad; */
   color: #fff;
   margin: 0 5px;
   padding-bottom: 10px;
@@ -126,14 +114,7 @@ body {
 .rbc-day-bg + .rbc-day-bg {
   border: none !important;
 }
-// .rbc-event {
-//   padding: 2px 5px;
-//   border-radius: 5px;
-//   background-image: linear-gradient(black, darkred) !important;
-//   color: #fff;
-//   background-color: rgba(0, 0, 255, 0) !important;
-//   cursor: pointer;
-// }
+
 .rbc-day-slot .rbc-event {
   display: -ms-flexbox;
   display: flex;
@@ -146,13 +127,17 @@ body {
   overflow: hidden;
   position: absolute;
 }
-.rbc-toolbar .rbc-toolbar-label {
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  padding: 0 10px;
-  text-align: center;
-  font-size: 28px;
-}
+
+.rbc-toolbar {
+  margin-bottom: 20px;
+  .rbc-toolbar-label {
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    padding: 0 10px;
+    text-align: center;
+    font-size: 28px;
+  }
+} 
 .rbc-day-bg.rbc-off-range-bg {
   background: none;
 }
@@ -168,7 +153,6 @@ body {
 
   .formAndButton-container {
     margin: 55px 90px 0 0;
-    // box-shadow: 0 5px 30px grey !important;
 
     .button-container {
       display: flex;
@@ -178,8 +162,7 @@ body {
 
       .newWorkout-btn {
         height: 40px;
-        // width: 110px;
-        width: 45%;
+        width: 47%;
         font-size: 11px;
         border: none;
         border-radius: none !important;
@@ -200,7 +183,6 @@ body {
       padding: 10px;
       margin-top: 20px;
       background-image: radial-gradient(#290245, black);
-      // height: 300px;
       height: 85%;
       width: 233px;
       box-shadow: 0 5px 30px grey !important;

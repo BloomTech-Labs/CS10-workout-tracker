@@ -11,7 +11,6 @@ body {
 .rbc-month-view {
   position: relative;
   border: none !important;
-  /* border: 1px solid #DDD; */
   box-shadow: 0 5px 43px grey !important;
   background: black;
   margin: 0 auto;
@@ -60,15 +59,8 @@ body {
   flex: 1 0;
   color: white;
   margin: 1px;
-  /* box-shadow: 0px 0px 10px darkgrey; */
   background-image: linear-gradient(black, #000033);
-  /* linear-gradient(blue, black): ; */
-  /* border-radius: 4px; */
-  /* background: grey; */
 }
-/* .rbc-day-bg:hover {
-  background-image: linear-gradient(black, green);
-} */
 .rbc-off-range-bg {
   background-image: linear-gradient(black, #37015b) !important;
 }
@@ -97,17 +89,12 @@ body {
   overflow: hidden;
 }
 .rbc-month-row + .rbc-month-row {
-  /* border-top: 1px solid #DDD; */
   border-top: none !important;
-}
-.rbc-today {
-  background-color: #eaf6ff;
 }
 .rbc-event {
   padding: 7px 5px 5px 5px !important;
   box-shadow: 0px 0px 20px black;
   background-image: linear-gradient(black, darkred);
-  /* background-color: #3174ad; */
   color: #fff;
   margin: 0 5px;
   padding-bottom: 10px;
@@ -129,6 +116,9 @@ body {
   align-items: flex-start;
   overflow: hidden;
   position: absolute;
+}
+.rbc-toolbar {
+  margin-bottom: 20px;
 }
 .rbc-toolbar .rbc-toolbar-label {
   -ms-flex-positive: 1;
@@ -159,7 +149,7 @@ body {
 }
 .calendarAndForm-container .formAndButton-container .button-container .newWorkout-btn {
   height: 40px;
-  width: 45%;
+  width: 47%;
   font-size: 11px;
   border: none;
   border-radius: none !important;
@@ -185,7 +175,6 @@ body {
 .calendarAndForm-container .formAndButton-container .form-container div input {
   background-color: #cccccc;
   width: 70%;
-  padding-left: 2px;
 }
 .calendarAndForm-container .formAndButton-container .form-container .submit-btn {
   margin-top: 45px;
