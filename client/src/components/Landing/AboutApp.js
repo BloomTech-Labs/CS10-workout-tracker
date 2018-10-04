@@ -14,7 +14,6 @@ class AboutApp extends React.Component {
       <section className="about__app__landing">
         <div className="container">
         <ScrollAnimation animateIn="fadeInUp" 
-        animatePreScroll={false}
         >
           <div className="display__more">
             <div className="container">

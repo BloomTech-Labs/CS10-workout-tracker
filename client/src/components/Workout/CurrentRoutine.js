@@ -101,7 +101,7 @@ class CurrentRoutine extends React.Component {
         <div className="exercise__title">
           <h3>{currentRoutine &&  currentRoutine.title}</h3>
           {currentRoutine ? (
-            <div>
+            <div className="pencil__trash__icon__container">
               <i className="fas fa-pencil-alt icon" onClick={this.toggleRoutine}/>
               <i className="fas fa-trash-alt icon" onClick={() => this.handleDeleteRoutine(currentRoutine._id)}/>
             </div>
@@ -113,9 +113,11 @@ class CurrentRoutine extends React.Component {
             return(
               <div key={exercise._id} className="exercise__card">
                 <div className="exercise__card__header">
-                <h3>{exercise.name}</h3>
-                <i className="fas fa-pencil-alt icon" onClick={this.handleExerciseUpdate}/>
-                <i className="fas fa-trash-alt icon" onClick={() => this.handleDelete(exercise._id)}/>
+                  <h3>{exercise.name}</h3>
+                  <div className="pencil__trash__icon__container">
+                  <i className="fas fa-pencil-alt icon" onClick={this.handleExerciseUpdate}/>
+                  <i className="fas fa-trash-alt icon" onClick={() => this.handleDelete(exercise._id)}/>
+                  </div>
                 </div>
                 <div className="exercise__card__body">
                   <div>Weight: {exercise.currentWeight} lbs</div>

@@ -97,6 +97,19 @@ class WorkoutForm extends React.Component {
     });
   }
 
+  handleCreateRoutineButton = () => {
+    this.props.clearCurrentRoutine();
+    this.setState({
+      routineName: "",
+      exerciseName: "",
+      weight: "",
+      sets: "",
+      reps: "",
+      errors: {}
+    });
+  }
+
+
   showRoutineForm = () => {
     return (
         <div className="routine__input__form">
@@ -124,7 +137,7 @@ class WorkoutForm extends React.Component {
     return (
       <div className="routine__input__form">
         <h2>CREATE NEW EXERCISE</h2>
-        <button onClick={() => this.props.clearCurrentRoutine()}>Create a new routine</button>
+        <button onClick={this.handleCreateRoutineButton}>Create a new routine</button>
         <form onSubmit={this.handleExerciseSubmit}>
           <input
           value={this.state.exerciseName}
@@ -134,7 +147,7 @@ class WorkoutForm extends React.Component {
           autocomplete="off"
           maxlength="15"
           />
-          {this.state.errors.exerciseName ? <span className="form__validation">{this.state.errors.exerciseName}</span>: null}
+          {this.state.errors.exerciseName ? <p className="form__validation">{this.state.errors.exerciseName}</p>: null}
           <input
           value={this.state.weight}
           name="weight"
@@ -144,7 +157,7 @@ class WorkoutForm extends React.Component {
           maxlength="5"
           onChange={this.handleChange}
           />
-          {this.state.errors.weight ? <span className="form__validation">{this.state.errors.weight}</span>: null}
+          {this.state.errors.weight ? <p className="form__validation">{this.state.errors.weight}</p>: null}
           <input
           value={this.state.sets}
           name="sets"
@@ -154,7 +167,7 @@ class WorkoutForm extends React.Component {
           maxlength="5"
           onChange={this.handleChange}
           />
-          {this.state.errors.sets ? <span className="form__validation">{this.state.errors.sets}</span>: null}
+          {this.state.errors.sets ? <p className="form__validation">{this.state.errors.sets}</p>: null}
           <input
           value={this.state.reps}
           name="reps"
@@ -164,7 +177,7 @@ class WorkoutForm extends React.Component {
           maxlength="5"
           onChange={this.handleChange}
           />
-          {this.state.errors.reps ? <span className="form__validation">{this.state.errors.reps}</span>: null}
+          {this.state.errors.reps ? <p className="form__validation">{this.state.errors.reps}</p>: null}
           <br/>
           <br/>
           <button>Add Exercise</button>

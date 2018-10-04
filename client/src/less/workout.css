@@ -165,3 +165,13 @@
   color: #cccccc;
   padding: 40px;
 }
+.pencil__trash__icon__container {
+  display: flex;
+  width: 15%;
+  justify-content: space-between;
+}
+.pencil__trash__icon__container .fas.fa-pencil-alt {
+  text-shadow: 1px 1px black;
+  color: grey;
+  cursor: pointer;
+}

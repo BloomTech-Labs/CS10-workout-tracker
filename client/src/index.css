@@ -49,13 +49,21 @@ body {
 }
 
 .fas.fa-trash-alt {
-  color: grey;
+  color: grey !important;
   cursor: pointer;
   box-shadow: 0;
   text-shadow: 1px 1px black;
 }
 
 .fas.fa-trash-alt:hover {
-  color: #CC0000;
+  color: #CC0000 !important;
 }
 
+.fas.fa-pencil-alt {
+  text-shadow: 1px 1px black;
+  color: grey;
+}
+
+.fas.fa-pencil-alt.icon:hover {
+  color: #000033 !important;
+}
