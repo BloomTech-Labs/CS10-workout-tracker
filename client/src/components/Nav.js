@@ -114,7 +114,7 @@ class Nav extends React.Component {
       <div className="right__nav">
         <div>
           <span className="first__nav__span" onClick={this.toggleSignUpModal}>
-            Signup
+            Sign-up
           </span>
         </div>
         <span onClick={this.toggleSignInModal}>Login</span>
@@ -141,7 +141,7 @@ class Nav extends React.Component {
           toggle={this.toggleSignUpModal}
           className="sign__in"
         >
-          <ModalHeader toggle={this.toggleSignUpModal}>SignUp</ModalHeader>
+          <ModalHeader toggle={this.toggleSignUpModal}>Sign Up</ModalHeader>
           <ModalBody>
             <InputGroup>
               <Input
@@ -181,7 +181,7 @@ class Nav extends React.Component {
           </ModalBody>
           <ModalFooter>
             <Button className="signup-signin-btn" onClick={this.handleSignup}>
-              Signup
+              Sign up
             </Button>{" "}
             <Button className="cancel-btn" onClick={this.toggleSignUpModal}>
               Cancel
@@ -196,7 +196,7 @@ class Nav extends React.Component {
           toggle={this.toggleSignInModal}
           className="sign__up"
         >
-          <ModalHeader toggle={this.toggleSignInModal}>SignIn</ModalHeader>
+          <ModalHeader toggle={this.toggleSignInModal}>Sign In</ModalHeader>
           <ModalBody>
             <InputGroup>
               <Input
@@ -218,7 +218,7 @@ class Nav extends React.Component {
           </ModalBody>
           <ModalFooter>
             <Button className="signup-signin-btn" onClick={this.handleSignin}>
-              Signin
+              Sign in
             </Button>{" "}
             <Button className="cancel-btn" onClick={this.toggleSignInModal}>
               Cancel
