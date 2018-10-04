@@ -1,5 +1,5 @@
 .billing-outer {
-  background: radial-gradient(black, #000033);
+  background: radial-gradient(#000033, black);
   min-height: 100vh;
 }
 .billing-outer .billing-container {
