@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { resetPassword } from "../actions";
 import "../less/passwordReset.css";
 import { Button, Form, FormGroup, Input } from "reactstrap";
@@ -86,6 +87,15 @@ const mapStateToProps = state => {
     userInfo: state.auth.currentUser,
     msg: state.auth.message
   };
+};
+
+PasswordReset.propTypes = {
+  userInfo: PropTypes.shape({
+    token: PropTypes.string,
+    user: PropTypes.object
+  }),
+  msg: PropTypes.string,
+  resetPassword: PropTypes.func
 };
 
 export default connect(
