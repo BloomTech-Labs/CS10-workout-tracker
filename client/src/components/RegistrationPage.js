@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { register } from "../actions";
 import NavBar from "./SideBar";
 
@@ -83,6 +84,15 @@ const mapStateToProps = state => {
     userInfo: state.auth.currentUser,
     msg: state.auth.message
   };
+};
+
+RegistrationPage.propTypes = {
+  userInfo: PropTypes.shape({
+    token: PropTypes.string,
+    user: PropTypes.object
+  }),
+  msg: PropTypes.string,
+  register: PropTypes.func
 };
 
 export default connect(
