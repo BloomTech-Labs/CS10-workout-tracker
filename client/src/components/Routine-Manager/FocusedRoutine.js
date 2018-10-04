@@ -102,7 +102,7 @@ class FocusedRoutine extends Component {
         <button
           className="PerformRoutine"
           onClick={() =>
-            this.props.scheduleWorkout(this.props.selectedRoutine._id)
+            this.props.scheduleWorkout(this.props.selectedRoutine._id, Date.now())
           }
         >
           Perform this routine!

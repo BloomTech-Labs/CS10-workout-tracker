@@ -25,7 +25,11 @@ const {
 } = require("./controllers/RoutineControllers");
 const {
   scheduleWorkout,
-  fetchWorkoutDoc
+  fetchWorkoutDoc,
+  fetchAllWorkouts,
+  deleteWorkout,
+  copyWorkoutRange,
+  createAndScheduleWorkout
 } = require("./controllers/WorkoutControllers");
 const {
   addProgress,
@@ -33,6 +37,10 @@ const {
   deleteProgress,
   updateProgress
 } = require("./controllers/ProgressControllers");
+const {
+  checkOffPerformance,
+  fetchAllPerformanceDocs
+} = require("./controllers/PerformanceControllers");
 const { verifyToken } = require("./utilities/auth");
 
 module.exports = app => {
@@ -58,7 +66,6 @@ module.exports = app => {
   app.route("/routine").get(verifyToken, fetchRoutineDoc);
   app.route("/routine").put(verifyToken, updateRoutineDoc);
   app.route("/routine").delete(verifyToken, deleteRoutineDoc);
-
   app.route("/routines").get(verifyToken, fetchHydratedRoutines); // Maybe different category.
   app.route("/routine-rich").post(verifyToken, fetchHydratedRoutine); // Coding this as a POST is a bit hacky. It's really more of a GET but it needs the additional request data. Could be moved to a header?
 
@@ -67,14 +74,18 @@ module.exports = app => {
   app.route("/exercise").get(verifyToken, fetchExerciseDoc);
   app.route("/exercise").put(verifyToken, updateExerciseDoc);
   app.route("/exercise").delete(verifyToken, deleteExerciseDoc);
-
   app.route("/add-exercise").post(verifyToken, addExerciseToRoutine);
 
   // WORKOUTS
-  app.route("/schedule-workout").post(verifyToken, scheduleWorkout);
+  app.route("/schedule-workout").post(verifyToken, createAndScheduleWorkout);
   app.route("/fetch-workout").post(verifyToken, fetchWorkoutDoc);
+  app.route("/workouts").get(verifyToken, fetchAllWorkouts);
+  app.route("/workouts/:id").delete(verifyToken, deleteWorkout);
+  app.route("/workouts-copy").post(verifyToken, copyWorkoutRange);
 
   // PERFORMANCES
+  app.route("/performance/:id").put(verifyToken, checkOffPerformance);
+  app.route("/performances").get(verifyToken, fetchAllPerformanceDocs);
 };
 
 // NOTES

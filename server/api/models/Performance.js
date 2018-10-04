@@ -6,6 +6,9 @@ const PerformanceSchema = Schema({
     type: Schema.Types.ObjectId,
     ref: "Exercise"
   },
+  exerciseName: {
+    type: String
+  },
   note: {
     type: String
   },
@@ -33,6 +36,10 @@ const PerformanceSchema = Schema({
     type: Boolean,
     required: true,
     default: false
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
   }
 });
 

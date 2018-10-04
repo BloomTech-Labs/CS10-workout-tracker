@@ -7,8 +7,8 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  console.log("Previous state: ", state);
-  console.log("Incoming action", action);
+  // console.log("Previous state: ", state);
+  // console.log("Incoming action", action);
   switch (action.type) {
     case Actions.FETCHING_ROUTINES:
       return {
