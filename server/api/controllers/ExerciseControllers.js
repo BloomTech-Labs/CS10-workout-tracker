@@ -55,15 +55,15 @@ const updateExerciseDoc = (req, res) => {
 
 const createNewExercise = (req, res) => {
   const { userId } = req;
-  let { name } = req.body;
+  let { name, currentWeight, currentReps, currentSets } = req.body;
   if (!name) name = "Unnamed Exercise";
   console.log(
     "Making a new exercise with this user reference and name: ",
     userId,
     name
   );
-  const newExerciseParameters = { user: userId, name };
-  const newExercise = Exercise(newExerciseParameters);
+  const newExerciseParameters = { user: userId, name, currentWeight, currentReps, currentSets };
+  const newExercise = new Exercise(newExerciseParameters);
   newExercise.save((err, createdExercise) => {
     if (err) {
       res.status(500);
@@ -89,6 +89,7 @@ const createNewExercise = (req, res) => {
 
 const deleteExerciseDoc = (req, res) => {
   const { exerciseId } = req.body;
+  console.log("THIS IS EXERCIse DELETE", exerciseId);
   Exercise.findByIdAndDelete(exerciseId)
     .then(deletedDoc => {
       User.findByIdAndUpdate(req.userId, {

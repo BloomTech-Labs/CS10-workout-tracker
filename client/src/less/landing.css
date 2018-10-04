@@ -21,6 +21,8 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-shadow: 3px 3px black;
+  box-shadow: 10px 10px 15px black;
   padding: 20px 35px;
   background-image: linear-gradient(black, #222222, #111111);
   opacity: 0.9;
@@ -173,6 +175,7 @@ p {
 }
 .landing__start .landing__start__content div p:last-child {
   border-right: 3px solid #CCCCCC;
+  padding-right: 20px;
 }
 .landing__start .landing__start__content div p span {
   color: #CC0000;
