@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { logout } from "../actions";
 import "../less/sideBar.css";
@@ -43,6 +44,11 @@ const mapStateToProps = state => {
   return {
     authenticated: state.auth.authed
   };
+};
+
+SideBar.propTypes = {
+  authenticated: PropTypes.bool,
+  logout: PropTypes.func
 };
 
 export default connect(
