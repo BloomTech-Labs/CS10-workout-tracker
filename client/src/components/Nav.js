@@ -12,6 +12,8 @@ import {
 import { connect } from "react-redux";
 import { register, login, logout, forgotPassword } from "../actions";
 
+import barbell_logo from "./Landing/img/dumbbell-svgrepo-com.svg";
+
 class Nav extends React.Component {
   constructor() {
     super();
@@ -129,7 +131,15 @@ class Nav extends React.Component {
     return (
       <header>
         <nav className="landing__nav">
-          <div className="left__nav">LOGO</div>
+          <div className="left__nav">
+          <object
+            type="image/svg+xml"
+            data={barbell_logo}
+            className="Logo"
+          >
+            BRAWNDO!
+          </object>
+          </div>
           {authed ? isAuth : isNotAuth}
         </nav>
 
