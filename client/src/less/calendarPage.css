@@ -119,6 +119,7 @@ body {
 }
 .rbc-toolbar {
   margin-bottom: 20px;
+  margin-left: 20px;
 }
 .rbc-toolbar .rbc-toolbar-label {
   -ms-flex-positive: 1;
