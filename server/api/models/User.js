@@ -57,7 +57,8 @@ const UserSchema = Schema({
   calendar: [
     {
       date: {
-        type: Date
+        type: Date,
+        default: Date.now()
       },
       workout: {
         type: Schema.Types.ObjectId,
