@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { login } from "../actions";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 class LoginPage extends Component {
   state = {
@@ -59,6 +60,15 @@ const mapStateToProps = state => {
     userInfo: state.auth.currentUser,
     msg: state.auth.message
   };
+};
+
+LoginPage.propTypes = {
+  userInfo: PropTypes.shape({
+    token: PropTypes.string,
+    user: PropTypes.object
+  }),
+  msg: PropTypes.string,
+  login: PropTypes.func
 };
 
 export default connect(
