@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { register, login, logout, forgotPassword } from "../actions";
-// import "../less/nav.css";
+import "../less/nav.css";
 
 class Nav extends React.Component {
   constructor() {
@@ -180,10 +180,10 @@ class Nav extends React.Component {
             </InputGroup>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.handleSignup}>
+            <Button className="signup-signin-btn" onClick={this.handleSignup}>
               Signup
             </Button>{" "}
-            <Button color="secondary" onClick={this.toggleSignUpModal}>
+            <Button className="cancel-btn" onClick={this.toggleSignUpModal}>
               Cancel
             </Button>
           </ModalFooter>
@@ -217,13 +217,13 @@ class Nav extends React.Component {
             </InputGroup>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.handleSignin}>
+            <Button className="signup-signin-btn" onClick={this.handleSignin}>
               Signin
             </Button>{" "}
-            <Button color="secondary" onClick={this.toggleSignInModal}>
+            <Button className="cancel-btn" onClick={this.toggleSignInModal}>
               Cancel
             </Button>
-            <Button color="danger" onClick={this.toggleForgotModal}>
+            <Button className="forgot-pass-btn" onClick={this.toggleForgotModal}>
               Forgot Password?
             </Button>
           </ModalFooter>

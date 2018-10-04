@@ -1,6 +1,28 @@
-.sign__up {
+@primary: #cc0000;
+@secondary: #000033;
+@white: white;
+@darkGrey: #666666;
+@grey: #cccccc;
+
+@media(max-width: 500px) {
     .modal-content {
         width: 80%;
         margin: 180px auto;
+
+        .modal-footer {
+            .signup-signin-btn {
+                background-image: linear-gradient(@secondary, black) !important;
+                font-size: 13px;
+            }
+            .cancel-btn {
+                font-size: 13px;
+            }
+            .forgot-pass-btn {
+                background-image: linear-gradient(@grey, black) !important;
+                width: 45%;
+                font-size: 13px;
+            }
+        }
     }
+
 }
