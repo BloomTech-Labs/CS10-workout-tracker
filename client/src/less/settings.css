@@ -1,6 +1,8 @@
 .settings-outer {
   background: radial-gradient(#000033, black);
-  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  min-height: 88vh;
 }
 .settings-outer .settings-container {
   box-sizing: border-box;
