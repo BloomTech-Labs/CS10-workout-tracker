@@ -247,32 +247,36 @@ body {
   border: none;
   margin-bottom: 5px;
 }
+.modal-content {
+  width: 80%;
+  margin: 90px auto;
 
-.checkoff-modal-body {
-  min-height: 200px;
-  div {
+  .checkoff-modal-body {
+    min-height: 200px;
     div {
-      display: flex;
-
       div {
-        .checkoff-input {
-          margin-left: 15px;
-           margin-top: 5px;
+        display: flex;
+  
+        div {
+          .checkoff-input {
+            margin-left: 15px;
+             margin-top: 5px;
+          }
+        }
+        .checkoff-exercise {
+          margin-left: 20px;
         }
       }
-      .checkoff-exercise {
-        margin-left: 20px;
-      }
-    }
-    .checkoff-performance {
-      margin-left: 50px;
-      display: flex;
-      justify-content: space-evenly;
-      // margin: 5px;
-
-      span {
-        margin: 5px;
+      .checkoff-performance {
+        margin-left: 50px;
+        display: flex;
+        justify-content: space-evenly;
+  
+        span {
+          margin: 5px;
+        }
       }
     }
   }
 }
+
