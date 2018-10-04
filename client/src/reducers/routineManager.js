@@ -163,11 +163,6 @@ export default (state = initialState, action) => {
         ...state,
         focusedRoutine: action.payload
       };
-    case Actions.DELETING_ROUTINE:
-      return {
-        ...state,
-        msg: action.payload
-      };
     case Actions.UPDATING_ROUTINE:
       return {
         ...state,

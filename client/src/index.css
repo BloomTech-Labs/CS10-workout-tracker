@@ -67,3 +67,7 @@ body {
 .fas.fa-pencil-alt.icon:hover {
   color: #000033 !important;
 }
+
+::-webkit-scrollbar { 
+  display: none; 
+}
