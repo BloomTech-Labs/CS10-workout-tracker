@@ -30,6 +30,7 @@ import combinedReducer from "./reducers";
 // const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 
 // ============= Xang Added this for dev to see the redux store  =====
+// Delete and uncomment the top one if you want ===
 
 const createStoreWithMiddleware = compose(
   applyMiddleware(ReduxThunk),
@@ -47,17 +48,14 @@ ReactDOM.render(
         <div className="push__nav"></div>
         <Switch>
         <Route exact path="/" component={LandingPage} />
-        
         <div className="main__side__content">
-          
-            <SideBar/>  
+          <SideBar/>  
           <div className="main__container">
             <Route path="/register" exact component={RegistrationPage} />
             <Route path="/login" exact component={LoginPage} />
             <Route path="/forgot" exact component={ForgotPassword} />
             <Route path="/reset" exact component={PasswordReset} />
             <Route path="/schedule" exact component={AccessControl(Schedule)} />
-            {/* <Route path="/workouts" exact component={AccessControl(RoutineManager)} /> */}
             <Route path="/workouts" exact component={AccessControl(MainWorkout)} />
             <Route path="/progress" exact component={AccessControl(Progress)} />
             <Route path="/billing" exact component={AccessControl(Billing)} />

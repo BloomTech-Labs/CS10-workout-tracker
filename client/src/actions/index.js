@@ -70,6 +70,7 @@ export const login = (data, history, modal) => {
       });
   };
 };
+
 export const loginWithToken = token => {
   return dispatch => {
     dispatch({
@@ -376,7 +377,6 @@ export const clearCurrentRoutine = () => {
     type: Actions.CLEAR_CURRENT_ROUTINE,
     payload: null
   }
-
 }
 
 export const clearErrors = () => {

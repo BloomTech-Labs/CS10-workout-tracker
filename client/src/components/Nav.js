@@ -71,8 +71,6 @@ class Nav extends React.Component {
       newErrors.username = "Username is Required";
     }
 
-    
-
     if(password.trim().length < 6) {
       newErrors.password = "Password must be at least 6 characters"
     }
@@ -80,7 +78,6 @@ class Nav extends React.Component {
     if(password.trim() === "") {
       newErrors.password = "Password is Required";
     }
-
 
     if(confirmPassword.trim().length < 6) {
       newErrors.confirmPassword = "Confirm Password must be at least 6 characters";
@@ -107,7 +104,6 @@ class Nav extends React.Component {
       return this.setState({errors: newErrors});
     }
 
-
     if (this.state.password === this.state.confirmPassword) {
       this.props.register(
         {
@@ -126,8 +122,6 @@ class Nav extends React.Component {
       email: "",
       errors: {}
     });
-    // console.log("submitted");
-    // this.toggleSignUpModal();
   };
 
   handleSignin = event => {
@@ -145,15 +139,6 @@ class Nav extends React.Component {
       signInName: "",
       signInPass: ""
     });
-    // console.log(this.props.userInfo.authed);
-    // if(this.props.userInfo.authed) {
-    //   this.setState({
-    //     signInName: "",
-    //     signInPass: ""
-    //   });
-    //   this.toggleSignInModal();
-    // } else {
-    // }
   };
 
   handleForgotPassword = event => {

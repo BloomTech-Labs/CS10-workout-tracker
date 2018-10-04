@@ -83,7 +83,6 @@ class WorkoutForm extends React.Component {
       currentReps: reps
     }
   
-
     if(this.props.focusRoutine) {
       this.props.postNewExerciseInRoutine(this.props.focusRoutine._id, exerciseData);
     }
@@ -109,7 +108,6 @@ class WorkoutForm extends React.Component {
     });
   }
 
-
   showRoutineForm = () => {
     return (
         <div className="routine__input__form">
@@ -129,8 +127,7 @@ class WorkoutForm extends React.Component {
             <button>Add Routine</button>
           </form>
         </div>
-      )
-
+      );
   }
 
   showExerciseForm = () => {
@@ -187,12 +184,11 @@ class WorkoutForm extends React.Component {
   }
   
   render() {
-
     return (
       <div className="workout__form">
         {this.props.focusRoutine ? (this.showExerciseForm()): (this.showRoutineForm())}
       </div>
-    )
+    );
   }
 }
 

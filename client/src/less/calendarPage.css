@@ -11,7 +11,6 @@ body {
 .rbc-month-view {
   position: relative;
   border: none !important;
-  /* border: 1px solid #DDD; */
   box-shadow: 0 5px 43px grey !important;
   background: black;
   margin: 0 auto;
@@ -56,15 +55,8 @@ body {
   flex: 1 0;
   color: white;
   margin: 1px;
-  /* box-shadow: 0px 0px 10px darkgrey; */
   background-image: linear-gradient(black, #000033);
-  /* linear-gradient(blue, black): ; */
-  /* border-radius: 4px; */
-  /* background: grey; */
 }
-/* .rbc-day-bg:hover {
-  background-image: linear-gradient(black, green);
-} */
 .rbc-off-range-bg {
   background-image: linear-gradient(black, #37015b) !important;
 }
@@ -93,7 +85,6 @@ body {
   overflow: hidden;
 }
 .rbc-month-row + .rbc-month-row {
-  /* border-top: 1px solid #DDD; */
   border-top: none !important;
 }
 .rbc-today {
@@ -104,7 +95,6 @@ body {
   padding: 21px 5px 5px 5px !important;
   box-shadow: 0px 0px 20px black;
   background-image: linear-gradient(black, darkred);
-  /* background-color: #3174ad; */
   color: #fff;
   margin: 0 5px;
   padding-bottom: 10px;

@@ -13,8 +13,7 @@ class AboutApp extends React.Component {
     return (
       <section className="about__app__landing">
         <div className="container">
-        <ScrollAnimation animateIn="fadeInUp" 
-        >
+        <ScrollAnimation animateIn="fadeInUp">
           <div className="display__more">
             <div className="container">
               <img src={MainLandingImg} alt="Read more"/>
