@@ -15,7 +15,6 @@ import ForgotPassword from "./components/ForgotPassword";
 import PasswordReset from "./components/PasswordReset";
 import LandingPage from "./components/Landing/LandingPage";
 import Schedule from "./components/Schedule";
-import RoutineManager from "./components/Routine-Manager/Container";
 import MainWorkout from "./components/Workout/MainWorkout";
 import Progress from "./components/Progress/Progress";
 import Billing from "./components/Billing";

@@ -155,7 +155,6 @@ class Nav extends React.Component {
 
   render() {
     console.log("This is the Current user ", this.props.userInfo);
-    const { error } = this.props.valError;
     const { authed } = this.props.userInfo;
     const isNotAuth = (
       <div className="right__nav">

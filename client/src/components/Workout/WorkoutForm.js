@@ -52,7 +52,7 @@ class WorkoutForm extends React.Component {
       newError.weight = "Weight must be between 1 and 1000"
     }
 
-    if(weight == "") {
+    if(weight === "") {
       newError.weight = "Required Weight";
     }
 
@@ -60,7 +60,7 @@ class WorkoutForm extends React.Component {
       newError.sets = "Sets must be between 1 and 1000"
     }
 
-    if(sets == "") {
+    if(sets === "") {
       newError.sets = "Required Sets";
     }
 
@@ -68,7 +68,7 @@ class WorkoutForm extends React.Component {
       newError.reps = "Reps must be between 1 and 1000"
     }
 
-    if(reps == "") {
+    if(reps === "") {
       newError.reps = "Required Reps";
     }
 
