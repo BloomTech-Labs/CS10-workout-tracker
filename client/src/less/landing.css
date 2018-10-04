@@ -36,6 +36,8 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-shadow: 3px 3px black;
+  box-shadow: 10px 10px 15px black;
   padding: 20px 35px;
   background-image: linear-gradient(black, #222222, #111111);
   opacity: .9;

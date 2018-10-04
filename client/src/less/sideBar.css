@@ -23,9 +23,18 @@
 .side__box {
   padding: 10px 5px;
   margin-bottom: 10px;
-  background: radial-gradient(#CC0000, black);
+  box-shadow: 5px 5px 15px black;
+  background-image: linear-gradient(to right, black, #000033);
+  text-decoration: none !important;
 }
 .side__box a {
   color: #CCCCCC;
-  text-decoration: none;
+  text-decoration: none !important;
+}
+a {
+  color: #CCCCCC;
+  text-decoration: none !important;
+}
+a:hover {
+  color: #CC0000;
 }
