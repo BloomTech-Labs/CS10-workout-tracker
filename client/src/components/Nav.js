@@ -10,6 +10,7 @@ import {
   InputGroup
 } from "reactstrap";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { register, login, logout, forgotPassword } from "../actions";
 
 class Nav extends React.Component {
@@ -274,6 +275,18 @@ const mapStateToProps = state => {
     userInfo: state.auth,
     msg: state.auth.message
   };
+};
+
+Nav.propTypes = {
+  userInfo: PropTypes.shape({
+    token: PropTypes.string,
+    user: PropTypes.object
+  }),
+  msg: PropTypes.string,
+  register: PropTypes.func,
+  login: PropTypes.func,
+  logout: PropTypes.func,
+  forgotPassword: PropTypes.func
 };
 
 export default connect(
