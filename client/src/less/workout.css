@@ -39,6 +39,7 @@
   text-align: start;
   padding-left: 30px;
   background: grey;
+  font-size: 18px;
   margin: 5px;
   overflow: hidden;
   margin: 11px;
@@ -109,14 +110,58 @@
   color: black;
   overflow: scroll;
 }
-.main__workout .current__routine .current__routine__container h2 {
-  font-size: 20px;
-  color: #cccccc;
+.main__workout .current__routine .current__routine__container h3.current__title {
+  color: white;
+  text-align: start;
+  text-shadow: 3px 3px black;
+}
+.main__workout .current__routine .current__routine__container .exercise__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  width: 90%;
+  margin: 0 auto;
+  text-shadow: 2px 2px black;
+}
+.main__workout .current__routine .current__routine__container .exercise__title h3 {
+  font-size: 22px;
 }
 .main__workout .current__routine .current__routine__container h3 {
   font-size: 18px;
   color: #cc0000;
+  margin-bottom: 0;
+}
+.main__workout .current__routine .current__routine__container h2 {
+  font-size: 20px;
+  color: #cccccc;
 }
 .main__workout .current__routine .current__routine__container .exercise__list {
+  width: 90%;
+  margin: 0 auto;
+}
+.main__workout .current__routine .current__routine__container .exercise__list .exercise__card {
+  color: red;
+  margin-top: 5px;
+  margin-top: 20px;
+  box-shadow: 10px 8px 15px black;
+  text-shadow: 2px 2px black;
+}
+.main__workout .current__routine .current__routine__container .exercise__list .exercise__card .exercise__card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  color: #cccccc;
+  background-image: linear-gradient(to right, black, #cccccc);
+}
+.main__workout .current__routine .current__routine__container .exercise__list .exercise__card .exercise__card__header h3 {
+  margin: 0;
+  color: white;
   overflow: scroll;
+}
+.main__workout .current__routine .current__routine__container .exercise__list .exercise__card .exercise__card__body {
+  background-image: radial-gradient(#37015b, black);
+  color: #cccccc;
+  padding: 40px;
 }

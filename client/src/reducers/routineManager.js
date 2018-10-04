@@ -191,6 +191,10 @@ export default (state = initialState, action) => {
       return {
         ...state,
         msg: "Updated routine metadata.",
+        focusedRoutine: {
+          ...state.focusedRoutine,
+          title: action.payload.data.title
+        },
         selectedRoutine: {
           ...memoOfSelectedRoutineWithTitle,
           title: action.payload.data.title
