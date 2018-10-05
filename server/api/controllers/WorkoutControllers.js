@@ -326,7 +326,7 @@ const scheduleWorkout = async (workoutDoc, routineId, userId, date, next) => {
 
                   /* each workout doc contains a routineName field so that in case the user deletes a routine, 
                   then the routine name for the already scheduled workout can still be displayed */ 
-                  $set: {routineName: workoutRoutine.title} // *************** 
+                  $set: {routineName: workoutRoutine.title} // 
                 },
                 { new: true }
               );
