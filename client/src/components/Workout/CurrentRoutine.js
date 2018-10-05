@@ -88,7 +88,7 @@ class CurrentRoutine extends React.Component {
           toggle={this.toggleRoutine}
           className="sign__in"
         >
-          <ModalHeader toggle={this.toggleSignInModal}>SignIn</ModalHeader>
+          <ModalHeader toggle={this.toggleSignInModal}>New Routine Name</ModalHeader>
           <ModalBody>
             <InputGroup>
               <Input
@@ -130,7 +130,7 @@ class CurrentRoutine extends React.Component {
           toggle={this.toggleExercise}
           className="sign__in"
         >
-          <ModalHeader toggle={this.toggleSignInModal}>SignIn</ModalHeader>
+          <ModalHeader toggle={this.toggleSignInModal}>New Exercise</ModalHeader>
           <ModalBody>
             <InputGroup>
               <Input
@@ -184,7 +184,7 @@ class CurrentRoutine extends React.Component {
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.handleExerciseUpdate}>
-              Update Routine Name
+              Update Exercise
             </Button>{" "}
             <Button color="secondary" onClick={this.toggleExercise}>
               Cancel
