@@ -13,7 +13,8 @@ class CurrentRoutine extends React.Component {
     sets: "",
     exerciseId: "",
     routineModal: false,
-    exerciseModal: false
+    exerciseModal: false,
+    errors: {}
   };
 
   handleFieldChange = event => {
@@ -67,6 +68,15 @@ class CurrentRoutine extends React.Component {
   handleRoutineUpdate = () => {
     const { _id } = this.props.currentRoutine;
     const { routineName } = this.state;
+    const newErrors = {}
+    // call the routine add action here
+    if(routineName.trim() === "") {
+      newErrors.routineName = "Required Routine Name"
+    }
+
+    if(Object.keys(newErrors).length > 0) {
+      return this.setState({errors: newErrors});
+    }
     this.toggleRoutine();
     this.props.updateRoutine(_id, routineName);
     this.setState({routineName: ""});
@@ -97,8 +107,10 @@ class CurrentRoutine extends React.Component {
                 onChange={this.handleFieldChange}
                 name="routineName"
                 autoComplete="off"
+                maxlength="15"
               />
             </InputGroup>
+            {this.state.errors.routineName ? <span className="form__validation">{this.state.errors.routineName} </span>: null}
             {/* {this.props.valError.error ?<span className="form__validation">{this.props.valError.error}</span> : null}
             <InputGroup>
               <Input
@@ -139,6 +151,7 @@ class CurrentRoutine extends React.Component {
                 onChange={this.handleFieldChange}
                 name="exerciseName"
                 autoComplete="off"
+                maxlength="15"
               />
             </InputGroup>
             <InputGroup>
