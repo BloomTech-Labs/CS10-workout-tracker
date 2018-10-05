@@ -169,7 +169,7 @@ body {
   padding: 10px;
   margin-top: 20px;
   background-image: radial-gradient(#290245, black);
-  height: 75%;
+  height: 80%;
   width: 100%;
   box-shadow: 0 5px 30px grey !important;
 }
@@ -191,6 +191,9 @@ body {
   cursor: pointer;
   background-image: radial-gradient(#960000, black);
   color: white;
+}
+.calendarAndForm-container .formAndButton-container .form-container .icon-explanation {
+  font-size: 10px;
 }
 .scheduling-modal-body {
   height: 150px;

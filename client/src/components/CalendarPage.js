@@ -267,6 +267,7 @@ class CalendarPage extends Component {
                 />
               </div>
               <Button className="submit-btn" onClick={this.handleSubmitCopyWorkouts}>Submit</Button>
+              <div className="icon-explanation">* <i class="fas fa-minus-circle"></i> on the calendar denotes workouts that contain deleted routines and hence can not be copied.</div>
             </form>
           )}
         </div>
