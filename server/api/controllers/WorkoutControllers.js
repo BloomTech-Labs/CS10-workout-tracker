@@ -300,7 +300,10 @@ const scheduleWorkout = async (workoutDoc, routineId, userId, date, next) => {
     const workoutRoutine = await Routine.findByIdAndUpdate(routineId, {
       $push: { workoutLog: workoutDoc._id }
     });
-    if(workoutRoutine) {
+    
+    /* temp solution (if/else wrap) is for handling issue that arises if the user tries 
+    to copy a workout that contains a deleted routine */
+    if(workoutRoutine) { 
       workoutRoutine.populate(
         "exercises",
         async (err, hydratedWorkoutRoutine) => {
