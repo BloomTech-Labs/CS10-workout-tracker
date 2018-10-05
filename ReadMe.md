@@ -250,13 +250,13 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
 
   - POST
     - `{ title }`
-    - Creates a new Routine for a User, i.e. "Leg Day"
+    - Creates a new Routine for a User, i.e. "Arm Day"
 
   Request:
 
   ```
   {
-    "title": "Get Ripped"
+    "title": "Arm Day"
   }
   ```
 
@@ -286,7 +286,7 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
 
   ```
   {
-    "title": "Get Really Ripped",
+    "title": "Get Ripped",
     "routineId": "5bb773923fc6b98e25713139"
   }
   ```
@@ -345,7 +345,7 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
 
   ```
   {
-
+    "name": "Bench Press"
   }
   ```
 
@@ -357,6 +357,15 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
     - `{ routineId, exerciseId }`
     - Adds an Exercise to a particular Routine, i.e. add "2k Run" to "Cardio"
 
+  Request:
+
+  ```
+  {
+    "routineId": "5bb773923fc6b98e25713139",
+    "exerciseId": "5bb78b4ba2e99b92619b4d97"
+  }
+  ```
+
 - `/exercise`
 
   ##### Requires Authentication
@@ -366,14 +375,42 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
     - `{ exerciseId }`
     - Retrieves an exercise by the exercise id
 
+  Request:
+
+  ```
+  {
+    "exerciseId": "5bb78b4ba2e99b92619b4d97"
+  }
+  ```
+
   - PUT
 
-    - `{ exerciseId, (name, currentWeight, currentReps, currentSets )}`
+    - `{ exerciseId, name, currentWeight, currentReps, currentSets }`
     - Finds an exercise document by id and returns it with update applied
+
+  Request:
+
+  ```
+  {
+    "exerciseId": "5bb78b4ba2e99b92619b4d97",
+    "name": "Bench Press",
+    "currentWeight": 5,
+    "currentReps": 5,
+    "currentSets": 5
+  }
+  ```
 
   - DELETE
     - `{ exerciseId }`
     - Finds the exercise by id and deletes it from the Exercise Collection and deletes the corresponding reference in the User collection.
+
+  Request:
+
+  ```
+  {
+    "exerciseId": "5bb78b4ba2e99b92619b4d97"
+  }
+  ```
 
 ### Workouts
 
@@ -385,10 +422,20 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
 
   - POST
     - `{ routineId, userId, date, note }`
+    - `note`, optional
     - Creates a new Workout with the provided date.
     - Creates a new Performance of each Exercise referenced in the provided Routine, with the provided date.
     - Each Performance document for a specific performance of an exercise is referenced in the document for the Workout. Each Performance document is also referenced in the corresponding Exercise document.
     - Finally, the Workout document is referenced in the provided User document in the `calendar` property, providing an entry point to get from the User level to more specific records.
+
+  Request:
+
+  ```
+  {
+    "routineId": "5bb78ff2a2e99b92619b4d98",
+  	"date": "2018-10-04T22:00:00.000Z"
+  }
+  ```
 
 - `/fetch-workout`
 
@@ -398,12 +445,19 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
     - `{ workoutId }`
     - Retrieves a workout by the workout id
 
+  Request:
+
+  ```
+  {
+    "workoutId": "5bb7910aa2e99b92619b4d99"
+  }
+  ```
+
 - `/workouts`
 
   ##### Requires Authentication
 
   - GET
-    - `{ userId }`
     - Retrieves a list of all workouts associated with the user id
 
 - `/workouts/:id`
@@ -419,10 +473,20 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
   ##### Requires Authentication
 
   - POST
-    - `{ startDate, endDate, shiftDistance, userId }`
+    - `{ startDate, endDate, shiftDistance }`
     - Finds user by id and populates calendar workouts
     - Filters calendar entries from the start and end dates.
     - For each workout in range schedules new workouts to the shiftDistance (milliseconds) selected which is turned into a new Date.
+
+  Request:
+
+  ```
+  {
+    "startDate": "2018-10-03T22:00:00.000Z",
+    "endDate": "2018-10-05T22:00:00.000Z",
+    "shiftDistance": 604800000
+  }
+  ```
 
 ### Performances
 
@@ -440,7 +504,6 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
   ##### Requires Authentication
 
   - GET
-    - `{ userId }`
     - Retrieves a list of all performances associated with the user id
 
 ---
