@@ -1,12 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import { deleteExercise, deleteRoutine, updateRoutine } from "../../actions";
+import { deleteExercise, deleteRoutine, updateRoutine, updateExercise} from "../../actions";
 import { Button, Modal, Input, ModalHeader, ModalBody, InputGroup, ModalFooter} from 'reactstrap';
 
 class CurrentRoutine extends React.Component {
 
   state = {
     routineName: "",
+    exerciseName: "",
+    weight: "",
+    reps: "",
+    sets: "",
+    exerciseId: "",
     routineModal: false,
     exerciseModal: false
   };
@@ -23,10 +28,16 @@ class CurrentRoutine extends React.Component {
     });
   }
 
-  toggleExercise = () => {
+  toggleExercise = (id ,name="name", weight="5", reps="5", sets="5") => {
+
     this.setState({
-      exerciseModal: !this.state.exerciseModal
-    })
+      exerciseModal: !this.state.exerciseModal,
+      exerciseName: name,
+      weight: weight,
+      reps: reps,
+      sets: sets,
+      exerciseId: id
+    });
   }
 
   handleDelete = (exerciseId) => {
@@ -39,8 +50,18 @@ class CurrentRoutine extends React.Component {
   }
 
   handleExerciseUpdate = () => {
-    
-    // alert("update exercise");
+    const {exerciseId, exerciseName, weight, reps, sets } = this.state;
+  
+    this.props.updateExercise(exerciseId, exerciseName, weight, reps, sets);
+
+    this.setState({
+      exerciseName: "",
+      weight: "",
+      reps: "",
+      sets: "",
+      exerciseId: "",
+      exerciseModal: !this.state.exerciseModal
+    });
   }
 
   handleRoutineUpdate = () => {
@@ -75,7 +96,7 @@ class CurrentRoutine extends React.Component {
                 value={this.state.routineName}
                 onChange={this.handleFieldChange}
                 name="routineName"
-                autocomplete="off"
+                autoComplete="off"
               />
             </InputGroup>
             {/* {this.props.valError.error ?<span className="form__validation">{this.props.valError.error}</span> : null}
@@ -86,7 +107,7 @@ class CurrentRoutine extends React.Component {
                 value={this.state.signInPass}
                 onChange={this.handleFieldChange}
                 name="signInPass"
-                autocomplete="off"
+                autoComplete="off"
               />
             </InputGroup>
             {this.props.valError.error ? <span className="form__validation">{this.props.valError.error}</span> : null} */}
@@ -113,13 +134,41 @@ class CurrentRoutine extends React.Component {
           <ModalBody>
             <InputGroup>
               <Input
-                placeholder="New Routine Name"
-                value={this.state.routineName}
+                placeholder="New Exercise Name"
+                value={this.state.exerciseName}
                 onChange={this.handleFieldChange}
-                name="routineName"
-                autocomplete="off"
+                name="exerciseName"
+                autoComplete="off"
               />
             </InputGroup>
+            <InputGroup>
+              <Input
+                placeholder="New Weight"
+                value={this.state.weight}
+                onChange={this.handleFieldChange}
+                name="weight"
+                autoComplete="off"
+              />
+            </InputGroup>
+            <InputGroup>
+              <Input
+                placeholder="New Reps"
+                value={this.state.reps}
+                onChange={this.handleFieldChange}
+                name="reps"
+                autoComplete="off"
+              />
+            </InputGroup>
+            <InputGroup>
+              <Input
+                placeholder="New Sets"
+                value={this.state.sets}
+                onChange={this.handleFieldChange}
+                name="sets"
+                autoComplete="off"
+              />
+            </InputGroup>
+            
             {/* {this.props.valError.error ?<span className="form__validation">{this.props.valError.error}</span> : null}
             <InputGroup>
               <Input
@@ -128,13 +177,13 @@ class CurrentRoutine extends React.Component {
                 value={this.state.signInPass}
                 onChange={this.handleFieldChange}
                 name="signInPass"
-                autocomplete="off"
+                autoComplete="off"
               />
             </InputGroup>
             {this.props.valError.error ? <span className="form__validation">{this.props.valError.error}</span> : null} */}
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.handleRoutineUpdate}>
+            <Button color="primary" onClick={this.handleExerciseUpdate}>
               Update Routine Name
             </Button>{" "}
             <Button color="secondary" onClick={this.toggleExercise}>
@@ -164,7 +213,7 @@ class CurrentRoutine extends React.Component {
                 <div className="exercise__card__header">
                   <h3>{exercise.name}</h3>
                   <div className="pencil__trash__icon__container">
-                  <i className="fas fa-pencil-alt icon" onClick={this.handleExerciseUpdate}/>
+                  <i className="fas fa-pencil-alt icon" onClick={()=> this.toggleExercise(exercise._id, exercise.name, exercise.currentWeight, exercise.currentReps, exercise.currentSets)}/>
                   <i className="fas fa-trash-alt icon" onClick={() => this.handleDelete(exercise._id)}/>
                   </div>
                 </div>
@@ -189,4 +238,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { deleteExercise, deleteRoutine, updateRoutine })(CurrentRoutine);
+export default connect(mapStateToProps, { deleteExercise, deleteRoutine, updateRoutine, updateExercise })(CurrentRoutine);
