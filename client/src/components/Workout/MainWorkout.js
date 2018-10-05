@@ -4,10 +4,6 @@ import WorkoutForm from "./WorkoutForm";
 import CurrentRoutine from "./CurrentRoutine";
 
 class MainWorkout extends React.Component {
-  constructor() {
-    super();
-  }
-
   render() {
     return (
       <div className="main__workout">

@@ -1,10 +1,4 @@
-@primary: #cc0000;
-@secondary: #000033;
-@white: white;
-@darkGrey: #666666;
-@grey: #cccccc;
-
-body {
+.calendar-page {
   margin: 0;
   font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -18,23 +12,20 @@ body {
 .rbc-month-view {
   position: relative;
   border: none !important;
-  box-shadow: 0 5px 43px grey !important;
+  box-shadow: 0 5px 43px @grey !important;
   background: black;
   margin: 0 auto;
-  box-shadow: 0, 0, 20px, black;
+  box-shadow: 0, 0, 20px, @black;
   display: -ms-flexbox;
   display: flex;
-  box-shadow: 0px 0px 40px black;
+  box-shadow: 0px 0px 40px @black;
   -ms-flex-direction: column;
   flex-direction: column;
   -ms-flex: 1 0 0px;
   flex: 1 0;
   max-width: 900px;
   width: 80% !important;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-user-select: none;
+  .user-select(none);
   height: 90%;
 }
 .rbc-addons-dnd.rbc-calendar {
@@ -55,8 +46,7 @@ body {
   padding: 0 2px;
   margin: 20px 0;
   border: none !important;
-  -ms-flex-direction: row;
-  flex-direction: row;
+  .flex-direction(row);
   -ms-flex: 1 0 0px;
   flex: 1 0;
   overflow: hidden;
@@ -66,11 +56,11 @@ body {
   flex: 1 0;
   color: white;
   margin: 1px;
-  background-image: linear-gradient(black, #000033);
+  .bg-linear(@black, @secondary);
 }
 
 .rbc-off-range-bg {
-  background-image: linear-gradient(black, #37015b) !important;
+  .bg-linear(@black, @purple) !important;
 }
 .rbc-row-bg {
   display: -ms-flexbox;
@@ -78,8 +68,7 @@ body {
   padding: 0 2px;
   margin: 20px 0;
   border: none !important;
-  -ms-flex-direction: row;
-  flex-direction: row;
+  .flex-direction(row);
   -ms-flex: 1 0 0px;
   flex: 1 0;
   overflow: hidden;
@@ -90,8 +79,7 @@ body {
   padding: 0 2px;
   margin: 20px 0;
   border: none !important;
-  -ms-flex-direction: row;
-  flex-direction: row;
+  .flex-direction(row);
   -ms-flex: 1 0 0px;
   flex: 1 0;
   overflow: hidden;
@@ -102,9 +90,9 @@ body {
 
 .rbc-event {
   padding: 7px 5px 5px 5px !important;
-  box-shadow: 0px 0px 20px black;
-  background-image: linear-gradient(black, darkred);
-  color: #fff;
+  box-shadow: 0px 0px 20px @black;
+  .bg-linear(@black, @primary);
+  color: @white;
   margin: 0 5px;
   padding-bottom: 10px;
   font-size: 15px;
@@ -138,7 +126,7 @@ body {
     text-align: center;
     font-size: 28px;
   }
-} 
+}
 .rbc-day-bg.rbc-off-range-bg {
   background: none;
 }
@@ -159,8 +147,7 @@ body {
     margin: 55px 6% 0 0;
 
     .button-container {
-      display: flex;
-      justify-content: space-between;
+      .flex-and-justify(space-between);
       width: 100%;
       padding: 10px;
 
@@ -184,10 +171,10 @@ body {
     .form-container {
       padding: 10px;
       margin-top: 20px;
-      background-image: radial-gradient(#290245, black);
+      .bg-radial(@purple, @black);
       height: 80%;
       width: 100%;
-      box-shadow: 0 5px 30px grey !important;
+      box-shadow: 0 5px 30px @grey !important;
 
       div {
         margin-top: 10px;
@@ -198,15 +185,15 @@ body {
       }
       .submit-btn {
         margin-top: 45px;
-        background-image: radial-gradient(@primary, black);
+        background-image: radial-gradient(@primary, @black);
         border: none;
         width: 40%;
         color: @grey;
       }
       .submit-btn:hover {
         cursor: pointer;
-        background-image: radial-gradient(#960000, black);
-        color: white;
+        .bg-radial(@primary, @black);
+        color: @white;
       }
       .icon-explanation {
         font-size: 10px;
@@ -221,7 +208,7 @@ body {
 }
 
 .schedule-btn {
-  background-image: linear-gradient(@secondary, black);
+  .bg-linear(@secondary, @black);
   color: @grey;
   border: none;
   margin-bottom: 5px;
@@ -229,8 +216,8 @@ body {
 
 .schedule-btn:hover {
   cursor: pointer;
-  background-image: radial-gradient(#000023, black);
-  color: white;
+  .bg-radial(@secondary, @black);
+  color: @white;
 }
 
 .cancel-btn {
@@ -241,12 +228,12 @@ body {
 
 .cancel-btn:hover {
   cursor: pointer;
-  background-image: radial-gradient(#960000, black);
-  color: white;
+  .bg-radial(@primary, @black);
+  color: @white;
 }
 
 .delete-workout-btn {
-  background-image: linear-gradient(@secondary, black);
+  .bg-linear(@secondary, @black);
   color: @grey;
   border: none;
   margin-bottom: 5px;
@@ -260,11 +247,11 @@ body {
     div {
       div {
         display: flex;
-  
+
         div {
           .checkoff-input {
             margin-left: 15px;
-             margin-top: 5px;
+            margin-top: 5px;
           }
         }
         .checkoff-exercise {
@@ -273,9 +260,8 @@ body {
       }
       .checkoff-performance {
         margin-left: 50px;
-        display: flex;
-        justify-content: space-evenly;
-  
+        .flex-and-justify(space-evenly);
+
         span {
           margin: 5px;
         }

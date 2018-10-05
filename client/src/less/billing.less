@@ -2,9 +2,7 @@
   .bg-radial(@black, @secondary);
   min-height: 100vh;
   min-height: 88vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .flex-and-justify(center);
 
   .billing-container {
     .center();
@@ -21,7 +19,7 @@
         max-width: 420px;
         margin: 40px;
         padding: 20px;
-        .bg-linear(black, @white);
+        .bg-linear(@black, @white);
 
         .checkout-text {
           color: @grey;

@@ -164,7 +164,7 @@ class CalendarPage extends Component {
       title: workout.routineName ? (
         workout.routineName
       ) : (
-        <i class="fas fa-minus-circle" />
+        <i className="fas fa-minus-circle" />
       ),
       id: workout._id
     }));
@@ -199,187 +199,197 @@ class CalendarPage extends Component {
     });
 
     return (
-      <div className="calendarAndForm-container">
-        <div className="calendar-container">
-          <BigCalendar
-            popup
-            events={this.events}
-            views={allViews}
-            step={60}
-            showMultiDayTimes
-            defaultDate={new Date()}
-            defaultView="month"
-            selectable={true}
-            onSelectSlot={this.onSelectSlot}
-            onSelectEvent={this.onSelectEvent}
-          />
-        </div>
-        <div className="formAndButton-container">
-          <div className="button-container">
-            <Button
-              className="newWorkout-btn"
-              style={{
-                backgroundImage:
-                  this.state.usageMode === "NEW_WORKOUT"
-                    ? "radial-gradient(#cc0000, black)"
-                    : "radial-gradient(#666666, black)"
-              }}
-              onClick={() => {
-                this.setState({ usageMode: "NEW_WORKOUT" });
-              }}
-            >
-              New Workout
-            </Button>
-            <Button
-              className="copyWorkouts-btn"
-              style={{
-                backgroundImage:
-                  this.state.usageMode === "COPY_WORKOUTS"
-                    ? "radial-gradient(#cc0000, black)"
-                    : "radial-gradient(#666666, black)"
-              }}
-              onClick={() => {
-                this.setState({ usageMode: "COPY_WORKOUTS" });
-              }}
-            >
-              Copy Workouts
-            </Button>
+      <div className="calendar-page">
+        <div className="calendarAndForm-container">
+          <div className="calendar-container">
+            <BigCalendar
+              popup
+              events={this.events}
+              views={allViews}
+              step={60}
+              showMultiDayTimes
+              defaultDate={new Date()}
+              defaultView="month"
+              selectable={true}
+              onSelectSlot={this.onSelectSlot}
+              onSelectEvent={this.onSelectEvent}
+            />
           </div>
-          {this.state.usageMode === "COPY_WORKOUTS" && (
-            <form className="form-container">
-              <div>
-                <label>Copy from start date</label>
-                <input
-                  type="date"
-                  name="copyFromStartDate"
-                  value={this.state.copyFromStartDate}
-                  onChange={this.handleDateChange}
-                />
-              </div>
-              <div>
-                <label>Copy from end date</label>
-                <input
-                  type="date"
-                  name="copyFromEndDate"
-                  value={this.state.copyFromEndDate}
-                  onChange={this.handleDateChange}
-                />
-              </div>
-              <div>
-                <label>Copy to date</label>
-                <input
-                  type="date"
-                  name="copyToStartDate"
-                  value={this.state.copyToStartDate}
-                  onChange={this.handleDateChange}
-                />
-              </div>
+          <div className="formAndButton-container">
+            <div className="button-container">
               <Button
-                className="submit-btn"
-                onClick={this.handleSubmitCopyWorkouts}
+                className="newWorkout-btn"
+                style={{
+                  backgroundImage:
+                    this.state.usageMode === "NEW_WORKOUT"
+                      ? "radial-gradient(#cc0000, black)"
+                      : "radial-gradient(#666666, black)"
+                }}
+                onClick={() => {
+                  this.setState({ usageMode: "NEW_WORKOUT" });
+                }}
               >
-                Submit
+                New Workout
               </Button>
-              <div className="icon-explanation">
-                * <i class="fas fa-minus-circle" /> on the calendar denotes
-                workouts that contain deleted routines and hence can not be
-                copied.
-              </div>
-            </form>
-          )}
-        </div>
-
-        {/* Scheduling Modal */}
-
-        <Modal
-          isOpen={this.state.schedulingModal}
-          toggle={this.schedulingModalToggle}
-          className={this.props.className}
-        >
-          <ModalHeader toggle={this.schedulingModalToggle}>
-            Schedule a Workout!
-          </ModalHeader>
-          <ModalBody className="scheduling-modal-body">
-            {/* Drop down for selecting a routine */}
-            <select
-              value={this.state.selectedRoutineValue}
-              onChange={this.handleChange}
-            >
-              <option value="select a routine">select a routine</option>
-              {this.props.routines.map(routine => (
-                <option key={routine._id} value={routine.title}>
-                  {routine.title}
-                </option>
-              ))}
-            </select>
-          </ModalBody>
-          <ModalFooter>
-            <Button className="schedule-btn" onClick={this.scheduleWorkout}>
-              Schedule!
-            </Button>{" "}
-            <Button className="cancel-btn" onClick={this.schedulingModalToggle}>
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Modal>
-
-        {/* Checkoff Performance Modal */}
-
-        <Modal
-          isOpen={this.state.checkboxModal}
-          toggle={this.checkboxModalToggle}
-          className={this.props.className}
-        >
-          <ModalHeader toggle={this.checkboxModalToggle}>
-            {this.selectedEventTitle}
-          </ModalHeader>
-          <ModalBody className="checkoff-modal-body">
-            {checkoff.map(
-              checkoffObj =>
-                checkoffObj.workoutId === this.selectedEventId ? (
-                  <div key={checkoffObj.performanceId}>
-                    <div>
-                      <div>
-                        <input
-                          className="checkoff-input"
-                          type="checkbox"
-                          key={checkoffObj.performanceId}
-                          value={checkoffObj.performanceId}
-                          onClick={this.handleIndividualCheckbox}
-                          onChange={() => {
-                            this.handleCheckOffInDB(checkoffObj.performanceId);
-                          }}
-                          checked={
-                            this.state.performances.filter(
-                              performance =>
-                                performance._id === checkoffObj.performanceId
-                            )[0].completed
-                          }
-                        />
-                      </div>
-                      <div className="checkoff-exercise">
-                        {checkoffObj.exerciseName}
-                      </div>
-                    </div>
-                    <div className="checkoff-performance">
-                      <span>{`weight: ${checkoffObj.weight}`}</span>
-                      <span>{`sets: ${checkoffObj.sets}`}</span>
-                      <span>{`reps: ${checkoffObj.reps}`}</span>
-                    </div>
-                  </div>
-                ) : null
+              <Button
+                className="copyWorkouts-btn"
+                style={{
+                  backgroundImage:
+                    this.state.usageMode === "COPY_WORKOUTS"
+                      ? "radial-gradient(#cc0000, black)"
+                      : "radial-gradient(#666666, black)"
+                }}
+                onClick={() => {
+                  this.setState({ usageMode: "COPY_WORKOUTS" });
+                }}
+              >
+                Copy Workouts
+              </Button>
+            </div>
+            {this.state.usageMode === "COPY_WORKOUTS" && (
+              <form className="form-container">
+                <div>
+                  <label>Copy from start date</label>
+                  <input
+                    type="date"
+                    name="copyFromStartDate"
+                    value={this.state.copyFromStartDate}
+                    onChange={this.handleDateChange}
+                  />
+                </div>
+                <div>
+                  <label>Copy from end date</label>
+                  <input
+                    type="date"
+                    name="copyFromEndDate"
+                    value={this.state.copyFromEndDate}
+                    onChange={this.handleDateChange}
+                  />
+                </div>
+                <div>
+                  <label>Copy to date</label>
+                  <input
+                    type="date"
+                    name="copyToStartDate"
+                    value={this.state.copyToStartDate}
+                    onChange={this.handleDateChange}
+                  />
+                </div>
+                <Button
+                  className="submit-btn"
+                  onClick={this.handleSubmitCopyWorkouts}
+                >
+                  Submit
+                </Button>
+                <div className="icon-explanation">
+                  * <i className="fas fa-minus-circle" /> on the calendar
+                  denotes workouts that contain deleted routines and hence can
+                  not be copied.
+                </div>
+              </form>
             )}
-          </ModalBody>
+          </div>
 
-          <ModalFooter>
-            <Button className="delete-workout-btn" onClick={this.deleteWorkout}>
-              Delete Workout
-            </Button>
-            <Button className="cancel-btn" onClick={this.checkboxModalToggle}>
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Modal>
+          {/* Scheduling Modal */}
+
+          <Modal
+            isOpen={this.state.schedulingModal}
+            toggle={this.schedulingModalToggle}
+            className={this.props.className}
+          >
+            <ModalHeader toggle={this.schedulingModalToggle}>
+              Schedule a Workout!
+            </ModalHeader>
+            <ModalBody className="scheduling-modal-body">
+              {/* Drop down for selecting a routine */}
+              <select
+                value={this.state.selectedRoutineValue}
+                onChange={this.handleChange}
+              >
+                <option value="select a routine">select a routine</option>
+                {this.props.routines.map(routine => (
+                  <option key={routine._id} value={routine.title}>
+                    {routine.title}
+                  </option>
+                ))}
+              </select>
+            </ModalBody>
+            <ModalFooter>
+              <Button className="schedule-btn" onClick={this.scheduleWorkout}>
+                Schedule!
+              </Button>{" "}
+              <Button
+                className="cancel-btn"
+                onClick={this.schedulingModalToggle}
+              >
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Modal>
+
+          {/* Checkoff Performance Modal */}
+
+          <Modal
+            isOpen={this.state.checkboxModal}
+            toggle={this.checkboxModalToggle}
+            className={this.props.className}
+          >
+            <ModalHeader toggle={this.checkboxModalToggle}>
+              {this.selectedEventTitle}
+            </ModalHeader>
+            <ModalBody className="checkoff-modal-body">
+              {checkoff.map(
+                checkoffObj =>
+                  checkoffObj.workoutId === this.selectedEventId ? (
+                    <div key={checkoffObj.performanceId}>
+                      <div>
+                        <div>
+                          <input
+                            className="checkoff-input"
+                            type="checkbox"
+                            key={checkoffObj.performanceId}
+                            value={checkoffObj.performanceId}
+                            onClick={this.handleIndividualCheckbox}
+                            onChange={() => {
+                              this.handleCheckOffInDB(
+                                checkoffObj.performanceId
+                              );
+                            }}
+                            checked={
+                              this.state.performances.filter(
+                                performance =>
+                                  performance._id === checkoffObj.performanceId
+                              )[0].completed
+                            }
+                          />
+                        </div>
+                        <div className="checkoff-exercise">
+                          {checkoffObj.exerciseName}
+                        </div>
+                      </div>
+                      <div className="checkoff-performance">
+                        <span>{`weight: ${checkoffObj.weight}`}</span>
+                        <span>{`sets: ${checkoffObj.sets}`}</span>
+                        <span>{`reps: ${checkoffObj.reps}`}</span>
+                      </div>
+                    </div>
+                  ) : null
+              )}
+            </ModalBody>
+
+            <ModalFooter>
+              <Button
+                className="delete-workout-btn"
+                onClick={this.deleteWorkout}
+              >
+                Delete Workout
+              </Button>
+              <Button className="cancel-btn" onClick={this.checkboxModalToggle}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Modal>
+        </div>
       </div>
     );
   }
