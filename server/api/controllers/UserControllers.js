@@ -1,5 +1,4 @@
 const User = require("../models/User");
-// const jwt = require("jsonwebtoken");
 const { generateToken, generateResetToken } = require("../utilities/auth");
 require("dotenv").config();
 const sgMail = require("@sendgrid/mail");
@@ -8,20 +7,10 @@ const sgMail = require("@sendgrid/mail");
 const stripeTestAPIKey = process.env.STRIPE_API_KEY_TEST;
 // !! This is for development environment, there is a different API key for production !!
 const stripe = require("stripe")(stripeTestAPIKey);
-
-// const secret = process.env.SECRET;
+// SendGrid API key
 const sgAPIKey = process.env.SENDGRID_API_KEY;
 const senderEmail = process.env.MAILER_EMAIL_ID;
 sgMail.setApiKey(sgAPIKey);
-
-// function generateToken(user) {
-//   const options = {
-//     expiresIn: "30m"
-//   };
-//   const payload = { name: user.username };
-
-//   return jwt.sign(payload, secret, options);
-// }
 
 const register = (req, res) => {
   const { username, password, email } = req.body;
@@ -30,24 +19,18 @@ const register = (req, res) => {
   User.find({ email: email })
     .then(foundedEmail => {
       errors.email = `Email ${email} already exist`;
-
     })
     .catch(err => {
-      console.log("no email exists")
-    })
-  
-  User.findOne({username})
+      console.log("no email exists");
+    });
+
+  User.findOne({ username })
     .then(foundedUsername => {
       errors.username = `Username ${username} already exist`;
     })
     .catch(err => {
       console.log("no username exists");
-    })
-  //   errors.email = `Email ${email} already exist`;
-  // console.log("What is the length of errors: ",Object.keys(errors));
-  // if(Object.keys(errors).length > 0) {
-  //   return res.json(errors);
-  // }
+    });
 
   const newUser = new User({
     username,
@@ -62,7 +45,7 @@ const register = (req, res) => {
     })
     .catch(err => {
       res.status(422);
-      res.json({ message: "email or username is taken"});
+      res.json({ message: "email or username is taken" });
     });
 };
 
@@ -77,7 +60,7 @@ const login = (req, res) => {
         if (!success) {
           console.log(`Failed to match ${username}'s PW.`);
           res.status(422);
-          res.json({error: "Password or Username incorrect"});
+          res.json({ error: "Password or Username incorrect" });
         }
         if (success) {
           console.log(
@@ -134,9 +117,6 @@ const forgotPassword = (req, res) => {
 
 const resetPassword = function(req, res) {
   let { token, newPassword, confirmNewPassword } = req.body;
-
-  // let payload = jwt.decode(token);
-  // console.log(payload);
   console.log(token);
 
   User.findOne({
