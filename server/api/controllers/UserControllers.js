@@ -25,6 +25,29 @@ sgMail.setApiKey(sgAPIKey);
 
 const register = (req, res) => {
   const { username, password, email } = req.body;
+  let errors = {};
+
+  User.find({ email: email })
+    .then(foundedEmail => {
+      errors.email = `Email ${email} already exist`;
+
+    })
+    .catch(err => {
+      console.log("no email exists")
+    })
+  
+  User.findOne({username})
+    .then(foundedUsername => {
+      errors.username = `Username ${username} already exist`;
+    })
+    .catch(err => {
+      console.log("no username exists");
+    })
+  //   errors.email = `Email ${email} already exist`;
+  // console.log("What is the length of errors: ",Object.keys(errors));
+  // if(Object.keys(errors).length > 0) {
+  //   return res.json(errors);
+  // }
 
   const newUser = new User({
     username,
@@ -39,7 +62,7 @@ const register = (req, res) => {
     })
     .catch(err => {
       res.status(422);
-      res.json({ "Error creating user": err.message });
+      res.json({ message: "email or username is taken"});
     });
 };
 
@@ -54,7 +77,7 @@ const login = (req, res) => {
         if (!success) {
           console.log(`Failed to match ${username}'s PW.`);
           res.status(422);
-          res.json("Password incorrect");
+          res.json({error: "Password or Username incorrect"});
         }
         if (success) {
           console.log(
@@ -69,7 +92,7 @@ const login = (req, res) => {
     })
     .catch(err => {
       res.status(404);
-      res.json({ "Username not found": err.message });
+      res.json({ error: "Password or Username incorrect" });
     });
 };
 
