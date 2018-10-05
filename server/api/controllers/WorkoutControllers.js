@@ -300,76 +300,91 @@ const scheduleWorkout = async (workoutDoc, routineId, userId, date, next) => {
     const workoutRoutine = await Routine.findByIdAndUpdate(routineId, {
       $push: { workoutLog: workoutDoc._id }
     });
-    workoutRoutine.populate(
-      "exercises",
-      async (err, hydratedWorkoutRoutine) => {
-        if (err) {
-          reject(err);
-        }
-        const promisesToSchedulePerformances = hydratedWorkoutRoutine.exercises.map(
-          async exercise => {
-            const futureExercisePerformance = new Performance({
-              exerciseName: exercise.name,
-              exercise: exercise._id,
-              date,
-              user: userId // added user ref for fetchAllPerformanceDocs controller. See PerformanceControllers
-            });
-            const scheduledPerformance = await futureExercisePerformance.save();
-            const workoutWithPerformanceRecord = await Workout.findByIdAndUpdate(
-              workoutDoc._id,
-              {
-                $push: { performances: scheduledPerformance._id }
-              },
-              { new: true }
-            );
-            const exerciseWithUpdatedPerformanceLog = await Exercise.findByIdAndUpdate(
-              exercise._id,
-              {
-                $push: { performanceLog: scheduledPerformance._id }
+    if(workoutRoutine) {
+      workoutRoutine.populate(
+        "exercises",
+        async (err, hydratedWorkoutRoutine) => {
+          if (err) {
+            reject(err);
+          }
+          const promisesToSchedulePerformances = hydratedWorkoutRoutine.exercises.map(
+            async exercise => {
+              const futureExercisePerformance = new Performance({
+                exerciseName: exercise.name,
+                exercise: exercise._id,
+                date,
+                user: userId // added user ref for fetchAllPerformanceDocs controller. See PerformanceControllers
+              });
+              const scheduledPerformance = await futureExercisePerformance.save();
+              const workoutWithPerformanceRecord = await Workout.findByIdAndUpdate(
+                workoutDoc._id,
+                {
+                  $push: { performances: scheduledPerformance._id },
+
+                  /* each workout doc contains a routineName field so that in case the user deletes a routine, 
+                  then the routine name for the already scheduled workout can still be displayed */ 
+                  $set: {routineName: workoutRoutine.title} // *************** 
+                },
+                { new: true }
+              );
+              const exerciseWithUpdatedPerformanceLog = await Exercise.findByIdAndUpdate(
+                exercise._id,
+                {
+                  $push: { performanceLog: scheduledPerformance._id }
+                }
+              );
+              return true;
+            }
+          );
+          const promiseResults = await Promise.all(
+            promisesToSchedulePerformances
+          );
+          console.log("PROMISE RESULTS", promiseResults);
+          const updatedUser = await User.findByIdAndUpdate(userId, {
+            $push: {
+              calendar: {
+                // date: Date.now(), // Will fix with a projection onto the date header on the request that provides a default.
+                date: workoutDoc.date,
+                workout: workoutDoc._id
               }
-            );
-            return true;
-          }
-        );
-        const promiseResults = await Promise.all(
-          promisesToSchedulePerformances
-        );
-        console.log("PROMISE RESULTS", promiseResults);
-        const updatedUser = await User.findByIdAndUpdate(userId, {
-          $push: {
-            calendar: {
-              // date: Date.now(), // Will fix with a projection onto the date header on the request that provides a default.
-              date: workoutDoc.date,
-              workout: workoutDoc._id
             }
-          }
-        });
-        const updatedWorkoutDoc = await Workout.findById(workoutDoc._id);
-        const hydratedWorkout = await updatedWorkoutDoc.populate(
-          [
-            {
-              path: "routine",
-              populate: { path: "exercises" }
-            },
-            {
-              path: "performances"
+          });
+          const updatedWorkoutDoc = await Workout.findById(workoutDoc._id);
+          const hydratedWorkout = await updatedWorkoutDoc.populate(
+            [
+              {
+                path: "routine",
+                populate: { path: "exercises" }
+              },
+              {
+                path: "performances"
+              }
+            ],
+            (err, hydratedWorkout) => {
+              if (err) {
+                reject(err);
+              }
+              const success = {
+                status: 201,
+                msg: "Succeeded in scheduling workout!",
+                updatedUser,
+                hydratedWorkout
+              };
+              return next(success);
             }
-          ],
-          (err, hydratedWorkout) => {
-            if (err) {
-              reject(err);
-            }
-            const success = {
-              status: 201,
-              msg: "Succeeded in scheduling workout!",
-              updatedUser,
-              hydratedWorkout
-            };
-            return next(success);
-          }
-        );
+          );
+        }
+      )
+    }
+    else {
+       routineNoLongerExists = {
+        status: 410,
+        msg: "routine no longer exists",
+        workoutDoc
       }
-    );
+      return next(routineNoLongerExists)
+    }
+
   } catch (err) {
     const error = {
       status: 500,

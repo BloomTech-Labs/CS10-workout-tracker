@@ -17,6 +17,9 @@ const WorkoutSchema = Schema({
     ref: "Routine",
     required: true
   },
+  routineName: {
+    type: String
+  },
   performances: [
     {
       type: Schema.Types.ObjectId,
