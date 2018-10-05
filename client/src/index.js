@@ -4,7 +4,7 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import registerServiceWorker from "./registerServiceWorker";
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import ReduxThunk from "redux-thunk";
@@ -15,7 +15,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import PasswordReset from "./components/PasswordReset";
 import LandingPage from "./components/Landing/LandingPage";
 import Schedule from "./components/Schedule";
-import RoutineManager from "./components/Routine-Manager/Container";
+import MainWorkout from "./components/Workout/MainWorkout";
 import Progress from "./components/Progress/Progress";
 import Billing from "./components/Billing";
 import Settings from "./components/Settings";
@@ -25,7 +25,18 @@ import Footer from "./components/Footer";
 
 import combinedReducer from "./reducers";
 
-const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
+
+// const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
+
+// ============= Xang Added this for dev to see the redux store  =====
+// Delete and uncomment the top one if you want ===
+
+const createStoreWithMiddleware = compose(
+  applyMiddleware(ReduxThunk),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)(createStore);
+/// ==========================================
+
 const store = createStoreWithMiddleware(combinedReducer);
 
 ReactDOM.render(
@@ -36,17 +47,15 @@ ReactDOM.render(
         <div className="push__nav"></div>
         <Switch>
         <Route exact path="/" component={LandingPage} />
-        
         <div className="main__side__content">
-          
-            <SideBar/>  
+          <SideBar/>  
           <div className="main__container">
             <Route path="/register" exact component={RegistrationPage} />
             <Route path="/login" exact component={LoginPage} />
             <Route path="/forgot" exact component={ForgotPassword} />
             <Route path="/reset" exact component={PasswordReset} />
             <Route path="/schedule" exact component={AccessControl(Schedule)} />
-            <Route path="/workouts" exact component={AccessControl(RoutineManager)} />
+            <Route path="/workouts" exact component={AccessControl(MainWorkout)} />
             <Route path="/progress" exact component={AccessControl(Progress)} />
             <Route path="/billing" exact component={AccessControl(Billing)} />
             <Route path="/settings" exact component={AccessControl(Settings)} />

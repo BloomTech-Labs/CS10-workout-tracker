@@ -1,6 +1,10 @@
 .billing-outer {
-  background: radial-gradient(black, #000033);
+  background: radial-gradient(#000033, black);
   min-height: 100vh;
+  min-height: 88vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .billing-outer .billing-container {
   box-sizing: border-box;

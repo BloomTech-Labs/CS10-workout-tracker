@@ -49,7 +49,8 @@ export default (state = initialState, action) => {
         ...state,
         authed: false,
         message: "Logged out successfully!",
-        currentUser: null
+        currentUser: null,
+        valError: {}
       };
     default:
       return state;

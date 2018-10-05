@@ -9,7 +9,7 @@ let requestOptions = {};
 // to do to interact with an access-controlled route is include this
 // requestOptions object as the final parameter in your Axios call.
 
-export const register = (data, history) => {
+export const register = (data, history, modal) => {
   return dispatch => {
     dispatch({
       type: Actions.REGISTERING,
@@ -24,18 +24,23 @@ export const register = (data, history) => {
           type: Actions.REGISTER_SUCCESS,
           payload: res
         });
-        history.push("/progress");
+        modal();
+        history.push("/workouts");
       })
       .catch(err => {
         dispatch({
           type: Actions.REGISTER_FAILURE,
           payload: err
         });
+        dispatch({
+          type: Actions.GET_VAL_ERRORS,
+          payload: err.response.data
+        })
       });
   };
 };
 
-export const login = (data, history) => {
+export const login = (data, history, modal) => {
   return dispatch => {
     dispatch({
       type: Actions.LOGGING_IN,
@@ -50,13 +55,18 @@ export const login = (data, history) => {
           type: Actions.LOGIN_SUCCESS,
           payload: res
         });
-        history.push("/progress");
+        modal();
+        history.push("/workouts");
       })
       .catch(err => {
         dispatch({
           type: Actions.LOGIN_FAILURE,
           payload: err
         });
+        dispatch({
+          type: Actions.GET_VAL_ERRORS,
+          payload: err.response.data
+        })
       });
   };
 };
@@ -228,13 +238,47 @@ export const fetchRoutines = () => {
   };
 };
 
-export const selectRoutine = (index, routineId) => {
-  console.log("Selecting routine at index: ", index);
+// =======  Xang commented this out =======
+
+// export const selectRoutine = (index, routineId) => {
+//   console.log("Selecting routine at index: ", index);
+//   return dispatch => {
+//     dispatch({
+//       type: Actions.SELECT_ROUTINE,
+//       payload: index
+//     });
+//     dispatch({
+//       type: Actions.FETCHING_ROUTINE_HISTORY
+//     });
+//     axios
+//       .post(`${ROOT_URL}/routine-rich`, { routineId }, requestOptions)
+//       .then(res => {
+//         dispatch({
+//           type: Actions.FETCH_ROUTINE_HISTORY_SUCCESS,
+//           payload: res.data
+//         });
+//       })
+//       .catch(err => {
+//         dispatch({
+//           type: Actions.FETCH_ROUTINE_HISTORY_FAILURE,
+//           payload: err
+//         });
+//       });
+//   };
+// };
+
+//===============================
+
+//====== Xang Created this =========
+
+export const selectRoutine = (routineId) => {
+  // console.log("Selecting routine at index: ", index);
+  console.log(routineId);
   return dispatch => {
-    dispatch({
-      type: Actions.SELECT_ROUTINE,
-      payload: index
-    });
+    // dispatch({
+    //   type: Actions.SELECT_ROUTINE,
+    //   payload: index
+    // });
     dispatch({
       type: Actions.FETCHING_ROUTINE_HISTORY
     });
@@ -255,18 +299,23 @@ export const selectRoutine = (index, routineId) => {
   };
 };
 
-export const postNewRoutine = () => {
+// ==============================
+
+export const postNewRoutine = (title) => {
   return dispatch => {
     dispatch({
       type: Actions.POSTING_NEW_ROUTINE
     });
     axios
-      .post(`${ROOT_URL}/new-routine`, {}, requestOptions)
-      .then(res =>
-        dispatch({
-          type: Actions.POST_NEW_ROUTINE_SUCCESS,
-          payload: res.data.routine
-        })
+      .post(`${ROOT_URL}/new-routine`, {title}, requestOptions)
+      .then(res => {
+        console.log("THIS IS THE Test:", res.data)
+          dispatch({
+            type: Actions.POST_NEW_ROUTINE_SUCCESS,
+            payload: res.data.routine,
+            currentR: res.data.routine.title
+          })
+        }
       )
       .catch(err =>
         dispatch({
@@ -277,13 +326,13 @@ export const postNewRoutine = () => {
   };
 };
 
-export const postNewExerciseInRoutine = routineId => {
+export const postNewExerciseInRoutine = (routineId, exerciseObj) => {
   return dispatch => {
     dispatch({
       type: Actions.POSTING_NEW_EXERCISE_IN_ROUTINE
     });
     axios
-      .post(`${ROOT_URL}/new-exercise`, {}, requestOptions)
+      .post(`${ROOT_URL}/new-exercise`, exerciseObj, requestOptions)
       .then(exerciseDoc => {
         console.log(
           "This is the newly created exercise document: ",
@@ -323,6 +372,50 @@ export const postNewExerciseInRoutine = routineId => {
   };
 };
 
+export const clearCurrentRoutine = () => {
+  return {
+    type: Actions.CLEAR_CURRENT_ROUTINE,
+    payload: null
+  }
+}
+
+export const clearErrors = () => {
+  return {
+    type: Actions.CLEAR_VAL_ERRORS,
+    payload: {}
+  }
+}
+
+export const deleteExercise = (exerciseId) => {
+  return dispatch => {
+    let token = localStorage.getItem("token");
+    requestOptions = { headers: { "x-access-token": token },
+    data: {
+      exerciseId
+    }
+  };
+    dispatch({
+      type: Actions.DELETING_EXCERCISE,
+      payload: "Deleting exercise"
+    })
+    axios.delete(`${ROOT_URL}/exercise`,  requestOptions)
+      .then(deletedExercise => {
+        console.log("Deleted succuss " + deletedExercise.name)
+        dispatch({
+          type: Actions.DELETE_EXERCISE_SUCCESS,
+          payload: exerciseId
+        });
+      })
+      .catch(err => {
+        console.log("Error deleting exercise");
+        dispatch({
+          type: Actions.DELETE_EXERCISE_FAILURE,
+          payload: "Fail to delete exercise"
+        })
+      })
+  }
+}
+
 export const updateExercise = (
   exerciseId,
   name,
@@ -354,6 +447,34 @@ export const updateExercise = (
       });
   };
 };
+
+export const deleteRoutine = (routineId) => {
+  let token = localStorage.getItem("token");
+    requestOptions = { headers: { "x-access-token": token },
+    data: {
+      routineId
+    }
+  };
+  return dispatch => {
+    dispatch({
+      type: Actions.DELETING_ROUTINE,
+      payload: "Deleting routine"
+    });
+    axios.delete(`${ROOT_URL}/routine`, requestOptions)
+    .then(deletedRoutine => {
+      dispatch({
+        type: Actions.DELETE_ROUTINE_SUCCESS,
+        payload: routineId
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: Actions.DELETE_ROUTINE_FAILURE,
+        payload: "Error deleting routine"
+      })
+    })
+  }
+}
 
 export const updateRoutine = (routineId, title) => {
   return dispatch => {
