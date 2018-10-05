@@ -62,11 +62,30 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
     - `{ username, password, email }`
     - Creates a new User document and responds with its token.
 
+  Request:
+
+  ```
+  {
+    "username": "exampleuser",
+    "password": "examplepass",
+    "email": "example@user.com"
+  }
+  ```
+
 - `/login`
 
   - POST
     - `{ username, password }`
     - Searches for a User document and responds with its token if one is found.
+
+  Request:
+
+  ```
+  {
+    "username": "exampleuser",
+    "password": "examplepass"
+  }
+  ```
 
 - `/forgot_password`
 
@@ -74,11 +93,29 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
     - `{ email }`
     - Uses SendGrid to send a password recovery email with a unique token for request verification.
 
+  Request:
+
+  ```
+  {
+    "email": "example@user.com"
+  }
+  ```
+
 - `/reset_password`
 
   - POST
     - `{ token, newPassword, confirmNewPassword }`
     - Finds the user with the provided reset token and update their password.
+
+  Request:
+
+  ```
+  {
+    "newPassword":"newexamplepass",
+    "confirmNewPassword": "newexamplepass",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYXFjdXMiLCJpYXQiOjE1MzY5NDIyNzYsImV4cCI6MTUzNjk0NDA3Nn0._EHg-GGv_z7RsXZCwInDBUM0ZgZSHUZ_jw6hQmi-TRM"
+  }
+  ```
 
 - `/auto-login`
 
@@ -96,13 +133,34 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
     - `{ username, password, newPassword, confirmNewPassword }`
     - Searches for the user via the username, if the provided current password is correct, the password will be changed.
 
+  Request:
+
+  ```
+  {
+    "username": "antares",
+    "password": "examplepass",
+    "newPassword": "newexamplepass",
+    "confirmNewPassword": "newexamplepass"
+  }
+  ```
+
 - `/settings_email`
 
   ##### Requires Authentication
 
   - POST
+
     - `{ username, newEmail }`
     - Searches for the user with the provided username, then changes the email.
+
+  Request:
+
+  ```
+  {
+    "username": "exampleuser",
+    "newEmail": "newexample@user.com"
+  }
+  ```
 
 - `/charge`
 
