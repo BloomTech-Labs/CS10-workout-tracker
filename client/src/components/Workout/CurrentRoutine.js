@@ -111,18 +111,6 @@ class CurrentRoutine extends React.Component {
               />
             </InputGroup>
             {this.state.errors.routineName ? <span className="form__validation">{this.state.errors.routineName} </span>: null}
-            {/* {this.props.valError.error ?<span className="form__validation">{this.props.valError.error}</span> : null}
-            <InputGroup>
-              <Input
-                placeholder="password"
-                type="password"
-                value={this.state.signInPass}
-                onChange={this.handleFieldChange}
-                name="signInPass"
-                autoComplete="off"
-              />
-            </InputGroup>
-            {this.props.valError.error ? <span className="form__validation">{this.props.valError.error}</span> : null} */}
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.handleRoutineUpdate}>
