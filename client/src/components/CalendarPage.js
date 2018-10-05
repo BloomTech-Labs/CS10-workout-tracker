@@ -162,7 +162,7 @@ class CalendarPage extends Component {
       
       /* if the user tries to copy a workout which contains a deleted routine, 
       then "deleted routine" will be displayed as the event title */
-      title: workout.routineName ? workout.routineName : "deleted routine", 
+      title: workout.routineName ? workout.routineName : <i class="fas fa-minus-circle"></i>, 
       id: workout._id
     }));
 
