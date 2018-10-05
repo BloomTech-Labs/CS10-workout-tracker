@@ -20,7 +20,7 @@ const PerformanceSchema = Schema({
   weight: {
     type: Number,
     required: true,
-    default: 30
+    default: 130
   },
   reps: {
     type: Number,

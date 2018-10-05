@@ -203,7 +203,7 @@ class CalendarPage extends Component {
             showMultiDayTimes
             defaultDate={new Date()}
             defaultView="month"
-            style={{ height: "100vh" }}
+            style={{ height: "82vh" }}
             selectable={true}
             onSelectSlot={this.onSelectSlot}
             onSelectEvent={this.onSelectEvent}
