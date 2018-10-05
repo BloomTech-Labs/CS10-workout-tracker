@@ -1,8 +1,8 @@
-# **STRONGR** (**Workout Tracker**)
+# **BRAWNDO** (**Workout Tracker**)
 
-**STRONGR** is a workout journal for the connected age. Schedule future workouts, review past workouts, and even bring STRONGR into the gym with you to track your performance on every exercise in your routine.
+**BRAWNDO** is a workout journal for the connected age. Schedule future workouts, review past workouts, and even bring STRONGR into the gym with you to track your performance on every exercise in your routine.
 
-# DISCLAIMER - STRONGR IS UNDER ACTIVE DEVELOPMENT AT LAMBDA LABS. THIS REPO IS NOT FEATURE COMPLETE.
+# DISCLAIMER - BRAWNDO IS UNDER ACTIVE DEVELOPMENT AT LAMBDA LABS. THIS REPO IS NOT FEATURE COMPLETE.
 
 - [Building Locally](#building-locally)
 - [Deploying](#deploying)
@@ -173,6 +173,15 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
     - The token is generated on the client side via a Stripe function `createToken`
     - For more information on using Stripe with React and Express visit the [Stripe Docs](https://stripe.com/docs/recipes/elements-react)
 
+  Request:
+
+  ```
+  {
+    "id": "5bb7652a75d9aa8b8805046d",
+    "token": "tokenGeneratedFromStripe"
+  }
+  ```
+
 ### Progress
 
 ---
@@ -186,8 +195,22 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
     - `{ weight, hips, waist, r_arm, l_arm, r_leg, l_leg, user }`
     - Add a progress entry to the User's history.
 
+  Request:
+
+  ```
+  {
+    "weight": 180,
+    "hips": 40,
+    "waist": 40,
+    "r_arm": 15,
+    "l_arm": 15,
+    "r_leg": 20,
+    "l_leg": 20,
+    "user": "5bb7652a75d9aa8b8805046d"
+  }
+  ```
+
   - GET
-    - `{ userId }`
     - Retrieves a User's progress history.
 
 - `/progress/:id`
@@ -197,7 +220,22 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
   - PUT
 
     - `{ weight, hips, waist, r_arm, l_arm, r_leg, l_leg, user }`
-    - Finds the progress by id and updates it.
+    - Finds the progress document by id and updates it.
+
+  Request:
+
+  ```
+  {
+    "weight": 160,
+    "hips": 40,
+    "waist": 40,
+    "r_arm": 15,
+    "l_arm": 15,
+    "r_leg": 20,
+    "l_leg": 20,
+    "user": "5bb7652a75d9aa8b8805046d"
+  }
+  ```
 
   - DELETE
     - Finds the progress by id and deletes it from the Progress Collection and deletes the corresponding reference in the User collection.
@@ -211,8 +249,16 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
   ##### Requires Authentication
 
   - POST
-    - `{ userId, title }`
+    - `{ title }`
     - Creates a new Routine for a User, i.e. "Leg Day"
+
+  Request:
+
+  ```
+  {
+    "title": "Get Ripped"
+  }
+  ```
 
 - `/routine`
 
@@ -223,21 +269,45 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
     - `{ routineId }`
     - Retrieves a routine document by the given id.
 
+  Request:
+
+  ```
+  {
+    "routineId": "5bb773923fc6b98e25713139"
+  }
+  ```
+
   - PUT
 
     - `{ routineId, title }`
     - Returns the document with the update applied.
 
+  Request:
+
+  ```
+  {
+    "title": "Get Really Ripped",
+    "routineId": "5bb773923fc6b98e25713139"
+  }
+  ```
+
   - DELETE
     - `{ routineId }`
     - Finds the routine by id and deletes it from the Routine Collection and deletes the corresponding reference in the User collection.
+
+  Request:
+
+  ```
+  {
+    "routineId": "5bb773923fc6b98e25713139"
+  }
+  ```
 
 - `/routines`
 
   ##### Requires Authentication
 
   - GET
-    - `{ userId }`
     - Retrieves a list of the User's routines hydrated/populated with Exercise documents.
 
 - `/routine-rich`
@@ -248,6 +318,14 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
     - `{ routineId }`
     - Retrieves a routine by the routine id hydrated/populated with Excercise documents
 
+  Request:
+
+  ```
+  {
+    "routineId": "5bb773923fc6b98e25713139"
+  }
+  ```
+
 ### Exercises
 
 ---
@@ -257,8 +335,19 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
   ##### Requires Authentication
 
   - POST
-    - `{ userId, name }`
+    - `{ name, currentWeight, currentReps, currentSets }`
+    - `currentWeight` default: `10`, optional
+    - `currentReps` default: `5`, optional
+    - `currentSets` default: `3`, optional
     - Creates a new Exercise for a User, i.e. "Bench Press"
+
+  Request:
+
+  ```
+  {
+
+  }
+  ```
 
 - `/add-exercise`
 
@@ -356,6 +445,6 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
 
 ---
 
-#### STRONGR is under construction by Amanda Phillips, Iqra Javed, Leon Bates and Xang Thao.
+#### BRAWNDO is under construction by Amanda Phillips, Iqra Javed, Leon Bates and Xang Thao.
 
 ---
