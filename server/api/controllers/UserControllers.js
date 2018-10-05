@@ -236,7 +236,7 @@ const processPayment = async (req, res) => {
     let { status } = await stripe.charges.create({
       amount: 899,
       currency: "usd",
-      description: "Example Charge",
+      description: "Premium access for Brawndo App",
       source: token
     });
     if (status) {
