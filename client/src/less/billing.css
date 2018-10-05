@@ -17,8 +17,7 @@
 }
 .billing-outer .billing-container .billing-inner {
   margin: 20px;
-  background: radial-gradient(#cc00, black);
-  box-shadow: 0px 0px 25px blue;
+  background: radial-gradient(#666666, black);
 }
 .billing-outer .billing-container .billing-inner .checkout {
   display: flex;
