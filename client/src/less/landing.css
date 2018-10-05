@@ -8,6 +8,7 @@
 }
 p {
   margin-bottom: 0;
+  font-family: 'Roboto Slab', serif;
 }
 .container {
   max-width: 900px;
@@ -40,7 +41,7 @@ p {
   box-shadow: 10px 10px 15px black;
   padding: 20px 35px;
   background-image: linear-gradient(black, #222222, #111111);
-  opacity: .9;
+  opacity: 0.9;
   position: fixed;
   z-index: 10;
   width: 100%;
@@ -89,6 +90,7 @@ p {
 }
 .main__landing__background h1 {
   font-size: 40px;
+  font-family: 'Archivo Black', sans-serif;
 }
 @media (max-width: 650px) {
   .main__landing__background {
