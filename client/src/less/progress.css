@@ -1,5 +1,5 @@
 .outer-container {
-  background-image: radial-gradient(black, #000033);
+  background-image: radial-gradient(#000033, black);
   min-height: 100vh;
 }
 .outer-container .container {

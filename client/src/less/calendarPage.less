@@ -1,138 +1,285 @@
+@primary: #cc0000;
+@secondary: #000033;
+@white: white;
+@darkGrey: #666666;
+@grey: #cccccc;
+
 body {
-    margin: 0;
-    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-size: 1rem;
-    font-weight: 500;
-    line-height: 1.5;
-    color: lightgray;
+  margin: 0;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: lightgray;
+  text-align: center;
+  background-color: #1a1d21;
+}
+.rbc-month-view {
+  position: relative;
+  border: none !important;
+  box-shadow: 0 5px 43px grey !important;
+  background: black;
+  margin: 0 auto;
+  box-shadow: 0, 0, 20px, black;
+  display: -ms-flexbox;
+  display: flex;
+  box-shadow: 0px 0px 40px black;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex: 1 0 0px;
+  flex: 1 0;
+  max-width: 900px;
+  width: 80% !important;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+  height: 90%;
+}
+.rbc-addons-dnd.rbc-calendar {
+  height: 81vh !important;
+}
+.rbc-toolbar {
+  width: 850px;
+  margin: 0 auto;
+}
+.rbc-header {
+  border-bottom: 0 !important;
+  border-left: 0 !important;
+  margin: 2px;
+}
+.rbc-row-bg {
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 2px;
+  margin: 20px 0;
+  border: none !important;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex: 1 0 0px;
+  flex: 1 0;
+  overflow: hidden;
+}
+.rbc-day-bg {
+  -ms-flex: 1 0 0%;
+  flex: 1 0;
+  color: white;
+  margin: 1px;
+  background-image: linear-gradient(black, #000033);
+}
+
+.rbc-off-range-bg {
+  background-image: linear-gradient(black, #37015b) !important;
+}
+.rbc-row-bg {
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 2px;
+  margin: 20px 0;
+  border: none !important;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex: 1 0 0px;
+  flex: 1 0;
+  overflow: hidden;
+}
+.rbc-row-bg {
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 2px;
+  margin: 20px 0;
+  border: none !important;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex: 1 0 0px;
+  flex: 1 0;
+  overflow: hidden;
+}
+.rbc-month-row + .rbc-month-row {
+  border-top: none !important;
+}
+
+.rbc-event {
+  padding: 7px 5px 5px 5px !important;
+  box-shadow: 0px 0px 20px black;
+  background-image: linear-gradient(black, darkred);
+  color: #fff;
+  margin: 0 5px;
+  padding-bottom: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 0 !important;
+}
+.rbc-day-bg + .rbc-day-bg {
+  border: none !important;
+}
+
+.rbc-day-slot .rbc-event {
+  display: -ms-flexbox;
+  display: flex;
+  max-height: 100%;
+  min-height: 80px !important;
+  -ms-flex-flow: column wrap;
+  flex-flow: column wrap;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  overflow: hidden;
+  position: absolute;
+}
+
+.rbc-toolbar {
+  margin-bottom: 20px;
+  margin-left: 20px;
+  .rbc-toolbar-label {
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    padding: 0 10px;
     text-align: center;
-    background-color: #1a1d21;
+    font-size: 28px;
   }
-  
-  .rbc-month-view {
-      position: relative;
-      border: none !important;
-      /* border: 1px solid #DDD; */
-      background: black;
-      margin: 0 auto;
-      box-shadow: 0, 0, 20px, black;
-      display: -ms-flexbox;
-      display: flex;
-      box-shadow: 0px 0px 40px black;
-      -ms-flex-direction: column;
-      flex-direction: column;
-      -ms-flex: 1 0 0px;
-      flex: 1 0;
-      max-width: 900px;
-      width: 80% !important;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-user-select: none;
-      height: 90%;
-  }
-  
-  .rbc-header {
-    border-bottom: 0 !important;
-    border-left: 0 !important;
-    margin: 2px;
-  }
-  
-  .rbc-row-bg {
-    display: -ms-flexbox;
-    display: flex;
-    padding: 0 2px;
-    margin: 20px 0;
-    border: none !important;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -ms-flex: 1 0 0px;
-    flex: 1 0;
-    overflow: hidden;
-  }
-  
-  .rbc-day-bg {
-    -ms-flex: 1 0 0%;
-    flex: 1 0;
-    color: white;
-    margin: 1px;
-    /* box-shadow: 0px 0px 10px darkgrey; */
-    background-image: linear-gradient(black, #000033);
-    /* linear-gradient(blue, black): ; */
-    /* border-radius: 4px; */
-    /* background: grey; */
-  }
-  
-  /* .rbc-day-bg:hover {
-    background-image: linear-gradient(black, green);
-  } */
-  
-  .rbc-off-range-bg {
-    background-image: linear-gradient(black, #37015b) !important;
-  }
-  
-  .rbc-row-bg {
-    display: -ms-flexbox;
-    display: flex;
-    padding: 0 2px;
-    margin: 20px 0;
-    border: none !important;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -ms-flex: 1 0 0px;
-    flex: 1 0;
-    overflow: hidden;
-  }
-  
-  .rbc-row-bg {
-    display: -ms-flexbox;
-    display: flex;
-    padding: 0 2px;
-    margin: 20px 0;
-    border: none !important;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -ms-flex: 1 0 0px;
-    flex: 1 0;
-    overflow: hidden;
-  }
-  
-  .rbc-month-row + .rbc-month-row {
-    /* border-top: 1px solid #DDD; */
-    border-top: none !important;
-  }
-  
-  .rbc-today {
-    background-color: #eaf6ff;
-    background-image: linear-gradient(black, white)!important;
-  }
-  
-  .rbc-event {
-    padding: 21px 5px 5px 5px !important;
-    box-shadow: 0px 0px 20px black;
-    background-image: linear-gradient( black, darkred);
-    /* background-color: #3174ad; */
-    color: #fff;
-    margin: 0 5px;
-    padding-bottom: 10px;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 0 !important;
-  }
-  
-  .rbc-day-bg + .rbc-day-bg {
-    border: none !important;
-  }
-  
-  .rbc-event {
-    padding: 2px 5px;
-    border-radius: 5px;
-    background-image: linear-gradient( black, darkred) !important;
-    color: #fff;
-    background-color: rgba(0, 0, 255, 0) !important;
-    cursor: pointer;
+} 
+.rbc-day-bg.rbc-off-range-bg {
+  background: none;
+}
+.main__container {
+  width: 85%;
+}
+
+.calendarAndForm-container {
+  display: flex;
+
+  .calendar-container {
+    height: 500px;
+    width: 90%;
+    margin-top: 10px;
   }
 
-  .rbc-toolbar .rbc-toolbar-label {
-    flex-grow: 0.5;
+  .formAndButton-container {
+    margin: 55px 6% 0 0;
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px;
+
+      .newWorkout-btn {
+        height: 40px;
+        width: 49%;
+        font-size: 11px;
+        border: none;
+        border-radius: none !important;
+      }
+
+      .copyWorkouts-btn {
+        height: 40px;
+        width: 49%;
+        font-size: 11px;
+        border: none;
+        border-radius: none !important;
+      }
+    }
+
+    .form-container {
+      padding: 10px;
+      margin-top: 20px;
+      background-image: radial-gradient(#290245, black);
+      height: 80%;
+      width: 100%;
+      box-shadow: 0 5px 30px grey !important;
+
+      div {
+        margin-top: 10px;
+        input {
+          background-color: @grey;
+          width: 70%;
+        }
+      }
+      .submit-btn {
+        margin-top: 45px;
+        background-image: radial-gradient(@primary, black);
+        border: none;
+        width: 40%;
+        color: @grey;
+      }
+      .submit-btn:hover {
+        cursor: pointer;
+        background-image: radial-gradient(#960000, black);
+        color: white;
+      }
+      .icon-explanation {
+        font-size: 10px;
+      }
+    }
   }
+}
+
+.scheduling-modal-body {
+  height: 150px;
+  padding: 40px;
+}
+
+.schedule-btn {
+  background-image: linear-gradient(@secondary, black);
+  color: @grey;
+  border: none;
+  margin-bottom: 5px;
+}
+
+.schedule-btn:hover {
+  cursor: pointer;
+  background-image: radial-gradient(#000023, black);
+  color: white;
+}
+
+.cancel-btn {
+  margin-bottom: 5px;
+  border: none !important;
+  color: @grey;
+}
+
+.cancel-btn:hover {
+  cursor: pointer;
+  background-image: radial-gradient(#960000, black);
+  color: white;
+}
+
+.delete-workout-btn {
+  background-image: linear-gradient(@secondary, black);
+  color: @grey;
+  border: none;
+  margin-bottom: 5px;
+}
+.modal-content {
+  width: 80%;
+  margin: 90px auto;
+
+  .checkoff-modal-body {
+    min-height: 200px;
+    div {
+      div {
+        display: flex;
+  
+        div {
+          .checkoff-input {
+            margin-left: 15px;
+             margin-top: 5px;
+          }
+        }
+        .checkoff-exercise {
+          margin-left: 20px;
+        }
+      }
+      .checkoff-performance {
+        margin-left: 50px;
+        display: flex;
+        justify-content: space-evenly;
+  
+        span {
+          margin: 5px;
+        }
+      }
+    }
+  }
+}

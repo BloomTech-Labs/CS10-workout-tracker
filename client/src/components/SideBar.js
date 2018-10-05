@@ -16,21 +16,31 @@ class SideBar extends Component {
           <div className="sideBar__Links" id="test">
             {authenticated && (           
                 <div>
+                  <NavLink exact to="/schedule" >
+                    <div className="side__box">
+                    Calendar
+                    </div>
+                  </NavLink>
+                  <NavLink exact to="/workouts" >
+                    <div className="side__box">
+                      Workouts
+                    </div>
+                  </NavLink>
+                  <NavLink exact to="/progress" >
+                    <div className="side__box">
+                      Progress
+                    </div>
+                  </NavLink>
+                  <NavLink exact to="/settings" >
                   <div className="side__box">
-                    <NavLink to="/schedule">Calendar</NavLink>
+                    Settings
                   </div>
+                  </NavLink>
+                  <NavLink exact to="/billing" >
                   <div className="side__box">
-                    <NavLink to="/workouts">Workouts</NavLink>
+                    Billing
                   </div>
-                  <div className="side__box">
-                    <NavLink to="/progress">Progress</NavLink>
-                  </div>
-                  <div className="side__box">
-                    <NavLink to="/settings">Settings</NavLink>
-                  </div>
-                  <div className="side__box">
-                    <NavLink to="/billing">Billing</NavLink>
-                  </div>
+                  </NavLink>
                 </div>
             )}
           </div>

@@ -50,7 +50,7 @@ export default (state = initialState, action) => {
       };
     case Actions.COPY_WORKOUTS_SUCCESS:
       const newWorkouts = action.payload.map(subResponse => {
-        return subResponse.hydratedWorkout;
+        return subResponse.hydratedWorkout || subResponse.workoutDoc;
       });
       const newPerformances = newWorkouts.map(workout => {
         return workout.performances;

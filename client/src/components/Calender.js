@@ -61,17 +61,22 @@ class Calender extends Component {
     console.log(start);
   };
 
+  handleSelect = (e) => {
+    alert("selected")
+  }
+
   render() {
     return (
       <div className="App">
         <DnDCalendar
-          selectable
-          onEventDrop={this.moveEvent}
+          onSelecting={this.handleSelect}
+          selectable={true}
+          // onEventDrop={this.moveEvent}
           defaultDate={new Date()}
           defaultView="month"
           events={this.state.events}
           // onEventDrop={this.onEventDrop}
-          onEventResize={this.onEventResize}
+          // onEventResize={this.onEventResize}
           resizable
           style={{ height: "100vh" }}
         />
