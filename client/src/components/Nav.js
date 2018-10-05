@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { register, login, logout, clearErrors, forgotPassword, clearCurrentRoutine } from "../actions";
+import "../less/nav.css";
 import validator from "validator";
 
 class Nav extends React.Component {
@@ -160,7 +161,7 @@ class Nav extends React.Component {
       <div className="right__nav">
         <div>
           <span className="first__nav__span" onClick={this.toggleSignUpModal}>
-            Signup
+            Sign-up
           </span>
         </div>
         <span onClick={this.toggleSignInModal}>Login</span>
@@ -203,7 +204,7 @@ class Nav extends React.Component {
           toggle={this.toggleSignUpModal}
           className="sign__up"
         >
-          <ModalHeader toggle={this.toggleSignUpModal}>SignUp</ModalHeader>
+          <ModalHeader toggle={this.toggleSignUpModal}>Sign Up</ModalHeader>
           <ModalBody>
             <InputGroup>
               <Input
@@ -252,10 +253,10 @@ class Nav extends React.Component {
             {emailErrors ? emailErrors : (this.props.valError.message ? <span className="form__validation">{this.props.valError.message}</span>: null)}
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.handleSignup}>
-              Signup
+            <Button className="signup-signin-btn" onClick={this.handleSignup}>
+              Sign up
             </Button>{" "}
-            <Button color="secondary" onClick={this.toggleSignUpModal}>
+            <Button className="cancel-btn" onClick={this.toggleSignUpModal}>
               Cancel
             </Button>
           </ModalFooter>
@@ -268,7 +269,7 @@ class Nav extends React.Component {
           toggle={this.toggleSignInModal}
           className="sign__in"
         >
-          <ModalHeader toggle={this.toggleSignInModal}>SignIn</ModalHeader>
+          <ModalHeader toggle={this.toggleSignInModal}>Sign In</ModalHeader>
           <ModalBody>
             <InputGroup>
               <Input
@@ -293,13 +294,13 @@ class Nav extends React.Component {
             {this.props.valError.error ? <span className="form__validation">{this.props.valError.error}</span> : null}
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.handleSignin}>
-              Signin
+            <Button className="signup-signin-btn" onClick={this.handleSignin}>
+              Sign in
             </Button>{" "}
-            <Button color="secondary" onClick={this.toggleSignInModal}>
+            <Button className="cancel-btn" onClick={this.toggleSignInModal}>
               Cancel
             </Button>
-            <Button color="danger" onClick={this.toggleForgotModal}>
+            <Button className="forgot-pass-btn" onClick={this.toggleForgotModal}>
               Forgot Password?
             </Button>
           </ModalFooter>
