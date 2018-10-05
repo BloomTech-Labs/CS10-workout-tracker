@@ -53,6 +53,39 @@ class CurrentRoutine extends React.Component {
   handleExerciseUpdate = () => {
     const {exerciseId, exerciseName, weight, reps, sets } = this.state;
   
+    const newError = {}
+    if(exerciseName.trim() === "") {
+      newError.exerciseName = "Required Exercise Name"
+    }
+
+    if(weight <= 0 || weight > 1000) {
+      newError.weight = "Weight must be between 1 and 1000"
+    }
+
+    if(weight === "") {
+      newError.weight = "Required Weight";
+    }
+
+    if(sets <= 0 || sets > 1000) {
+      newError.sets = "Sets must be between 1 and 1000"
+    }
+
+    if(sets === "") {
+      newError.sets = "Required Sets";
+    }
+
+    if(reps <= 0 || reps > 1000) {
+      newError.reps = "Reps must be between 1 and 1000"
+    }
+
+    if(reps === "") {
+      newError.reps = "Required Reps";
+    }
+
+    if(Object.keys(newError).length > 0) {
+      return this.setState({errors: newError});
+    }
+
     this.props.updateExercise(exerciseId, exerciseName, weight, reps, sets);
 
     this.setState({
@@ -61,7 +94,8 @@ class CurrentRoutine extends React.Component {
       reps: "",
       sets: "",
       exerciseId: "",
-      exerciseModal: !this.state.exerciseModal
+      exerciseModal: !this.state.exerciseModal,
+      errors: {}
     });
   }
 
@@ -142,6 +176,7 @@ class CurrentRoutine extends React.Component {
                 maxlength="15"
               />
             </InputGroup>
+            {this.state.errors.exerciseName ? <p className="form__validation">{this.state.errors.exerciseName}</p>: null}
             <InputGroup>
               <Input
                 placeholder="New Weight"
@@ -151,6 +186,7 @@ class CurrentRoutine extends React.Component {
                 autoComplete="off"
               />
             </InputGroup>
+            {this.state.errors.weight ? <p className="form__validation">{this.state.errors.weight}</p>: null}
             <InputGroup>
               <Input
                 placeholder="New Reps"
@@ -160,6 +196,7 @@ class CurrentRoutine extends React.Component {
                 autoComplete="off"
               />
             </InputGroup>
+            {this.state.errors.reps ? <p className="form__validation">{this.state.errors.reps}</p>: null}
             <InputGroup>
               <Input
                 placeholder="New Sets"
@@ -169,7 +206,7 @@ class CurrentRoutine extends React.Component {
                 autoComplete="off"
               />
             </InputGroup>
-            
+            {this.state.errors.sets ? <p className="form__validation">{this.state.errors.sets}</p>: null}
             {/* {this.props.valError.error ?<span className="form__validation">{this.props.valError.error}</span> : null}
             <InputGroup>
               <Input
