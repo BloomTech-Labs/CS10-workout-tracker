@@ -183,6 +183,7 @@ class CurrentRoutine extends React.Component {
                 onChange={this.handleFieldChange}
                 name="weight"
                 autoComplete="off"
+                type="number"
               />
             </InputGroup>
             {this.state.errors.weight ? <p className="form__validation">{this.state.errors.weight}</p>: null}
@@ -193,12 +194,14 @@ class CurrentRoutine extends React.Component {
                 onChange={this.handleFieldChange}
                 name="reps"
                 autoComplete="off"
+                type="number"
               />
             </InputGroup>
             {this.state.errors.reps ? <p className="form__validation">{this.state.errors.reps}</p>: null}
             <InputGroup>
               <Input
                 placeholder="New Sets"
+                type="number"
                 value={this.state.sets}
                 onChange={this.handleFieldChange}
                 name="sets"
