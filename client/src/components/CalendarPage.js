@@ -317,7 +317,7 @@ class CalendarPage extends Component {
           </ModalFooter>
         </Modal>
 
-        {/* Checkbox Modal */}
+        {/* Checkoff Performance Modal */}
 
         <Modal
           isOpen={this.state.checkboxModal}
