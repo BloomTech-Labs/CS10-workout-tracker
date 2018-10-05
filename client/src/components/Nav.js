@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import {
   Button,
   Modal,
@@ -13,6 +13,8 @@ import { connect } from "react-redux";
 import { register, login, logout, clearErrors, forgotPassword, clearCurrentRoutine } from "../actions";
 import "../less/nav.css";
 import validator from "validator";
+
+import barbell_logo from "./Landing/img/dumbbell-svgrepo-com.svg";
 
 class Nav extends React.Component {
   constructor() {
@@ -193,7 +195,15 @@ class Nav extends React.Component {
     return (
       <header>
         <nav className="landing__nav">
-          <div className="left__nav">LOGO</div>
+          <Link to="/schedule" className="left__nav">
+          <object
+            type="image/svg+xml"
+            data={barbell_logo}
+            className="Logo"
+          >
+            BRAWNDO!
+          </object>
+          </Link>
           {authed ? isAuth : isNotAuth}
         </nav>
 

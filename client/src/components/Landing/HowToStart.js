@@ -8,13 +8,13 @@ class HowToStart extends React.Component {
       <section className="landing__start">
         <div className="landing__start__content">
         <ScrollAnimation animateIn="fadeInUp">
-          <h2>How To Start</h2>
+          <h2>HOW TO USE</h2>
         </ScrollAnimation>
           <div>
           <ScrollAnimation animateIn="fadeInUp">
-            <p><span>1</span> Signup</p>
-            <p><span>2</span> Add data</p>
-            <p><span>3</span> Workout</p>
+            <p><span>1</span> SIGN UP </p>
+            <p><span>2</span> WORK OUT </p>
+            <p><span>3</span> GET BUFF </p>
           </ScrollAnimation>
           </div>
         </div>
