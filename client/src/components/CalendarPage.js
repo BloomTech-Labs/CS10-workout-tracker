@@ -278,7 +278,7 @@ class CalendarPage extends Component {
                 Submit
               </Button>
               <div className="icon-explanation">
-                * <i class="fas fa-minus-circle" /> on the calendar denotes
+                * <i className="fas fa-minus-circle" /> on the calendar denotes
                 workouts that contain deleted routines and hence can not be
                 copied.
               </div>
