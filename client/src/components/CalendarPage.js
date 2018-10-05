@@ -159,7 +159,10 @@ class CalendarPage extends Component {
     this.events = this.props.workouts.map(workout => ({
       start: new Date(workout.date),
       end: new Date(workout.date),
-      title: workout.routine.title,
+      
+      /* if the user tries to copy a workout which contains a deleted routine, 
+      then "deleted routine" will be displayed as the event title */
+      title: workout.routineName ? workout.routineName : <i class="fas fa-minus-circle"></i>, 
       id: workout._id
     }));
 
@@ -181,7 +184,7 @@ class CalendarPage extends Component {
         checkoffObj.performanceId = performance._id;
         checkoffObj.completed = performance.completed;
         checkoffObj.exerciseName =
-          performance.exercise.name || performance.exerciseName;
+          performance.exerciseName || performance.exercise.name;
         checkoffObj.weight = performance.weight;
         checkoffObj.sets = performance.sets;
         checkoffObj.reps = performance.reps;
@@ -317,7 +320,7 @@ class CalendarPage extends Component {
           </ModalFooter>
         </Modal>
 
-        {/* Checkbox Modal */}
+        {/* Checkoff Performance Modal */}
 
         <Modal
           isOpen={this.state.checkboxModal}
