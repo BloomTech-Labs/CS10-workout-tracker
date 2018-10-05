@@ -103,7 +103,6 @@ class CurrentRoutine extends React.Component {
     const { _id } = this.props.currentRoutine;
     const { routineName } = this.state;
     const newErrors = {}
-    // call the routine add action here
     if(routineName.trim() === "") {
       newErrors.routineName = "Required Routine Name"
     }
@@ -207,18 +206,6 @@ class CurrentRoutine extends React.Component {
               />
             </InputGroup>
             {this.state.errors.sets ? <p className="form__validation">{this.state.errors.sets}</p>: null}
-            {/* {this.props.valError.error ?<span className="form__validation">{this.props.valError.error}</span> : null}
-            <InputGroup>
-              <Input
-                placeholder="password"
-                type="password"
-                value={this.state.signInPass}
-                onChange={this.handleFieldChange}
-                name="signInPass"
-                autoComplete="off"
-              />
-            </InputGroup>
-            {this.props.valError.error ? <span className="form__validation">{this.props.valError.error}</span> : null} */}
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.handleExerciseUpdate}>
