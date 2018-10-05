@@ -116,7 +116,7 @@ class WorkoutForm extends React.Component {
             <input
             value={this.state.routineName}
             name="routineName"
-            autocomplete="off"
+            autoComplete="off"
             placeholder="Routine Name"
             onChange={this.handleChange}
             maxlength="15"
@@ -141,7 +141,7 @@ class WorkoutForm extends React.Component {
           name="exerciseName"
           placeholder="Exercise Name"
           onChange={this.handleChange}
-          autocomplete="off"
+          autoComplete="off"
           maxlength="15"
           />
           {this.state.errors.exerciseName ? <p className="form__validation">{this.state.errors.exerciseName}</p>: null}
@@ -150,7 +150,7 @@ class WorkoutForm extends React.Component {
           name="weight"
           type="number"
           placeholder="Weight"
-          autocomplete="off"
+          autoComplete="off"
           maxlength="5"
           onChange={this.handleChange}
           />
@@ -160,7 +160,7 @@ class WorkoutForm extends React.Component {
           name="sets"
           type="number"
           placeholder="Sets"
-          autocomplete="off"
+          autoComplete="off"
           maxlength="5"
           onChange={this.handleChange}
           />
@@ -170,7 +170,7 @@ class WorkoutForm extends React.Component {
           name="reps"
           type="number"
           placeholder="Reps"
-          autocomplete="off"
+          autoComplete="off"
           maxlength="5"
           onChange={this.handleChange}
           />
