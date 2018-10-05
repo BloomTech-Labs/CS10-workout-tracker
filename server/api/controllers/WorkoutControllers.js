@@ -524,7 +524,6 @@ const deleteWorkout = (req, res) => {
 };
 
 module.exports = {
-  scheduleWorkout,
   fetchWorkoutDoc,
   fetchAllWorkouts,
   copyWorkoutRange,
