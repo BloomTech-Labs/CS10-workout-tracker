@@ -7,7 +7,8 @@ class CurrentRoutine extends React.Component {
 
   state = {
     routineName: "",
-    routineModal: false
+    routineModal: false,
+    exerciseModal: false
   };
 
   handleFieldChange = event => {
@@ -20,6 +21,12 @@ class CurrentRoutine extends React.Component {
       routineModal: !this.state.routineModal,
       routineName: title
     });
+  }
+
+  toggleExercise = () => {
+    this.setState({
+      exerciseModal: !this.state.exerciseModal
+    })
   }
 
   handleDelete = (exerciseId) => {
@@ -95,6 +102,48 @@ class CurrentRoutine extends React.Component {
         </Modal>
 
         {/* End update routine modal */}
+
+        {/* Update Exercise modal */}
+        <Modal
+          isOpen={this.state.exerciseModal}
+          toggle={this.toggleExercise}
+          className="sign__in"
+        >
+          <ModalHeader toggle={this.toggleSignInModal}>SignIn</ModalHeader>
+          <ModalBody>
+            <InputGroup>
+              <Input
+                placeholder="New Routine Name"
+                value={this.state.routineName}
+                onChange={this.handleFieldChange}
+                name="routineName"
+                autocomplete="off"
+              />
+            </InputGroup>
+            {/* {this.props.valError.error ?<span className="form__validation">{this.props.valError.error}</span> : null}
+            <InputGroup>
+              <Input
+                placeholder="password"
+                type="password"
+                value={this.state.signInPass}
+                onChange={this.handleFieldChange}
+                name="signInPass"
+                autocomplete="off"
+              />
+            </InputGroup>
+            {this.props.valError.error ? <span className="form__validation">{this.props.valError.error}</span> : null} */}
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.handleRoutineUpdate}>
+              Update Routine Name
+            </Button>{" "}
+            <Button color="secondary" onClick={this.toggleExercise}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+
+        {/* End Exercise modal */}
 
         <h2>CURRENT ROUTINE</h2>
         <h3 className="current__title">- Routine Title -----------------</h3>
