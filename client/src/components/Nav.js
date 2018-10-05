@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import {
   Button,
   Modal,
@@ -131,7 +131,7 @@ class Nav extends React.Component {
     return (
       <header>
         <nav className="landing__nav">
-          <div className="left__nav">
+          <Link to="/schedule" className="left__nav">
           <object
             type="image/svg+xml"
             data={barbell_logo}
@@ -139,7 +139,7 @@ class Nav extends React.Component {
           >
             BRAWNDO!
           </object>
-          </div>
+          </Link>
           {authed ? isAuth : isNotAuth}
         </nav>
 
