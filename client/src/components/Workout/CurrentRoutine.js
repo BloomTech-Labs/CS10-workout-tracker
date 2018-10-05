@@ -131,7 +131,7 @@ class CurrentRoutine extends React.Component {
           toggle={this.toggleRoutine}
           className="sign__in"
         >
-          <ModalHeader toggle={this.toggleSignInModal}>New Routine Name</ModalHeader>
+          <ModalHeader toggle={this.toggleSignInModal}>Update Routine Name</ModalHeader>
           <ModalBody>
             <InputGroup>
               <Input
