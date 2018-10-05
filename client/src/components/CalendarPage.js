@@ -211,10 +211,12 @@ class CalendarPage extends Component {
         <div className="formAndButton-container">
           <div className="button-container">
             <Button
-            className="newWorkout-btn"
+              className="newWorkout-btn"
               style={{
                 backgroundImage:
-                  this.state.usageMode === "NEW_WORKOUT" ? "radial-gradient(#cc0000, black)" : "radial-gradient(#666666, black)"
+                  this.state.usageMode === "NEW_WORKOUT"
+                    ? "radial-gradient(#cc0000, black)"
+                    : "radial-gradient(#666666, black)"
               }}
               onClick={() => {
                 this.setState({ usageMode: "NEW_WORKOUT" });
@@ -223,10 +225,12 @@ class CalendarPage extends Component {
               New Workout
             </Button>
             <Button
-            className="copyWorkouts-btn"
+              className="copyWorkouts-btn"
               style={{
                 backgroundImage:
-                  this.state.usageMode === "COPY_WORKOUTS" ? "radial-gradient(#cc0000, black)" : "radial-gradient(#666666, black)"
+                  this.state.usageMode === "COPY_WORKOUTS"
+                    ? "radial-gradient(#cc0000, black)"
+                    : "radial-gradient(#666666, black)"
               }}
               onClick={() => {
                 this.setState({ usageMode: "COPY_WORKOUTS" });
@@ -236,9 +240,7 @@ class CalendarPage extends Component {
             </Button>
           </div>
           {this.state.usageMode === "COPY_WORKOUTS" && (
-            <form
-            className="form-container"
-            >
+            <form className="form-container">
               <div>
                 <label>Copy from start date</label>
                 <input
@@ -266,8 +268,17 @@ class CalendarPage extends Component {
                   onChange={this.handleDateChange}
                 />
               </div>
-              <Button className="submit-btn" onClick={this.handleSubmitCopyWorkouts}>Submit</Button>
-              <div className="icon-explanation">* <i class="fas fa-minus-circle"></i> on the calendar denotes workouts that contain deleted routines and hence can not be copied.</div>
+              <Button
+                className="submit-btn"
+                onClick={this.handleSubmitCopyWorkouts}
+              >
+                Submit
+              </Button>
+              <div className="icon-explanation">
+                * <i class="fas fa-minus-circle" /> on the calendar denotes
+                workouts that contain deleted routines and hence can not be
+                copied.
+              </div>
             </form>
           )}
         </div>
@@ -355,7 +366,7 @@ class CalendarPage extends Component {
           </ModalBody>
 
           <ModalFooter>
-          <Button className="delete-workout-btn" onClick={this.deleteWorkout}>
+            <Button className="delete-workout-btn" onClick={this.deleteWorkout}>
               Delete Workout
             </Button>
             <Button className="cancel-btn" onClick={this.checkboxModalToggle}>
