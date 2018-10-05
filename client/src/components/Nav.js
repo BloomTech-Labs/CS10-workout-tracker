@@ -10,7 +10,15 @@ import {
   InputGroup
 } from "reactstrap";
 import { connect } from "react-redux";
-import { register, login, logout, forgotPassword } from "../actions";
+import {
+  register,
+  login,
+  logout,
+  clearErrors,
+  forgotPassword,
+  clearCurrentRoutine
+} from "../actions";
+import validator from "validator";
 
 class Nav extends React.Component {
   constructor() {
@@ -24,12 +32,14 @@ class Nav extends React.Component {
       email: "",
       signUpModal: false,
       signInModal: false,
-      forgotModal: false
+      forgotModal: false,
+      errors: {}
     };
   }
 
   handleLogout = event => {
     this.props.logout();
+    this.props.clearCurrentRoutine();
     this.props.history.push("/");
   };
 
@@ -38,14 +48,18 @@ class Nav extends React.Component {
   };
 
   toggleSignInModal = () => {
+    this.props.clearErrors();
     this.setState({
-      signInModal: !this.state.signInModal
+      signInModal: !this.state.signInModal,
+      errors: {}
     });
   };
 
   toggleSignUpModal = () => {
+    this.props.clearErrors();
     this.setState({
-      signUpModal: !this.state.signUpModal
+      signUpModal: !this.state.signUpModal,
+      errors: {}
     });
   };
 
@@ -57,6 +71,47 @@ class Nav extends React.Component {
 
   handleSignup = event => {
     event.preventDefault();
+    const { username, password, confirmPassword, email } = this.state;
+    const newErrors = {};
+
+    if (username.trim() === "") {
+      newErrors.username = "Username is Required";
+    }
+
+    if (password.trim().length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    }
+
+    if (password.trim() === "") {
+      newErrors.password = "Password is Required";
+    }
+
+    if (confirmPassword.trim().length < 6) {
+      newErrors.confirmPassword =
+        "Confirm Password must be at least 6 characters";
+    }
+
+    if (confirmPassword.trim() === "") {
+      newErrors.confirmPassword = "Confirm Password is Required";
+    }
+
+    if (password.trim() !== confirmPassword.trim()) {
+      newErrors.password = "Must match Confirm Password";
+      newErrors.confirmPassword = "Must match Password";
+    }
+
+    if (!validator.isEmail(email.trim())) {
+      newErrors.email = "Must be valid email";
+    }
+
+    if (email.trim() === "") {
+      newErrors.email = "Email is required";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      return this.setState({ errors: newErrors });
+    }
+
     if (this.state.password === this.state.confirmPassword) {
       this.props.register(
         {
@@ -64,17 +119,17 @@ class Nav extends React.Component {
           password: this.state.password,
           email: this.state.email
         },
-        this.props.history
+        this.props.history,
+        this.toggleSignUpModal
       );
     }
     this.setState({
       username: "",
       password: "",
       confirmPassword: "",
-      email: ""
+      email: "",
+      errors: {}
     });
-    console.log("submitted");
-    this.toggleSignUpModal();
   };
 
   handleSignin = event => {
@@ -84,14 +139,14 @@ class Nav extends React.Component {
         username: this.state.signInName,
         password: this.state.signInPass
       },
-      this.props.history
+      this.props.history,
+      this.toggleSignInModal
     );
 
     this.setState({
       signInName: "",
       signInPass: ""
     });
-    this.toggleSignInModal();
   };
 
   handleForgotPassword = event => {
@@ -113,7 +168,7 @@ class Nav extends React.Component {
       <div className="right__nav">
         <div>
           <span className="first__nav__span" onClick={this.toggleSignUpModal}>
-            Signup
+            Sign-up
           </span>
         </div>
         <span onClick={this.toggleSignInModal}>Login</span>
@@ -125,6 +180,24 @@ class Nav extends React.Component {
         <span onClick={this.handleLogout}>Logout</span>
       </div>
     );
+
+    const emailErrors = this.state.errors.email ? (
+      <span className="form__validation">{this.state.errors.email}</span>
+    ) : null;
+
+    const usernameErrors = this.state.errors.username ? (
+      <span className="form__validation">{this.state.errors.username}</span>
+    ) : null;
+
+    const passwordErrors = this.state.errors.password ? (
+      <span className="form__validation">{this.state.errors.password}</span>
+    ) : null;
+
+    const confirmPasswordErrors = this.state.errors.confirmPassword ? (
+      <span className="form__validation">
+        {this.state.errors.confirmPassword}
+      </span>
+    ) : null;
 
     return (
       <header>
@@ -138,9 +211,9 @@ class Nav extends React.Component {
         <Modal
           isOpen={this.state.signUpModal}
           toggle={this.toggleSignUpModal}
-          className="sign__in"
+          className="sign__up"
         >
-          <ModalHeader toggle={this.toggleSignUpModal}>SignUp</ModalHeader>
+          <ModalHeader toggle={this.toggleSignUpModal}>Sign Up</ModalHeader>
           <ModalBody>
             <InputGroup>
               <Input
@@ -148,8 +221,18 @@ class Nav extends React.Component {
                 value={this.state.username}
                 onChange={this.handleFieldChange}
                 name="username"
+                autocomplete="off"
               />
             </InputGroup>
+            {usernameErrors ? (
+              usernameErrors
+            ) : this.props.valError.message ? (
+              <span className="form__validation">
+                {this.props.valError.message}
+              </span>
+            ) : null}
+            {/* {usernameErrors}
+            {this.props.valError.message ? <span>{this.props.valError.message}</span>: null} */}
             <InputGroup>
               <Input
                 placeholder="password"
@@ -157,8 +240,10 @@ class Nav extends React.Component {
                 value={this.state.password}
                 onChange={this.handleFieldChange}
                 name="password"
+                autocomplete="off"
               />
             </InputGroup>
+            {passwordErrors}
             <InputGroup>
               <Input
                 placeholder="confirm password"
@@ -166,8 +251,10 @@ class Nav extends React.Component {
                 value={this.state.confirmPassword}
                 onChange={this.handleFieldChange}
                 name="confirmPassword"
+                autocomplete="off"
               />
             </InputGroup>
+            {confirmPasswordErrors}
             <InputGroup>
               <Input
                 placeholder="Email"
@@ -175,12 +262,20 @@ class Nav extends React.Component {
                 value={this.state.email}
                 onChange={this.handleFieldChange}
                 name="email"
+                autocomplete="off"
               />
             </InputGroup>
+            {emailErrors ? (
+              emailErrors
+            ) : this.props.valError.message ? (
+              <span className="form__validation">
+                {this.props.valError.message}
+              </span>
+            ) : null}
           </ModalBody>
           <ModalFooter>
             <Button className="submit-btn--blue" onClick={this.handleSignup}>
-              Signup
+              Sign up
             </Button>{" "}
             <Button
               className="submit-btn--grey"
@@ -196,9 +291,9 @@ class Nav extends React.Component {
         <Modal
           isOpen={this.state.signInModal}
           toggle={this.toggleSignInModal}
-          className="sign__up"
+          className="sign__in"
         >
-          <ModalHeader toggle={this.toggleSignInModal}>SignIn</ModalHeader>
+          <ModalHeader toggle={this.toggleSignInModal}>Sign In</ModalHeader>
           <ModalBody>
             <InputGroup>
               <Input
@@ -206,8 +301,14 @@ class Nav extends React.Component {
                 value={this.state.signInName}
                 onChange={this.handleFieldChange}
                 name="signInName"
+                autocomplete="off"
               />
             </InputGroup>
+            {this.props.valError.error ? (
+              <span className="form__validation">
+                {this.props.valError.error}
+              </span>
+            ) : null}
             <InputGroup>
               <Input
                 placeholder="password"
@@ -215,12 +316,18 @@ class Nav extends React.Component {
                 value={this.state.signInPass}
                 onChange={this.handleFieldChange}
                 name="signInPass"
+                autocomplete="off"
               />
             </InputGroup>
+            {this.props.valError.error ? (
+              <span className="form__validation">
+                {this.props.valError.error}
+              </span>
+            ) : null}
           </ModalBody>
           <ModalFooter>
             <Button className="submit-btn--blue" onClick={this.handleSignin}>
-              Signin
+              Sign in
             </Button>{" "}
             <Button
               className="submit-btn--grey"
@@ -254,6 +361,7 @@ class Nav extends React.Component {
                 value={this.state.email}
                 onChange={this.handleFieldChange}
                 name="email"
+                autocomplete="off"
               />
             </InputGroup>
           </ModalBody>
@@ -278,11 +386,12 @@ const mapStateToProps = state => {
   );
   return {
     userInfo: state.auth,
-    msg: state.auth.message
+    msg: state.auth.message,
+    valError: state.valError
   };
 };
 
 export default connect(
   mapStateToProps,
-  { register, login, logout, forgotPassword }
+  { register, login, logout, clearErrors, forgotPassword, clearCurrentRoutine }
 )(withRouter(Nav));

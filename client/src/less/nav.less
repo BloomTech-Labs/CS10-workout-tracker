@@ -1,0 +1,49 @@
+.modal-content {
+  margin: 180px auto;
+
+  .modal-body {
+    .input-group {
+      width: 70%;
+      margin: 0 auto;
+    }
+    input {
+      background-color: @grey;
+      margin: 10px;
+      border-radius: 0;
+    }
+  }
+
+  .modal-footer {
+    .signup-signin-btn {
+      background-image: linear-gradient(@secondary, black) !important;
+      border: none;
+      border-radius: 0;
+    }
+    .cancel-btn {
+      border: none;
+      border-radius: 0;
+    }
+
+    .forgot-pass-btn {
+      background-image: linear-gradient(@grey, black) !important;
+      border: none;
+      border-radius: 0;
+    }
+  }
+
+  @media (max-width: 790px) {
+    width: 80%;
+    .modal-footer {
+      .signup-signin-btn {
+        font-size: 13px;
+      }
+      .cancel-btn {
+        font-size: 13px;
+      }
+      .forgot-pass-btn {
+        width: 45%;
+        font-size: 13px;
+      }
+    }
+  }
+}

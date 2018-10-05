@@ -59,6 +59,8 @@ export default (state = initialState, action) => {
     case Actions.POST_NEW_ROUTINE_SUCCESS:
       const updatedRoutineList = state.routines.slice(0);
       updatedRoutineList.push(action.payload);
+      // console.log("LOGGING THE PAYLOAD Title",action.payload);
+      // const currentR = {name: action.currentR, exercises: []};
       return {
         ...state,
         msg: "Posting a new workout routine...",
@@ -80,6 +82,7 @@ export default (state = initialState, action) => {
       const memoOfLoadedExercises = memoOfFocusedRoutine.exercises.slice(0);
       memoOfLoadedExercises.push(action.payload.exercise);
       memoOfFocusedRoutine.exercises = memoOfLoadedExercises;
+      console.log(memoOfLoadedExercises);
       return {
         ...state,
         msg: "Posted a new exercise a part of a routine.",
@@ -111,6 +114,55 @@ export default (state = initialState, action) => {
         })
         // msg: "Updated an exercise"
       };
+    case Actions.DELETING_EXCERCISE:
+      return {
+        ...state,
+        msg: action.payload
+      };
+    case Actions.DELETE_EXERCISE_SUCCESS: 
+      let newExercises = state.focusedRoutine.exercises.slice();
+      newExercises = newExercises.filter((exercise) => {
+        return exercise._id !== action.payload;
+      });
+      return {
+        ...state,
+        msg: "Delete Success",
+        focusedRoutine: {
+          ...state.focusedRoutine,
+          exercises: newExercises
+        }
+      };
+    case Actions.DELETE_EXERCISE_FAILURE:
+      return {
+        ...state,
+        msg: action.payload
+      };
+    case Actions.DELETING_ROUTINE:
+      return {
+        ...state,
+        msg: action.payload
+      }
+    case Actions.DELETE_ROUTINE_SUCCESS:
+      let newRoutine = state.routines.filter(routine => {
+        return routine._id !== action.payload
+      })
+      return {
+        ...state,
+        focusedRoutine: null,
+        test: "this is a test",
+        routines: newRoutine,
+        msg: "Deleted Successfully"
+      }
+    case Actions.DELETE_ROUTINE_FAILURE:
+      return {
+        ...state,
+        msg: action.payload
+      }
+    case Actions.CLEAR_CURRENT_ROUTINE:
+      return {
+        ...state,
+        focusedRoutine: action.payload
+      };
     case Actions.UPDATING_ROUTINE:
       return {
         ...state,
@@ -134,6 +186,10 @@ export default (state = initialState, action) => {
       return {
         ...state,
         msg: "Updated routine metadata.",
+        focusedRoutine: {
+          ...state.focusedRoutine,
+          title: action.payload.data.title
+        },
         selectedRoutine: {
           ...memoOfSelectedRoutineWithTitle,
           title: action.payload.data.title

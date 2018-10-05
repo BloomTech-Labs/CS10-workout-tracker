@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import registerServiceWorker from "./registerServiceWorker";
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ReduxThunk from "redux-thunk";
@@ -11,7 +11,7 @@ import AccessControl from "./components/AccessControl";
 import PasswordReset from "./components/PasswordReset";
 import LandingPage from "./components/Landing/LandingPage";
 import Schedule from "./components/Schedule";
-import RoutineManager from "./components/Routine-Manager/Container";
+import MainWorkout from "./components/Workout/MainWorkout";
 import Progress from "./components/Progress/Progress";
 import Billing from "./components/Billing";
 import Settings from "./components/Settings";
@@ -22,7 +22,17 @@ import "./css/index.css";
 
 import combinedReducer from "./reducers";
 
-const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
+// const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
+
+// ============= Xang Added this for dev to see the redux store  =====
+// Delete and uncomment the top one if you want ===
+
+const createStoreWithMiddleware = compose(
+  applyMiddleware(ReduxThunk),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)(createStore);
+/// ==========================================
+
 const store = createStoreWithMiddleware(combinedReducer);
 
 ReactDOM.render(
@@ -46,7 +56,7 @@ ReactDOM.render(
               <Route
                 path="/workouts"
                 exact
-                component={AccessControl(RoutineManager)}
+                component={AccessControl(MainWorkout)}
               />
               <Route
                 path="/progress"
