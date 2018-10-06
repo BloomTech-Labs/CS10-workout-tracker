@@ -295,6 +295,7 @@ body {
 }
 .modal-content .checkoff-modal-body {
   min-height: 200px;
+  color: #ffffff;
 }
 .modal-content .checkoff-modal-body div div {
   display: flex;
