@@ -21,6 +21,9 @@ class CalendarPage extends Component {
     schedulingModal: false,
     checkboxModal: false,
     performances: [],
+    weight: "",
+    sets: "",
+    reps: "",
     usageMode: "NEW_WORKOUT", // or COPY_WORKOUTS
     copyFromStartDate: "",
     copyFromEndDate: "",
@@ -43,6 +46,10 @@ class CalendarPage extends Component {
     this.props.fetchRoutines();
     this.props.fetchAllWorkouts();
     this.props.fetchAllPerformanceDocs();
+  }
+
+  handlePerformanceChange = e => {
+    this.setState({[e.target.name]: e.target.value})
   }
 
   schedulingModalToggle = () => {
@@ -359,9 +366,9 @@ class CalendarPage extends Component {
                       </div>
                     </div>
                     <div className="checkoff-performance">
-                      <span>{`weight: ${checkoffObj.weight}`}</span>
-                      <span>{`sets: ${checkoffObj.sets}`}</span>
-                      <span>{`reps: ${checkoffObj.reps}`}</span>
+                      <span>weight :<input onChange={this.handlePerformanceChange} type="number" name="weight" value={this.state.weight} placeholder={checkoffObj.weight}></input></span>
+                      <span>sets :<input onChange={this.handlePerformanceChange} type="number" name="sets" value={this.state.sets} placeholder={checkoffObj.sets}></input></span>
+                      <span>reps :<input onChange={this.handlePerformanceChange} type="number" name="reps" value={this.state.reps} placeholder={checkoffObj.sets}></input></span>
                     </div>
                   </div>
                 ) : null

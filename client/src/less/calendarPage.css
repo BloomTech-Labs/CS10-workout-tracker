@@ -244,10 +244,14 @@ body {
   margin-left: 20px;
 }
 .modal-content .checkoff-modal-body div .checkoff-performance {
-  margin-left: 50px;
+  margin-left: 20px;
   display: flex;
   justify-content: space-evenly;
 }
 .modal-content .checkoff-modal-body div .checkoff-performance span {
-  margin: 5px;
+  margin: 3px;
+}
+.modal-content .checkoff-modal-body div .checkoff-performance span input {
+  width: 40px;
+  text-align: center;
 }
