@@ -221,7 +221,7 @@ class Nav extends React.Component {
                 value={this.state.username}
                 onChange={this.handleFieldChange}
                 name="username"
-                autocomplete="off"
+                autoComplete="off"
               />
             </InputGroup>
             {usernameErrors ? (
@@ -238,7 +238,7 @@ class Nav extends React.Component {
                 value={this.state.password}
                 onChange={this.handleFieldChange}
                 name="password"
-                autocomplete="off"
+                autoComplete="off"
               />
             </InputGroup>
             {passwordErrors}
@@ -249,7 +249,7 @@ class Nav extends React.Component {
                 value={this.state.confirmPassword}
                 onChange={this.handleFieldChange}
                 name="confirmPassword"
-                autocomplete="off"
+                autoComplete="off"
               />
             </InputGroup>
             {confirmPasswordErrors}
@@ -260,7 +260,7 @@ class Nav extends React.Component {
                 value={this.state.email}
                 onChange={this.handleFieldChange}
                 name="email"
-                autocomplete="off"
+                autoComplete="off"
               />
             </InputGroup>
             {emailErrors ? (
@@ -299,7 +299,7 @@ class Nav extends React.Component {
                 value={this.state.signInName}
                 onChange={this.handleFieldChange}
                 name="signInName"
-                autocomplete="off"
+                autoComplete="off"
               />
             </InputGroup>
             {this.props.valError.error ? (
@@ -314,7 +314,7 @@ class Nav extends React.Component {
                 value={this.state.signInPass}
                 onChange={this.handleFieldChange}
                 name="signInPass"
-                autocomplete="off"
+                autoComplete="off"
               />
             </InputGroup>
             {this.props.valError.error ? (
@@ -359,15 +359,21 @@ class Nav extends React.Component {
                 value={this.state.email}
                 onChange={this.handleFieldChange}
                 name="email"
-                autocomplete="off"
+                autoComplete="off"
               />
             </InputGroup>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.handleForgotPassword}>
+            <Button
+              className="submit-btn--blue"
+              onClick={this.handleForgotPassword}
+            >
               Request Recovery Link
             </Button>
-            <Button color="secondary" onClick={this.toggleForgotModal}>
+            <Button
+              className="submit-btn--grey"
+              onClick={this.toggleForgotModal}
+            >
               Cancel
             </Button>
           </ModalFooter>
