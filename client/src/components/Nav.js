@@ -231,8 +231,6 @@ class Nav extends React.Component {
                 {this.props.valError.message}
               </span>
             ) : null}
-            {/* {usernameErrors}
-            {this.props.valError.message ? <span>{this.props.valError.message}</span>: null} */}
             <InputGroup>
               <Input
                 placeholder="password"

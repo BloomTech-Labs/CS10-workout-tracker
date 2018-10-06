@@ -732,17 +732,18 @@ footer p {
 }
 .main__side__content {
   display: flex;
-  justify-content: space-between;
   text-align: center;
   max-width: 1500px;
   height: 100%;
   width: 100%;
   margin: 0 auto;
+  justify-content: space-between;
   background: radial-gradient(#000000, #ffffff);
 }
 .main__container {
   flex-basis: 85%;
   min-height: 77vh;
+  background: radial-gradient(#000033, #000000);
 }
 .form__validation {
   font-size: 12px;
