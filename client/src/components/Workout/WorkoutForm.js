@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { postNewRoutine, clearCurrentRoutine, postNewExerciseInRoutine } from "../../actions";
 
 class WorkoutForm extends React.Component {
@@ -197,5 +198,12 @@ const mapStateToProps = state => {
     focusRoutine: state.RoutineManager.focusedRoutine
   };
 };
+
+WorkoutForm.propTypes = {
+  focusRoutine: PropTypes.object,
+  postNewRoutine: PropTypes.func,
+  clearCurrentRoutine: PropTypes.func,
+  postNewExerciseInRoutine: PropTypes.func,
+ };
 
 export default connect(mapStateToProps, {postNewRoutine, clearCurrentRoutine, postNewExerciseInRoutine})(WorkoutForm);
