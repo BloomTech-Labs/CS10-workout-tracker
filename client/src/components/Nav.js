@@ -10,6 +10,7 @@ import {
   InputGroup
 } from "reactstrap";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { register, login, logout, clearErrors, forgotPassword, clearCurrentRoutine } from "../actions";
 import "../less/nav.css";
 import validator from "validator";
