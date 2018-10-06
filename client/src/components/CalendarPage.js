@@ -315,11 +315,14 @@ class CalendarPage extends Component {
               </select>
             </ModalBody>
             <ModalFooter>
-              <Button className="schedule-btn" onClick={this.scheduleWorkout}>
+              <Button
+                className="submit-btn--blue"
+                onClick={this.scheduleWorkout}
+              >
                 Schedule!
               </Button>{" "}
               <Button
-                className="cancel-btn"
+                className="submit-btn--grey"
                 onClick={this.schedulingModalToggle}
               >
                 Cancel
@@ -378,13 +381,13 @@ class CalendarPage extends Component {
             </ModalBody>
 
             <ModalFooter>
-              <Button
-                className="delete-workout-btn"
-                onClick={this.deleteWorkout}
-              >
+              <Button className="submit-btn--blue" onClick={this.deleteWorkout}>
                 Delete Workout
               </Button>
-              <Button className="cancel-btn" onClick={this.checkboxModalToggle}>
+              <Button
+                className="submit-btn--grey"
+                onClick={this.checkboxModalToggle}
+              >
                 Cancel
               </Button>
             </ModalFooter>

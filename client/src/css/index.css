@@ -289,33 +289,6 @@ body {
   height: 150px;
   padding: 40px;
 }
-.schedule-btn {
-  background: linear-gradient(#000033, #000000);
-  color: #cccccc;
-  border: none;
-  margin-bottom: 5px;
-}
-.schedule-btn:hover {
-  cursor: pointer;
-  background: radial-gradient(#000033, #000000);
-  color: #ffffff;
-}
-.cancel-btn {
-  margin-bottom: 5px;
-  border: none !important;
-  color: #cccccc;
-}
-.cancel-btn:hover {
-  cursor: pointer;
-  background: radial-gradient(#cc0000, #000000);
-  color: #ffffff;
-}
-.delete-workout-btn {
-  background: linear-gradient(#000033, #000000);
-  color: #cccccc;
-  border: none;
-  margin-bottom: 5px;
-}
 .modal-content {
   width: 80%;
   margin: 90px auto;
