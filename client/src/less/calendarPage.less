@@ -258,33 +258,37 @@ body {
   .checkoff-modal-body {
     min-height: 200px;
     div {
-      div {
-        display: flex;
-  
-        div {
-          .checkoff-input {
-            margin-left: 15px;
-             margin-top: 5px;
+      .performance-block {
+        display: block;
+    
+          div {
+            display: flex;
+            .checkoff-input {
+              margin-left: 15px;
+               margin-top: 5px;
+            }
+            .checkoff-exercise {
+              margin-left: 20px;
+            }
           }
-        }
-        .checkoff-exercise {
-          margin-left: 20px;
-        }
-      }
-      .checkoff-performance {
-        margin-left: 20px;
-        display: flex;
-        justify-content: space-evenly;
-  
-        span {
-          margin: 3px;
 
-          input {
-            width: 40px;
-            text-align: center;
+          .checkoff-performance {
+            margin-left: 20px;
+            display: flex;
+            justify-content: space-evenly;
+      
+            span {
+              margin: 3px;
+    
+              input {
+                width: 40px;
+                text-align: center;
+              }
+            }
           }
-        }
+         
       }
     }
+    
   }
 }

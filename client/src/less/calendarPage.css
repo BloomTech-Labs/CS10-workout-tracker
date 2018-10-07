@@ -233,25 +233,28 @@ body {
 .modal-content .checkoff-modal-body {
   min-height: 200px;
 }
-.modal-content .checkoff-modal-body div div {
+.modal-content .checkoff-modal-body div .performance-block {
+  display: block;
+}
+.modal-content .checkoff-modal-body div .performance-block div {
   display: flex;
 }
-.modal-content .checkoff-modal-body div div div .checkoff-input {
+.modal-content .checkoff-modal-body div .performance-block div .checkoff-input {
   margin-left: 15px;
   margin-top: 5px;
 }
-.modal-content .checkoff-modal-body div div .checkoff-exercise {
+.modal-content .checkoff-modal-body div .performance-block div .checkoff-exercise {
   margin-left: 20px;
 }
-.modal-content .checkoff-modal-body div .checkoff-performance {
+.modal-content .checkoff-modal-body div .performance-block .checkoff-performance {
   margin-left: 20px;
   display: flex;
   justify-content: space-evenly;
 }
-.modal-content .checkoff-modal-body div .checkoff-performance span {
+.modal-content .checkoff-modal-body div .performance-block .checkoff-performance span {
   margin: 3px;
 }
-.modal-content .checkoff-modal-body div .checkoff-performance span input {
+.modal-content .checkoff-modal-body div .performance-block .checkoff-performance span input {
   width: 40px;
   text-align: center;
 }

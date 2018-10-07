@@ -20,37 +20,24 @@ class CalendarPage extends Component {
   state = {
     schedulingModal: false,
     checkboxModal: false,
-    performances: [],
     weight: "",
     sets: "",
     reps: "",
     usageMode: "NEW_WORKOUT", // or COPY_WORKOUTS
     copyFromStartDate: "",
     copyFromEndDate: "",
-    copyToStartDate: ""
+    copyToStartDate: "",
+    focusedPerformances: []
   };
-
-  /* This is for putting the performances array from the calendar reducer onto local state.
-  this.state.performances is being used to toggle completed field of each Performance Doc*/
-  static getDerivedStateFromProps(props, state) {
-    if (props.performances !== state.performances) {
-      return {
-        performances: props.performances
-      };
-    }
-    // Return null if the state hasn't changed
-    return null;
-  }
 
   componentDidMount() {
     this.props.fetchRoutines();
     this.props.fetchAllWorkouts();
-    this.props.fetchAllPerformanceDocs();
   }
 
   handlePerformanceChange = e => {
-    this.setState({[e.target.name]: e.target.value})
-  }
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   schedulingModalToggle = () => {
     this.setState({
@@ -77,7 +64,9 @@ class CalendarPage extends Component {
   onSelectEvent = selected => {
     this.selectedEventTitle = selected.title;
     this.selectedEventId = selected.id;
-    this.checkboxModalToggle();
+    let focusedWorkout = this.props.workouts.filter(workout => workout._id === selected.id)[0]
+    this.setState({focusedPerformances: focusedWorkout.performances}, this.checkboxModalToggle())
+    console.log(selected)
   };
 
   handleDateChange = e => {
@@ -122,7 +111,7 @@ class CalendarPage extends Component {
   };
 
   // this updates the toggled boolean of the specified performance doc in the DB
-  handleCheckOffInDB = performanceId => {
+  handlePerformanceCheckOff = performanceId => {
     let token = localStorage.getItem("token");
     let requestOptions = { headers: { "x-access-token": token } };
     axios
@@ -137,70 +126,47 @@ class CalendarPage extends Component {
       .catch(err => {
         console.log("error updating performance");
       });
-  };
 
-  /* this uses the performances array in the local component state
-    to keep track of which checkbox(es) have been marked and which remain unmarked */
-  handleIndividualCheckbox = event => {
-    let performances = this.state.performances;
+      let performances = this.state.focusedPerformances;
     performances.forEach(performance => {
-      if (performance._id === event.target.value) {
+      if (performance._id === performanceId) {
         performance.completed = !performance.completed;
       }
     });
-    this.setState({ performances });
+    this.setState({ focusedPerformances: performances });
   };
 
-  events = [];
 
+  events = [];
   selectedRoutineValue;
   selectedRoutineId;
   selectedSlotDate;
-
-  selectedExercises;
-  selectedEventId;
   selectedEventTitle;
+  // selectedExercises;
+  // selectedEventId;
+  
 
   render() {
+    console.log(this.props.workouts);
+
     // the events array is required by react-big-calendar
     this.events = this.props.workouts.map(workout => ({
       start: new Date(workout.date),
       end: new Date(workout.date),
-      
+
       /* if the user tries to copy a workout which contains a deleted routine, 
       then "deleted routine" will be displayed as the event title */
-      title: workout.routineName ? workout.routineName : <i class="fas fa-minus-circle"></i>, 
+      title: workout.routineName ? (
+        workout.routineName
+      ) : (
+        <i class="fas fa-minus-circle" />
+      ),
       id: workout._id
     }));
 
     let allViews = Object.keys(BigCalendar.Views).map(
       k => BigCalendar.Views[k]
     );
-
-    let checkoff = [];
-    let checkoffObj = {};
-
-    let workoutId;
-
-    /* the checkoffObj contains the info that gets populated on the modal 
-    that allows the user to checkoff completed exercise(s)/performance(s) */
-    this.props.workouts.map(workout => {
-      workoutId = workout._id;
-      workout.performances.map(performance => {
-        checkoffObj.workoutId = workoutId;
-        checkoffObj.performanceId = performance._id;
-        checkoffObj.completed = performance.completed;
-        checkoffObj.exerciseName =
-          performance.exerciseName || performance.exercise.name;
-        checkoffObj.weight = performance.weight;
-        checkoffObj.sets = performance.sets;
-        checkoffObj.reps = performance.reps;
-
-        checkoff.push(checkoffObj);
-
-        checkoffObj = {};
-      });
-    });
 
     return (
       <div className="calendarAndForm-container">
@@ -338,38 +304,35 @@ class CalendarPage extends Component {
             {this.selectedEventTitle}
           </ModalHeader>
           <ModalBody className="checkoff-modal-body">
-            {checkoff.map(
-              checkoffObj =>
-                checkoffObj.workoutId === this.selectedEventId ? (
-                  <div key={checkoffObj.performanceId}>
-                    <div>
+            {this.props.workouts.map(
+              workout =>
+                workout._id === this.selectedEventId ? (
+                  <div key={workout._id}>
+                    {workout.performances.map(performance => (
+                      <div key={performance._id} className="performance-block">
                       <div>
+                      
                         <input
                           className="checkoff-input"
                           type="checkbox"
-                          key={checkoffObj.performanceId}
-                          value={checkoffObj.performanceId}
-                          onClick={this.handleIndividualCheckbox}
+                          key={performance._id}
                           onChange={() => {
-                            this.handleCheckOffInDB(checkoffObj.performanceId);
+                            this.handlePerformanceCheckOff(performance._id);
                           }}
                           checked={
-                            this.state.performances.filter(
-                              performance =>
-                                performance._id === checkoffObj.performanceId
-                            )[0].completed
+                            this.state.focusedPerformances.filter(focusedPerformance => focusedPerformance._id === performance._id)[0].completed
                           }
                         />
+                        
+                        <div className="checkoff-exercise">{performance.exerciseName}</div>
                       </div>
-                      <div className="checkoff-exercise">
-                        {checkoffObj.exerciseName}
+                      <div className="checkoff-performance">
+                       <span>weight :<input onChange={this.handlePerformanceChange} type="number" name="weight" value={this.state.weight} placeholder={performance.weight}></input></span>
+                       <span>sets :<input onChange={this.handlePerformanceChange} type="number" name="sets" value={this.state.sets} placeholder={performance.sets}></input></span>
+                       <span>reps :<input onChange={this.handlePerformanceChange} type="number" name="reps" value={this.state.reps} placeholder={performance.reps}></input></span>
+                     </div>
                       </div>
-                    </div>
-                    <div className="checkoff-performance">
-                      <span>weight :<input onChange={this.handlePerformanceChange} type="number" name="weight" value={this.state.weight} placeholder={checkoffObj.weight}></input></span>
-                      <span>sets :<input onChange={this.handlePerformanceChange} type="number" name="sets" value={this.state.sets} placeholder={checkoffObj.sets}></input></span>
-                      <span>reps :<input onChange={this.handlePerformanceChange} type="number" name="reps" value={this.state.reps} placeholder={checkoffObj.sets}></input></span>
-                    </div>
+                    ))}
                   </div>
                 ) : null
             )}
@@ -397,7 +360,6 @@ const mapStateToProps = state => {
   return {
     routines: state.RoutineManager.routines,
     workouts: state.calendar.workouts,
-    performances: state.calendar.performances
   };
 };
 
@@ -408,7 +370,44 @@ export default connect(
     scheduleWorkout,
     fetchAllWorkouts,
     deleteWorkout,
-    fetchAllPerformanceDocs,
     copyWorkouts
   }
 )(CalendarPage);
+
+// <ModalBody className="checkoff-modal-body">
+//             {checkoff.map(
+//               checkoffObj =>
+//                 checkoffObj.workoutId === this.selectedEventId ? (
+//                   <div key={checkoffObj.performanceId}>
+//                     <div>
+//                       <div>
+//                         <input
+//                           className="checkoff-input"
+//                           type="checkbox"
+//                           key={checkoffObj.performanceId}
+//                           value={checkoffObj.performanceId}
+//                           onClick={this.handleIndividualCheckbox}
+//                           onChange={() => {
+//                             this.handleCheckOffInDB(checkoffObj.performanceId);
+//                           }}
+//                           checked={
+//                             this.state.performances.filter(
+//                               performance =>
+//                                 performance._id === checkoffObj.performanceId
+//                             )[0].completed
+//                           }
+//                         />
+//                       </div>
+//                       <div className="checkoff-exercise">
+//                         {checkoffObj.exerciseName}
+//                       </div>
+//                     </div>
+//                     <div className="checkoff-performance">
+//                       <span>weight :<input onChange={this.handlePerformanceChange} type="number" name="weight" value={this.state.weight} placeholder={checkoffObj.weight}></input></span>
+//                       <span>sets :<input onChange={this.handlePerformanceChange} type="number" name="sets" value={this.state.sets} placeholder={checkoffObj.sets}></input></span>
+//                       <span>reps :<input onChange={this.handlePerformanceChange} type="number" name="reps" value={this.state.reps} placeholder={checkoffObj.reps}></input></span>
+//                     </div>
+//                   </div>
+//                 ) : null
+//             )}
+//           </ModalBody>

@@ -11,8 +11,7 @@ const fetchPerformanceDoc = (req, res) => {
     });
 };
 
-/* this is for keeping the completed boolean of each performance on 
-local component state so that the checkbox state can be persisted on the UI */ 
+
 const fetchAllPerformanceDocs = (req, res) => {
   const { userId } = req;
   Performance.find({ user: userId })
@@ -41,6 +40,7 @@ const checkOffPerformance = (req, res) => {
       res.status(500).json({ err })
     })
 }
+
 
 module.exports = {
   fetchPerformanceDoc,
