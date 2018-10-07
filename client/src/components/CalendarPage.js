@@ -9,7 +9,6 @@ import {
   scheduleWorkout,
   fetchAllWorkouts,
   deleteWorkout,
-  fetchAllPerformanceDocs,
   copyWorkouts
 } from "../actions";
 import "../less/calendarPage.css";
@@ -36,6 +35,7 @@ class CalendarPage extends Component {
   }
 
   handlePerformanceChange = e => {
+    console.log(e.target)
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -65,6 +65,21 @@ class CalendarPage extends Component {
     this.selectedEventTitle = selected.title;
     this.selectedEventId = selected.id;
     let focusedWorkout = this.props.workouts.filter(workout => workout._id === selected.id)[0]
+    // let focusedPerformances = focusedWorkout.performances.map(performance => {
+    //   return {
+    //     completed: performance.completed,
+    //     date: performance.date,
+    //     exercise: performance.exercise,
+    //     exerciseName: performance.exerciseName,
+    //     reps: "",
+    //     sets: "",
+    //     user: performance.user,
+    //     weight: "",
+    //     __v: performance.__v,
+    //     _id: performance._id
+    //   }
+    // })
+    // console.log(focusedPerformances)
     this.setState({focusedPerformances: focusedWorkout.performances}, this.checkboxModalToggle())
     console.log(selected)
   };
@@ -112,16 +127,29 @@ class CalendarPage extends Component {
 
   // this updates the toggled boolean of the specified performance doc in the DB
   handlePerformanceCheckOff = performanceId => {
+    const { weight, sets, reps } = this.state;
+    let updatedPerformanceObj = {}
+    weight !== "" ? updatedPerformanceObj.weight = weight : updatedPerformanceObj.weight = this.state.focusedPerformances.filter(performance => performance._id == performanceId)[0].weight 
+    sets !== "" ? updatedPerformanceObj.sets = sets : updatedPerformanceObj.sets = this.state.focusedPerformances.filter(performance => performance._id == performanceId)[0].sets 
+    reps !== "" ? updatedPerformanceObj.reps = reps : updatedPerformanceObj.reps = this.state.focusedPerformances.filter(performance => performance._id == performanceId)[0].reps 
+
+    console.log("PERFORMANCE OBJ", updatedPerformanceObj)
+
     let token = localStorage.getItem("token");
     let requestOptions = { headers: { "x-access-token": token } };
+
     axios
       .put(
         `http://localhost:8080/performance/${performanceId}`,
-        {},
+        updatedPerformanceObj,
         requestOptions
       )
       .then(updatedPerformance => {
         console.log("successfully updated performance");
+        this.props.fetchAllWorkouts();
+        // let updatedFocusedPerformances = this.state.focusedPerformances.map(performance => performance._id === performanceId ? performance = updatedPerformance.data : performance = performance)
+        // this.setState({focusedPerformances: updatedFocusedPerformances})
+        // console.log(updatedFocusedPerformances)
       })
       .catch(err => {
         console.log("error updating performance");
@@ -327,9 +355,10 @@ class CalendarPage extends Component {
                         <div className="checkoff-exercise">{performance.exerciseName}</div>
                       </div>
                       <div className="checkoff-performance">
-                       <span>weight :<input onChange={this.handlePerformanceChange} type="number" name="weight" value={this.state.weight} placeholder={performance.weight}></input></span>
-                       <span>sets :<input onChange={this.handlePerformanceChange} type="number" name="sets" value={this.state.sets} placeholder={performance.sets}></input></span>
-                       <span>reps :<input onChange={this.handlePerformanceChange} type="number" name="reps" value={this.state.reps} placeholder={performance.reps}></input></span>
+                      {/* {Object.keys(this.state.focusedPerformances[0])[7]} */}
+                       <span>weight :<input onChange={this.handlePerformanceChange} type="number" name="weight" defaultValue={this.state.focusedPerformances.filter(focusedPerformance => focusedPerformance._id === performance._id)[0].weight} placeholder={performance.weight}></input></span>
+                       <span>sets :<input onChange={this.handlePerformanceChange} type="number" name="sets" defaultValue={this.state.focusedPerformances.filter(focusedPerformance => focusedPerformance._id === performance._id)[0].sets} placeholder={performance.sets}></input></span>
+                       <span>reps :<input onChange={this.handlePerformanceChange} type="number" name="reps" defaultValue={this.state.focusedPerformances.filter(focusedPerformance => focusedPerformance._id === performance._id)[0].reps} placeholder={performance.reps}></input></span>
                      </div>
                       </div>
                     ))}
@@ -374,40 +403,4 @@ export default connect(
   }
 )(CalendarPage);
 
-// <ModalBody className="checkoff-modal-body">
-//             {checkoff.map(
-//               checkoffObj =>
-//                 checkoffObj.workoutId === this.selectedEventId ? (
-//                   <div key={checkoffObj.performanceId}>
-//                     <div>
-//                       <div>
-//                         <input
-//                           className="checkoff-input"
-//                           type="checkbox"
-//                           key={checkoffObj.performanceId}
-//                           value={checkoffObj.performanceId}
-//                           onClick={this.handleIndividualCheckbox}
-//                           onChange={() => {
-//                             this.handleCheckOffInDB(checkoffObj.performanceId);
-//                           }}
-//                           checked={
-//                             this.state.performances.filter(
-//                               performance =>
-//                                 performance._id === checkoffObj.performanceId
-//                             )[0].completed
-//                           }
-//                         />
-//                       </div>
-//                       <div className="checkoff-exercise">
-//                         {checkoffObj.exerciseName}
-//                       </div>
-//                     </div>
-//                     <div className="checkoff-performance">
-//                       <span>weight :<input onChange={this.handlePerformanceChange} type="number" name="weight" value={this.state.weight} placeholder={checkoffObj.weight}></input></span>
-//                       <span>sets :<input onChange={this.handlePerformanceChange} type="number" name="sets" value={this.state.sets} placeholder={checkoffObj.sets}></input></span>
-//                       <span>reps :<input onChange={this.handlePerformanceChange} type="number" name="reps" value={this.state.reps} placeholder={checkoffObj.reps}></input></span>
-//                     </div>
-//                   </div>
-//                 ) : null
-//             )}
-//           </ModalBody>
+

@@ -25,9 +25,14 @@ const fetchAllPerformanceDocs = (req, res) => {
 
 const checkOffPerformance = (req, res) => {
   const { id } = req.params;
+  const {weight, sets, reps} = req.body;
   Performance.findById(id)
     .then(performanceDocument => {
       performanceDocument.completed = !performanceDocument.completed
+      performanceDocument.weight = weight
+      performanceDocument.sets = sets
+      performanceDocument.reps = reps
+
       performanceDocument.save()
         .then(savedDoc => {
           res.json(savedDoc)
