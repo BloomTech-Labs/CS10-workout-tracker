@@ -19,6 +19,7 @@ class CalendarPage extends Component {
   state = {
     schedulingModal: false,
     checkboxModal: false,
+    focusedPerformances: [],
     weight: "",
     sets: "",
     reps: "",
@@ -26,7 +27,6 @@ class CalendarPage extends Component {
     copyFromStartDate: "",
     copyFromEndDate: "",
     copyToStartDate: "",
-    focusedPerformances: []
   };
 
   componentDidMount() {
@@ -34,61 +34,14 @@ class CalendarPage extends Component {
     this.props.fetchAllWorkouts();
   }
 
-  handlePerformanceChange = e => {
-    console.log(e.target)
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
+  //-------------------------------------------- callback functions for scheduling modal
   schedulingModalToggle = () => {
     this.setState({
       schedulingModal: !this.state.schedulingModal
     });
   };
 
-  checkboxModalToggle = () => {
-    this.setState({
-      checkboxModal: !this.state.checkboxModal
-    });
-  };
-
-  /* the selected in the parameter is an object leveraged by big-react-calendar. 
-  It represents the date box which you click on on the calendar. */
-  onSelectSlot = selected => {
-    if (this.state.usageMode === "NEW_WORKOUT") {
-      this.selectedSlotDate = selected.start;
-      this.schedulingModalToggle();
-    } else {
-    }
-  };
-
-  onSelectEvent = selected => {
-    this.selectedEventTitle = selected.title;
-    this.selectedEventId = selected.id;
-    let focusedWorkout = this.props.workouts.filter(workout => workout._id === selected.id)[0]
-    // let focusedPerformances = focusedWorkout.performances.map(performance => {
-    //   return {
-    //     completed: performance.completed,
-    //     date: performance.date,
-    //     exercise: performance.exercise,
-    //     exerciseName: performance.exerciseName,
-    //     reps: "",
-    //     sets: "",
-    //     user: performance.user,
-    //     weight: "",
-    //     __v: performance.__v,
-    //     _id: performance._id
-    //   }
-    // })
-    // console.log(focusedPerformances)
-    this.setState({focusedPerformances: focusedWorkout.performances}, this.checkboxModalToggle())
-    console.log(selected)
-  };
-
-  handleDateChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  handleChange = e => {
+  handleSelectRoutineChange = e => {
     /* this is utilizing the onChange inside <select> of the scheduling modal to grab 
     the Id of the selected routine so it can be sent as an argument to this.props.scheduleWorkout */
     this.selectedRoutineValue = e.target.value;
@@ -106,34 +59,39 @@ class CalendarPage extends Component {
     this.schedulingModalToggle();
   };
 
-  handleSubmitCopyWorkouts = () => {
-    const { copyFromStartDate, copyFromEndDate, copyToStartDate } = this.state;
-    this.props.copyWorkouts(
-      copyFromStartDate,
-      copyFromEndDate,
-      copyToStartDate
-    );
+  //-------------------------------------------- callback functions for checkoff performance modal
+  checkboxModalToggle = () => {
     this.setState({
-      copyFromStartDate: "",
-      copyFromEndDate: "",
-      copyToStartDate: ""
+      checkboxModal: !this.state.checkboxModal
     });
   };
 
-  deleteWorkout = () => {
-    this.props.deleteWorkout(this.selectedEventId);
-    this.checkboxModalToggle();
+  handlePerformanceChange = e => {
+    console.log(e.target);
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   // this updates the toggled boolean of the specified performance doc in the DB
   handlePerformanceCheckOff = performanceId => {
     const { weight, sets, reps } = this.state;
-    let updatedPerformanceObj = {}
-    weight !== "" ? updatedPerformanceObj.weight = weight : updatedPerformanceObj.weight = this.state.focusedPerformances.filter(performance => performance._id == performanceId)[0].weight 
-    sets !== "" ? updatedPerformanceObj.sets = sets : updatedPerformanceObj.sets = this.state.focusedPerformances.filter(performance => performance._id == performanceId)[0].sets 
-    reps !== "" ? updatedPerformanceObj.reps = reps : updatedPerformanceObj.reps = this.state.focusedPerformances.filter(performance => performance._id == performanceId)[0].reps 
+    let updatedPerformanceObj = {};
+    weight !== ""
+      ? (updatedPerformanceObj.weight = weight)
+      : (updatedPerformanceObj.weight = this.state.focusedPerformances.filter(
+          performance => performance._id == performanceId
+        )[0].weight);
+    sets !== ""
+      ? (updatedPerformanceObj.sets = sets)
+      : (updatedPerformanceObj.sets = this.state.focusedPerformances.filter(
+          performance => performance._id == performanceId
+        )[0].sets);
+    reps !== ""
+      ? (updatedPerformanceObj.reps = reps)
+      : (updatedPerformanceObj.reps = this.state.focusedPerformances.filter(
+          performance => performance._id == performanceId
+        )[0].reps);
 
-    console.log("PERFORMANCE OBJ", updatedPerformanceObj)
+    console.log("PERFORMANCE OBJ", updatedPerformanceObj);
 
     let token = localStorage.getItem("token");
     let requestOptions = { headers: { "x-access-token": token } };
@@ -147,15 +105,12 @@ class CalendarPage extends Component {
       .then(updatedPerformance => {
         console.log("successfully updated performance");
         this.props.fetchAllWorkouts();
-        // let updatedFocusedPerformances = this.state.focusedPerformances.map(performance => performance._id === performanceId ? performance = updatedPerformance.data : performance = performance)
-        // this.setState({focusedPerformances: updatedFocusedPerformances})
-        // console.log(updatedFocusedPerformances)
       })
       .catch(err => {
         console.log("error updating performance");
       });
 
-      let performances = this.state.focusedPerformances;
+    let performances = this.state.focusedPerformances;
     performances.forEach(performance => {
       if (performance._id === performanceId) {
         performance.completed = !performance.completed;
@@ -164,15 +119,62 @@ class CalendarPage extends Component {
     this.setState({ focusedPerformances: performances });
   };
 
+  deleteWorkout = () => {
+    this.props.deleteWorkout(this.selectedEventId);
+    this.checkboxModalToggle();
+  };
 
+//-------------------------------------------- callback functions for copy workout(s) form 
+handleDateChange = e => {
+  this.setState({ [e.target.name]: e.target.value });
+};
+
+handleSubmitCopyWorkouts = () => {
+  const { copyFromStartDate, copyFromEndDate, copyToStartDate } = this.state;
+  this.props.copyWorkouts(
+    copyFromStartDate,
+    copyFromEndDate,
+    copyToStartDate
+  );
+  this.setState({
+    copyFromStartDate: "",
+    copyFromEndDate: "",
+    copyToStartDate: ""
+  });
+};
+
+
+//-------------------------------------------- callback functions for big react calendar
+  /* the selected in the parameter is an object leveraged by big-react-calendar. 
+  It represents the date box which you click on on the calendar. */
+  onSelectSlot = selected => {
+    if (this.state.usageMode === "NEW_WORKOUT") {
+      this.selectedSlotDate = selected.start;
+      this.schedulingModalToggle();
+    } else {
+    }
+  };
+
+  onSelectEvent = selected => {
+    this.selectedEventTitle = selected.title;
+    this.selectedEventId = selected.id;
+    let focusedWorkout = this.props.workouts.filter(
+      workout => workout._id === selected.id
+    )[0];
+    this.setState(
+      { focusedPerformances: focusedWorkout.performances },
+      this.checkboxModalToggle()
+    );
+    console.log(selected);
+  };
+
+
+  
   events = [];
   selectedRoutineValue;
   selectedRoutineId;
   selectedSlotDate;
   selectedEventTitle;
-  // selectedExercises;
-  // selectedEventId;
-  
 
   render() {
     console.log(this.props.workouts);
@@ -183,7 +185,7 @@ class CalendarPage extends Component {
       end: new Date(workout.date),
 
       /* if the user tries to copy a workout which contains a deleted routine, 
-      then "deleted routine" will be displayed as the event title */
+      then a circle w/strike icon will be displayed as the event title */
       title: workout.routineName ? (
         workout.routineName
       ) : (
@@ -301,7 +303,7 @@ class CalendarPage extends Component {
             {/* Drop down for selecting a routine */}
             <select
               value={this.state.selectedRoutineValue}
-              onChange={this.handleChange}
+              onChange={this.handleSelectRoutineChange}
             >
               <option value="select a routine">select a routine</option>
               {this.props.routines.map(routine => (
@@ -338,28 +340,73 @@ class CalendarPage extends Component {
                   <div key={workout._id}>
                     {workout.performances.map(performance => (
                       <div key={performance._id} className="performance-block">
-                      <div>
-                      
-                        <input
-                          className="checkoff-input"
-                          type="checkbox"
-                          key={performance._id}
-                          onChange={() => {
-                            this.handlePerformanceCheckOff(performance._id);
-                          }}
-                          checked={
-                            this.state.focusedPerformances.filter(focusedPerformance => focusedPerformance._id === performance._id)[0].completed
-                          }
-                        />
-                        
-                        <div className="checkoff-exercise">{performance.exerciseName}</div>
-                      </div>
-                      <div className="checkoff-performance">
-                      {/* {Object.keys(this.state.focusedPerformances[0])[7]} */}
-                       <span>weight :<input onChange={this.handlePerformanceChange} type="number" name="weight" defaultValue={this.state.focusedPerformances.filter(focusedPerformance => focusedPerformance._id === performance._id)[0].weight} placeholder={performance.weight}></input></span>
-                       <span>sets :<input onChange={this.handlePerformanceChange} type="number" name="sets" defaultValue={this.state.focusedPerformances.filter(focusedPerformance => focusedPerformance._id === performance._id)[0].sets} placeholder={performance.sets}></input></span>
-                       <span>reps :<input onChange={this.handlePerformanceChange} type="number" name="reps" defaultValue={this.state.focusedPerformances.filter(focusedPerformance => focusedPerformance._id === performance._id)[0].reps} placeholder={performance.reps}></input></span>
-                     </div>
+                        <div>
+                          <input
+                            className="checkoff-input"
+                            type="checkbox"
+                            key={performance._id}
+                            onChange={() => {
+                              this.handlePerformanceCheckOff(performance._id);
+                            }}
+                            checked={
+                              this.state.focusedPerformances.filter(
+                                focusedPerformance =>
+                                  focusedPerformance._id === performance._id
+                              )[0].completed
+                            }
+                          />
+
+                          <div className="checkoff-exercise">
+                            {performance.exerciseName}
+                          </div>
+                        </div>
+                        <div className="checkoff-performance">
+                          <span>
+                            weight :
+                            <input
+                              onChange={this.handlePerformanceChange}
+                              type="number"
+                              name="weight"
+                              defaultValue={
+                                this.state.focusedPerformances.filter(
+                                  focusedPerformance =>
+                                    focusedPerformance._id === performance._id
+                                )[0].weight
+                              }
+                              placeholder={performance.weight}
+                            />
+                          </span>
+                          <span>
+                            sets :
+                            <input
+                              onChange={this.handlePerformanceChange}
+                              type="number"
+                              name="sets"
+                              defaultValue={
+                                this.state.focusedPerformances.filter(
+                                  focusedPerformance =>
+                                    focusedPerformance._id === performance._id
+                                )[0].sets
+                              }
+                              placeholder={performance.sets}
+                            />
+                          </span>
+                          <span>
+                            reps :
+                            <input
+                              onChange={this.handlePerformanceChange}
+                              type="number"
+                              name="reps"
+                              defaultValue={
+                                this.state.focusedPerformances.filter(
+                                  focusedPerformance =>
+                                    focusedPerformance._id === performance._id
+                                )[0].reps
+                              }
+                              placeholder={performance.reps}
+                            />
+                          </span>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -388,7 +435,7 @@ const mapStateToProps = state => {
   );
   return {
     routines: state.RoutineManager.routines,
-    workouts: state.calendar.workouts,
+    workouts: state.calendar.workouts
   };
 };
 
@@ -402,5 +449,3 @@ export default connect(
     copyWorkouts
   }
 )(CalendarPage);
-
-
