@@ -33,6 +33,11 @@
 .rbc-addons-dnd.rbc-calendar {
   height: 81vh !important;
 }
+
+.rbc-calendar {
+  margin-top: 20px;
+}
+
 .rbc-toolbar {
   width: 850px;
   margin: 0 auto;
@@ -105,6 +110,10 @@
   border: none !important;
 }
 
+.rbc-today {
+  background: none;
+}
+
 .rbc-day-slot .rbc-event {
   display: -ms-flexbox;
   display: flex;
@@ -140,7 +149,7 @@
   display: flex;
 
   .calendar-container {
-    height: 500px;
+    min-height: 500px;
     width: 90%;
     margin-top: 10px;
   }
@@ -219,27 +228,37 @@
     min-height: 200px;
     color: @white;
     div {
-      div {
-        display: flex;
-
-        div {
-          .checkoff-input {
-            margin-left: 15px;
-            margin-top: 5px;
+      .performance-block {
+        display: block;
+    
+          div {
+            display: flex;
+            .checkoff-input {
+              margin-left: 15px;
+               margin-top: 5px;
+            }
+            .checkoff-exercise {
+              margin-left: 20px;
+            }
           }
-        }
-        .checkoff-exercise {
-          margin-left: 20px;
-        }
-      }
-      .checkoff-performance {
-        margin-left: 50px;
-        .flex-and-justify(space-evenly);
 
-        span {
-          margin: 5px;
-        }
+          .checkoff-performance {
+            margin-left: 20px;
+            display: flex;
+            .flex-and-justify(space-evenly);
+      
+            span {
+              margin: 3px;
+    
+              input {
+                width: 40px;
+                text-align: center;
+              }
+            }
+          }
+         
       }
     }
+    
   }
 }

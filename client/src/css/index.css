@@ -123,6 +123,9 @@ body {
 .rbc-addons-dnd.rbc-calendar {
   height: 81vh !important;
 }
+.rbc-calendar {
+  margin-top: 20px;
+}
 .rbc-toolbar {
   width: 850px;
   margin: 0 auto;
@@ -195,6 +198,9 @@ body {
 .rbc-day-bg + .rbc-day-bg {
   border: none !important;
 }
+.rbc-today {
+  background: none;
+}
 .rbc-day-slot .rbc-event {
   display: -ms-flexbox;
   display: flex;
@@ -228,7 +234,7 @@ body {
   display: flex;
 }
 .calendarAndForm-container .calendar-container {
-  height: 500px;
+  min-height: 500px;
   width: 90%;
   margin-top: 10px;
 }
@@ -300,23 +306,30 @@ body {
   min-height: 200px;
   color: #ffffff;
 }
-.modal-content .checkoff-modal-body div div {
+.modal-content .checkoff-modal-body div .performance-block {
+  display: block;
+}
+.modal-content .checkoff-modal-body div .performance-block div {
   display: flex;
 }
-.modal-content .checkoff-modal-body div div div .checkoff-input {
+.modal-content .checkoff-modal-body div .performance-block div .checkoff-input {
   margin-left: 15px;
   margin-top: 5px;
 }
-.modal-content .checkoff-modal-body div div .checkoff-exercise {
+.modal-content .checkoff-modal-body div .performance-block div .checkoff-exercise {
   margin-left: 20px;
 }
-.modal-content .checkoff-modal-body div .checkoff-performance {
-  margin-left: 50px;
+.modal-content .checkoff-modal-body div .performance-block .checkoff-performance {
+  margin-left: 20px;
   display: flex;
   justify-content: space-evenly;
 }
-.modal-content .checkoff-modal-body div .checkoff-performance span {
-  margin: 5px;
+.modal-content .checkoff-modal-body div .performance-block .checkoff-performance span {
+  margin: 3px;
+}
+.modal-content .checkoff-modal-body div .performance-block .checkoff-performance span input {
+  width: 40px;
+  text-align: center;
 }
 @media (max-width: 500px) {
   .push__nav {
@@ -576,7 +589,7 @@ p {
 }
 @media (max-width: 500px) {
   .landing__quote {
-    padding: 70px 0;
+    padding: 70px 4px;
   }
   .landing__quote h2 {
     font-size: 20px;
@@ -600,7 +613,7 @@ p {
 }
 .landing__start .landing__start__content h2 {
   margin: 60px;
-  font-size: 40px;
+  font-size: 39px;
 }
 .landing__start .landing__start__content div {
   display: flex;
@@ -752,6 +765,9 @@ footer p {
 .modal-content {
   margin: 180px auto;
 }
+.modal-content .modal-body {
+  text-align: center;
+}
 .modal-content .modal-body .input-group {
   width: 70%;
   margin: 0 auto;
@@ -890,6 +906,7 @@ footer p {
   color: white;
 }
 .modal-content {
+  margin: 90px auto;
   width: 80%;
 }
 .modal-content .modal-header {
