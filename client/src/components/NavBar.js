@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
+import PropTypes from "prop-types";
 import { logout } from "../actions";
 
 import "../less/navBar.css";
@@ -43,6 +44,11 @@ const mapStateToProps = state => {
   return {
     authenticated: state.auth.authed
   };
+};
+
+NavBar.propTypes = {
+  authenticated: PropTypes.bool,
+  logout: PropTypes.func
 };
 
 export default connect(

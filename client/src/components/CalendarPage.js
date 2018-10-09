@@ -3,6 +3,7 @@ import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import axios from "axios";
 import {
   fetchRoutines,
@@ -162,7 +163,7 @@ class CalendarPage extends Component {
       
       /* if the user tries to copy a workout which contains a deleted routine, 
       then "deleted routine" will be displayed as the event title */
-      title: workout.routineName ? workout.routineName : <i class="fas fa-minus-circle"></i>, 
+      title: workout.routineName ? workout.routineName : <i className="fas fa-minus-circle"></i>, 
       id: workout._id
     }));
 
@@ -278,7 +279,7 @@ class CalendarPage extends Component {
                 Submit
               </Button>
               <div className="icon-explanation">
-                * <i class="fas fa-minus-circle" /> on the calendar denotes
+                * <i className="fas fa-minus-circle" /> on the calendar denotes
                 workouts that contain deleted routines and hence can not be
                 copied.
               </div>
@@ -393,6 +394,20 @@ const mapStateToProps = state => {
     performances: state.calendar.performances
   };
 };
+
+CalendarPage.propTypes = {
+  routines: PropTypes.arrayOf(PropTypes.object),
+  workouts: PropTypes.arrayOf(PropTypes.object),
+  performances: PropTypes.arrayOf(PropTypes.object),
+  fetchRoutines: PropTypes.func,
+  scheduleWorkout: PropTypes.func,
+  fetchAllWorkouts: PropTypes.func,
+  deleteWorkout: PropTypes.func,
+  fetchAllPerformanceDocs: PropTypes.func,
+  copyWorkouts: PropTypes.func
+};
+
+
 
 export default connect(
   mapStateToProps,

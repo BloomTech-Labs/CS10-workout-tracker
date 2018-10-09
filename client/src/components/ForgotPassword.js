@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { forgotPassword } from "../actions";
 
 class ForgotPassword extends Component {
@@ -52,6 +53,15 @@ const mapStateToProps = state => {
     userInfo: state.auth.currentUser,
     msg: state.user.message
   };
+};
+
+ForgotPassword.propTypes = {
+  userInfo: PropTypes.shape({
+    token: PropTypes.string,
+    user: PropTypes.object
+  }),
+  msg: PropTypes.string,
+  forgotPassword: PropTypes.func
 };
 
 export default connect(

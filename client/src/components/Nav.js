@@ -10,6 +10,7 @@ import {
   InputGroup
 } from "reactstrap";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { register, login, logout, clearErrors, forgotPassword, clearCurrentRoutine } from "../actions";
 import "../less/nav.css";
 import validator from "validator";
@@ -226,8 +227,6 @@ class Nav extends React.Component {
               />
             </InputGroup>
             {usernameErrors ? usernameErrors : (this.props.valError.message ? <span className="form__validation">{this.props.valError.message}</span>: null)}
-            {/* {usernameErrors}
-            {this.props.valError.message ? <span>{this.props.valError.message}</span>: null} */}
             <InputGroup>
               <Input
                 placeholder="password"
@@ -364,6 +363,18 @@ const mapStateToProps = state => {
     msg: state.auth.message,
     valError: state.valError
   };
+};
+
+Nav.propTypes = {
+  userInfo: PropTypes.shape({
+    token: PropTypes.string,
+    user: PropTypes.object
+  }),
+  msg: PropTypes.string,
+  register: PropTypes.func,
+  login: PropTypes.func,
+  logout: PropTypes.func,
+  forgotPassword: PropTypes.func
 };
 
 export default connect(
