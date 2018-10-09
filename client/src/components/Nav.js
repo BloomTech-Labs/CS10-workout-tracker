@@ -10,6 +10,7 @@ import {
   InputGroup
 } from "reactstrap";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { register, login, logout, clearErrors, forgotPassword, clearCurrentRoutine } from "../actions";
 import "../less/nav.css";
 import validator from "validator";
@@ -352,6 +353,18 @@ const mapStateToProps = state => {
     msg: state.auth.message,
     valError: state.valError
   };
+};
+
+Nav.propTypes = {
+  userInfo: PropTypes.shape({
+    token: PropTypes.string,
+    user: PropTypes.object
+  }),
+  msg: PropTypes.string,
+  register: PropTypes.func,
+  login: PropTypes.func,
+  logout: PropTypes.func,
+  forgotPassword: PropTypes.func
 };
 
 export default connect(

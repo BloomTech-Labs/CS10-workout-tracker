@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { fetchRoutines, selectRoutine } from "../../actions";
 
 class RoutineList extends React.Component {
@@ -33,5 +34,11 @@ const mapStateToProps = state => {
     currentRoutines: state.RoutineManager.routines
   };
 };
+
+RoutineList.propTypes = {
+  currentRoutine: PropTypes.object,
+  fetchRoutines: PropTypes.func,
+  selectRoutine: PropTypes.func,
+ };
 
 export default connect(mapStateToProps ,{ fetchRoutines, selectRoutine })(RoutineList);

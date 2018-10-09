@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CheckoutForm from "./CheckoutForm";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { processPayment } from "../actions";
 import "../less/billing.css";
 
@@ -42,6 +43,16 @@ const mapStateToProps = state => {
     premiumUser: state.user.premiumUser,
     msg: state.user.message
   };
+};
+
+Billing.propTypes = {
+  userInfo: PropTypes.shape({
+    token: PropTypes.string,
+    user: PropTypes.object
+  }),
+  premiumUser: PropTypes.bool,
+  msg: PropTypes.string,
+  processPayment: PropTypes.func
 };
 
 export default connect(

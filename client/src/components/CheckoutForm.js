@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import { Button } from "reactstrap";
 import "../less/billing.css";
@@ -46,5 +47,9 @@ class CheckoutForm extends Component {
     );
   }
 }
+
+CheckoutForm.propTypes = {
+  stripe: PropTypes.object,
+};
 
 export default injectStripe(CheckoutForm);
