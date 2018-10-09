@@ -11,8 +11,7 @@ const fetchPerformanceDoc = (req, res) => {
     });
 };
 
-/* this is for keeping the completed boolean of each performance on 
-local component state so that the checkbox state can be persisted on the UI */ 
+
 const fetchAllPerformanceDocs = (req, res) => {
   const { userId } = req;
   Performance.find({ user: userId })
@@ -24,11 +23,16 @@ const fetchAllPerformanceDocs = (req, res) => {
     });
 };
 
-const checkOffPerformance = (req, res) => {
+const updatePerformance = (req, res) => {
   const { id } = req.params;
+  const {weight, sets, reps} = req.body;
   Performance.findById(id)
     .then(performanceDocument => {
       performanceDocument.completed = !performanceDocument.completed
+      performanceDocument.weight = weight
+      performanceDocument.sets = sets
+      performanceDocument.reps = reps
+
       performanceDocument.save()
         .then(savedDoc => {
           res.json(savedDoc)
@@ -42,8 +46,9 @@ const checkOffPerformance = (req, res) => {
     })
 }
 
+
 module.exports = {
   fetchPerformanceDoc,
-  checkOffPerformance,
+  updatePerformance,
   fetchAllPerformanceDocs
 }
