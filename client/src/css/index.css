@@ -823,7 +823,7 @@ footer p {
   align-items: center;
   max-width: 1000px;
   width: 90%;
-  margin: 0 auto;
+  margin: 30px auto;
 }
 .outer-container .container .progress-records {
   display: flex;
