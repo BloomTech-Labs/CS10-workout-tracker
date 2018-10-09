@@ -1,9 +1,0 @@
-.NavBar {
-  background-image: radial-gradient(#666666, #cccccc);
-  width: 100%;
-  text-shadow: 3px 3px black;
-}
-.NavBar__Links {
-  display: flex;
-  flex-direction: column;
-}

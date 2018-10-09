@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { addProgress } from "../../actions";
-import "../../less/progressForm.css";
 
 class ProgressForm extends Component {
   state = {
@@ -152,10 +151,10 @@ class ProgressForm extends Component {
             </form>
           </ModalBody>
           <ModalFooter>
-            <Button className="submit-btn" onClick={this.handleSubmit}>
+            <Button className="submit-btn--blue" onClick={this.handleSubmit}>
               Submit Progress
             </Button>{" "}
-            <Button className="cancel-btn" onClick={this.toggle}>
+            <Button className="submit-btn--grey" onClick={this.toggle}>
               Cancel
             </Button>
           </ModalFooter>

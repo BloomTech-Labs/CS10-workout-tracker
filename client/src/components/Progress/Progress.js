@@ -5,7 +5,6 @@ import { fetchProgress } from "../../actions";
 import ProgressTracker from "./ProgressTracker";
 import ProgressCard from "./ProgressCard";
 import ProgressForm from "./ProgressForm";
-import "../../less/progress.css";
 import { Link } from "react-router-dom";
 
 class Progress extends Component {
