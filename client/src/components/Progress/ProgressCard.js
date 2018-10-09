@@ -182,7 +182,7 @@ class ProgressCard extends Component {
             </form>
           </ModalBody>
           <ModalFooter>
-            <Button className="submit-btn" onClick={this.handleSubmit}>
+            <Button className="submit-btn--blue" onClick={this.handleSubmit}>
               Update Progress
             </Button>{" "}
             <Button className="submit-btn--grey" onClick={this.toggle}>
