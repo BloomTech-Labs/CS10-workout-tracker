@@ -221,6 +221,9 @@ body {
 .rbc-day-bg.rbc-off-range-bg {
   background: none;
 }
+.main__container {
+  width: 85%;
+}
 .calendarAndForm-container {
   display: flex;
 }
