@@ -1,7 +1,8 @@
 import * as Actions from "./actionDefinitions";
+require("dotenv").config();
 const axios = require("axios");
 
-const ROOT_URL = "http://localhost:8080";
+const { ROOT_URL } = process.env;
 
 let requestOptions = {};
 // requestOptions is updated upon receipt of a token to include that
