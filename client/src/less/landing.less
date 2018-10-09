@@ -62,9 +62,7 @@ p {
   .flex-and-justify(space-between);
 }
 .main__landing__background {
-  background: url("../components/Landing/img/main_landing_background.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+  .bg-radial(@secondary, @black);
   color: @grey;
   height: 90%;
   text-align: center;
@@ -307,7 +305,7 @@ p {
     height: 450px;
     .landing__start__content {
       h2 {
-        top: -70px;
+        top: -60px;
       }
       div {
         p {
@@ -328,6 +326,7 @@ p {
     .landing__start__content {
       h2 {
         top: -10px;
+        margin: 40px;
       }
       div {
         flex-direction: column;
@@ -338,7 +337,7 @@ p {
           flex-basis: 10%;
           padding: 10px 30px;
           border-left: none;
-          border-bottom: 3px solid #cccccc;
+          border-bottom: 3px solid @grey;
           &:last-child {
             border-right: none;
             margin-bottom: 50px;

@@ -9,7 +9,7 @@ body {
   font-family: sans-serif;
   min-width: 100vw;
   min-height: 100vh;
-  background: linear-gradient(#000033, #000000);
+  background: radial-gradient(#000033, #000000);
 }
 .submit-btn {
   background: linear-gradient(#cc0000, #000000);
@@ -389,9 +389,7 @@ p {
   justify-content: space-between;
 }
 .main__landing__background {
-  background: url("../components/Landing/img/main_landing_background.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: radial-gradient(#000033, #000000);
   color: #cccccc;
   height: 90%;
   text-align: center;
@@ -641,7 +639,7 @@ p {
     height: 450px;
   }
   .landing__start .landing__start__content h2 {
-    top: -70px;
+    top: -60px;
   }
   .landing__start .landing__start__content div p {
     display: block;
@@ -657,6 +655,7 @@ p {
 @media (max-width: 500px) {
   .landing__start .landing__start__content h2 {
     top: -10px;
+    margin: 40px;
   }
   .landing__start .landing__start__content div {
     flex-direction: column;
