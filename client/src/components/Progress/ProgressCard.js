@@ -185,7 +185,7 @@ class ProgressCard extends Component {
             <Button className="submit-btn" onClick={this.handleSubmit}>
               Update Progress
             </Button>{" "}
-            <Button className="cancel-btn" onClick={this.toggle}>
+            <Button className="submit-btn--grey" onClick={this.toggle}>
               Cancel
             </Button>
           </ModalFooter>

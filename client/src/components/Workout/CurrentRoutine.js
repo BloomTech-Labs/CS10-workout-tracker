@@ -170,10 +170,10 @@ class CurrentRoutine extends React.Component {
               ) : null}
             </ModalBody>
             <ModalFooter>
-              <Button color="primary" onClick={this.handleRoutineUpdate}>
+              <Button className="submit-btn" onClick={this.handleRoutineUpdate}>
                 Update Routine Name
               </Button>{" "}
-              <Button color="secondary" onClick={this.toggleRoutine}>
+              <Button className="submit-btn--grey" onClick={this.toggleRoutine}>
                 Cancel
               </Button>
             </ModalFooter>
@@ -247,10 +247,16 @@ class CurrentRoutine extends React.Component {
               ) : null}
             </ModalBody>
             <ModalFooter>
-              <Button color="primary" onClick={this.handleExerciseUpdate}>
+              <Button
+                className="submit-btn"
+                onClick={this.handleExerciseUpdate}
+              >
                 Update Exercise
               </Button>{" "}
-              <Button color="secondary" onClick={this.toggleExercise}>
+              <Button
+                className="submit-btn--grey"
+                onClick={this.toggleExercise}
+              >
                 Cancel
               </Button>
             </ModalFooter>
