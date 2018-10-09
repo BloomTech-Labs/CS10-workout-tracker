@@ -1,30 +1,19 @@
-// TODO: Remove variables once they exist in a separate variables file
-@primary: #cc0000;
-@secondary: #000033;
-@white: white;
-@darkGrey: #666666;
-@grey: #cccccc;
-
 .outer-container {
-  background-image: radial-gradient(@secondary, black);
+  .bg-radial(black, @secondary);
   min-height: 100vh;
 
   .container {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    .center();
     max-width: 1000px;
     width: 90%;
     margin: 0 auto;
 
     .progress-records {
-      display: flex;
+      .flex-and-justify(flex-start);
       flex-wrap: wrap;
-      justify-content: flex-start;
       width: 100%;
       padding: 7px 0;
-      background-image: radial-gradient(@grey, black);
+      .bg-radial(@grey, @black);
       min-height: 500px;
       height: 100%;
     }

@@ -14,7 +14,6 @@ import {
 } from "reactstrap";
 import moment from "moment";
 import { deleteProgress, updateProgress } from "../../actions";
-import "../../less/progressCard.css";
 
 class ProgressCard extends Component {
   state = {
@@ -183,10 +182,10 @@ class ProgressCard extends Component {
             </form>
           </ModalBody>
           <ModalFooter>
-            <Button className="submit-btn" onClick={this.handleSubmit}>
+            <Button className="submit-btn--blue" onClick={this.handleSubmit}>
               Update Progress
             </Button>{" "}
-            <Button className="cancel-btn" onClick={this.toggle}>
+            <Button className="submit-btn--grey" onClick={this.toggle}>
               Cancel
             </Button>
           </ModalFooter>

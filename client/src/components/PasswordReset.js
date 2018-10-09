@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { resetPassword } from "../actions";
-import "../less/passwordReset.css";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 
 class PasswordReset extends Component {

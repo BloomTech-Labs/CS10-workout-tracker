@@ -137,7 +137,7 @@ A daily deploy is currently being maintained at `strongr.tech` (and `strongr-ser
 
   ```
   {
-    "username": "antares",
+    "username": "exampleuser",
     "password": "examplepass",
     "newPassword": "newexamplepass",
     "confirmNewPassword": "newexamplepass"

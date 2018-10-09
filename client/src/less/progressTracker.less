@@ -1,13 +1,5 @@
-// TODO: Remove variables once they exist in a separate variables file
-@primary: #cc0000;
-@secondary: #000033;
-@white: white;
-@darkGrey: #666666;
-@grey: #cccccc;
-
 .progress-tracker {
-  display: flex;
-  justify-content: space-between;
+  .flex-and-justify(space-between);
   text-align: center;
   padding: 15px;
   height: 200px;
@@ -15,7 +7,7 @@
   width: 50%;
   margin: 0 0 15px 8px;
   color: @grey;
-  background-image: radial-gradient(@primary, black);
+  .bg-linear(@primary, @black);
 
   .progress-tracker-title {
     font-size: 25px;
@@ -31,7 +23,7 @@
 }
 
 .gray {
-  background-image: linear-gradient(@darkGrey, black);
+  .bg-linear(@darkGrey, @black);
 }
 
 .progress-box {

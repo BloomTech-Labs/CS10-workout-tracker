@@ -1,11 +1,9 @@
 import React from "react";
 import MainLandingImg from "./img/main_landing.png";
-import ScrollAnimation from 'react-animate-on-scroll';
+import ScrollAnimation from "react-animate-on-scroll";
 
 class JumboTron extends React.Component {
-
   render() {
-
     return (
       <section className="main__landing__background">
         <div className="container">

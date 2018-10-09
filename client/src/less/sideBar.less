@@ -1,18 +1,11 @@
-@primary: #CC0000;
-@secondary: #000033;
-@white: white;
-@darkGrey: #666666;
-@grey: #CCCCCC;
-
 .sideBar {
   flex-basis: 15%;
 }
 
 .sideBar__Links {
-  display: flex;
-  flex-direction: column;
+  .flexCol();
   justify-content: flex-start;
-  background-color: red;
+  background-color: @red;
   font-size: 40px !important;
   height: 50%;
   width: 100%;
@@ -22,9 +15,8 @@
 }
 
 #test {
-  display: flex;
-  flex-direction: column;
-  background: radial-gradient(@grey, black);
+  .flexCol();
+  .bg-radial(@grey, @black);
   font-size: 20px !important;
   height: 100%;
 }
@@ -33,14 +25,16 @@
   padding: 10px 5px;
   margin-bottom: 10px;
   // background: linear-gradient(black, @primary,black);
-  box-shadow: 5px 5px 15px black;
-  background-image: linear-gradient(to right, black, @secondary);
+  box-shadow: 5px 5px 15px @black;
+  background-image: linear-gradient(to right, @black, @secondary);
   text-decoration: none !important;
   a {
     color: @grey;
     text-decoration: none !important;
+    &:hover {
+      color: @primary;
+    }
   }
-  
 }
 a {
   color: @grey;

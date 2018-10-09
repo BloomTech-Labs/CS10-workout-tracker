@@ -4,7 +4,6 @@ import { Elements, StripeProvider } from "react-stripe-elements";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { processPayment } from "../actions";
-import "../less/billing.css";
 
 class Billing extends Component {
   render() {
