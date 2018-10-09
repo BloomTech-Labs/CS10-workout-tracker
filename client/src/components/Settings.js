@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { changeEmail, changePassword } from "../actions";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 
@@ -124,6 +125,16 @@ const mapStateToProps = state => {
     userInfo: state.auth.currentUser,
     msg: state.user.message
   };
+};
+
+Settings.propTypes = {
+  userInfo: PropTypes.shape({
+    token: PropTypes.string,
+    user: PropTypes.object
+  }),
+  msg: PropTypes.string,
+  changeEmail: PropTypes.func,
+  changePassword: PropTypes.func
 };
 
 export default connect(

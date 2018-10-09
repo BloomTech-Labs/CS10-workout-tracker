@@ -56,6 +56,7 @@ const mapStateToProps = state => {
 Progress.propTypes = {
   fetchProgress: PropTypes.func,
   progressRecords: PropTypes.arrayOf(PropTypes.object),
+  premiumUser: PropTypes.bool,
   userInfo: PropTypes.shape({
     token: PropTypes.string,
     user: PropTypes.object

@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import {
   postNewRoutine,
   clearCurrentRoutine,
@@ -218,6 +219,13 @@ const mapStateToProps = state => {
   return {
     focusRoutine: state.RoutineManager.focusedRoutine
   };
+};
+
+WorkoutForm.propTypes = {
+  focusRoutine: PropTypes.object,
+  postNewRoutine: PropTypes.func,
+  clearCurrentRoutine: PropTypes.func,
+  postNewExerciseInRoutine: PropTypes.func
 };
 
 export default connect(

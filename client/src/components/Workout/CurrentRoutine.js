@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import {
   deleteExercise,
   deleteRoutine,
@@ -327,6 +328,14 @@ const mapStateToProps = state => {
   return {
     currentRoutine: state.RoutineManager.focusedRoutine
   };
+};
+
+CurrentRoutine.propTypes = {
+  currentRoutine: PropTypes.object,
+  deleteExercise: PropTypes.func,
+  deleteRoutine: PropTypes.func,
+  updateRoutine: PropTypes.func,
+  updateExercise: PropTypes.func
 };
 
 export default connect(
