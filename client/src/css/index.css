@@ -760,6 +760,9 @@ footer p {
 .modal-content {
   margin: 180px auto;
 }
+.modal-content .modal-body {
+  text-align: center;
+}
 .modal-content .modal-body .input-group {
   width: 70%;
   margin: 0 auto;
@@ -898,6 +901,7 @@ footer p {
   color: white;
 }
 .modal-content {
+  margin: 90px auto;
   width: 80%;
 }
 .modal-content .modal-header {
