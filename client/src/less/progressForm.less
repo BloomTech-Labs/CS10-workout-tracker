@@ -1,24 +1,14 @@
-// TODO: Remove variables once they exist in a separate variables file
-@primary: #cc0000;
-@secondary: #000033;
-@white: white;
-@darkGrey: #666666;
-@grey: #cccccc;
-
 .modal-container {
   margin: 10px 0;
-  background-image: linear-gradient(@darkGrey, black);
+  .bg-linear(@darkGrey, @black);
 
   .add-progress-btn {
-    background-image: linear-gradient(@darkGrey, black);
-    color: @grey;
-    border: none;
+    .button-creator(linear-gradient(@darkGrey, @black), @grey);
     margin-bottom: 5px;
-  }
 
-  .add-progress-btn:hover {
-    color: white;
-    cursor: pointer;
+    &:hover {
+      color: white;
+    }
   }
 }
 
@@ -26,52 +16,33 @@
   width: 80%;
 
   .modal-header {
-    background-image: linear-gradient(@darkGrey, black);
+    .bg-linear(@darkGrey, @black);
     color: white;
   }
 
   .modal-body {
-    background-image: linear-gradient(@secondary, black) !important;
+    .bg-linear(@secondary, @black) !important;
   }
 
   .modal-footer {
-    background-image: linear-gradient(@darkGrey, black);
-
-    .cancel-btn {
-      background-image: linear-gradient(@primary, black) !important;
-    }
-
-    .cancel-btn:hover {
-      cursor: pointer;
-    }
-
-    .submit-btn {
-      background-image: linear-gradient(@secondary, black) !important;
-    }
-
-    .submit-btn:hover {
-      cursor: pointer;
-    }
+    .bg-linear(@darkGrey, @black);
   }
 }
 
 .error {
-  background-image: linear-gradient(@secondary, black);
+  .bg-linear(@secondary, @black);
   font-size: 16px;
-  color: red;
+  color: @red;
   padding-left: 15px;
 }
 
 .progressForm {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+  .flexCol();
   font-weight: bold;
   color: @grey;
 
   .label-input {
-    display: flex;
-    justify-content: space-between;
+    .flex-and-justify(space-between);
     margin: 5px;
     padding: 0 50px;
 

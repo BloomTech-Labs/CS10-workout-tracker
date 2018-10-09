@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { login, loginWithToken } from "../actions";
 import LandingPage from "./Landing/LandingPage";
 
@@ -16,11 +17,7 @@ export default ComposedComponent => {
       console.log("Access control is happening");
       return (
         <div>
-          {this.props.authenticated ? (
-            <ComposedComponent />
-          ) : (
-            <LandingPage />
-          )}
+          {this.props.authenticated ? <ComposedComponent /> : <LandingPage />}
         </div>
       );
     }
@@ -31,6 +28,13 @@ export default ComposedComponent => {
       authenticated: state.auth.authed
     };
   };
+
+  RequireAuthentication.propTypes = {
+    authenticated: PropTypes.bool,
+    login: PropTypes.func,
+    loginWithToken: PropTypes.func
+  };
+
   return connect(
     mapStateToProps,
     { login, loginWithToken }

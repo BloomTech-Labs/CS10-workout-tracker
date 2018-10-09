@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { fetchRoutines, selectRoutine } from "../../actions";
 
 class RoutineList extends React.Component {
-
   componentDidMount() {
     this.props.fetchRoutines();
   }
@@ -13,8 +13,14 @@ class RoutineList extends React.Component {
     console.log(currentRoutines);
     let routines = currentRoutines.map(routine => {
       return (
-      <div key={routine._id} className="routine" onClick={() => this.props.selectRoutine(routine._id)}>{routine.title}</div>
-      )
+        <div
+          key={routine._id}
+          className="routine"
+          onClick={() => this.props.selectRoutine(routine._id)}
+        >
+          {routine.title}
+        </div>
+      );
     });
 
     return (
@@ -34,4 +40,13 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps ,{ fetchRoutines, selectRoutine })(RoutineList);
+RoutineList.propTypes = {
+  currentRoutine: PropTypes.object,
+  fetchRoutines: PropTypes.func,
+  selectRoutine: PropTypes.func
+};
+
+export default connect(
+  mapStateToProps,
+  { fetchRoutines, selectRoutine }
+)(RoutineList);

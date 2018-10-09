@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { changeEmail, changePassword } from "../actions";
-import "../less/settings.css";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 
 class Settings extends Component {
@@ -53,7 +53,7 @@ class Settings extends Component {
         <div className="settings-container">
           <div className="forms-container">
             <div className="single-form-container">
-              <Form className="emailForm" onSubmit={this.handleEmailSubmit}>
+              <Form className="email-form" onSubmit={this.handleEmailSubmit}>
                 <FormGroup row>
                   <Input
                     className="settings-input"
@@ -71,7 +71,7 @@ class Settings extends Component {
             </div>
             <div className="single-form-container">
               <Form
-                className="passwordForm"
+                className="password-form"
                 onSubmit={this.handlePasswordSubmit}
               >
                 <FormGroup row>
@@ -125,6 +125,16 @@ const mapStateToProps = state => {
     userInfo: state.auth.currentUser,
     msg: state.user.message
   };
+};
+
+Settings.propTypes = {
+  userInfo: PropTypes.shape({
+    token: PropTypes.string,
+    user: PropTypes.object
+  }),
+  msg: PropTypes.string,
+  changeEmail: PropTypes.func,
+  changePassword: PropTypes.func
 };
 
 export default connect(

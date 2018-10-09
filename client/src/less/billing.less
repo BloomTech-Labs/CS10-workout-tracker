@@ -1,37 +1,24 @@
-@primary: #cc0000;
-@secondary: #000033;
-@white: white;
-@darkGrey: #666666;
-@grey: #cccccc;
-
 .billing-outer {
-  background: radial-gradient(@secondary, black);
-  min-height: 100vh;
+  .bg-radial(@black, @secondary);
   min-height: 88vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .flex-and-justify(center);
 
   .billing-container {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    .center();
     max-width: 1000px;
     width: 90%;
     margin: 0 auto;
 
     .billing-inner {
-      margin: 20px;
-      background: radial-gradient(@darkGrey, black);
+      margin: 40px;
+      .bg-radial(@darkGrey, @black);
 
       .checkout {
-        display: flex;
+        .flexCol();
         max-width: 420px;
-        flex-direction: column;
         margin: 40px;
         padding: 20px;
-        background: linear-gradient(black, @white);
+        .bg-linear(@black, @white);
 
         .checkout-text {
           color: @grey;
@@ -39,17 +26,11 @@
           text-align: center;
         }
 
-        .cardElement {
+        .card-element {
           margin: 0 0 20px 0;
           background-color: @grey;
           padding: 10px;
-          box-shadow: 1px 1px 7px black;
-        }
-
-        .submit-btn {
-          background: linear-gradient(@primary, black);
-          border-radius: 0;
-          box-shadow: 1px 1px 7px black;
+          box-shadow: 1px 1px 7px @black;
         }
       }
 

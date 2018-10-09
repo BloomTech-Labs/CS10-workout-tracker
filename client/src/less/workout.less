@@ -1,19 +1,12 @@
-@primary: #cc0000;
-@secondary: #000033;
-@thirdary: #260951;
-@white: white;
-@darkGrey: #666666;
-@grey: #cccccc;
-
 .main__workout {
   display: flex;
   width: 100%;
   min-height: 88vh;
   max-height: 88vh;
-  color: black;
-  background: radial-gradient(@secondary, black);
+  color: @black;
+  .bg-radial(@secondary, @black);
   h2 {
-    text-shadow: 3px 3px black;
+    text-shadow: 3px 3px @black;
   }
 
   button {
@@ -24,9 +17,7 @@
     flex-basis: 33%;
     min-height: 100%;
     // background-color: lightgreen;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .justify-align-center(center);
     overflow: scroll;
 
     .routine__list__container {
@@ -34,56 +25,52 @@
       // background-color: red;
       max-height: 90%;
       overflow: scroll;
-      background: radial-gradient(@primary, black);
+      .bg-radial(@primary, @black);
       padding: 15px;
       color: @grey;
       width: 90%;
-      box-shadow: 5px 5px 15px black;
+      box-shadow: 5px 5px 15px @black;
 
       h2 {
-        // background: radial-gradient(@thirdary, black);
         font-size: 20px;
         padding: 10px 15px;
       }
-      
+
       .routine {
         padding: 5px 10px;
         text-align: start;
         padding-left: 30px;
-        background: grey;
+        background: @grey;
         font-size: 18px;
         margin: 5px;
         overflow: hidden;
         margin: 11px;
-        box-shadow: 10px 8px 15px black;
-        text-shadow: 3px 3px black;
-        color: white;
-        background: linear-gradient(to right,black, darkgrey);
+        box-shadow: 10px 8px 15px @black;
+        text-shadow: 3px 3px @black;
+        color: @white;
+        background: linear-gradient(to right, @black, @darkGrey);
         cursor: pointer;
         &:hover {
-          background:linear-gradient(to right,black, @thirdary);
+          background: linear-gradient(to right, @black, @purple);
           color: @grey;
           text-shadow: 1px 1px @secondary;
         }
       }
     }
-    
   }
-  
+
   .workout__form {
     flex-basis: 33%;
-    min-height:100%;
+    min-height: 100%;
     // background-color: lightcoral;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    
+    .justify-align-center(center);
+    color: @white;
+
     .routine__input__form {
       padding: 30px 15px;
       // background-color: black;
-      background: radial-gradient(@thirdary, black);
-      margin:0 5px;
+      .bg-radial(@purple, black);
+      margin: 0 5px;
       min-height: 90%;
       width: 90%;
       margin: 0px 13px;
@@ -121,44 +108,38 @@
     min-height: 100%;
     max-height: 90%;
     // background-color: lightgoldenrodyellow;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .justify-align-center(center);
 
     .current__routine__container {
       min-height: 90%;
       max-height: 90%;
       width: 90%;
-      background: radial-gradient(@grey, black);
+      .bg-radial(@grey, @black);
       padding: 30px 15px;
-      box-shadow: 5px 5px 15px black;
-      color: black;
+      box-shadow: 5px 5px 15px @black;
+      color: @black;
       overflow: scroll;
 
       h3.current__title {
-        color: white;
+        color: @white;
         text-align: start;
-        text-shadow: 3px 3px black;
+        text-shadow: 3px 3px @black;
       }
 
       .exercise__title {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        .justify-align-center(space-between);
         // background: white;
-        padding:5px;
+        padding: 5px;
         width: 90%;
         margin: 0 auto;
-        text-shadow: 2px 2px black;
+        text-shadow: 2px 2px @black;
         h3 {
           font-size: 22px;
-          
         }
         // h3.current__title {
         //   color: white;
         //   text-align: center;
         // }
-
       }
       h3 {
         font-size: 18px;
@@ -170,57 +151,48 @@
         font-size: 20px;
         color: @grey;
       }
-      
+
       .exercise__list {
         width: 90%;
         margin: 0 auto;
 
         .exercise__card {
-          color: red;
+          color: @red;
           margin-top: 5px;
           margin-top: 20px;
-          box-shadow: 10px 8px 15px black;
-          text-shadow: 2px 2px black;
+          box-shadow: 10px 8px 15px @black;
+          text-shadow: 2px 2px @black;
 
           .exercise__card__header {
-            
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            .justify-align-center(space-between);
             padding: 10px;
             color: @grey;
-            background-image: linear-gradient(to right, black, @grey);
+            background-image: linear-gradient(to right, @black, @grey);
             h3 {
               margin: 0;
-              color: white;
+              color: @white;
               overflow: scroll;
             }
           }
 
           .exercise__card__body {
-            background-image: radial-gradient(#37015b, black);
+            background-image: radial-gradient(@purple, black);
             color: @grey;
             padding: 40px;
-
           }
-          
         }
-
       }
     }
   }
 }
 
 .pencil__trash__icon__container {
-  display: flex;
+  .flex-and-justify(space-between);
   width: 15%;
-  justify-content: space-between;
 
-  .fas.fa-pencil-alt {
-    text-shadow: 1px 1px black;
-    color: grey;
+  .icon-routine {
+    text-shadow: 1px 1px @black;
+    color: @grey;
     cursor: pointer;
   }
 }
-
-

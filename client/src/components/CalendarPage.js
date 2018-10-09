@@ -3,6 +3,7 @@ import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import axios from "axios";
 import {
   fetchRoutines,
@@ -11,7 +12,6 @@ import {
   deleteWorkout,
   copyWorkouts
 } from "../actions";
-import "../less/calendarPage.css";
 
 BigCalendar.momentLocalizer(moment);
 
@@ -199,95 +199,96 @@ handleSubmitCopyWorkouts = () => {
     );
 
     return (
-      <div className="calendarAndForm-container">
-        <div className="calendar-container">
-          <BigCalendar
-            popup
-            events={this.events}
-            views={allViews}
-            step={60}
-            showMultiDayTimes
-            defaultDate={new Date()}
-            defaultView="month"
-            selectable={true}
-            onSelectSlot={this.onSelectSlot}
-            onSelectEvent={this.onSelectEvent}
-          />
-        </div>
-        <div className="formAndButton-container">
-          <div className="button-container">
-            <Button
-              className="newWorkout-btn"
-              style={{
-                backgroundImage:
-                  this.state.usageMode === "NEW_WORKOUT"
-                    ? "radial-gradient(#cc0000, black)"
-                    : "radial-gradient(#666666, black)"
-              }}
-              onClick={() => {
-                this.setState({ usageMode: "NEW_WORKOUT" });
-              }}
-            >
-              New Workout
-            </Button>
-            <Button
-              className="copyWorkouts-btn"
-              style={{
-                backgroundImage:
-                  this.state.usageMode === "COPY_WORKOUTS"
-                    ? "radial-gradient(#cc0000, black)"
-                    : "radial-gradient(#666666, black)"
-              }}
-              onClick={() => {
-                this.setState({ usageMode: "COPY_WORKOUTS" });
-              }}
-            >
-              Copy Workouts
-            </Button>
+      <div className="calendar-page">
+        <div className="calendarAndForm-container">
+          <div className="calendar-container">
+            <BigCalendar
+              popup
+              events={this.events}
+              views={allViews}
+              step={60}
+              showMultiDayTimes
+              defaultDate={new Date()}
+              defaultView="month"
+              selectable={true}
+              onSelectSlot={this.onSelectSlot}
+              onSelectEvent={this.onSelectEvent}
+            />
           </div>
-          {this.state.usageMode === "COPY_WORKOUTS" && (
-            <form className="form-container">
-              <div>
-                <label>Copy from start date</label>
-                <input
-                  type="date"
-                  name="copyFromStartDate"
-                  value={this.state.copyFromStartDate}
-                  onChange={this.handleDateChange}
-                />
-              </div>
-              <div>
-                <label>Copy from end date</label>
-                <input
-                  type="date"
-                  name="copyFromEndDate"
-                  value={this.state.copyFromEndDate}
-                  onChange={this.handleDateChange}
-                />
-              </div>
-              <div>
-                <label>Copy to date</label>
-                <input
-                  type="date"
-                  name="copyToStartDate"
-                  value={this.state.copyToStartDate}
-                  onChange={this.handleDateChange}
-                />
-              </div>
+          <div className="formAndButton-container">
+            <div className="button-container">
               <Button
-                className="submit-btn"
-                onClick={this.handleSubmitCopyWorkouts}
+                className="newWorkout-btn"
+                style={{
+                  backgroundImage:
+                    this.state.usageMode === "NEW_WORKOUT"
+                      ? "radial-gradient(#cc0000, black)"
+                      : "radial-gradient(#666666, black)"
+                }}
+                onClick={() => {
+                  this.setState({ usageMode: "NEW_WORKOUT" });
+                }}
               >
-                Submit
+                New Workout
               </Button>
-              <div className="icon-explanation">
-                * <i class="fas fa-minus-circle" /> on the calendar denotes
-                workouts that contain deleted routines and hence can not be
-                copied.
-              </div>
-            </form>
-          )}
-        </div>
+              <Button
+                className="copyWorkouts-btn"
+                style={{
+                  backgroundImage:
+                    this.state.usageMode === "COPY_WORKOUTS"
+                      ? "radial-gradient(#cc0000, black)"
+                      : "radial-gradient(#666666, black)"
+                }}
+                onClick={() => {
+                  this.setState({ usageMode: "COPY_WORKOUTS" });
+                }}
+              >
+                Copy Workouts
+              </Button>
+            </div>
+            {this.state.usageMode === "COPY_WORKOUTS" && (
+              <form className="form-container">
+                <div>
+                  <label>Copy from start date</label>
+                  <input
+                    type="date"
+                    name="copyFromStartDate"
+                    value={this.state.copyFromStartDate}
+                    onChange={this.handleDateChange}
+                  />
+                </div>
+                <div>
+                  <label>Copy from end date</label>
+                  <input
+                    type="date"
+                    name="copyFromEndDate"
+                    value={this.state.copyFromEndDate}
+                    onChange={this.handleDateChange}
+                  />
+                </div>
+                <div>
+                  <label>Copy to date</label>
+                  <input
+                    type="date"
+                    name="copyToStartDate"
+                    value={this.state.copyToStartDate}
+                    onChange={this.handleDateChange}
+                  />
+                </div>
+                <Button
+                  className="submit-btn"
+                  onClick={this.handleSubmitCopyWorkouts}
+                >
+                  Submit
+                </Button>
+                <div className="icon-explanation">
+                  * <i className="fas fa-minus-circle" /> on the calendar
+                  denotes workouts that contain deleted routines and hence can
+                  not be copied.
+                </div>
+              </form>
+            )}
+          </div>
 
         {/* Scheduling Modal */}
 
@@ -314,10 +315,10 @@ handleSubmitCopyWorkouts = () => {
             </select>
           </ModalBody>
           <ModalFooter>
-            <Button className="schedule-btn" onClick={this.scheduleWorkout}>
+            <Button className="submit-btn--blue" onClick={this.scheduleWorkout}>
               Schedule!
             </Button>{" "}
-            <Button className="cancel-btn" onClick={this.schedulingModalToggle}>
+            <Button className="submit-btn--grey" onClick={this.schedulingModalToggle}>
               Cancel
             </Button>
           </ModalFooter>
@@ -415,19 +416,20 @@ handleSubmitCopyWorkouts = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button className="delete-workout-btn" onClick={this.deleteWorkout}>
+            <Button className="submit-btn--blue" onClick={this.deleteWorkout}>
               Delete Workout
             </Button>
-            <Button className="cancel-btn" onClick={this.checkboxModalToggle}>
+            <Button className="submit-btn--grey" onClick={this.checkboxModalToggle}>
               Cancel
             </Button>
           </ModalFooter>
         </Modal>
       </div>
+      </div>
     );
   }
 }
-
+  
 const mapStateToProps = state => {
   console.log(
     "At time of render, Calendar Page received this app state:",
@@ -437,6 +439,18 @@ const mapStateToProps = state => {
     routines: state.RoutineManager.routines,
     workouts: state.calendar.workouts
   };
+};
+
+CalendarPage.propTypes = {
+  routines: PropTypes.arrayOf(PropTypes.object),
+  workouts: PropTypes.arrayOf(PropTypes.object),
+  performances: PropTypes.arrayOf(PropTypes.object),
+  fetchRoutines: PropTypes.func,
+  scheduleWorkout: PropTypes.func,
+  fetchAllWorkouts: PropTypes.func,
+  deleteWorkout: PropTypes.func,
+  fetchAllPerformanceDocs: PropTypes.func,
+  copyWorkouts: PropTypes.func
 };
 
 export default connect(
