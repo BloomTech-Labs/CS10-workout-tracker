@@ -49,7 +49,7 @@ class CheckoutForm extends Component {
 }
 
 CheckoutForm.propTypes = {
-  stripe: PropTypes.object,
+  stripe: PropTypes.object
 };
 
 export default injectStripe(CheckoutForm);

@@ -7,7 +7,6 @@ import HowToStart from "./HowToStart";
 import "animate.css/animate.min.css";
 
 class LandingPage extends Component {
-
   render() {
     return (
       <div className="main__landing__page">

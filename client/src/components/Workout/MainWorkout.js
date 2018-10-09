@@ -10,7 +10,7 @@ class MainWorkout extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <div className="main__workout">
         <RoutineList />
         <WorkoutForm />

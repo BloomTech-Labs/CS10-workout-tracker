@@ -67,17 +67,17 @@ class FocusedRoutine extends Component {
                     placeholder={exerciseInRoutine.currentSets}
                     className="RoutineBuilder__ExerciseCardField--sets"
                   />
-                  <button type="button"
-                    onClick={() =>{
+                  <button
+                    type="button"
+                    onClick={() => {
                       this.props.updateExercise(
                         exerciseInRoutine._id,
                         name,
                         currentWeight,
                         currentReps,
                         currentSets
-                      )
-                    }
-                    }
+                      );
+                    }}
                   >
                     Update Exercise
                   </button>
@@ -102,7 +102,10 @@ class FocusedRoutine extends Component {
         <button
           className="PerformRoutine"
           onClick={() =>
-            this.props.scheduleWorkout(this.props.selectedRoutine._id, Date.now())
+            this.props.scheduleWorkout(
+              this.props.selectedRoutine._id,
+              Date.now()
+            )
           }
         >
           Perform this routine!

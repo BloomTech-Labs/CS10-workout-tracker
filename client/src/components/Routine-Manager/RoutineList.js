@@ -8,7 +8,7 @@ class RoutineList extends Component {
   render() {
     return (
       <div className="RoutineList">
-        {this.props.routines.map((routine, index) => 
+        {this.props.routines.map((routine, index) => (
           <div key={routine._id} className="RoutinePicker__Card">
             <div
               className="RoutinePicker__CardTitle"
@@ -17,7 +17,7 @@ class RoutineList extends Component {
               {routine.title}
             </div>
           </div>
-        )}
+        ))}
         <button
           className="RoutinePicker__NewRoutineBtn"
           onClick={() => this.props.postNewRoutine()}

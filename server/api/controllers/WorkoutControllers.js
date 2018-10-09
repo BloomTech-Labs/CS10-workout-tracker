@@ -300,10 +300,10 @@ const scheduleWorkout = async (workoutDoc, routineId, userId, date, next) => {
     const workoutRoutine = await Routine.findByIdAndUpdate(routineId, {
       $push: { workoutLog: workoutDoc._id }
     });
-    
+
     /* temp solution (if/else wrap) is for handling issue that arises if the user tries 
     to copy a workout that contains a deleted routine */
-    if(workoutRoutine) { 
+    if (workoutRoutine) {
       workoutRoutine.populate(
         "exercises",
         async (err, hydratedWorkoutRoutine) => {
@@ -328,8 +328,9 @@ const scheduleWorkout = async (workoutDoc, routineId, userId, date, next) => {
                   $push: { performances: scheduledPerformance._id },
 
                   /* each workout doc contains a routineName field so that in case the user deletes a routine, 
-                  then the routine name for the already scheduled workout can still be displayed */ 
-                  $set: {routineName: workoutRoutine.title} // 
+                  then the routine name for the already scheduled workout can still be displayed */
+
+                  $set: { routineName: workoutRoutine.title } //
                 },
                 { new: true }
               );
@@ -380,17 +381,15 @@ const scheduleWorkout = async (workoutDoc, routineId, userId, date, next) => {
             }
           );
         }
-      )
-    }
-    else {
-       routineNoLongerExists = {
+      );
+    } else {
+      routineNoLongerExists = {
         status: 410,
         msg: "routine no longer exists",
         workoutDoc
-      }
-      return next(routineNoLongerExists)
+      };
+      return next(routineNoLongerExists);
     }
-
   } catch (err) {
     const error = {
       status: 500,

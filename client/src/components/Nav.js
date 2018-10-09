@@ -11,7 +11,14 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { register, login, logout, clearErrors, forgotPassword, clearCurrentRoutine } from "../actions";
+import {
+  register,
+  login,
+  logout,
+  clearErrors,
+  forgotPassword,
+  clearCurrentRoutine
+} from "../actions";
 import "../less/nav.css";
 import validator from "validator";
 
@@ -71,41 +78,42 @@ class Nav extends React.Component {
     const { username, password, confirmPassword, email } = this.state;
     const newErrors = {};
 
-    if(username.trim() === "") {
+    if (username.trim() === "") {
       newErrors.username = "Username is Required";
     }
 
-    if(password.trim().length < 6) {
-      newErrors.password = "Password must be at least 6 characters"
+    if (password.trim().length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
     }
 
-    if(password.trim() === "") {
+    if (password.trim() === "") {
       newErrors.password = "Password is Required";
     }
 
-    if(confirmPassword.trim().length < 6) {
-      newErrors.confirmPassword = "Confirm Password must be at least 6 characters";
+    if (confirmPassword.trim().length < 6) {
+      newErrors.confirmPassword =
+        "Confirm Password must be at least 6 characters";
     }
 
-    if(confirmPassword.trim() === "") {
+    if (confirmPassword.trim() === "") {
       newErrors.confirmPassword = "Confirm Password is Required";
     }
 
-    if(password.trim() !== confirmPassword.trim()) {
+    if (password.trim() !== confirmPassword.trim()) {
       newErrors.password = "Must match Confirm Password";
       newErrors.confirmPassword = "Must match Password";
     }
 
-    if(!validator.isEmail(email.trim())) {
+    if (!validator.isEmail(email.trim())) {
       newErrors.email = "Must be valid email";
     }
 
-    if(email.trim() === "") {
+    if (email.trim() === "") {
       newErrors.email = "Email is required";
     }
 
-    if(Object.keys(newErrors).length > 0) {
-      return this.setState({errors: newErrors});
+    if (Object.keys(newErrors).length > 0) {
+      return this.setState({ errors: newErrors });
     }
 
     if (this.state.password === this.state.confirmPassword) {
@@ -177,33 +185,31 @@ class Nav extends React.Component {
       </div>
     );
 
-    const emailErrors = (
-      this.state.errors.email ? <span className="form__validation">{this.state.errors.email}</span>: null
-    )
+    const emailErrors = this.state.errors.email ? (
+      <span className="form__validation">{this.state.errors.email}</span>
+    ) : null;
 
-    const usernameErrors = (
-      this.state.errors.username ? <span className="form__validation">{this.state.errors.username}</span>: null
-    )
+    const usernameErrors = this.state.errors.username ? (
+      <span className="form__validation">{this.state.errors.username}</span>
+    ) : null;
 
-    const passwordErrors = (
-      this.state.errors.password ? <span className="form__validation">{this.state.errors.password}</span>: null
-    )
+    const passwordErrors = this.state.errors.password ? (
+      <span className="form__validation">{this.state.errors.password}</span>
+    ) : null;
 
-    const confirmPasswordErrors = (
-      this.state.errors.confirmPassword ? <span className="form__validation">{this.state.errors.confirmPassword}</span>: null
-    )
+    const confirmPasswordErrors = this.state.errors.confirmPassword ? (
+      <span className="form__validation">
+        {this.state.errors.confirmPassword}
+      </span>
+    ) : null;
 
     return (
       <header>
         <nav className="landing__nav">
           <Link to="/schedule" className="left__nav">
-          <object
-            type="image/svg+xml"
-            data={barbell_logo}
-            className="Logo"
-          >
-            BRAWNDO!
-          </object>
+            <object type="image/svg+xml" data={barbell_logo} className="Logo">
+              BRAWNDO!
+            </object>
           </Link>
           {authed ? isAuth : isNotAuth}
         </nav>
@@ -226,7 +232,13 @@ class Nav extends React.Component {
                 autocomplete="off"
               />
             </InputGroup>
-            {usernameErrors ? usernameErrors : (this.props.valError.message ? <span className="form__validation">{this.props.valError.message}</span>: null)}
+            {usernameErrors ? (
+              usernameErrors
+            ) : this.props.valError.message ? (
+              <span className="form__validation">
+                {this.props.valError.message}
+              </span>
+            ) : null}
             <InputGroup>
               <Input
                 placeholder="password"
@@ -257,9 +269,15 @@ class Nav extends React.Component {
                 onChange={this.handleFieldChange}
                 name="email"
                 autocomplete="off"
-              />   
+              />
             </InputGroup>
-            {emailErrors ? emailErrors : (this.props.valError.message ? <span className="form__validation">{this.props.valError.message}</span>: null)}
+            {emailErrors ? (
+              emailErrors
+            ) : this.props.valError.message ? (
+              <span className="form__validation">
+                {this.props.valError.message}
+              </span>
+            ) : null}
           </ModalBody>
           <ModalFooter>
             <Button className="signup-signin-btn" onClick={this.handleSignup}>
@@ -289,7 +307,11 @@ class Nav extends React.Component {
                 autocomplete="off"
               />
             </InputGroup>
-            {this.props.valError.error ?<span className="form__validation">{this.props.valError.error}</span> : null}
+            {this.props.valError.error ? (
+              <span className="form__validation">
+                {this.props.valError.error}
+              </span>
+            ) : null}
             <InputGroup>
               <Input
                 placeholder="password"
@@ -300,7 +322,11 @@ class Nav extends React.Component {
                 autocomplete="off"
               />
             </InputGroup>
-            {this.props.valError.error ? <span className="form__validation">{this.props.valError.error}</span> : null}
+            {this.props.valError.error ? (
+              <span className="form__validation">
+                {this.props.valError.error}
+              </span>
+            ) : null}
           </ModalBody>
           <ModalFooter>
             <Button className="signup-signin-btn" onClick={this.handleSignin}>
@@ -309,7 +335,10 @@ class Nav extends React.Component {
             <Button className="cancel-btn" onClick={this.toggleSignInModal}>
               Cancel
             </Button>
-            <Button className="forgot-pass-btn" onClick={this.toggleForgotModal}>
+            <Button
+              className="forgot-pass-btn"
+              onClick={this.toggleForgotModal}
+            >
               Forgot Password?
             </Button>
           </ModalFooter>

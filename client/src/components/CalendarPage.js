@@ -160,10 +160,14 @@ class CalendarPage extends Component {
     this.events = this.props.workouts.map(workout => ({
       start: new Date(workout.date),
       end: new Date(workout.date),
-      
+
       /* if the user tries to copy a workout which contains a deleted routine, 
       then "deleted routine" will be displayed as the event title */
-      title: workout.routineName ? workout.routineName : <i className="fas fa-minus-circle"></i>, 
+      title: workout.routineName ? (
+        workout.routineName
+      ) : (
+        <i className="fas fa-minus-circle" />
+      ),
       id: workout._id
     }));
 
@@ -406,8 +410,6 @@ CalendarPage.propTypes = {
   fetchAllPerformanceDocs: PropTypes.func,
   copyWorkouts: PropTypes.func
 };
-
-
 
 export default connect(
   mapStateToProps,

@@ -44,7 +44,7 @@ export default (state = initialState, action) => {
     case Actions.FETCH_ROUTINE_HISTORY_SUCCESS:
       return {
         ...state,
-        focusedRoutine: action.payload,
+        focusedRoutine: action.payload
       };
     case Actions.POSTING_NEW_ROUTINE:
       return {
@@ -119,9 +119,9 @@ export default (state = initialState, action) => {
         ...state,
         msg: action.payload
       };
-    case Actions.DELETE_EXERCISE_SUCCESS: 
+    case Actions.DELETE_EXERCISE_SUCCESS:
       let newExercises = state.focusedRoutine.exercises.slice();
-      newExercises = newExercises.filter((exercise) => {
+      newExercises = newExercises.filter(exercise => {
         return exercise._id !== action.payload;
       });
       return {
@@ -141,23 +141,23 @@ export default (state = initialState, action) => {
       return {
         ...state,
         msg: action.payload
-      }
+      };
     case Actions.DELETE_ROUTINE_SUCCESS:
       let newRoutine = state.routines.filter(routine => {
-        return routine._id !== action.payload
-      })
+        return routine._id !== action.payload;
+      });
       return {
         ...state,
         focusedRoutine: null,
         test: "this is a test",
         routines: newRoutine,
         msg: "Deleted Successfully"
-      }
+      };
     case Actions.DELETE_ROUTINE_FAILURE:
       return {
         ...state,
         msg: action.payload
-      }
+      };
     case Actions.CLEAR_CURRENT_ROUTINE:
       return {
         ...state,

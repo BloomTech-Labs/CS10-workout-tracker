@@ -135,10 +135,8 @@ Settings.propTypes = {
   }),
   msg: PropTypes.string,
   changeEmail: PropTypes.func,
-  changePassword: PropTypes.func,
-
+  changePassword: PropTypes.func
 };
-
 
 export default connect(
   mapStateToProps,
