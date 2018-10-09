@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import {
   Button,
   Modal,
@@ -20,6 +20,8 @@ import {
   clearCurrentRoutine
 } from "../actions";
 import validator from "validator";
+
+import barbell_logo from "./Landing/img/dumbbell-svgrepo-com.svg";
 
 class Nav extends React.Component {
   constructor() {
@@ -203,7 +205,9 @@ class Nav extends React.Component {
     return (
       <header>
         <nav className="landing__nav">
-          <div className="left__nav">LOGO</div>
+          <object type="image/svg+xml" data={barbell_logo} className="Logo">
+            BRAWNDO!
+          </object>
           {authed ? isAuth : isNotAuth}
         </nav>
 

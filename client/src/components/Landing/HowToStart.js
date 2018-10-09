@@ -12,13 +12,13 @@ class HowToStart extends React.Component {
           <div>
             <ScrollAnimation animateIn="fadeInUp">
               <p>
-                <span>1</span> Signup
+                <span>1</span> SIGN UP
               </p>
               <p>
-                <span>2</span> Add data
+                <span>2</span> WORK OUT
               </p>
               <p>
-                <span>3</span> Workout
+                <span>3</span> GET BUFF
               </p>
             </ScrollAnimation>
           </div>
