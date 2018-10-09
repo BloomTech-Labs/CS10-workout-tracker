@@ -6,7 +6,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Roboto Slab', serif;
   min-width: 100vw;
   min-height: 100vh;
   background: radial-gradient(#000033, #000000);
@@ -89,7 +89,7 @@ body {
 }
 .calendar-page {
   margin: 0;
-  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: 'Roboto Slab', serif;
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.5;
@@ -338,6 +338,7 @@ body {
 }
 p {
   margin-bottom: 0;
+  font-family: 'Roboto Slab', serif;
 }
 .container {
   max-width: 900px;
@@ -417,6 +418,7 @@ p {
 }
 .main__landing__background h1 {
   font-size: 40px;
+  font-family: 'Archivo Black', sans-serif;
 }
 @media (max-width: 650px) {
   .main__landing__background {
@@ -834,7 +836,7 @@ footer p {
   align-items: center;
   max-width: 1000px;
   width: 90%;
-  margin: 0 auto;
+  margin: 30px auto;
 }
 .outer-container .container .progress-records {
   display: flex;

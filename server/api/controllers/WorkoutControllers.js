@@ -315,6 +315,9 @@ const scheduleWorkout = async (workoutDoc, routineId, userId, date, next) => {
               const futureExercisePerformance = new Performance({
                 exerciseName: exercise.name,
                 exercise: exercise._id,
+                weight: exercise.currentWeight,
+                reps: exercise.currentReps,
+                sets: exercise.currentSets,
                 date,
                 user: userId // added user ref for fetchAllPerformanceDocs controller. See PerformanceControllers
               });
