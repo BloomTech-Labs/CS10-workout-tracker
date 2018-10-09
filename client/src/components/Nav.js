@@ -205,15 +205,9 @@ class Nav extends React.Component {
     return (
       <header>
         <nav className="landing__nav">
-          <Link to="/schedule" className="left__nav">
-          <object
-            type="image/svg+xml"
-            data={barbell_logo}
-            className="Logo"
-          >
+          <object type="image/svg+xml" data={barbell_logo} className="Logo">
             BRAWNDO!
           </object>
-          </Link>
           {authed ? isAuth : isNotAuth}
         </nav>
 
