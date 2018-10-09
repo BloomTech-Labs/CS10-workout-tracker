@@ -138,7 +138,7 @@ body {
   display: flex;
 }
 .calendarAndForm-container .calendar-container {
-  height: 500px;
+  min-height: 500px;
   width: 90%;
   margin-top: 10px;
 }
