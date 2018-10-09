@@ -288,6 +288,9 @@ body {
 .scheduling-modal-body {
   height: 150px;
   padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .modal-content {
   width: 80%;
