@@ -34,7 +34,7 @@ export const register = (data, history, modal) => {
         });
         dispatch({
           type: Actions.GET_VAL_ERRORS,
-          payload: err
+          payload: err.response.data
         })
       });
   };
