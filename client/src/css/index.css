@@ -47,7 +47,6 @@ body {
 }
 .billing-outer {
   background: radial-gradient(#000000, #000033);
-  min-height: 100vh;
   min-height: 88vh;
   display: flex;
   justify-content: center;
@@ -96,7 +95,8 @@ body {
   line-height: 1.5;
   color: #ffffff;
   text-align: center;
-  background-color: #1a1d21;
+  background: radial-gradient(#000000, #000033);
+  min-height: 100vh;
 }
 .rbc-month-view {
   position: relative;
