@@ -72,7 +72,7 @@ class CalendarPage extends Component {
   };
 
   // this updates the toggled boolean of the specified performance doc in the DB
-  handlePerformanceCheckOff = performanceId => {
+  handlePerformanceUpdate = performanceId => {
     const { weight, sets, reps } = this.state;
     let updatedPerformanceObj = {};
     weight !== ""
@@ -346,7 +346,7 @@ handleSubmitCopyWorkouts = () => {
                             type="checkbox"
                             key={performance._id}
                             onChange={() => {
-                              this.handlePerformanceCheckOff(performance._id);
+                              this.handlePerformanceUpdate(performance._id);
                             }}
                             checked={
                               this.state.focusedPerformances.filter(

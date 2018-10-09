@@ -38,7 +38,7 @@ const {
   updateProgress
 } = require("./controllers/ProgressControllers");
 const {
-  checkOffPerformance,
+  updatePerformance,
   fetchAllPerformanceDocs
 } = require("./controllers/PerformanceControllers");
 const { verifyToken } = require("./utilities/auth");
@@ -84,7 +84,7 @@ module.exports = app => {
   app.route("/workouts-copy").post(verifyToken, copyWorkoutRange);
 
   // PERFORMANCES
-  app.route("/performance/:id").put(verifyToken, checkOffPerformance);
+  app.route("/performance/:id").put(verifyToken, updatePerformance);
   app.route("/performances").get(verifyToken, fetchAllPerformanceDocs);
 };
 

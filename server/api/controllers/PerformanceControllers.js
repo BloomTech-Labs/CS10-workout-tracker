@@ -23,7 +23,7 @@ const fetchAllPerformanceDocs = (req, res) => {
     });
 };
 
-const checkOffPerformance = (req, res) => {
+const updatePerformance = (req, res) => {
   const { id } = req.params;
   const {weight, sets, reps} = req.body;
   Performance.findById(id)
@@ -49,6 +49,6 @@ const checkOffPerformance = (req, res) => {
 
 module.exports = {
   fetchPerformanceDoc,
-  checkOffPerformance,
+  updatePerformance,
   fetchAllPerformanceDocs
 }
