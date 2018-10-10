@@ -232,7 +232,6 @@ body {
 }
 .calendarAndForm-container {
   display: flex;
-  padding: 15px;
 }
 .calendarAndForm-container .calendar-container {
   min-height: 500px;
@@ -240,7 +239,7 @@ body {
   margin-top: 10px;
 }
 .calendarAndForm-container .formAndButton-container {
-  margin: 80px 6% 0 0;
+  margin: 55px 6% 0 0;
 }
 .calendarAndForm-container .formAndButton-container .button-container {
   display: flex;
