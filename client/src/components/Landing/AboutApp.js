@@ -21,7 +21,9 @@ class AboutApp extends React.Component {
               <div className="container">
                 <img src={MainLandingImg} alt="Read more" />
                 <p>
-                BRAWNDO is a workout tracker for the connected era - create custom workout routines, see your schedule at a glance, review past performance and more.
+                  BRAWNDO is a workout tracker for the connected era - create
+                  custom workout routines, see your schedule at a glance, review
+                  past performance and more.
                 </p>
               </div>
             </div>
