@@ -11,57 +11,35 @@ import {
   fetchAllWorkouts,
   deleteWorkout,
   copyWorkouts
-  // fetchAllPerformanceDocs
 } from "../actions";
-import { TweenLite, TimelineLite } from "gsap";
+import { TweenLite , TweenMax, TimelineLite, TimelineMax} from "gsap";
 import $ from "jquery";
 
 BigCalendar.momentLocalizer(moment);
 
 class CalendarPage extends Component {
-  // constructor(props) {
-  //   super(props);
-
-    // this.animateCalendar = null;
-    // this.myTweenEvent = new TimelineLite();
-
-    
-  // }
-
   state = {
     schedulingModal: false,
     checkboxModal: false,
-    performances: [],
+    focusedPerformances: [],
+    weight: "",
+    sets: "",
+    reps: "",
     usageMode: "NEW_WORKOUT", // or COPY_WORKOUTS
     copyFromStartDate: "",
     copyFromEndDate: "",
-    copyToStartDate: ""
+    copyToStartDate: "",
   };
 
-
   componentDidMount() {
+    this.myTweenEvent = new TimelineLite();
     this.props.fetchRoutines();
     this.props.fetchAllWorkouts();
-    // this.props.fetchAllPerformanceDocs();
+    TweenMax.from(this.animateCalendar, 1, { y: 100, opacity: 0 });
 
-    // this.myTween = TweenLite.from(this.animateCalendar, 1, { y: 100, opacity: 0 });
-
-
-    // $(".rbc-event").hide();
-
-    // setTimeout(() => {
-    //   this.myTweenEvent.staggerFrom($(".rbc-event"), 0.5, { opacity: 0, y: -10}, 0.1).delay(0);
-    // }, 1000);
-    
-    
-  }
-
-  componentWillUpdate() {
-    // this.myTweenEvent.staggerFrom($(".rbc-event"), 0.5, { opacity: 1, y: 10}, 0.1).delay(0);
-
-    // setTimeout(function(){ 
-    //   this.myTweenEvent.staggerFrom($(".rbc-event"), 0.5, { opacity: .7, y: 50}, 0.1).delay(1);
-    // }, 3000);
+    setTimeout(() => {
+      this.myTweenEvent.staggerFrom($(".rbc-event"), 0.5, { opacity: 0, y: -10}, 0.1).delay(0);
+    }, 1000);
   }
 
   //-------------------------------------------- callback functions for scheduling modal
@@ -108,17 +86,17 @@ class CalendarPage extends Component {
     weight !== ""
       ? (updatedPerformanceObj.weight = weight)
       : (updatedPerformanceObj.weight = this.state.focusedPerformances.filter(
-          performance => performance._id == performanceId
+          performance => performance._id === performanceId
         )[0].weight);
     sets !== ""
       ? (updatedPerformanceObj.sets = sets)
       : (updatedPerformanceObj.sets = this.state.focusedPerformances.filter(
-          performance => performance._id == performanceId
+          performance => performance._id === performanceId
         )[0].sets);
     reps !== ""
       ? (updatedPerformanceObj.reps = reps)
       : (updatedPerformanceObj.reps = this.state.focusedPerformances.filter(
-          performance => performance._id == performanceId
+          performance => performance._id === performanceId
         )[0].reps);
 
     console.log("PERFORMANCE OBJ", updatedPerformanceObj);
@@ -219,7 +197,7 @@ handleSubmitCopyWorkouts = () => {
       title: workout.routineName ? (
         workout.routineName
       ) : (
-        <i className="fas fa-minus-circle" />
+        <i class="fas fa-minus-circle" />
       ),
       id: workout._id
     }));
@@ -227,9 +205,9 @@ handleSubmitCopyWorkouts = () => {
     let allViews = Object.keys(BigCalendar.Views).map(
       k => BigCalendar.Views[k]
     );
-    // ref={div => this.animateCalendar = div}
+
     return (
-      <div className="calendar-page" >
+      <div className="calendar-page" ref={div => this.animateCalendar = div}>
         <div className="calendarAndForm-container">
           <div className="calendar-container">
             <BigCalendar
@@ -491,6 +469,5 @@ export default connect(
     fetchAllWorkouts,
     deleteWorkout,
     copyWorkouts
-    // fetchAllPerformanceDocs
   }
 )(CalendarPage);
