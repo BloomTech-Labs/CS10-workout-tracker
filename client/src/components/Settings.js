@@ -121,7 +121,7 @@ class Settings extends Component {
                 <FormGroup row>
                   <Input
                     className="settings-input"
-                    type="email"
+                    type="text"
                     name="email"
                     placeholder={this.props.userInfo.user.email}
                     value={this.state.email}

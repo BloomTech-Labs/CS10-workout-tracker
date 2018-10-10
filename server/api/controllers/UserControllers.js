@@ -227,7 +227,7 @@ const changeEmail = (req, res) => {
     })
     .catch(err => {
       res.status(400);
-      res.json({ message: "Could not update email" });
+      res.json({ message: "Email is taken." });
     });
 };
 
