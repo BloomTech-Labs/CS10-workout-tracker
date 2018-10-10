@@ -82,15 +82,15 @@ class ProgressCard extends Component {
           <CardHeader className="card-header">
             <div className="card-date">{moment(date).format("MM/DD/YYYY")}</div>
             <div className="btn-container">
+              <div className="icon-btn" onClick={this.toggle}>
+                <i className="fas fa-pencil-alt icon" />
+              </div>
               <div
                 className="icon-btn"
                 onClick={() => this.props.deleteProgress(_id)}
               >
                 {" "}
                 <i className="fas fa-trash-alt icon" />
-              </div>
-              <div className="icon-btn" onClick={this.toggle}>
-                <i className="fas fa-pencil-alt icon" />
               </div>
             </div>
           </CardHeader>
