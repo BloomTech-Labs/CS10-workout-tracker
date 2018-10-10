@@ -55,6 +55,12 @@ body {
 .btn {
   border: 0;
 }
+.card-header:first-child {
+  border-radius: 0 !important;
+}
+.card-header {
+  border-radius: 0 !important;
+}
 .billing-outer {
   min-height: 88vh;
   display: flex;
@@ -381,7 +387,7 @@ p {
   align-items: center;
   text-shadow: 3px 3px black;
   box-shadow: 10px 10px 15px black;
-  padding: 20px 35px;
+  padding: 16px 35px;
   background: linear-gradient(#000000, #222222, #111111);
   opacity: 0.9;
   position: fixed;
