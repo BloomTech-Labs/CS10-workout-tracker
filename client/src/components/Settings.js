@@ -3,14 +3,27 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { changeEmail, changePassword } from "../actions";
 import { Button, Form, FormGroup, Input } from "reactstrap";
+import { TweenLite } from "gsap";
 
 class Settings extends Component {
-  state = {
-    email: "",
-    password: "",
-    newPassword: "",
-    confirmNewPassword: ""
-  };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: "",
+      password: "",
+      newPassword: "",
+      confirmNewPassword: ""
+    };
+
+    this.myTween = null;
+    this.animateSettings = null;
+  }
+
+  componentDidMount() {
+    this.myTween = TweenLite.from(this.animateSettings, 1, { y: 100, opacity: 0});
+  }
 
   handleFieldChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -49,7 +62,7 @@ class Settings extends Component {
 
   render() {
     return (
-      <div className="settings-outer">
+      <div className="settings-outer" ref={div => this.animateSettings = div}>
         <div className="settings-container">
           <div className="forms-container">
             <div className="single-form-container">

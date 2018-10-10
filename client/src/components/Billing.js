@@ -4,11 +4,23 @@ import { Elements, StripeProvider } from "react-stripe-elements";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { processPayment } from "../actions";
+import { TweenLite } from "gsap";
 
 class Billing extends Component {
+  constructor(props) {
+    super(props);
+
+    this.myTween = null;
+    this.animateBilling = null;
+  }
+
+  componentDidMount() {
+    this.myTween = TweenLite.from(this.animateBilling, 1, { y: 100, opacity: 0});
+  }
+
   render() {
     return (
-      <div className="billing-outer">
+      <div className="billing-outer" ref={div => this.animateBilling = div}>
         <div className="billing-container">
           <div className="billing-inner">
             {/* Note: The client and server Stripe api keys are two separate keys. This api key is a publishable key which is why I'm comfortable committing it for now, it is also a test key and will also need to be replaced in production */}

@@ -8,6 +8,7 @@ class MainWorkout extends React.Component {
   constructor(props) {
     super(props);
 
+    this.myTween = null;
     this.animateWorkout = null;
 
   }
