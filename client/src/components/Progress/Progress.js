@@ -6,10 +6,21 @@ import ProgressTracker from "./ProgressTracker";
 import ProgressCard from "./ProgressCard";
 import ProgressForm from "./ProgressForm";
 import { Link } from "react-router-dom";
+import { TweenLite , TweenMax, TimelineLite, TimelineMax} from "gsap";
 
 class Progress extends Component {
+  constructor(props) {
+    super(props);
+
+    this.myTween = new TimelineMax({paused: true});
+    this.animateProgressTracker = null;
+    this.myElements = [];
+  }
+
   componentDidMount() {
     this.props.fetchProgress();
+    this.animateProgressTracker = TweenMax.from(this.animateProgressTracker, 1, { y: 100, opacity: 0 });
+    this.myTween.staggerFrom(this.myElements, 0.5, {y: 100, autoAlpha: 1}, 0.1);
   }
 
   render() {
@@ -20,15 +31,15 @@ class Progress extends Component {
     }
 
     return (
-      <div className="outer-container">
+      <div className="outer-container" ref={div => this.animateProgressTracker = div}>
         {/* Experimental Patch - Premium User Toggle */}
         {this.props.premiumUser || this.props.userInfo.user.premiumUser ? (
           <div className="container">
             <ProgressTracker />
             <ProgressForm />
             <div className="progress-records">
-              {sortedRecords.map(record => {
-                return <ProgressCard key={record._id} record={record} />;
+              {sortedRecords.map((record, index) => {
+                return <ProgressCard key={record._id} record={record} ref={li => this.myElements[index] = li} />;
               })}
             </div>
           </div>

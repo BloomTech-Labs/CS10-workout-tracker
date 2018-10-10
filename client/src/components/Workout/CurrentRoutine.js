@@ -17,18 +17,47 @@ import {
   ModalFooter
 } from "reactstrap";
 
+import { TweenLite, TimelineMax,  TweenMax} from "gsap";
+
 class CurrentRoutine extends React.Component {
-  state = {
-    routineName: "",
-    exerciseName: "",
-    weight: "",
-    reps: "",
-    sets: "",
-    exerciseId: "",
-    routineModal: false,
-    exerciseModal: false,
-    errors: {}
-  };
+
+  constructor(props){
+    super(props);
+    // reference to the DOM node
+    this.myElement = null;
+    // reference to the animation
+    this.myTween = null;
+    this.myWorkout = null;
+    // this.myTweenExcercise = new TimelineMax({paused: true});
+    this.myExercises = [];
+
+    this.state = {
+      routineName: "",
+      exerciseName: "",
+      weight: "",
+      reps: "",
+      sets: "",
+      exerciseId: "",
+      routineModal: false,
+      exerciseModal: false,
+      errors: {}
+    };
+  }
+
+  componentDidMount(){
+    // use the node ref to create the animation
+    // this.myTween = TweenLite.from(this.myElement, 1, { y: -1000});
+    // this.myTweenExcercise = TweenMax.from(this.animateProgressTracker, 1, { y: 100, opacity: 0 });
+    // this.myTweenExcercise.staggerFrom(this.myExercises, 0.5, {y: 100, autoAlpha: 1}, 0.1);
+    
+  }
+
+  componentDidUpdate() {
+    this.myTween = TweenLite.from(this.myElement, 1, { y: -1000});
+    // this.myTweenExcercise.staggerFrom(this.myExercises, 0.5, {y: 100, autoAlpha: 1}, 0.1);
+  }
+
+
 
   handleFieldChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -141,7 +170,7 @@ class CurrentRoutine extends React.Component {
     }
 
     return (
-      <div className="current__routine">
+      <div className="current__routine" >
         <div className="current__routine__container">
           {/* update routine modal   */}
 
@@ -283,11 +312,13 @@ class CurrentRoutine extends React.Component {
             ) : null}
           </div>
           <h3 className="current__title">- Exercises ---------------------</h3>
-          <div className="exercise__list">
+          <div className="exercise__list" ref={div => this.myElement = div}>
             {currentRoutine &&
-              currentRoutine.exercises.map(exercise => {
+              currentRoutine.exercises.map((exercise, index) => {
                 return (
-                  <div key={exercise._id} className="exercise__card">
+                  <div key={exercise._id} className="exercise__card" 
+                    ref={div => this.myExercises[index] = div}
+                  >
                     <div className="exercise__card__header">
                       <h3>{exercise.name}</h3>
                       <div className="pencil__trash__icon__container">

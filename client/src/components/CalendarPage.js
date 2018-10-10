@@ -13,19 +13,26 @@ import {
   fetchAllPerformanceDocs,
   copyWorkouts
 } from "../actions";
+import { TweenLite } from "gsap";
 
 BigCalendar.momentLocalizer(moment);
 
 class CalendarPage extends Component {
-  state = {
-    schedulingModal: false,
-    checkboxModal: false,
-    performances: [],
-    usageMode: "NEW_WORKOUT", // or COPY_WORKOUTS
-    copyFromStartDate: "",
-    copyFromEndDate: "",
-    copyToStartDate: ""
-  };
+  constructor(props) {
+    super(props);
+
+    this.animateCalendar = null;
+
+    this.state = {
+      schedulingModal: false,
+      checkboxModal: false,
+      performances: [],
+      usageMode: "NEW_WORKOUT", // or COPY_WORKOUTS
+      copyFromStartDate: "",
+      copyFromEndDate: "",
+      copyToStartDate: ""
+    };
+  }
 
   /* This is for putting the performances array from the calendar reducer onto local state.
   this.state.performances is being used to toggle completed field of each Performance Doc*/
@@ -43,6 +50,7 @@ class CalendarPage extends Component {
     this.props.fetchRoutines();
     this.props.fetchAllWorkouts();
     this.props.fetchAllPerformanceDocs();
+    this.myTween = TweenLite.from(this.animateCalendar, 1, { y: 100, opacity: 0 });
   }
 
   schedulingModalToggle = () => {
@@ -200,7 +208,7 @@ class CalendarPage extends Component {
     });
 
     return (
-      <div className="calendar-page">
+      <div className="calendar-page" ref={div => this.animateCalendar = div}>
         <div className="calendarAndForm-container">
           <div className="calendar-container">
             <BigCalendar
