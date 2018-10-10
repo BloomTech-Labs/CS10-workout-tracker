@@ -12,7 +12,8 @@ import {
   deleteWorkout,
   copyWorkouts
 } from "../actions";
-import { TweenLite } from "gsap";
+import { TweenLite, TimelineLite } from "gsap";
+import $ from "jquery";
 
 BigCalendar.momentLocalizer(moment);
 
@@ -21,6 +22,7 @@ class CalendarPage extends Component {
     super(props);
 
     this.animateCalendar = null;
+    this.myTweenEvent = new TimelineLite();
 
     this.state = {
       schedulingModal: false,
@@ -33,11 +35,27 @@ class CalendarPage extends Component {
     };
   }
 
+
   componentDidMount() {
     this.props.fetchRoutines();
     this.props.fetchAllWorkouts();
     // this.props.fetchAllPerformanceDocs();
     this.myTween = TweenLite.from(this.animateCalendar, 1, { y: 100, opacity: 0 });
+    // $(".rbc-event").hide();
+
+    setTimeout(() => {
+      this.myTweenEvent.staggerFrom($(".rbc-event"), 0.5, { opacity: 0, y: -10}, 0.1).delay(0);
+    }, 1000);
+    
+    
+  }
+
+  componentWillUpdate() {
+    // this.myTweenEvent.staggerFrom($(".rbc-event"), 0.5, { opacity: 1, y: 10}, 0.1).delay(0);
+
+    // setTimeout(function(){ 
+    //   this.myTweenEvent.staggerFrom($(".rbc-event"), 0.5, { opacity: .7, y: 50}, 0.1).delay(1);
+    // }, 3000);
   }
 
   //-------------------------------------------- callback functions for scheduling modal
@@ -195,7 +213,7 @@ handleSubmitCopyWorkouts = () => {
       title: workout.routineName ? (
         workout.routineName
       ) : (
-        <i class="fas fa-minus-circle" />
+        <i className="fas fa-minus-circle" />
       ),
       id: workout._id
     }));

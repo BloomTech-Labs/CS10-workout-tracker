@@ -57,6 +57,7 @@ body {
   max-width: 1000px;
   width: 90%;
   margin: 0 auto;
+  justify-content: center;
 }
 .billing-outer .billing-container .billing-inner {
   margin: 40px;

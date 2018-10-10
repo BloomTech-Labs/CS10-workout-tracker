@@ -21,8 +21,12 @@ class Progress extends Component {
   componentDidMount() {
     this.props.fetchProgress();
     this.animateProgressTracker = TweenMax.from(this.animateProgressTracker, 1, { y: 100, opacity: 0 });
+    // $(".card").hide();
 
+    
     this.myTween.staggerFrom($(".card"), 0.5, { opacity: 0, y: 50}, 0.1).delay(1);
+    
+    
     
   }
 
