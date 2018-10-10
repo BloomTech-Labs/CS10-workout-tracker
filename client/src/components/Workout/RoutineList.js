@@ -10,7 +10,6 @@ class RoutineList extends React.Component {
 
   render() {
     const { currentRoutines } = this.props;
-    console.log(currentRoutines);
     let routines = currentRoutines.map(routine => {
       return (
         <div

@@ -65,7 +65,6 @@ class CurrentRoutine extends React.Component {
 
   handleDeleteRoutine = routineId => {
     this.props.deleteRoutine(routineId);
-    console.log("hitting this");
   };
 
   handleExerciseUpdate = () => {
@@ -135,10 +134,6 @@ class CurrentRoutine extends React.Component {
 
   render() {
     const { currentRoutine } = this.props;
-    console.log("What is current ", currentRoutine);
-    {
-      currentRoutine && console.log(currentRoutine.title);
-    }
 
     return (
       <div className="current__routine">
