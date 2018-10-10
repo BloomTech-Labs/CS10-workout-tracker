@@ -85,6 +85,9 @@ const forgotPassword = (req, res) => {
     return res.status(400).json({ message: "No email provided" });
   }
   User.findOne({ email: email }).then(user => {
+    if (user === null) {
+      return res.status(404).json({ message: "Could not locate email." });
+    }
     const token = generateResetToken(user);
 
     User.findOneAndUpdate({ email: email }, { passwordResetToken: token }).then(
