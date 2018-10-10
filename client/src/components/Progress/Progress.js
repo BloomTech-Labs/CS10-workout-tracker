@@ -21,16 +21,8 @@ class Progress extends Component {
   componentDidMount() {
     this.props.fetchProgress();
     this.animateProgressTracker = TweenMax.from(this.animateProgressTracker, 1, { y: 100, opacity: 0 });
-    
-
-    
     this.myTween.staggerFrom($(".card"), 0.5, { opacity: 0, y: 50}, 0.1).delay(1);
-    
-    
-    
   }
-
-  
 
   render() {
     // display starting from the end of the array i.e. most recent first

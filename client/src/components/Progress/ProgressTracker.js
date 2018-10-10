@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 import moment from "moment";
 
 const ProgressTracker = props => {
-  
-
   // || operator is used to short circuit the absence of props upon render
   let firstProgress = props.progressRecords[0] || {};
   let mostRecentProgress =

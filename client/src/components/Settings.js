@@ -9,14 +9,12 @@ class Settings extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       email: "",
       password: "",
       newPassword: "",
       confirmNewPassword: ""
     };
-
     this.myTween = null;
     this.animateSettings = null;
   }

@@ -16,7 +16,6 @@ import {
   InputGroup,
   ModalFooter
 } from "reactstrap";
-
 import { TweenLite } from "gsap";
 
 class CurrentRoutine extends React.Component {
@@ -44,20 +43,9 @@ class CurrentRoutine extends React.Component {
     };
   }
 
-  componentDidMount(){
-    // use the node ref to create the animation
-    // this.myTween = TweenLite.from(this.myElement, 1, { y: -1000});
-    // this.myTweenExcercise = TweenMax.from(this.animateProgressTracker, 1, { y: 100, opacity: 0 });
-    // this.myTweenExcercise.staggerFrom(this.myExercises, 0.5, {y: 100, autoAlpha: 1}, 0.1);
-    
-  }
-
   componentDidUpdate() {
     this.myTween = TweenLite.from(this.myElement, 1, { y: -1000});
-    // this.myTweenExcercise.staggerFrom(this.myExercises, 0.5, {y: 100, autoAlpha: 1}, 0.1);
   }
-
-
 
   handleFieldChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -166,7 +154,7 @@ class CurrentRoutine extends React.Component {
     const { currentRoutine } = this.props;
 
     return (
-      <div className="current__routine" >
+      <div className="current__routine">
         <div className="current__routine__container">
           {/* update routine modal   */}
 

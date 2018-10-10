@@ -8,16 +8,13 @@ import $ from "jquery";
 class RoutineList extends React.Component {
   constructor(props) {
     super(props);
-    
     this.myTween = new TimelineLite();
     this.myElements = [];
   }
 
   componentDidMount() {
     this.props.fetchRoutines();
-    // this.myTween.staggerTo(this.myElements, 0.5, {y: 0, autoAlpha: 1}, 0.1);
     this.myTween.staggerFrom($(".routine"), 0.5, { opacity: 0, y: 50}, 0.1).delay(1);
-    // $(".routine").css({color: "red"});
   }
 
   render() {
