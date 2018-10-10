@@ -46,7 +46,6 @@ body {
   background: linear-gradient(#000000, #ffffff);
 }
 .billing-outer {
-  background: radial-gradient(#000000, #000033);
   min-height: 88vh;
   display: flex;
   justify-content: center;
@@ -95,7 +94,6 @@ body {
   line-height: 1.5;
   color: #ffffff;
   text-align: center;
-  background: radial-gradient(#000000, #000033);
   min-height: 100vh;
 }
 .rbc-month-view {
@@ -830,7 +828,6 @@ footer p {
   box-shadow: 1px 1px 7px #000000;
 }
 .outer-container {
-  background: radial-gradient(black, #000033);
   min-height: 100vh;
 }
 .outer-container .container {
@@ -982,7 +979,6 @@ footer p {
   border-right: 1px solid #cccccc;
 }
 .settings-outer {
-  background: radial-gradient(#000000, #000033);
   display: flex;
   align-items: center;
   min-height: 88vh;

@@ -36,7 +36,7 @@ class CalendarPage extends Component {
   componentDidMount() {
     this.props.fetchRoutines();
     this.props.fetchAllWorkouts();
-    this.props.fetchAllPerformanceDocs();
+    // this.props.fetchAllPerformanceDocs();
     this.myTween = TweenLite.from(this.animateCalendar, 1, { y: 100, opacity: 0 });
   }
 
