@@ -156,7 +156,13 @@ class Settings extends Component {
                     onChange={this.handleFieldChange}
                   />
                 </FormGroup>
-                {passwordErrors ? passwordErrors : null}
+                {passwordErrors ? (
+                  passwordErrors
+                ) : this.props.valError.error ? (
+                  <span className="form__validation">
+                    {this.props.valError.error}
+                  </span>
+                ) : null}
                 <FormGroup row>
                   <Input
                     className="settings-input"

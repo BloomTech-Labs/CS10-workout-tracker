@@ -190,7 +190,7 @@ const changePassword = (req, res) => {
     user.checkPassword(password).then(success => {
       if (!success) {
         res.status(422);
-        res.json("Password incorrect");
+        res.json({ error: "Password incorrect" });
       }
       if (success) {
         if (newPassword === confirmNewPassword) {
@@ -202,7 +202,7 @@ const changePassword = (req, res) => {
           });
         } else {
           res.status(422);
-          res.json("New passwords don't match");
+          res.json({ message: "New passwords don't match" });
         }
       }
     });
