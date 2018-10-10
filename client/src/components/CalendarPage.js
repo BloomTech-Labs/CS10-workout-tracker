@@ -11,6 +11,7 @@ import {
   fetchAllWorkouts,
   deleteWorkout,
   copyWorkouts
+  // fetchAllPerformanceDocs
 } from "../actions";
 import { TweenLite, TimelineLite } from "gsap";
 import $ from "jquery";
@@ -18,34 +19,39 @@ import $ from "jquery";
 BigCalendar.momentLocalizer(moment);
 
 class CalendarPage extends Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.animateCalendar = null;
-    this.myTweenEvent = new TimelineLite();
+    // this.animateCalendar = null;
+    // this.myTweenEvent = new TimelineLite();
 
-    this.state = {
-      schedulingModal: false,
-      checkboxModal: false,
-      performances: [],
-      usageMode: "NEW_WORKOUT", // or COPY_WORKOUTS
-      copyFromStartDate: "",
-      copyFromEndDate: "",
-      copyToStartDate: ""
-    };
-  }
+    
+  // }
+
+  state = {
+    schedulingModal: false,
+    checkboxModal: false,
+    performances: [],
+    usageMode: "NEW_WORKOUT", // or COPY_WORKOUTS
+    copyFromStartDate: "",
+    copyFromEndDate: "",
+    copyToStartDate: ""
+  };
 
 
   componentDidMount() {
     this.props.fetchRoutines();
     this.props.fetchAllWorkouts();
     // this.props.fetchAllPerformanceDocs();
-    this.myTween = TweenLite.from(this.animateCalendar, 1, { y: 100, opacity: 0 });
+
+    // this.myTween = TweenLite.from(this.animateCalendar, 1, { y: 100, opacity: 0 });
+
+
     // $(".rbc-event").hide();
 
-    setTimeout(() => {
-      this.myTweenEvent.staggerFrom($(".rbc-event"), 0.5, { opacity: 0, y: -10}, 0.1).delay(0);
-    }, 1000);
+    // setTimeout(() => {
+    //   this.myTweenEvent.staggerFrom($(".rbc-event"), 0.5, { opacity: 0, y: -10}, 0.1).delay(0);
+    // }, 1000);
     
     
   }
@@ -221,9 +227,9 @@ handleSubmitCopyWorkouts = () => {
     let allViews = Object.keys(BigCalendar.Views).map(
       k => BigCalendar.Views[k]
     );
-
+    // ref={div => this.animateCalendar = div}
     return (
-      <div className="calendar-page" ref={div => this.animateCalendar = div}>
+      <div className="calendar-page" >
         <div className="calendarAndForm-container">
           <div className="calendar-container">
             <BigCalendar
@@ -485,5 +491,6 @@ export default connect(
     fetchAllWorkouts,
     deleteWorkout,
     copyWorkouts
+    // fetchAllPerformanceDocs
   }
 )(CalendarPage);
