@@ -91,7 +91,14 @@ class PasswordReset extends Component {
                     onChange={this.handleFieldChange}
                   />
                 </FormGroup>
-                {newPasswordErrors ? newPasswordErrors : null}
+                {/* {newPasswordErrors ? newPasswordErrors : null} */}
+                {newPasswordErrors ? (
+                  newPasswordErrors
+                ) : this.props.valError.message ? (
+                  <span className="form__validation">
+                    {this.props.valError.message}
+                  </span>
+                ) : null}
                 <FormGroup row>
                   <Input
                     className="pw-reset-input"
@@ -122,7 +129,8 @@ const mapStateToProps = state => {
   );
   return {
     userInfo: state.auth.currentUser,
-    msg: state.auth.message
+    msg: state.auth.message,
+    valError: state.valError
   };
 };
 
@@ -132,7 +140,8 @@ PasswordReset.propTypes = {
     user: PropTypes.object
   }),
   msg: PropTypes.string,
-  resetPassword: PropTypes.func
+  resetPassword: PropTypes.func,
+  valError: PropTypes.object
 };
 
 export default connect(

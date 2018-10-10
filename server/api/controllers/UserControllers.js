@@ -147,11 +147,11 @@ const resetPassword = function(req, res) {
               }
             });
           } else {
-            return res.status(422).json({ error: "from 157", message: err });
+            return res.status(422).json({ err: err });
           }
         });
       } else {
-        return res.status(422).send({ message: "Passwords do not match" });
+        return res.status(422).send({ error: "Passwords do not match" });
       }
     } else {
       return res.status(400).send({
