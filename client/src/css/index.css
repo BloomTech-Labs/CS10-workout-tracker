@@ -882,7 +882,7 @@ footer p {
   margin: 6px;
 }
 .card-container .card .card-header .btn-container .icon-btn .icon {
-  color: #000000;
+  color: #cccccc;
 }
 .card-container .card .card-body {
   background: radial-gradient(#000033, #000000);
@@ -1068,14 +1068,14 @@ a:hover {
 }
 .main__workout .routine__list {
   flex-basis: 33%;
-  height: 650px;
+  height: 675px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .main__workout .routine__list .routine__list__container {
-  height: 650px;
-  overflow: scroll;
+  height: 604px;
+  overflow: hidden;
   background: radial-gradient(#cc0000, #000000);
   padding: 15px;
   color: #cccccc;
@@ -1105,6 +1105,9 @@ a:hover {
   background: linear-gradient(to right, #000000, #37015b);
   color: #cccccc;
   text-shadow: 1px 1px #000033;
+}
+.main__workout .routine__list .routine__list__container:hover {
+  overflow: auto;
 }
 .main__workout .workout__form {
   flex-basis: 33%;
@@ -1146,21 +1149,19 @@ a:hover {
 }
 .main__workout .current__routine {
   flex-basis: 33%;
-  min-height: 100%;
-  max-height: 90%;
+  height: 675px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .main__workout .current__routine .current__routine__container {
-  min-height: 90%;
-  max-height: 90%;
+  height: 604px;
   width: 90%;
   background: radial-gradient(#cccccc, #000000);
   padding: 30px 15px;
   box-shadow: 5px 5px 15px #000000;
   color: #000000;
-  overflow: scroll;
+  overflow: hidden;
 }
 .main__workout .current__routine .current__routine__container h3.current__title {
   color: #ffffff;
@@ -1210,12 +1211,14 @@ a:hover {
 .main__workout .current__routine .current__routine__container .exercise__list .exercise__card .exercise__card__header h3 {
   margin: 0;
   color: #ffffff;
-  overflow: scroll;
 }
 .main__workout .current__routine .current__routine__container .exercise__list .exercise__card .exercise__card__body {
   background-image: radial-gradient(#37015b, black);
   color: #cccccc;
   padding: 40px;
+}
+.main__workout .current__routine .current__routine__container:hover {
+  overflow: auto;
 }
 .pencil__trash__icon__container {
   display: flex;

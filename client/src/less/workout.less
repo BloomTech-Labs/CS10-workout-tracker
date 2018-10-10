@@ -17,18 +17,21 @@
     flex-basis: 33%;
     // min-height: 100%;
     // position: relative;
-    height: 650px;
+    height: 675px;
+    //  height: 60%;
     // background-color: lightgreen;
     .justify-align-center(center);
     // overflow: scroll;
 
     .routine__list__container {
-      height: 650px;
-      // min-height: 90%;
-      // height: 650px;
+      height: 604px;
+      // height: 60%;
+      // height: 100%;
       // background-color: red;
       // max-height: 90%;
-      overflow: scroll;
+      // overflow: scroll;
+      // overflow: auto;
+      overflow: hidden;
       .bg-radial(@primary, @black);
       padding: 15px;
       color: @grey;
@@ -60,6 +63,9 @@
           text-shadow: 1px 1px @secondary;
         }
       }
+    }
+    .routine__list__container:hover {
+      overflow: auto;
     }
   }
 
@@ -109,20 +115,24 @@
 
   .current__routine {
     flex-basis: 33%;
-    min-height: 100%;
-    max-height: 90%;
+    // min-height: 100%;
+    // max-height: 90%;
+      height: 675px;
     // background-color: lightgoldenrodyellow;
     .justify-align-center(center);
 
     .current__routine__container {
-      min-height: 90%;
-      max-height: 90%;
+      // min-height: 90%;
+      // max-height: 90%;
+      height: 604px;
       width: 90%;
       .bg-radial(@grey, @black);
       padding: 30px 15px;
       box-shadow: 5px 5px 15px @black;
       color: @black;
-      overflow: scroll;
+      // overflow: scroll;
+      // overflow: auto;
+      overflow: hidden;
 
       h3.current__title {
         color: @white;
@@ -175,7 +185,7 @@
             h3 {
               margin: 0;
               color: @white;
-              overflow: scroll;
+              // overflow: scroll;
             }
           }
 
@@ -186,6 +196,9 @@
           }
         }
       }
+    }
+    .current__routine__container:hover {
+      overflow: auto;
     }
   }
 }
