@@ -6,7 +6,7 @@ import ProgressTracker from "./ProgressTracker";
 import ProgressCard from "./ProgressCard";
 import ProgressForm from "./ProgressForm";
 import { Link } from "react-router-dom";
-import { TweenLite , TweenMax, TimelineLite, TimelineMax} from "gsap";
+import { TweenMax, TimelineLite } from "gsap";
 import $ from "jquery";
 
 class Progress extends Component {
@@ -21,7 +21,7 @@ class Progress extends Component {
   componentDidMount() {
     this.props.fetchProgress();
     this.animateProgressTracker = TweenMax.from(this.animateProgressTracker, 1, { y: 100, opacity: 0 });
-    // $(".card").hide();
+    
 
     
     this.myTween.staggerFrom($(".card"), 0.5, { opacity: 0, y: 50}, 0.1).delay(1);
@@ -29,6 +29,8 @@ class Progress extends Component {
     
     
   }
+
+  
 
   render() {
     // display starting from the end of the array i.e. most recent first

@@ -12,7 +12,7 @@ import {
   deleteWorkout,
   copyWorkouts
 } from "../actions";
-import { TweenLite , TweenMax, TimelineLite, TimelineMax} from "gsap";
+import { TweenMax, TimelineLite } from "gsap";
 import $ from "jquery";
 
 BigCalendar.momentLocalizer(moment);
@@ -197,7 +197,7 @@ handleSubmitCopyWorkouts = () => {
       title: workout.routineName ? (
         workout.routineName
       ) : (
-        <i class="fas fa-minus-circle" />
+        <i className="fas fa-minus-circle" />
       ),
       id: workout._id
     }));
