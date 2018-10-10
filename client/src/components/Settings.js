@@ -19,6 +19,7 @@ class Settings extends Component {
   };
 
   handleEmailSubmit = event => {
+    event.preventDefault();
     const { email } = this.state;
     const newErrors = {};
     if (!validator.isEmail(email.trim())) {
@@ -127,14 +128,14 @@ class Settings extends Component {
                     onChange={this.handleFieldChange}
                   />
                 </FormGroup>
-                {/* {emailErrors ? (
+                {emailErrors ? (
                   emailErrors
                 ) : this.props.valError.message ? (
                   <span className="form__validation">
                     {this.props.valError.message}
                   </span>
-                ) : null} */}
-                {emailErrors ? emailErrors : null}
+                ) : null}
+                {/* {emailErrors ? emailErrors : null} */}
                 <Button className="submit-btn" size="sm" type="submit">
                   Change Email
                 </Button>
@@ -197,7 +198,8 @@ const mapStateToProps = state => {
   );
   return {
     userInfo: state.auth.currentUser,
-    msg: state.user.message
+    msg: state.user.message,
+    valError: state.valError
   };
 };
 
