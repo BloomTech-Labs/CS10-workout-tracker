@@ -367,12 +367,12 @@ class Nav extends React.Component {
                 autoComplete="off"
               />
             </InputGroup>
+            {this.props.valError.message ? (
+              <span className="form__validation">
+                {this.props.valError.message}
+              </span>
+            ) : null}
           </ModalBody>
-          {this.props.valError.message ? (
-            <span className="form__validation">
-              {this.props.valError.message}
-            </span>
-          ) : null}
           <ModalFooter>
             <Button
               className="submit-btn--blue"

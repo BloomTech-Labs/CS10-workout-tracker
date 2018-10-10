@@ -6,7 +6,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
   width: 100%;
   min-height: 100vh;
   background: radial-gradient(#000033, #000000);
@@ -44,6 +44,10 @@ body {
   margin-bottom: 20px;
   padding: 20px 20px;
   background: linear-gradient(#000000, #ffffff);
+}
+.form__validation {
+  font-size: 12px;
+  color: #e60a05;
 }
 .billing-outer {
   background: radial-gradient(#000000, #000033);
@@ -733,10 +737,6 @@ footer p {
   flex-basis: 85%;
   min-height: 77vh;
   background: radial-gradient(#000033, #000000);
-}
-.form__validation {
-  font-size: 12px;
-  color: #e60a05;
 }
 .is_active {
   background-color: #12bd00 !important;
