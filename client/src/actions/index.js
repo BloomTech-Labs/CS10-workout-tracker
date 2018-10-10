@@ -9,6 +9,7 @@ let requestOptions = {};
 // to do to interact with an access-controlled route is include this
 // requestOptions object as the final parameter in your Axios call.
 
+// Landing Page
 export const register = (data, history, modal) => {
   return dispatch => {
     dispatch({
@@ -158,6 +159,66 @@ export const resetPassword = (data, history) => {
   };
 };
 
+// Settings Page
+export const changeEmail = data => {
+  let token = localStorage.getItem("token");
+  return dispatch => {
+    dispatch({
+      type: Actions.CHANGING_EMAIL,
+      payload: "Changing email..."
+    });
+    requestOptions = { headers: { "x-access-token": token } };
+    axios
+      .post(`${ROOT_URL}/settings_email`, data, requestOptions)
+      .then(res => {
+        dispatch({
+          type: Actions.CHANGE_EMAIL_SUCCESS,
+          payload: res
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.CHANGE_EMAIL_FAILURE,
+          payload: err
+        });
+        dispatch({
+          type: Actions.GET_VAL_ERRORS,
+          payload: err.response.data
+        });
+      });
+  };
+};
+
+export const changePassword = data => {
+  let token = localStorage.getItem("token");
+  return dispatch => {
+    dispatch({
+      type: Actions.CHANGING_PASSWORD,
+      payload: "Changing password..."
+    });
+    requestOptions = { headers: { "x-access-token": token } };
+    axios
+      .post(`${ROOT_URL}/settings_password`, data, requestOptions)
+      .then(res => {
+        dispatch({
+          type: Actions.CHANGE_PW_SUCCESS,
+          payload: res
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.CHANGE_PW_FAILURE,
+          payload: err
+        });
+        dispatch({
+          type: Actions.GET_VAL_ERRORS,
+          payload: err.response.data
+        });
+      });
+  };
+};
+
+// Progress Page
 export const addProgress = data => {
   let token = localStorage.getItem("token");
   return dispatch => {
@@ -208,6 +269,32 @@ export const fetchProgress = () => {
   };
 };
 
+export const updateProgress = (id, data) => {
+  let token = localStorage.getItem("token");
+  return dispatch => {
+    dispatch({
+      type: Actions.UPDATING_PROGRESS,
+      payload: "Updating progress..."
+    });
+    requestOptions = { headers: { "x-access-token": token } };
+    axios
+      .put(`${ROOT_URL}/progress/${id}`, data, requestOptions)
+      .then(res => {
+        console.log("RES: " + res.data);
+        dispatch({
+          type: Actions.UPDATE_PROGRESS_SUCCESS,
+          payload: res.data
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.UPDATE_PROGRESS_FAILURE,
+          payload: err
+        });
+      });
+  };
+};
+
 export const deleteProgress = id => {
   let token = localStorage.getItem("token");
   return dispatch => {
@@ -226,6 +313,7 @@ export const deleteProgress = id => {
   };
 };
 
+// Workouts Page
 export const fetchRoutines = () => {
   return dispatch => {
     dispatch({
@@ -246,47 +334,9 @@ export const fetchRoutines = () => {
   };
 };
 
-// =======  Xang commented this out =======
-
-// export const selectRoutine = (index, routineId) => {
-//   console.log("Selecting routine at index: ", index);
-//   return dispatch => {
-//     dispatch({
-//       type: Actions.SELECT_ROUTINE,
-//       payload: index
-//     });
-//     dispatch({
-//       type: Actions.FETCHING_ROUTINE_HISTORY
-//     });
-//     axios
-//       .post(`${ROOT_URL}/routine-rich`, { routineId }, requestOptions)
-//       .then(res => {
-//         dispatch({
-//           type: Actions.FETCH_ROUTINE_HISTORY_SUCCESS,
-//           payload: res.data
-//         });
-//       })
-//       .catch(err => {
-//         dispatch({
-//           type: Actions.FETCH_ROUTINE_HISTORY_FAILURE,
-//           payload: err
-//         });
-//       });
-//   };
-// };
-
-//===============================
-
-//====== Xang Created this =========
-
 export const selectRoutine = routineId => {
-  // console.log("Selecting routine at index: ", index);
   console.log(routineId);
   return dispatch => {
-    // dispatch({
-    //   type: Actions.SELECT_ROUTINE,
-    //   payload: index
-    // });
     dispatch({
       type: Actions.FETCHING_ROUTINE_HISTORY
     });
@@ -306,8 +356,6 @@ export const selectRoutine = routineId => {
       });
   };
 };
-
-// ==============================
 
 export const postNewRoutine = title => {
   return dispatch => {
@@ -379,17 +427,35 @@ export const postNewExerciseInRoutine = (routineId, exerciseObj) => {
   };
 };
 
-export const clearCurrentRoutine = () => {
-  return {
-    type: Actions.CLEAR_CURRENT_ROUTINE,
-    payload: null
-  };
-};
-
-export const clearErrors = () => {
-  return {
-    type: Actions.CLEAR_VAL_ERRORS,
-    payload: {}
+export const updateExercise = (
+  exerciseId,
+  name,
+  currentWeight,
+  currentReps,
+  currentSets
+) => {
+  return dispatch => {
+    dispatch({
+      type: Actions.UPDATING_EXERCISE
+    });
+    axios
+      .put(
+        `${ROOT_URL}/exercise`,
+        { name, exerciseId, currentWeight, currentReps, currentSets },
+        requestOptions
+      )
+      .then(updatedExerciseDoc => {
+        dispatch({
+          type: Actions.UPDATE_EXERCISE_SUCCESS,
+          payload: updatedExerciseDoc
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: Actions.UPDATE_EXERCISE_FAILURE,
+          payload: err
+        });
+      });
   };
 };
 
@@ -425,32 +491,22 @@ export const deleteExercise = exerciseId => {
   };
 };
 
-export const updateExercise = (
-  exerciseId,
-  name,
-  currentWeight,
-  currentReps,
-  currentSets
-) => {
+export const updateRoutine = (routineId, title) => {
   return dispatch => {
     dispatch({
-      type: Actions.UPDATING_EXERCISE
+      type: Actions.UPDATING_ROUTINE
     });
     axios
-      .put(
-        `${ROOT_URL}/exercise`,
-        { name, exerciseId, currentWeight, currentReps, currentSets },
-        requestOptions
-      )
-      .then(updatedExerciseDoc => {
+      .put(`${ROOT_URL}/routine`, { title, routineId }, requestOptions)
+      .then(updatedRoutineDoc => {
         dispatch({
-          type: Actions.UPDATE_EXERCISE_SUCCESS,
-          payload: updatedExerciseDoc
+          type: Actions.UPDATE_ROUTINE_SUCCESS,
+          payload: updatedRoutineDoc
         });
       })
       .catch(err => {
         dispatch({
-          type: Actions.UPDATE_EXERCISE_FAILURE,
+          type: Actions.UPDATE_ROUTINE_FAILURE,
           payload: err
         });
       });
@@ -487,54 +543,14 @@ export const deleteRoutine = routineId => {
   };
 };
 
-export const updateRoutine = (routineId, title) => {
-  return dispatch => {
-    dispatch({
-      type: Actions.UPDATING_ROUTINE
-    });
-    axios
-      .put(`${ROOT_URL}/routine`, { title, routineId }, requestOptions)
-      .then(updatedRoutineDoc => {
-        dispatch({
-          type: Actions.UPDATE_ROUTINE_SUCCESS,
-          payload: updatedRoutineDoc
-        });
-      })
-      .catch(err => {
-        dispatch({
-          type: Actions.UPDATE_ROUTINE_FAILURE,
-          payload: err
-        });
-      });
+export const clearCurrentRoutine = () => {
+  return {
+    type: Actions.CLEAR_CURRENT_ROUTINE,
+    payload: null
   };
 };
 
-export const updateProgress = (id, data) => {
-  let token = localStorage.getItem("token");
-  return dispatch => {
-    dispatch({
-      type: Actions.UPDATING_PROGRESS,
-      payload: "Updating progress..."
-    });
-    requestOptions = { headers: { "x-access-token": token } };
-    axios
-      .put(`${ROOT_URL}/progress/${id}`, data, requestOptions)
-      .then(res => {
-        console.log("RES: " + res.data);
-        dispatch({
-          type: Actions.UPDATE_PROGRESS_SUCCESS,
-          payload: res.data
-        });
-      })
-      .catch(err => {
-        dispatch({
-          type: Actions.UPDATE_PROGRESS_FAILURE,
-          payload: err
-        });
-      });
-  };
-};
-
+// Calendar Page
 export const scheduleWorkout = (routineId, date) => {
   return dispatch => {
     dispatch({
@@ -633,6 +649,8 @@ export const deleteWorkout = id => {
   };
 };
 
+// Not being used at this moment
+// --may delete at a later time if no use found
 export const fetchAllPerformanceDocs = () => {
   return dispatch => {
     dispatch({
@@ -656,64 +674,7 @@ export const fetchAllPerformanceDocs = () => {
   };
 };
 
-export const changePassword = data => {
-  let token = localStorage.getItem("token");
-  return dispatch => {
-    dispatch({
-      type: Actions.CHANGING_PASSWORD,
-      payload: "Changing password..."
-    });
-    requestOptions = { headers: { "x-access-token": token } };
-    axios
-      .post(`${ROOT_URL}/settings_password`, data, requestOptions)
-      .then(res => {
-        dispatch({
-          type: Actions.CHANGE_PW_SUCCESS,
-          payload: res
-        });
-      })
-      .catch(err => {
-        dispatch({
-          type: Actions.CHANGE_PW_FAILURE,
-          payload: err
-        });
-        dispatch({
-          type: Actions.GET_VAL_ERRORS,
-          payload: err.response.data
-        });
-      });
-  };
-};
-
-export const changeEmail = data => {
-  let token = localStorage.getItem("token");
-  return dispatch => {
-    dispatch({
-      type: Actions.CHANGING_EMAIL,
-      payload: "Changing email..."
-    });
-    requestOptions = { headers: { "x-access-token": token } };
-    axios
-      .post(`${ROOT_URL}/settings_email`, data, requestOptions)
-      .then(res => {
-        dispatch({
-          type: Actions.CHANGE_EMAIL_SUCCESS,
-          payload: res
-        });
-      })
-      .catch(err => {
-        dispatch({
-          type: Actions.CHANGE_EMAIL_FAILURE,
-          payload: err
-        });
-        dispatch({
-          type: Actions.GET_VAL_ERRORS,
-          payload: err.response.data
-        });
-      });
-  };
-};
-
+// Billing Page
 export const processPayment = data => {
   let token = localStorage.getItem("token");
   return dispatch => {
@@ -736,5 +697,13 @@ export const processPayment = data => {
           payload: err
         });
       });
+  };
+};
+
+// For validation on many pages
+export const clearErrors = () => {
+  return {
+    type: Actions.CLEAR_VAL_ERRORS,
+    payload: {}
   };
 };
