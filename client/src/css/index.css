@@ -1068,13 +1068,13 @@ a:hover {
 }
 .main__workout .routine__list {
   flex-basis: 33%;
-  height: 675px;
+  height: 602px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .main__workout .routine__list .routine__list__container {
-  height: 604px;
+  height: 540px;
   overflow: hidden;
   background: radial-gradient(#cc0000, #000000);
   padding: 15px;
@@ -1149,13 +1149,13 @@ a:hover {
 }
 .main__workout .current__routine {
   flex-basis: 33%;
-  height: 675px;
+  height: 602px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .main__workout .current__routine .current__routine__container {
-  height: 604px;
+  height: 540px;
   width: 90%;
   background: radial-gradient(#cccccc, #000000);
   padding: 30px 15px;
