@@ -85,6 +85,9 @@ const forgotPassword = (req, res) => {
     return res.status(400).json({ message: "No email provided" });
   }
   User.findOne({ email: email }).then(user => {
+    if (user === null) {
+      return res.status(404).json({ message: "Could not locate email." });
+    }
     const token = generateResetToken(user);
 
     User.findOneAndUpdate({ email: email }, { passwordResetToken: token }).then(
@@ -147,11 +150,11 @@ const resetPassword = function(req, res) {
               }
             });
           } else {
-            return res.status(422).json({ error: "from 157", message: err });
+            return res.status(422).json({ err: err });
           }
         });
       } else {
-        return res.status(422).send({ message: "Passwords do not match" });
+        return res.status(422).send({ error: "Passwords do not match" });
       }
     } else {
       return res.status(400).send({
@@ -190,7 +193,7 @@ const changePassword = (req, res) => {
     user.checkPassword(password).then(success => {
       if (!success) {
         res.status(422);
-        res.json("Password incorrect");
+        res.json({ error: "Password incorrect" });
       }
       if (success) {
         if (newPassword === confirmNewPassword) {
@@ -202,7 +205,7 @@ const changePassword = (req, res) => {
           });
         } else {
           res.status(422);
-          res.json("New passwords don't match");
+          res.json({ message: "New passwords don't match" });
         }
       }
     });
@@ -211,23 +214,24 @@ const changePassword = (req, res) => {
 
 const changeEmail = (req, res) => {
   const { username, newEmail } = req.body;
+  let errors = {};
   User.findOneAndUpdate(
     { username: username },
     { email: newEmail },
     { new: true }
-  ).then(user => {
-    user
-      .save()
-      .then(() => {
-        console.log(user);
-        res.status(200);
-        res.json({ "Updated user email": user.email });
-      })
-      .catch(err => {
-        res.status(400);
-        res.json({ "Could not update email": err.message });
-      });
-  });
+  )
+    .then(user => {
+      // user
+      //   .save()
+      //   .then(() => {
+      console.log(user);
+      res.status(200);
+      res.json({ "Updated user email": user.email });
+    })
+    .catch(err => {
+      res.status(400);
+      res.json({ message: "Email is taken." });
+    });
 };
 
 // using async and await according to Stripe docs,

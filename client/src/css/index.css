@@ -89,7 +89,7 @@ body {
 }
 .calendar-page {
   margin: 0;
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.5;
@@ -331,17 +331,15 @@ body {
   width: 40px;
   text-align: center;
 }
-@media (max-width: 500px) {
-  .push__nav {
-    height: 67px;
-  }
+.push__nav {
+  height: 75px;
 }
 .main__landing__page {
   text-shadow: 0px 0px 5px #000000;
 }
 p {
   margin-bottom: 0;
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
 }
 .container {
   max-width: 900px;
@@ -371,13 +369,13 @@ p {
   justify-content: space-between;
   align-items: center;
   text-shadow: 3px 3px black;
-  box-shadow: 10px 10px 15px black;
   padding: 20px 35px;
   background: linear-gradient(#000000, #222222, #111111);
   opacity: 0.9;
   position: fixed;
   z-index: 10;
   width: 100%;
+  height: 90px;
 }
 .landing__nav .left__nav {
   color: #cc0000;
@@ -421,7 +419,7 @@ p {
 }
 .main__landing__background h1 {
   font-size: 40px;
-  font-family: 'Archivo Black', sans-serif;
+  font-family: "Archivo Black", sans-serif;
 }
 @media (max-width: 650px) {
   .main__landing__background {
@@ -774,32 +772,18 @@ footer p {
   margin: 10px;
   border-radius: 0;
 }
-.modal-content .modal-footer .signup-signin-btn {
-  background: linear-gradient(#000033, #000000) !important;
-  border: none;
-  border-radius: 0;
-}
-.modal-content .modal-footer .cancel-btn {
-  border: none;
-  border-radius: 0;
-}
-.modal-content .modal-footer .forgot-pass-btn {
-  background: linear-gradient(#cccccc, #000000) !important;
-  border: none;
-  border-radius: 0;
-}
 @media (max-width: 790px) {
   .modal-content {
-    width: 80%;
+    width: 70%;
   }
-  .modal-content .modal-footer .signup-signin-btn {
+  .modal-content .modal-footer--blue .submit-btn {
     font-size: 13px;
   }
-  .modal-content .modal-footer .cancel-btn {
+  .modal-content .modal-footer--blue .submit-btn--grey {
     font-size: 13px;
   }
-  .modal-content .modal-footer .forgot-pass-btn {
-    width: 45%;
+  .modal-content .modal-footer--blue .submit-btn {
+    width: 25%;
     font-size: 13px;
   }
 }
@@ -850,6 +834,7 @@ footer p {
 }
 .outer-container .blocked {
   color: #cc0000;
+  padding-top: 40px;
 }
 .card-container {
   min-width: 200px;
@@ -946,7 +931,7 @@ footer p {
   height: 200px;
   min-width: 300px;
   width: 50%;
-  margin: 0 0 15px 8px;
+  margin: 10px 0 15px 8px;
   color: #cccccc;
   background: linear-gradient(#cc0000, #000000);
 }
@@ -1020,9 +1005,7 @@ footer p {
   font-size: 40px !important;
   height: 50%;
   width: 100%;
-  padding: 10px 10px;
-  padding: 20px;
-  padding-top: 40px;
+  padding: 40px 20px 20px 20px;
 }
 #test {
   display: flex;
