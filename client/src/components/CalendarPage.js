@@ -78,17 +78,17 @@ class CalendarPage extends Component {
     weight !== ""
       ? (updatedPerformanceObj.weight = weight)
       : (updatedPerformanceObj.weight = this.state.focusedPerformances.filter(
-          performance => performance._id == performanceId
+          performance => performance._id === performanceId
         )[0].weight);
     sets !== ""
       ? (updatedPerformanceObj.sets = sets)
       : (updatedPerformanceObj.sets = this.state.focusedPerformances.filter(
-          performance => performance._id == performanceId
+          performance => performance._id === performanceId
         )[0].sets);
     reps !== ""
       ? (updatedPerformanceObj.reps = reps)
       : (updatedPerformanceObj.reps = this.state.focusedPerformances.filter(
-          performance => performance._id == performanceId
+          performance => performance._id === performanceId
         )[0].reps);
 
     console.log("PERFORMANCE OBJ", updatedPerformanceObj);
