@@ -670,7 +670,7 @@ p {
 @media (max-width: 500px) {
   .landing__start .landing__start__content h2 {
     top: -10px;
-    margin: 40px;
+    margin: 36px;
   }
   .landing__start .landing__start__content div {
     flex-direction: column;
