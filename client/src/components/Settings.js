@@ -89,7 +89,8 @@ class Settings extends Component {
       email: "",
       password: "",
       newPassword: "",
-      confirmNewPassword: ""
+      confirmNewPassword: "",
+      errors: {}
     });
   };
 
