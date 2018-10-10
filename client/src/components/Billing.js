@@ -33,14 +33,9 @@ class Billing extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(
-    "At time of render, Billing Page received this app state:",
-    state
-  );
   return {
     userInfo: state.auth.currentUser,
-    premiumUser: state.user.premiumUser,
-    msg: state.user.message
+    premiumUser: state.user.premiumUser
   };
 };
 
@@ -50,7 +45,6 @@ Billing.propTypes = {
     user: PropTypes.object
   }),
   premiumUser: PropTypes.bool,
-  msg: PropTypes.string,
   processPayment: PropTypes.func
 };
 
