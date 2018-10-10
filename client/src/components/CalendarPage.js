@@ -48,6 +48,8 @@ class CalendarPage extends Component {
     this.props.routines.map(routine => {
       if (this.selectedRoutineValue === routine.title) {
         return (this.selectedRoutineId = routine._id);
+      } else {
+        return null;
       }
     });
   };
@@ -67,11 +69,9 @@ class CalendarPage extends Component {
   };
 
   handlePerformanceChange = e => {
-    console.log(e.target);
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  // this updates the toggled boolean of the specified performance doc in the DB
   handlePerformanceUpdate = performanceId => {
     const { weight, sets, reps } = this.state;
     let updatedPerformanceObj = {};
@@ -90,8 +90,6 @@ class CalendarPage extends Component {
       : (updatedPerformanceObj.reps = this.state.focusedPerformances.filter(
           performance => performance._id === performanceId
         )[0].reps);
-
-    console.log("PERFORMANCE OBJ", updatedPerformanceObj);
 
     let token = localStorage.getItem("token");
     let requestOptions = { headers: { "x-access-token": token } };
@@ -164,7 +162,6 @@ class CalendarPage extends Component {
       { focusedPerformances: focusedWorkout.performances },
       this.checkboxModalToggle()
     );
-    console.log(selected);
   };
 
   events = [];
@@ -174,8 +171,6 @@ class CalendarPage extends Component {
   selectedEventTitle;
 
   render() {
-    console.log(this.props.workouts);
-
     // the events array is required by react-big-calendar
     this.events = this.props.workouts.map(workout => ({
       start: new Date(workout.date),
@@ -440,10 +435,6 @@ class CalendarPage extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(
-    "At time of render, Calendar Page received this app state:",
-    state
-  );
   return {
     routines: state.RoutineManager.routines,
     workouts: state.calendar.workouts
