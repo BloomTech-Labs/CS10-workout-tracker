@@ -136,7 +136,6 @@ class Settings extends Component {
                     {this.props.valError.message}
                   </span>
                 ) : null}
-                {/* {emailErrors ? emailErrors : null} */}
                 <Button className="submit-btn" size="sm" type="submit">
                   Change Email
                 </Button>
@@ -199,10 +198,6 @@ class Settings extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(
-    "At time of render, Settings Page received this app state:",
-    state
-  );
   return {
     userInfo: state.auth.currentUser,
     msg: state.user.message,
