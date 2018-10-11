@@ -7,8 +7,6 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  // console.log("Previous state: ", state);
-  // console.log("Incoming action", action);
   switch (action.type) {
     case Actions.FETCHING_ROUTINES:
       return {
@@ -54,8 +52,6 @@ export default (state = initialState, action) => {
     case Actions.POST_NEW_ROUTINE_SUCCESS:
       const updatedRoutineList = state.routines.slice(0);
       updatedRoutineList.push(action.payload);
-      // console.log("LOGGING THE PAYLOAD Title",action.payload);
-      // const currentR = {name: action.currentR, exercises: []};
       return {
         ...state,
         msg: "Posting a new workout routine...",
@@ -77,7 +73,6 @@ export default (state = initialState, action) => {
       const memoOfLoadedExercises = memoOfFocusedRoutine.exercises.slice(0);
       memoOfLoadedExercises.push(action.payload.exercise);
       memoOfFocusedRoutine.exercises = memoOfLoadedExercises;
-      console.log(memoOfLoadedExercises);
       return {
         ...state,
         msg: "Posted a new exercise a part of a routine.",
@@ -107,7 +102,6 @@ export default (state = initialState, action) => {
             return exercise;
           })
         })
-        // msg: "Updated an exercise"
       };
     case Actions.DELETING_EXCERCISE:
       return {
