@@ -101,7 +101,6 @@ class CalendarPage extends Component {
         requestOptions
       )
       .then(updatedPerformance => {
-        console.log("successfully updated performance");
         this.props.fetchAllWorkouts();
       })
       .catch(err => {
