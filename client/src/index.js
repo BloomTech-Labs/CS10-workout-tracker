@@ -22,16 +22,7 @@ import "./css/index.css";
 
 import combinedReducer from "./reducers";
 
-// const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
-
-// ============= Xang Added this for dev to see the redux store  =====
-// Delete and uncomment the top one if you want ===
-
-const createStoreWithMiddleware = compose(
-  applyMiddleware(ReduxThunk),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)(createStore);
-/// ==========================================
+const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 
 const store = createStoreWithMiddleware(combinedReducer);
 
