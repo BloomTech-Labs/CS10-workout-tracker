@@ -50,25 +50,18 @@ const register = (req, res) => {
 };
 
 const login = (req, res) => {
-  console.log("Trying to log in. Got this http request: ", req.body);
   const { username, password } = req.body;
 
   User.findOne({ username: username.toLowerCase() })
     .then(user => {
-      console.log(`Found ${username} in the User collection:`, user);
       user.checkPassword(password).then(success => {
         if (!success) {
-          console.log(`Failed to match ${username}'s PW.`);
           res.status(422);
           res.json({ error: "Password or Username incorrect" });
         }
         if (success) {
-          console.log(
-            `${username}'s password was correct. Procuring a token...`
-          );
           res.status(200);
           const token = generateToken(username, user._id);
-          console.log(`Procured a token for ${username}:`, token);
           res.json({ user, token });
         }
       });
@@ -120,7 +113,6 @@ const forgotPassword = (req, res) => {
 
 const resetPassword = function(req, res) {
   let { token, newPassword, confirmNewPassword } = req.body;
-  console.log(token);
 
   User.findOne({
     passwordResetToken: token
@@ -189,7 +181,6 @@ const ping = (req, res) => {
 const changePassword = (req, res) => {
   const { username, password, newPassword, confirmNewPassword } = req.body;
   User.findOne({ username: username }).then(user => {
-    console.log(user);
     user.checkPassword(password).then(success => {
       if (!success) {
         res.status(422);
@@ -198,7 +189,6 @@ const changePassword = (req, res) => {
       if (success) {
         if (newPassword === confirmNewPassword) {
           user.password = newPassword;
-          console.log(user.password);
           user.save().then(() => {
             res.status(200);
             res.json({ "New password": user.password });
@@ -221,10 +211,6 @@ const changeEmail = (req, res) => {
     { new: true }
   )
     .then(user => {
-      // user
-      //   .save()
-      //   .then(() => {
-      console.log(user);
       res.status(200);
       res.json({ "Updated user email": user.email });
     })
@@ -234,8 +220,7 @@ const changeEmail = (req, res) => {
     });
 };
 
-// using async and await according to Stripe docs,
-// I had a hard time getting it to play nice otherwise
+// using async and await according to Stripe docs
 const processPayment = async (req, res) => {
   const { token, id } = req.body;
   try {
@@ -248,7 +233,6 @@ const processPayment = async (req, res) => {
     if (status) {
       User.findByIdAndUpdate(id, { premiumUser: true })
         .then(user => {
-          console.log(user);
           res.status(200);
           res.json({ status, user: user });
         })
