@@ -180,7 +180,7 @@ class CalendarPage extends Component {
       title: workout.routineName ? (
         workout.routineName
       ) : (
-        <i class="fas fa-minus-circle" />
+        <i className="fas fa-minus-circle" />
       ),
       id: workout._id
     }));
