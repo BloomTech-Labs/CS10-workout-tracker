@@ -2,16 +2,25 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { fetchRoutines, selectRoutine } from "../../actions";
+import { TimelineLite } from "gsap";
+import $ from "jquery";
 
 class RoutineList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.myTween = new TimelineLite();
+    this.myElements = [];
+  }
+
   componentDidMount() {
     this.props.fetchRoutines();
+    this.myTween.staggerFrom($(".routine"), 0.5, { opacity: 0, y: 50}, 0.1).delay(1);
   }
 
   render() {
     const { currentRoutines } = this.props;
     console.log(currentRoutines);
-    let routines = currentRoutines.map(routine => {
+    let routines = currentRoutines.map((routine, index) => {
       return (
         <div
           key={routine._id}

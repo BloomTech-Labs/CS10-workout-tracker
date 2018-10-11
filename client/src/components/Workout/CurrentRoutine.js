@@ -16,19 +16,35 @@ import {
   InputGroup,
   ModalFooter
 } from "reactstrap";
+import { TweenLite } from "gsap";
 
 class CurrentRoutine extends React.Component {
-  state = {
-    routineName: "",
-    exerciseName: "",
-    weight: "",
-    reps: "",
-    sets: "",
-    exerciseId: "",
-    routineModal: false,
-    exerciseModal: false,
-    errors: {}
-  };
+
+  constructor(props){
+    super(props);
+    // reference to the DOM node
+    this.myElement = null;
+    // reference to the animation
+    this.myTween = null;
+    this.myWorkout = null;
+    this.myExercises = [];
+
+    this.state = {
+      routineName: "",
+      exerciseName: "",
+      weight: "",
+      reps: "",
+      sets: "",
+      exerciseId: "",
+      routineModal: false,
+      exerciseModal: false,
+      errors: {}
+    };
+  }
+
+  componentDidUpdate() {
+    this.myTween = TweenLite.from(this.myElement, 1, { y: -1000});
+  }
 
   handleFieldChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -135,10 +151,6 @@ class CurrentRoutine extends React.Component {
 
   render() {
     const { currentRoutine } = this.props;
-    console.log("What is current ", currentRoutine);
-    {
-      currentRoutine && console.log(currentRoutine.title);
-    }
 
     return (
       <div className="current__routine">
@@ -283,11 +295,13 @@ class CurrentRoutine extends React.Component {
             ) : null}
           </div>
           <h3 className="current__title">- Exercises ---------------------</h3>
-          <div className="exercise__list">
+          <div className="exercise__list" ref={div => this.myElement = div}>
             {currentRoutine &&
-              currentRoutine.exercises.map(exercise => {
+              currentRoutine.exercises.map((exercise, index) => {
                 return (
-                  <div key={exercise._id} className="exercise__card">
+                  <div key={exercise._id} className="exercise__card" 
+                    ref={div => this.myExercises[index] = div}
+                  >
                     <div className="exercise__card__header">
                       <h3>{exercise.name}</h3>
                       <div className="pencil__trash__icon__container">

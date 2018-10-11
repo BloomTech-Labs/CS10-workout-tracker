@@ -12,6 +12,8 @@ import {
   deleteWorkout,
   copyWorkouts
 } from "../actions";
+import { TweenMax, TimelineLite } from "gsap";
+import $ from "jquery";
 
 BigCalendar.momentLocalizer(moment);
 
@@ -30,8 +32,14 @@ class CalendarPage extends Component {
   };
 
   componentDidMount() {
+    this.myTweenEvent = new TimelineLite();
     this.props.fetchRoutines();
     this.props.fetchAllWorkouts();
+    TweenMax.from(this.animateCalendar, 1, { y: 100, opacity: 0 });
+
+    setTimeout(() => {
+      this.myTweenEvent.staggerFrom($(".rbc-event"), 0.5, { opacity: 0, y: -10}, 0.1).delay(0);
+    }, 1000);
   }
 
   //-------------------------------------------- callback functions for scheduling modal
@@ -186,7 +194,7 @@ class CalendarPage extends Component {
       title: workout.routineName ? (
         workout.routineName
       ) : (
-        <i class="fas fa-minus-circle" />
+        <i className="fas fa-minus-circle" />
       ),
       id: workout._id
     }));
@@ -196,7 +204,7 @@ class CalendarPage extends Component {
     );
 
     return (
-      <div className="calendar-page">
+      <div className="calendar-page" ref={div => this.animateCalendar = div}>
         <div className="calendarAndForm-container">
           <div className="calendar-container">
             <BigCalendar
