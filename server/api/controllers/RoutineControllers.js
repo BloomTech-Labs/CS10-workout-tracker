@@ -64,11 +64,10 @@ const fetchHydratedRoutine = (req, res) => {
 };
 
 // This responds with a list of the User's Routines, hydrated with Exercise documents.
-// This is useful for perfroming CRUD at the Routine level.
+// This is useful for performing CRUD at the Routine level.
 const fetchHydratedRoutines = (req, res) => {
   User.findById(req.userId)
     .then(user => {
-      console.log("Found the user:", user);
       user.populate(
         { path: "routines", populate: { path: "exercises" } },
         (err, userWithRoutinesHydrated) => {
