@@ -11,7 +11,6 @@ const fetchPerformanceDoc = (req, res) => {
     });
 };
 
-
 const fetchAllPerformanceDocs = (req, res) => {
   const { userId } = req;
   Performance.find({ user: userId })
@@ -25,30 +24,30 @@ const fetchAllPerformanceDocs = (req, res) => {
 
 const updatePerformance = (req, res) => {
   const { id } = req.params;
-  const {weight, sets, reps} = req.body;
+  const { weight, sets, reps } = req.body;
   Performance.findById(id)
     .then(performanceDocument => {
-      performanceDocument.completed = !performanceDocument.completed
-      performanceDocument.weight = weight
-      performanceDocument.sets = sets
-      performanceDocument.reps = reps
+      performanceDocument.completed = !performanceDocument.completed;
+      performanceDocument.weight = weight;
+      performanceDocument.sets = sets;
+      performanceDocument.reps = reps;
 
-      performanceDocument.save()
+      performanceDocument
+        .save()
         .then(savedDoc => {
-          res.json(savedDoc)
+          res.json(savedDoc);
         })
         .catch(err => {
-          res.json({msg: "Can't update performance."})
-        })
+          res.json({ msg: "Can't update performance." });
+        });
     })
     .catch(err => {
-      res.status(500).json({ err })
-    })
-}
-
+      res.status(500).json({ err });
+    });
+};
 
 module.exports = {
   fetchPerformanceDoc,
   updatePerformance,
   fetchAllPerformanceDocs
-}
+};

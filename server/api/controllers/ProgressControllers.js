@@ -62,7 +62,6 @@ const deleteProgress = (req, res) => {
       if (err) res.status(500);
       res.json({ err });
 
-      // Remove progress reference in the User model progress array
       let user_id = found.user;
       User.findByIdAndUpdate(user_id, { $pull: { progress: id } }, function(
         err

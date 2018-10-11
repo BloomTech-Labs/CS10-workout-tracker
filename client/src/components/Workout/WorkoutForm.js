@@ -27,7 +27,6 @@ class WorkoutForm extends React.Component {
   handleRoutineSubmit = e => {
     e.preventDefault();
     const newErrors = {};
-    // call the routine add action here
     if (this.state.routineName.trim() === "") {
       newErrors.routineName = "Required Routine Name";
     }

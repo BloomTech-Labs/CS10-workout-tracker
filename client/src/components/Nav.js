@@ -165,7 +165,6 @@ class Nav extends React.Component {
   };
 
   render() {
-    console.log("This is the Current user ", this.props.userInfo);
     const { authed } = this.props.userInfo;
     const isNotAuth = (
       <div className="right__nav">
@@ -367,12 +366,12 @@ class Nav extends React.Component {
                 autoComplete="off"
               />
             </InputGroup>
+            {this.props.valError.message ? (
+              <span className="form__validation">
+                {this.props.valError.message}
+              </span>
+            ) : null}
           </ModalBody>
-          {this.props.valError.message ? (
-            <span className="form__validation">
-              {this.props.valError.message}
-            </span>
-          ) : null}
           <ModalFooter>
             <Button
               className="submit-btn--blue"
@@ -394,13 +393,8 @@ class Nav extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(
-    "At time of render, Landing Page received this app state:",
-    state
-  );
   return {
     userInfo: state.auth,
-    msg: state.auth.message,
     valError: state.valError
   };
 };
@@ -410,7 +404,6 @@ Nav.propTypes = {
     token: PropTypes.string,
     user: PropTypes.object
   }),
-  msg: PropTypes.string,
   register: PropTypes.func,
   login: PropTypes.func,
   logout: PropTypes.func,

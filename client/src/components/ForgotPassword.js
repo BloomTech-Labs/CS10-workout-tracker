@@ -45,13 +45,8 @@ class ForgotPassword extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(
-    "At time of render, Forgot Password Page received this app state:",
-    state
-  );
   return {
-    userInfo: state.auth.currentUser,
-    msg: state.user.message
+    userInfo: state.auth.currentUser
   };
 };
 
@@ -60,7 +55,6 @@ ForgotPassword.propTypes = {
     token: PropTypes.string,
     user: PropTypes.object
   }),
-  msg: PropTypes.string,
   forgotPassword: PropTypes.func
 };
 

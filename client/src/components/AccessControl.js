@@ -14,7 +14,6 @@ export default ComposedComponent => {
     }
 
     render() {
-      console.log("Access control is happening");
       return (
         <div>
           {this.props.authenticated ? <ComposedComponent /> : <LandingPage />}

@@ -64,8 +64,9 @@ module.exports = app => {
   app.route("/routine").get(verifyToken, fetchRoutineDoc);
   app.route("/routine").put(verifyToken, updateRoutineDoc);
   app.route("/routine").delete(verifyToken, deleteRoutineDoc);
-  app.route("/routines").get(verifyToken, fetchHydratedRoutines); // Maybe different category.
-  app.route("/routine-rich").post(verifyToken, fetchHydratedRoutine); // Coding this as a POST is a bit hacky. It's really more of a GET but it needs the additional request data. Could be moved to a header?
+  app.route("/routines").get(verifyToken, fetchHydratedRoutines); 
+  app.route("/routine-rich").post(verifyToken, fetchHydratedRoutine); /* TODO: Coding this as a POST is a bit hacky. 
+  It's really more of a GET but it needs the additional request data. Could be moved to a header? */
 
   // EXERCISES
   app.route("/new-exercise").post(verifyToken, createNewExercise);

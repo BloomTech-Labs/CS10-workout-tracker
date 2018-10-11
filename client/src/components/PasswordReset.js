@@ -91,7 +91,6 @@ class PasswordReset extends Component {
                     onChange={this.handleFieldChange}
                   />
                 </FormGroup>
-                {/* {newPasswordErrors ? newPasswordErrors : null} */}
                 {newPasswordErrors ? (
                   newPasswordErrors
                 ) : this.props.valError.message ? (
@@ -123,10 +122,6 @@ class PasswordReset extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(
-    "At time of render, Password Reset Page received this app state:",
-    state
-  );
   return {
     userInfo: state.auth.currentUser,
     msg: state.auth.message,
