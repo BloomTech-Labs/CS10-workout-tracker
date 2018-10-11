@@ -52,7 +52,6 @@ export default (state = initialState, action) => {
         message: action.payload
       };
     case Actions.UPDATE_PROGRESS_SUCCESS:
-      console.log("ACTION PAYLOAD: " + action.payload);
       return {
         ...state,
         message: "Progress updated successfully!",
