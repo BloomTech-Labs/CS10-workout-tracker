@@ -91,6 +91,13 @@ export default (state = initialState, action) => {
         ...state,
         msg: "Couldn't fetch the user's performances"
       };
+    case Actions.LOGOUT:
+      return {
+        ...state,
+        workouts: [],
+        performances: [],
+        msg: "Cleared calendars after logout"
+      }
     default:
       return state;
   }

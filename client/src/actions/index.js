@@ -56,8 +56,35 @@ export const login = (data, history, modal) => {
           type: Actions.LOGIN_SUCCESS,
           payload: res
         });
-        modal();
-        history.push("/workouts");
+
+        axios
+        .get(`${ROOT_URL}/routines`, requestOptions)
+        .then(res => {
+          dispatch({
+            type: Actions.FETCH_ROUTINES_SUCCESS,
+            payload: res
+          });
+
+          axios
+            .get(`${ROOT_URL}/progress`, requestOptions)
+            .then(res => {
+              dispatch({
+                type: Actions.FETCH_PROGRESS_SUCCESS,
+                payload: res.data.progress
+              });
+              modal();
+              history.push("/workouts");
+            })
+            .catch(err => {
+              dispatch({
+                type: Actions.ADD_PROGRESS_FAILURE,
+                payload: err
+              });
+            });
+        })
+        .catch(err =>
+          dispatch({ type: Actions.FETCH_ROUTINES_FAILURE, payload: err })
+        );
       })
       .catch(err => {
         dispatch({
@@ -313,11 +340,13 @@ export const deleteProgress = id => {
 
 // Workouts Page
 export const fetchRoutines = () => {
+  let token = localStorage.getItem("token");
   return dispatch => {
     dispatch({
       type: Actions.FETCHING_ROUTINES,
       payload: "Fetching routines..."
     });
+    requestOptions = { headers: { "x-access-token": token } };
     axios
       .get(`${ROOT_URL}/routines`, requestOptions)
       .then(res => {
