@@ -47,263 +47,16 @@ const fetchAllWorkouts = (req, res) => {
 //   7. Each future Performance of an exercise now has a MongoDB document in the Performance collection.
 //   This document is referenced in the records of the corresponding Exercise and Workout.
 //   8. Our final step is to save the Workout to the embedded calendar for the User, along with a date.
-// const scheduleWorkout = (req, res) => {
-//   const { routineId, date, note } = req.body;
-//   const userId = req.userId;
-//   const workoutParams = { routine: routineId, user: userId, date, note };
-//   const newWorkout = new Workout(workoutParams);
-//   console.log(
-//     "Made this new Workout document - about to link it up:",
-//     newWorkout
-//   );
-//   newWorkout
-//     .save()
-//     .then(savedWorkout => {
-//       console.log("Saved this Workout doc: ", savedWorkout);
-//       return savedWorkout;
-//     })
-//     .then(savedWorkout => {
-//       Routine.findByIdAndUpdate(routineId, {
-//         $push: { workoutLog: savedWorkout._id }
-//       })
-//         .then(workoutRoutine => {
-//           workoutRoutine.populate("exercises", (err, hydratedRoutine) => {
-//             if (err) {
-//               res.status(400);
-//               res.json({
-//                 msg:
-//                   "Failed to hydrate the Routine document used by your Workout",
-//                 err
-//               });
-//             }
-//             hydratedRoutine.exercises.forEach(exercise => {
-//               const futureExercisePerformance = new Performance({
-//                 exerciseName: exercise.name,
-//                 exercise: exercise._id,
-//                 date,
-//                 user: userId // added user ref for fetchAllPerformanceDocs controller. See PerformanceControllers
-//               });
-//               futureExercisePerformance
-//                 .save()
-//                 .then(scheduledPerformance => {
-//                   Workout.findByIdAndUpdate(savedWorkout._id, {
-//                     $push: { performances: scheduledPerformance._id }
-//                   })
-//                     .then(workoutWithPerformanceRecord => {
-//                       Exercise.findByIdAndUpdate(exercise._id, {
-//                         $push: { performanceLog: scheduledPerformance._id }
-//                       })
-//                         .then(exerciseWithUpdatedPerformanceLog => {
-//                           console.log("Successfully scheduled a performance.");
-//                         })
-//                         .catch(err => {
-//                           res.status(410).json({
-//                             msg:
-//                               "Failed to update Exercise log with the upcoming Performance",
-//                             err
-//                           });
-//                         });
-//                     })
-//                     .catch(err => {
-//                       res.status(410).json({
-//                         msg:
-//                           "Failed to update Workout log with the upcoming Performance",
-//                         err
-//                       });
-//                     });
-//                 })
-//                 .catch(err => {
-//                   res.status(410).json({
-//                     msg:
-//                       "There was an issue creating the new Performance document: ",
-//                     err
-//                   });
-//                 });
-//             });
-//             User.findByIdAndUpdate(userId, {
-//               $push: {
-//                 calendar: {
-//                   // date: Date.now(), // Will fix with a projection onto the date header on the request that provides a default.
-//                   date: savedWorkout.date,
-//                   workout: savedWorkout._id
-//                 }
-//               }
-//             })
-//               .then(updatedUser => {
-//                 savedWorkout.populate(
-//                   { path: "routine", populate: { path: "exercises" } },
-//                   (err, hydratedWorkout) => {
-//                     if (err) {
-//                       res.status(400);
-//                       res.json({
-//                         msg: "Failed to hydrate the Workout document",
-//                         err
-//                       });
-//                     }
-//                     return res.status(201).json({
-//                       msg: "Succeeded in scheduling workout!",
-//                       updatedUser,
-//                       hydratedWorkout
-//                     });
-//                   }
-//                 );
-//               })
-//               .catch(err => {
-//                 res.status(409).json({
-//                   msg:
-//                     "Failed to update User's calendar with their new Workout.",
-//                   err
-//                 });
-//               });
-//           });
-//         })
-//         .catch(err => {
-//           res.status(410).json({
-//             msg: "Failed to update Routine log with the upcoming Workout",
-//             err
-//           });
-//         });
-//     })
-//     .catch(err => {
-//       res.status(410).json({
-//         msg: "There was an issue creating the new Workout document: ",
-//         err
-//       });
-//     });
-// };
-
-// const scheduleWorkout = (workoutDoc, routineId, userId, date, next) => {
-//   console.log("ARGUMENTS", workoutDoc, routineId, userId, date, next);
-
-//   Routine.findByIdAndUpdate(routineId, {
-//     $push: { workoutLog: workoutDoc._id }
-//   })
-//     .then(workoutRoutine => {
-//       workoutRoutine.populate("exercises", (err, hydratedRoutine) => {
-//         console.log("JUST POPULATED THE EXERCISES");
-//         if (err) {
-//           const error = {
-//             status: 400,
-//             msg: "Failed to hydrate the Routine document used by your Workout",
-//             err
-//           };
-//           return next(error);
-//         }
-
-//         hydratedRoutine.exercises.forEach(exercise => {
-//           console.log("ABOUT TO CREATE A PERFORMANCE RECORD");
-//           const futureExercisePerformance = new Performance({
-//             exerciseName: exercise.name,
-//             exercise: exercise._id,
-//             date,
-//             user: userId // added user ref for fetchAllPerformanceDocs controller. See PerformanceControllers
-//           });
-//           futureExercisePerformance
-//             .save()
-//             .then(scheduledPerformance => {
-//               Workout.findByIdAndUpdate(
-//                 workoutDoc._id,
-//                 {
-//                   $push: { performances: scheduledPerformance._id }
-//                 },
-//                 { new: true }
-//               )
-//                 .then(workoutWithPerformanceRecord => {
-//                   Exercise.findByIdAndUpdate(exercise._id, {
-//                     $push: { performanceLog: scheduledPerformance._id }
-//                   })
-//                     .then(exerciseWithUpdatedPerformanceLog => {
-//                       console.log("Successfully scheduled a performance.");
-//                     })
-//                     .catch(err => {
-//                       const error = {
-//                         status: 410,
-//                         msg:
-//                           "Failed to update Exercise log with the upcoming Performance",
-//                         err
-//                       };
-//                       return next(error);
-//                     });
-//                 })
-//                 .catch(err => {
-//                   const error = {
-//                     status: 410,
-//                     msg:
-//                       "Failed to update Workout log with the upcoming Performance",
-//                     err
-//                   };
-//                 });
-//             })
-//             .catch(err => {
-//               const error = {
-//                 status: 410,
-//                 msg: "There was an issue creating the new Performance document",
-//                 err
-//               };
-//               return next(error);
-//             });
-//         });
-//         User.findByIdAndUpdate(userId, {
-//           $push: {
-//             calendar: {
-//               // date: Date.now(), // Will fix with a projection onto the date header on the request that provides a default.
-//               date: workoutDoc.date,
-//               workout: workoutDoc._id
-//             }
-//           }
-//         })
-//           .then(updatedUser => {
-//             workoutDoc.populate(
-//               { path: "routine", populate: { path: "exercises" } },
-//               (err, hydratedWorkout) => {
-//                 if (err) {
-//                   const error = {
-//                     status: 400,
-//                     msg: "Failed to hydrate the Workout document",
-//                     err
-//                   };
-//                   return next(error);
-//                 }
-
-//                 const success = {
-//                   status: 201,
-//                   msg: "Succeeded in scheduling workout!",
-//                   updatedUser,
-//                   hydratedWorkout
-//                 };
-//                 return next(success);
-//               }
-//             );
-//           })
-//           .catch(err => {
-//             const error = {
-//               status: 409,
-//               msg: "Failed to update User's calendar with their new Workout.",
-//               err
-//             };
-//             return next(error);
-//           });
-//       });
-//     })
-//     .catch(err => {
-//       const error = {
-//         status: 410,
-//         msg: "Failed to update Routine log with the upcoming Workout",
-//         err
-//       };
-//       return next(error);
-//     });
-// };
 
 const scheduleWorkout = async (workoutDoc, routineId, userId, date, next) => {
   try {
     const workoutRoutine = await Routine.findByIdAndUpdate(routineId, {
       $push: { workoutLog: workoutDoc._id }
     });
-    
+
     /* temp solution (if/else wrap) is for handling issue that arises if the user tries 
     to copy a workout that contains a deleted routine */
-    if(workoutRoutine) { 
+    if (workoutRoutine) {
       workoutRoutine.populate(
         "exercises",
         async (err, hydratedWorkoutRoutine) => {
@@ -319,7 +72,7 @@ const scheduleWorkout = async (workoutDoc, routineId, userId, date, next) => {
                 reps: exercise.currentReps,
                 sets: exercise.currentSets,
                 date,
-                user: userId // added user ref for fetchAllPerformanceDocs controller. See PerformanceControllers
+                user: userId
               });
               const scheduledPerformance = await futureExercisePerformance.save();
               const workoutWithPerformanceRecord = await Workout.findByIdAndUpdate(
@@ -328,8 +81,9 @@ const scheduleWorkout = async (workoutDoc, routineId, userId, date, next) => {
                   $push: { performances: scheduledPerformance._id },
 
                   /* each workout doc contains a routineName field so that in case the user deletes a routine, 
-                  then the routine name for the already scheduled workout can still be displayed */ 
-                  $set: {routineName: workoutRoutine.title} // 
+                  then the routine name for the already scheduled workout can still be displayed */
+
+                  $set: { routineName: workoutRoutine.title } //
                 },
                 { new: true }
               );
@@ -345,11 +99,9 @@ const scheduleWorkout = async (workoutDoc, routineId, userId, date, next) => {
           const promiseResults = await Promise.all(
             promisesToSchedulePerformances
           );
-          console.log("PROMISE RESULTS", promiseResults);
           const updatedUser = await User.findByIdAndUpdate(userId, {
             $push: {
               calendar: {
-                // date: Date.now(), // Will fix with a projection onto the date header on the request that provides a default.
                 date: workoutDoc.date,
                 workout: workoutDoc._id
               }
@@ -380,17 +132,15 @@ const scheduleWorkout = async (workoutDoc, routineId, userId, date, next) => {
             }
           );
         }
-      )
-    }
-    else {
-       routineNoLongerExists = {
+      );
+    } else {
+      routineNoLongerExists = {
         status: 410,
         msg: "routine no longer exists",
         workoutDoc
-      }
-      return next(routineNoLongerExists)
+      };
+      return next(routineNoLongerExists);
     }
-
   } catch (err) {
     const error = {
       status: 500,
@@ -445,8 +195,6 @@ const copyWorkoutRange = (req, res) => {
           buffer on the end date, to ensure the workout on the end date is captured. */
         );
       });
-      console.log("END DATE", endDate);
-      console.log("FILTERED CALENDAR", filteredCalendar);
       const numberOfWorkoutsToSchedule = filteredCalendar.length;
       const scheduledWorkouts = [];
       filteredCalendar.forEach((workoutInRange, index) => {
@@ -469,19 +217,7 @@ const copyWorkoutRange = (req, res) => {
               savedWorkout.date,
               schedulingResult => {
                 scheduledWorkouts.push(schedulingResult);
-                console.log(
-                  "SCHEDULED WORKOUTS",
-                  scheduledWorkouts,
-                  "INDEX",
-                  index
-                );
                 if (scheduledWorkouts.length === numberOfWorkoutsToSchedule) {
-                  console.log(
-                    "INDEX AND NUMBER OF WORKOUTS TO SCHEDULE",
-                    index,
-                    numberOfWorkoutsToSchedule,
-                    scheduledWorkouts
-                  );
                   res.status(201).json(scheduledWorkouts);
                 }
               }
@@ -496,9 +232,7 @@ const copyWorkoutRange = (req, res) => {
 
 const deleteWorkout = (req, res) => {
   const { id } = req.params;
-  console.log("TESTING DELETE WORKOUT");
   Workout.findByIdAndRemove({ _id: id }).then(removedWorkout => {
-    console.log(removedWorkout);
     let user_id = removedWorkout.user;
     let routine_id = removedWorkout.routine;
 
