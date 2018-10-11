@@ -78,7 +78,6 @@ export const loginWithToken = token => {
       type: Actions.LOGGING_IN,
       payload: "Logging in with token..."
     });
-    console.log("Going to apply this token as an axios header: ", token);
     requestOptions = { headers: { "x-access-token": token } };
     axios
       .get(`${ROOT_URL}/auto-login`, requestOptions)
@@ -280,7 +279,6 @@ export const updateProgress = (id, data) => {
     axios
       .put(`${ROOT_URL}/progress/${id}`, data, requestOptions)
       .then(res => {
-        console.log("RES: " + res.data);
         dispatch({
           type: Actions.UPDATE_PROGRESS_SUCCESS,
           payload: res.data
@@ -335,7 +333,6 @@ export const fetchRoutines = () => {
 };
 
 export const selectRoutine = routineId => {
-  console.log(routineId);
   return dispatch => {
     dispatch({
       type: Actions.FETCHING_ROUTINE_HISTORY
@@ -365,7 +362,6 @@ export const postNewRoutine = title => {
     axios
       .post(`${ROOT_URL}/new-routine`, { title }, requestOptions)
       .then(res => {
-        console.log("THIS IS THE Test:", res.data);
         dispatch({
           type: Actions.POST_NEW_ROUTINE_SUCCESS,
           payload: res.data.routine,
@@ -389,10 +385,6 @@ export const postNewExerciseInRoutine = (routineId, exerciseObj) => {
     axios
       .post(`${ROOT_URL}/new-exercise`, exerciseObj, requestOptions)
       .then(exerciseDoc => {
-        console.log(
-          "This is the newly created exercise document: ",
-          exerciseDoc
-        );
         axios
           .post(
             `${ROOT_URL}/add-exercise`,
@@ -475,14 +467,12 @@ export const deleteExercise = exerciseId => {
     axios
       .delete(`${ROOT_URL}/exercise`, requestOptions)
       .then(deletedExercise => {
-        console.log("Deleted succuss " + deletedExercise.name);
         dispatch({
           type: Actions.DELETE_EXERCISE_SUCCESS,
           payload: exerciseId
         });
       })
       .catch(err => {
-        console.log("Error deleting exercise");
         dispatch({
           type: Actions.DELETE_EXERCISE_FAILURE,
           payload: "Fail to delete exercise"
