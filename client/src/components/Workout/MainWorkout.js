@@ -13,7 +13,6 @@ class MainWorkout extends React.Component {
 
   componentDidMount(){
     // use the node ref to create the animation
-    // this.myTween = TweenLite.from(this.myElement, 1, { y: -1000});
     this.myTween = TweenLite.from(this.animateWorkout, 1, { y: 100, opacity: 0 });
   }
 

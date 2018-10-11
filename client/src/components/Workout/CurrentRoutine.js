@@ -27,7 +27,6 @@ class CurrentRoutine extends React.Component {
     // reference to the animation
     this.myTween = null;
     this.myWorkout = null;
-    // this.myTweenExcercise = new TimelineMax({paused: true});
     this.myExercises = [];
 
     this.state = {
