@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { changeEmail, changePassword } from "../actions";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 import { TweenLite } from "gsap";
+import validator from "validator";
 
 class Settings extends Component {
 
@@ -13,7 +14,8 @@ class Settings extends Component {
       email: "",
       password: "",
       newPassword: "",
-      confirmNewPassword: ""
+      confirmNewPassword: "",
+      errors: {}
     };
     this.myTween = null;
     this.animateSettings = null;
