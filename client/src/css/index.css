@@ -7,7 +7,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto Slab', serif;
-  min-width: 100vw;
+  width: 100%;
   min-height: 100vh;
   background: radial-gradient(#000033, #000000);
 }
@@ -105,7 +105,7 @@ body {
 }
 .calendar-page {
   margin: 0;
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.5;
@@ -346,17 +346,15 @@ body {
   width: 40px;
   text-align: center;
 }
-@media (max-width: 500px) {
-  .push__nav {
-    height: 67px;
-  }
+.push__nav {
+  height: 75px;
 }
 .main__landing__page {
   text-shadow: 0px 0px 5px #000000;
 }
 p {
   margin-bottom: 0;
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
 }
 .container {
   max-width: 900px;
@@ -393,6 +391,7 @@ p {
   position: fixed;
   z-index: 10;
   width: 100%;
+  height: 90px;
 }
 .landing__nav .left__nav {
   color: #cc0000;
@@ -436,7 +435,7 @@ p {
 }
 .main__landing__background h1 {
   font-size: 40px;
-  font-family: 'Archivo Black', sans-serif;
+  font-family: "Archivo Black", sans-serif;
 }
 @media (max-width: 650px) {
   .main__landing__background {
@@ -685,7 +684,7 @@ p {
 @media (max-width: 500px) {
   .landing__start .landing__start__content h2 {
     top: -10px;
-    margin: 40px;
+    margin: 36px;
   }
   .landing__start .landing__start__content div {
     flex-direction: column;
@@ -774,9 +773,6 @@ footer p {
 .fas.fa-pencil-alt.icon:hover {
   color: #000033 !important;
 }
-::-webkit-scrollbar {
-  display: none;
-}
 .modal-content {
   margin: 180px auto;
 }
@@ -792,32 +788,18 @@ footer p {
   margin: 10px;
   border-radius: 0;
 }
-.modal-content .modal-footer .signup-signin-btn {
-  background: linear-gradient(#000033, #000000) !important;
-  border: none;
-  border-radius: 0;
-}
-.modal-content .modal-footer .cancel-btn {
-  border: none;
-  border-radius: 0;
-}
-.modal-content .modal-footer .forgot-pass-btn {
-  background: linear-gradient(#cccccc, #000000) !important;
-  border: none;
-  border-radius: 0;
-}
 @media (max-width: 790px) {
   .modal-content {
-    width: 80%;
+    width: 70%;
   }
-  .modal-content .modal-footer .signup-signin-btn {
+  .modal-content .modal-footer--blue .submit-btn {
     font-size: 13px;
   }
-  .modal-content .modal-footer .cancel-btn {
+  .modal-content .modal-footer--blue .submit-btn--grey {
     font-size: 13px;
   }
-  .modal-content .modal-footer .forgot-pass-btn {
-    width: 45%;
+  .modal-content .modal-footer--blue .submit-btn {
+    width: 25%;
     font-size: 13px;
   }
 }
@@ -853,7 +835,7 @@ footer p {
   align-items: center;
   max-width: 1000px;
   width: 90%;
-  margin: 30px auto;
+  padding-top: 36px;
 }
 .outer-container .container .progress-records {
   display: flex;
@@ -867,6 +849,7 @@ footer p {
 }
 .outer-container .blocked {
   color: #cc0000;
+  padding-top: 40px;
 }
 .card-container {
   min-width: 200px;
@@ -899,7 +882,7 @@ footer p {
   margin: 6px;
 }
 .card-container .card .card-header .btn-container .icon-btn .icon {
-  color: #000000;
+  color: #cccccc;
 }
 .card-container .card .card-body {
   background: radial-gradient(#000033, #000000);
@@ -963,7 +946,7 @@ footer p {
   height: 200px;
   min-width: 300px;
   width: 50%;
-  margin: 0 0 15px 8px;
+  margin: 10px 0 15px 8px;
   color: #cccccc;
   background: linear-gradient(#cc0000, #000000);
 }
@@ -1036,9 +1019,7 @@ footer p {
   font-size: 40px !important;
   height: 50%;
   width: 100%;
-  padding: 10px 10px;
-  padding: 20px;
-  padding-top: 40px;
+  padding: 40px 20px 20px 20px;
 }
 #test {
   display: flex;
@@ -1084,16 +1065,14 @@ a:hover {
 }
 .main__workout .routine__list {
   flex-basis: 33%;
-  min-height: 100%;
+  height: 602px;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: scroll;
 }
 .main__workout .routine__list .routine__list__container {
-  min-height: 90%;
-  max-height: 90%;
-  overflow: scroll;
+  height: 540px;
+  overflow: hidden;
   background: radial-gradient(#cc0000, #000000);
   padding: 15px;
   color: #cccccc;
@@ -1123,6 +1102,9 @@ a:hover {
   background: linear-gradient(to right, #000000, #37015b);
   color: #cccccc;
   text-shadow: 1px 1px #000033;
+}
+.main__workout .routine__list .routine__list__container:hover {
+  overflow: auto;
 }
 .main__workout .workout__form {
   flex-basis: 33%;
@@ -1164,21 +1146,19 @@ a:hover {
 }
 .main__workout .current__routine {
   flex-basis: 33%;
-  min-height: 100%;
-  max-height: 90%;
+  height: 602px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .main__workout .current__routine .current__routine__container {
-  min-height: 90%;
-  max-height: 90%;
+  height: 540px;
   width: 90%;
   background: radial-gradient(#cccccc, #000000);
   padding: 30px 15px;
   box-shadow: 5px 5px 15px #000000;
   color: #000000;
-  overflow: scroll;
+  overflow: hidden;
 }
 .main__workout .current__routine .current__routine__container h3.current__title {
   color: #ffffff;
@@ -1228,12 +1208,14 @@ a:hover {
 .main__workout .current__routine .current__routine__container .exercise__list .exercise__card .exercise__card__header h3 {
   margin: 0;
   color: #ffffff;
-  overflow: scroll;
 }
 .main__workout .current__routine .current__routine__container .exercise__list .exercise__card .exercise__card__body {
   background-image: radial-gradient(#37015b, black);
   color: #cccccc;
   padding: 40px;
+}
+.main__workout .current__routine .current__routine__container:hover {
+  overflow: auto;
 }
 .pencil__trash__icon__container {
   display: flex;

@@ -28,6 +28,21 @@ class Settings extends Component {
   };
 
   handleEmailSubmit = event => {
+    event.preventDefault();
+    const { email } = this.state;
+    const newErrors = {};
+    if (!validator.isEmail(email.trim())) {
+      newErrors.email = "Must be valid email";
+    }
+
+    if (email.trim() === "") {
+      newErrors.email = "Email is required";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      return this.setState({ errors: newErrors });
+    }
+
     this.props.changeEmail({
       username: this.props.userInfo.user.username,
       newEmail: this.state.email
@@ -36,12 +51,41 @@ class Settings extends Component {
       email: "",
       password: "",
       newPassword: "",
-      confirmNewPassword: ""
+      confirmNewPassword: "",
+      errors: {}
     });
   };
 
   handlePasswordSubmit = event => {
     event.preventDefault();
+    const { password, newPassword, confirmNewPassword } = this.state;
+    const newErrors = {};
+
+    if (password === "") {
+      newErrors.password = "Current Password is required";
+    }
+
+    if (newPassword.trim().length < 6) {
+      newErrors.newPassword = "New Password must be at least 6 characters";
+    }
+
+    if (newPassword.trim() === "") {
+      newErrors.newPassword = "New Password is Required";
+    }
+
+    if (confirmNewPassword.trim() === "") {
+      newErrors.confirmNewPassword = "Confirm New Password is Required";
+    }
+
+    if (newPassword.trim() !== confirmNewPassword.trim()) {
+      newErrors.newPassword = "Must match Confirm Password";
+      newErrors.confirmNewPassword = "Must match Password";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      return this.setState({ errors: newErrors });
+    }
+
     if (this.state.newPassword === this.state.confirmNewPassword) {
       this.props.changePassword({
         username: this.props.userInfo.user.username,
@@ -54,11 +98,30 @@ class Settings extends Component {
       email: "",
       password: "",
       newPassword: "",
-      confirmNewPassword: ""
+      confirmNewPassword: "",
+      errors: {}
     });
   };
 
   render() {
+    const emailErrors = this.state.errors.email ? (
+      <span className="form__validation">{this.state.errors.email}</span>
+    ) : null;
+
+    const passwordErrors = this.state.errors.password ? (
+      <span className="form__validation">{this.state.errors.password}</span>
+    ) : null;
+
+    const newPasswordErrors = this.state.errors.newPassword ? (
+      <span className="form__validation">{this.state.errors.newPassword}</span>
+    ) : null;
+
+    const confirmPasswordErrors = this.state.errors.confirmNewPassword ? (
+      <span className="form__validation">
+        {this.state.errors.confirmNewPassword}
+      </span>
+    ) : null;
+
     return (
       <div className="settings-outer" ref={div => this.animateSettings = div}>
         <div className="settings-container">
@@ -68,13 +131,21 @@ class Settings extends Component {
                 <FormGroup row>
                   <Input
                     className="settings-input"
-                    type="email"
+                    type="text"
                     name="email"
                     placeholder={this.props.userInfo.user.email}
                     value={this.state.email}
                     onChange={this.handleFieldChange}
                   />
                 </FormGroup>
+                {emailErrors ? (
+                  emailErrors
+                ) : this.props.valError.message ? (
+                  <span className="form__validation">
+                    {this.props.valError.message}
+                  </span>
+                ) : null}
+                {/* {emailErrors ? emailErrors : null} */}
                 <Button className="submit-btn" size="sm" type="submit">
                   Change Email
                 </Button>
@@ -95,6 +166,13 @@ class Settings extends Component {
                     onChange={this.handleFieldChange}
                   />
                 </FormGroup>
+                {passwordErrors ? (
+                  passwordErrors
+                ) : this.props.valError.error ? (
+                  <span className="form__validation">
+                    {this.props.valError.error}
+                  </span>
+                ) : null}
                 <FormGroup row>
                   <Input
                     className="settings-input"
@@ -105,6 +183,7 @@ class Settings extends Component {
                     onChange={this.handleFieldChange}
                   />
                 </FormGroup>
+                {newPasswordErrors ? newPasswordErrors : null}
                 <FormGroup row>
                   <Input
                     className="settings-input"
@@ -115,6 +194,7 @@ class Settings extends Component {
                     onChange={this.handleFieldChange}
                   />
                 </FormGroup>
+                {confirmPasswordErrors ? confirmPasswordErrors : null}
                 <Button className="submit-btn" size="sm" type="submit">
                   Save Password
                 </Button>
@@ -134,7 +214,8 @@ const mapStateToProps = state => {
   );
   return {
     userInfo: state.auth.currentUser,
-    msg: state.user.message
+    msg: state.user.message,
+    valError: state.valError
   };
 };
 
