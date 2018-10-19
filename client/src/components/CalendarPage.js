@@ -196,9 +196,9 @@ class CalendarPage extends Component {
       id: workout._id
     }));
 
-    let allViews = Object.keys(BigCalendar.Views).map(
-      k => BigCalendar.Views[k]
-    );
+    // let allViews = Object.keys(BigCalendar.Views).map(
+    //   k => BigCalendar.Views[k]
+    // );
 
     return (
       <div className="calendar-page" ref={div => (this.animateCalendar = div)}>
@@ -208,7 +208,7 @@ class CalendarPage extends Component {
               popup
               events={this.events}
               ref={div => (this.myElements = div)}
-              views={allViews}
+              views={["month"]}
               step={60}
               showMultiDayTimes
               defaultDate={new Date()}
