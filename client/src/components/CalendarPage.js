@@ -13,7 +13,6 @@ import {
   copyWorkouts
 } from "../actions";
 import { TweenMax, TimelineLite } from "gsap";
-import $ from "jquery";
 
 BigCalendar.momentLocalizer(moment);
 
@@ -28,8 +27,7 @@ class CalendarPage extends Component {
     usageMode: "NEW_WORKOUT", // or COPY_WORKOUTS
     copyFromStartDate: "",
     copyFromEndDate: "",
-    copyToStartDate: "",
-    myElements: []
+    copyToStartDate: ""
   };
 
   componentDidMount() {
@@ -37,12 +35,6 @@ class CalendarPage extends Component {
     this.props.fetchRoutines();
     this.props.fetchAllWorkouts();
     TweenMax.from(this.animateCalendar, 1, { y: 100, opacity: 0 });
-
-    setTimeout(() => {
-      this.myTweenEvent
-        .staggerFrom($(".rbc-event"), 0.5, { opacity: 0, y: -10 }, 0.1)
-        .delay(0);
-    }, 1000);
   }
 
   //-------------------------------------------- callback functions for scheduling modal
@@ -207,7 +199,6 @@ class CalendarPage extends Component {
             <BigCalendar
               popup
               events={this.events}
-              ref={div => (this.myElements = div)}
               views={["month"]}
               step={60}
               showMultiDayTimes
