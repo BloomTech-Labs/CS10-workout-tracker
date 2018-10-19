@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { fetchRoutines, selectRoutine } from "../../actions";
 import { TimelineLite } from "gsap";
-import $ from "jquery";
 
 class RoutineList extends React.Component {
   constructor(props) {
@@ -14,7 +13,9 @@ class RoutineList extends React.Component {
 
   componentDidMount() {
     this.props.fetchRoutines();
-    this.myTween.staggerFrom($(".routine"), 0.5, { opacity: 0, y: 50}, 0.1).delay(1);
+    this.myTween
+      .staggerFrom(this.myElements, 0.5, { opacity: 0, y: 50 }, 0.1)
+      .delay(1);
   }
 
   render() {
