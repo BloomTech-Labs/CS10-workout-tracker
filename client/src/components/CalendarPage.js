@@ -28,7 +28,8 @@ class CalendarPage extends Component {
     usageMode: "NEW_WORKOUT", // or COPY_WORKOUTS
     copyFromStartDate: "",
     copyFromEndDate: "",
-    copyToStartDate: ""
+    copyToStartDate: "",
+    myElements: []
   };
 
   componentDidMount() {
@@ -38,7 +39,9 @@ class CalendarPage extends Component {
     TweenMax.from(this.animateCalendar, 1, { y: 100, opacity: 0 });
 
     setTimeout(() => {
-      this.myTweenEvent.staggerFrom($(".rbc-event"), 0.5, { opacity: 0, y: -10}, 0.1).delay(0);
+      this.myTweenEvent
+        .staggerFrom($(".rbc-event"), 0.5, { opacity: 0, y: -10 }, 0.1)
+        .delay(0);
     }, 1000);
   }
 
@@ -198,12 +201,13 @@ class CalendarPage extends Component {
     );
 
     return (
-      <div className="calendar-page" ref={div => this.animateCalendar = div}>
+      <div className="calendar-page" ref={div => (this.animateCalendar = div)}>
         <div className="calendarAndForm-container">
           <div className="calendar-container">
             <BigCalendar
               popup
               events={this.events}
+              ref={div => (this.myElements = div)}
               views={allViews}
               step={60}
               showMultiDayTimes
