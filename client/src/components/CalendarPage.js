@@ -13,7 +13,6 @@ import {
   copyWorkouts
 } from "../actions";
 import { TweenMax, TimelineLite } from "gsap";
-import $ from "jquery";
 
 BigCalendar.momentLocalizer(moment);
 
@@ -36,10 +35,6 @@ class CalendarPage extends Component {
     this.props.fetchRoutines();
     this.props.fetchAllWorkouts();
     TweenMax.from(this.animateCalendar, 1, { y: 100, opacity: 0 });
-
-    setTimeout(() => {
-      this.myTweenEvent.staggerFrom($(".rbc-event"), 0.5, { opacity: 0, y: -10}, 0.1).delay(0);
-    }, 1000);
   }
 
   //-------------------------------------------- callback functions for scheduling modal
@@ -193,18 +188,18 @@ class CalendarPage extends Component {
       id: workout._id
     }));
 
-    let allViews = Object.keys(BigCalendar.Views).map(
-      k => BigCalendar.Views[k]
-    );
+    // let allViews = Object.keys(BigCalendar.Views).map(
+    //   k => BigCalendar.Views[k]
+    // );
 
     return (
-      <div className="calendar-page" ref={div => this.animateCalendar = div}>
+      <div className="calendar-page" ref={div => (this.animateCalendar = div)}>
         <div className="calendarAndForm-container">
           <div className="calendar-container">
             <BigCalendar
               popup
               events={this.events}
-              views={allViews}
+              views={["month"]}
               step={60}
               showMultiDayTimes
               defaultDate={new Date()}

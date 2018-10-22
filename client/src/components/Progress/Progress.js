@@ -7,7 +7,6 @@ import ProgressCard from "./ProgressCard";
 import ProgressForm from "./ProgressForm";
 import { Link } from "react-router-dom";
 import { TweenMax, TimelineLite } from "gsap";
-import $ from "jquery";
 
 class Progress extends Component {
   constructor(props) {
@@ -20,8 +19,14 @@ class Progress extends Component {
 
   componentDidMount() {
     this.props.fetchProgress();
-    this.animateProgressTracker = TweenMax.from(this.animateProgressTracker, 1, { y: 100, opacity: 0 });
-    this.myTween.staggerFrom($(".card"), 0.5, { opacity: 0, y: 50}, 0.1).delay(1);
+    this.animateProgressTracker = TweenMax.from(
+      this.animateProgressTracker,
+      1,
+      { y: 100, opacity: 0 }
+    );
+    this.myTween
+      .staggerFrom(this.myElements, 0.5, { opacity: 0, y: 50 }, 0.1)
+      .delay(1);
   }
 
   render() {
@@ -32,7 +37,10 @@ class Progress extends Component {
     }
 
     return (
-      <div className="outer-container" ref={div => this.animateProgressTracker = div}>
+      <div
+        className="outer-container"
+        ref={div => (this.animateProgressTracker = div)}
+      >
         {/* Experimental Patch - Premium User Toggle */}
         {this.props.premiumUser || this.props.userInfo.user.premiumUser ? (
           <div className="container">
